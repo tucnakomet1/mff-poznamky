@@ -1,0 +1,799 @@
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[margin=0.7in]{geometry}
+\usepackage{amssymb, amsthm, amsmath, amsfonts}
+\usepackage{array, xcolor, enumitem, graphicx}
+\usepackage{cancel}
+
+\usepackage[czech]{babel}
+%\usepackage[czech]{datetime}
+\usepackage[utf8]{inputenc} % stmaryrd - lighting
+\usepackage[unicode]{hyperref}
+\usepackage[useregional]{datetime2}
+
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue,
+    pdftitle={Zkouška - Matematická analýza III},
+}
+
+\setlength{\parindent}{0em}
+
+\title{Zpracování otázek ke zkoušce z Matematické analýzy III}
+\date{\today}
+\author{Karel Velička}
+
+\renewcommand*\contentsname{Obsah}
+\renewcommand*{\proofname}{Důkaz:}
+\renewcommand\qedsymbol{$\blacksquare$}
+
+\newcommand{\Cc}{{\mathbb{C}}}      % komplexni cisla
+\newcommand{\R}{{\mathbb{R}}}       % realna cisla
+\newcommand{\Q}{{\mathbb{Q}}}       % racionalni cisla
+\newcommand{\Z}{{\mathbb{Z}}}       % cela cisla
+\newcommand{\Zs}{{\mathbb{Z}_n^*}}  % cela cisla vcetne nekonecna
+\newcommand{\N}{{\mathbb{N}}}       % prirozena cisla
+\newcommand{\F}{{\mathbb{F}}}       % teleso
+\newcommand{\p}{{\mathcal{P}}}      % plaintext
+\newcommand{\s}{{\mathcal{S}}}      % ciphertext
+\newcommand{\K}{{\mathcal{K}}}      % key
+\newcommand{\RR}{{\mathcal{R}}}     % okruh/ring
+\newcommand{\half}{{\frac{1}{2}}}   % 1/2
+\newcommand{\ord}{\text{ord}}   	% ord
+\newcommand{\im}{\normalfont{\text{im}}}   		% imaginarni cast cisla 
+\newcommand{\re}{\normalfont{\text{re}}}   		% realna cast cisla 
+\newcommand{\obv}{\normalfont{\text{obv}}}   	% obvod (obdelnika)
+\newcommand{\diam}{\normalfont{\text{diam}}}   	% prumer (obdelnika)
+\newcommand{\norm}[1]{\left|\left| #1 \right|\right|}	% norma ve tvaru ||x||
+
+\newtheorem*{thm}{Věta}
+\newtheorem{Def}{Definice}[section]
+\newtheorem{prp}{Tvrzení}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{eye}{Pozorování}[section]
+\newtheorem{ex}{Příklad}[section]
+\newtheorem{cons}{Důsledek}[section]
+
+%\graphicspath{ {img/} }
+\DeclareMathOperator{\lcm}{lcm}
+
+\begin{document}
+\pagenumbering{arabic}
+\maketitle
+
+\begin{center}
+    2. ročník bc. informatika\\ doc. RNDr. Martin Klazar, Dr.
+\end{center}
+
+\tableofcontents
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{Metrické prostory, Sférická metrika, Plochost hemisféry}
+
+\begin{Def}Metrický prostor \normalfont
+	je dvojice $ (M, d) $ množiny $M \neq \emptyset$ a zobrazení $ d : M \times M \to \R $ zvaného \textit{metrika} či \textit{vzdálenost}, které $\forall x, y, z \in M$ splňuje:
+	\begin{enumerate}[label=(\arabic*)]
+		\item $d(x, y) = 0 \iff x = y$,
+		\item $d(x, y) = d(y, x)$  $\qquad \ldots~$ symetrie,
+		\item $d(x, y) \leq d(x, z) + d(z, y)$   $\qquad \ldots~$ trojúhelníková nerovnost.
+	\end{enumerate}
+\end{Def}
+
+\begin{Def}
+	Izometrie \normalfont $ f $ dvou metrických prostorů $ (M, d) $ a $ (N, e) $ je bijekce $f : M \to N$, jež zachovává vzdálenosti: $\forall x, y \in M : d(x, y) = e(f (x), f (y))$ .
+\end{Def}
+
+\begin{Def} (Sférická metrika): \normalfont
+	Nechť $	S := \{(x_1, x_2, x_3) \in \R^3 \mid x_{21} + x_{22} + x_{23} = 1 \}$ je jednotková sféra v Euklidovském prostoru $\R^3$. Potom funkci $s : S \times S \to [0, \pi]$ definujeme pro $x, y \in S$ jako \[s(\bar{x}, \bar{y})=
+	\begin{cases}
+		0 & \ldots  ~\bar{x}=\bar{y},\\
+		\varphi & \ldots ~\bar{x}\neq\bar{y},
+	\end{cases}
+	\]
+	kde $ \varphi $ je úhel sevřený dvěma přímkami procházejícími počátkem $\bar{0} := (0, 0, 0)$ a body $\bar{x}$ a $ \bar{y} $. 
+	
+	Tento úhel je vlastně délka kratšího z oblouků mezi body $ \bar{x} $ a $ \bar{y} $ na jednotkové kružnici vytknuté na $ S $
+	rovinou určenou počátkem a body $ \bar{x} $ a $ \bar{y} $. 
+	Funkci $ s $ nazveme \textit{sférickou metrikou}.
+\end{Def}
+
+\begin{Def}
+	Horní hemisféra \normalfont $ H $ je množina $ H := \{(x_1 , x_2, x_3 ) \in S \mid x_3 \geq 0\} \subseteq S $.
+\end{Def}
+
+\begin{thm} ($ H $ není plochá):
+	Metrický prostor $ (H, s) $ není izometrický žádnému Euklidovskému pr. $(X, e_n)$ s $ X \subseteq \R^n $.\normalfont
+	\begin{proof}
+		Následující vlastnost vzdáleností daných čtyřmi body $t$, $ u $, $ v $ a $ w $ v Euklidovském prostoru $(\R^n , e_n )$ není splněna v $ (H, s) $:
+		\begin{flalign*}
+			e_n(t, u) &= e_n(t, v) = e_n(u, v) > 0 ~~\land \\e_n (t, w) &= e_n(w, u) = \frac 12 e_n (t, u) \implies e_n (w, v) = \underbrace{\frac{\sqrt 3}2 e_n(t, v)}_{< e_n (t, v)}.
+		\end{flalign*}
+		Podle předpokladu implikace body $ t, u $ a $ v $ tvoří rovnostranný trojúhelník se stranou délky $ x > 0 $ a $ w $ má od $ t $ i od $ u $ vzdálenost $ \frac x2 $.
+		
+		Podle tvrzení \textit{(Když $ a, b, c \in \R^n $ jsou různé body v Euklidovském prostoru se vzdálenostmi $e_n (c, a) = e_n (c, b) = \frac 12 e_n(a, b)$, pak $ c $ je střed úsečky $ ab $.)} je pak $ w $ středem úsečky $ tu $.
+		Tyto čtyři body jsou tedy \textit{koplanární} (všechny leží v jedné rovině) a úsečka $ vw $ je výška spuštěná z vrcholu $ v $ rovnostranného trojúhelníka $ tuv $ na stranu $ tu $. 
+		
+		Podle Pythagorovy věty se její délka $e_2(v, w) = e_n (v, w)$ rovná $ \frac{\sqrt 3}2 x$, což říká závěr implikace.
+		
+		
+		Na hemisféře $ (H, s) $ nalezneme čtyři různé body $ t, u, v $ a $ w $ splňující předpoklad předchozí implikace, ale ne její závěr. 
+		Z toho plyne, že izometrie mezi hemisférou a Euklidovským prostorem neexistuje, protože každá izometrie ze své definice implikaci zachovává.
+		Tyto body jsou: \[
+		t = (1, 0, 0), ~~u = (0, 1, 0), ~~v = (0, 0, 1), ~~w\left(\frac{1}{\sqrt 2}, \frac{1}{\sqrt 2}, 0\right).
+		\]
+		
+		Patrně $ s(t, u) = s(t, v) = s(u, v) = \frac{\pi}2 $ a $ s(t, w) = s(w, u) = \frac 12 s(t, u) = \frac{\pi}4$. 
+		
+		Bod $ v $ je \textit{"severní pól"} ($x_3 = 1$), $ t, u $ a $ w $ leží na \textit{"rovníku"} ($ x_3 = 0 $) a $ w $ je střed oblouku $ tu $. 
+
+		Ale všechny body na rovníku mají od pólu $ v $ stejnou vzdálenost $ \frac{\pi}2 $ . 
+		Takže $ s(w, v) = s(t, v) $ a závěr implikace neplatí.
+	\end{proof}
+\end{thm}
+
+
+\section{Ostrowskiho věta}
+
+\begin{Def} $p$-adický řád \normalfont čísla $n$ je $\ord_p(n) := \max(\{p^m \mid n;~  m \in \N_0 \})$. 
+	
+	\textit{(Platí zde vztah pro nenulové }$\alpha = \frac{a}{b} \in \Q: \ord_p(\alpha) := \ord_p(a) - \ord_p(b)$.\textit{)}\\
+	\textit{(Dále platí aditivita, tedy pro }$\alpha = \frac ab$ a $ \beta  = \frac cd $ \textit{platí} $\ord_p(a,b)=\ord_p(\alpha)+\ord_p(\beta)$.\textit{)}
+\end{Def}
+
+\begin{Def} Triviální norma \normalfont na libovolném tělese $F$ je funkce $||\cdot ||$ s $||0_F||=0$ a $||x||=1$ pro $x\neq 0_F$.
+\end{Def}
+
+\begin{Def} ($ p $-adická norma): \normalfont Nechť $\alpha \in \Q$ a prvočíslo $p\in \N$. 
+	Potom \textit{kanonickou $ p $-adickou normu} $||\cdot ||_p$ definujeme vztahem $\norm{\alpha}_p := \left(p\right)^{\ord_p(\alpha)}$.
+\end{Def}
+
+\begin{thm}
+	Nechť $||\cdot ||$ je norma na tělese $\Q$. Pak nastává právě jedna ze tří následujících možností.
+	\begin{enumerate}
+		\item Je to triviální norma.
+		\item Existuje reálné $c \in (0, 1]$, že $\norm{x} = |x|^c$ .
+		\item Existuje reálné $c \in (0, 1)$ a prvočíslo $ p $, že $||x|| = |x|_p = c^{\ord_p(x)}$ (kde $c^{\infty} := 0$).
+	\end{enumerate}
+	Modifikovaná absolutní hodnota a $ p $-adické normy jsou tedy jediné netriviální normy nad $ \Q $. \normalfont
+	\begin{proof}
+		Nechť $\norm{\cdot}$ je netriviální, tedy není tvaru \textit{případu $ 1 $}. 
+		
+		Pak existuje přirozené $n\geq2$, že $\norm{n}\neq 1$. Máme tedy dva případy:
+		\begin{itemize}
+			\item Existuje $n\in \N$, že $\norm{n}>1$. Jako $ n_0 $ označíme nejmenší takové $ n $. 
+			Patrně $n_0 \geq 2$ a \begin{equation}
+				1 \leq m < n_0 \implies \norm{m} \leq 1.
+			\end{equation}
+			Existuje jednoznačné reálné číslo $c > 0$, že \begin{equation}
+				\norm{n_0} = n^c_0 .
+			\end{equation}
+			Každé $n \in \N$ lze při základu $n_0$ pro $a_i$; ~$s \in \N_0$;~ $0 \leq a_i < n_0$ a $a_s \neq 0$, zapsat jako:
+			\[
+				n = a_0 + a_1 n_0 + a_2 n^2_0 + \ldots + a_sn_0^s.
+			\]
+			
+			Pro $n_0 = 10$ jde o obvyklý zápis v desítkové soustavě. Takže: \begin{flalign*}
+				\norm{n} &= \norm{a_0 + a_0 n_0 + a_2 n_0^2 + \ldots + a_s n_0^s}\\
+				&\stackrel{(*)}{\leq} \sum_{j=0}^{s}\norm{a_j}\cdot \norm{n_0}^j ~\stackrel{(_*)}{\leq}~ \sum_{j=0}^{s} n_0^{js}\\
+				&= 1 + n_0^c + n_0^{2c} + \ldots + n_0^{sc}\\
+				&= n_0^{sc}(1 + n_0^{-c} + n_0^{-2c} + \ldots + n_0^{-sc})\\
+				&\leq n_0^{sc} \sum_{i=0}^{\infty} \left(\frac{1}{n_0^c}\right)^i ~~\stackrel{n_0^s\leq n}{\leq}~~ n^cC ~~, 
+				\qquad \text{ kde } C =  \sum_{i=0}^{\infty} \left(\frac{1}{n_0^c}\right)^i
+			\end{flalign*}
+			\begin{center} \small\textit{Pro doplnění: ($*$) $\Delta$-nerovost a multipl. $\norm{.}$, \quad ($_*$)~ vychází z (1) a (2)} \end{center}
+
+			Tedy platí nerovnost \textit{(ve skutečnosti platí i s $C = 1$)}: \begin{equation}
+				\forall n \in \N_0 : \norm{n} \leq Cn^c.
+			\end{equation}			
+			Pro každé $m, n \in \N$ nám multiplikativita normy a nerovnost $ (3) $ dávají: \[
+				\norm{n}^m = \norm{n^m} \leq C(n^m)^c = C(n^c)^m.
+			\]
+			Vezmeme-li zde $ m $-tou odmocninu, dostaneme $ \norm{n}\leq C^{1/m} n^c $.
+			Pro $m\to \infty$ máme $ C^{1/m} \to 1$. Takže: \begin{equation}
+				\forall n \in \N_0: \norm{n} \leq n^c.
+			\end{equation}
+			Nyní podobně odvodíme opačnou nerovnost $\norm{n} \geq n^c$ pro $n \in \N_0$.
+			
+			Pro každé $n \in \N$ hořejší zápis čísla $ n $ při základu $n_0$ dává $n_0^{s+1} > n \geq n^s_0$.
+			Podle $\Delta$-nerovnosti máme: \[\norm{n_0}^{s+1} = \norm{n^{s+1}_0} \geq \norm{n} + \norm{n_0^{s+1}-n}.\] Tedy:
+			\begin{flalign*}
+				\norm{n} &~~~\geq \norm{n_0}^{s+1} - \norm{n_0^{s+1} - n} \\
+				&\stackrel{(2),(4)}{~\geq} n_0^{(s+1)c} - (n_0^{s+1} - n)^c\\
+				&\stackrel{n\geq n_0^s}{~~\geq}  n_0^{(s+1)c} - (n_0^{s+1} - n_0^s)^c \\
+				&~~~= n_0^{(s+1)c} \left(1 - \left(1 - \frac{1}{n_0}\right)^c\right)\\
+				&\stackrel{n_0^{s+1}>n}{\geq} n^cC'~~, \qquad \text{ kde } C' =  1 - \left(1 - \frac{1}{n_0}\right)^c > 0.
+			\end{flalign*}
+			Trik s $ m $-tou odmocninou opět dává $\forall n \in \N_0: \norm{n}\geq n^c$ a tedy už platí $\forall n \in \N_0: \norm{n} = n^c$.
+			
+			Z multiplikativity normy dostáváme $\norm{x} = |x|^c$ pro každý zlomek $x \in \Q$. 
+			A jelikož pro $\Q, \R,\Cc$ je $c \in (0, 1]$, tak dostáváme, že platí \textit{případ 2} Ostrowskiho věty.
+			\item Pro každé $n \in \N: \norm{n} \leq 1$ a existuje $n \in \N: \norm{n}<1$.
+			
+			Nechť $n_0$ je nejmenší takové $ n $, opět $n_0 \geq 2$. 
+			Tvrdíme, že $n_0 = p$ je prvočíslo. 
+			Kdyby totiž $n_0$ mělo rozklad $n_0 = n_1 n_2$ s $n_i \in \Z$ a $1 < n_1 , n_2 < n_0$, dostali bychom spor:
+			\[
+			 	1 > \norm{n_0} = \norm{n_1n_2} = \norm{n_1}\cdot \norm{n_2} = 1\cdot 1 = 1.
+			\] Použili jsme zde multiplikativitu normy a to, že $\norm{m} = 1$ pro každé $m \in \N$ s $1 \leq m < n_0$.
+
+			Ukážeme, že každé jiné prvočíslo $q \neq p$ má normu $\norm{q} = 1$. 
+			Pro spor nechť $q \neq p$ je další prvočíslo s normou $\norm{q} < 1$. 
+			Vezmeme tak velké $m \in \N$, že $\norm{p}^m, \norm{q}^m < \half$. 
+			
+			Z elementární teorie čísel víme, že existují Bézoutovy koeficienty, tedy celá ´čísla $ a $ a $ b $, že $aq^m + bp^m = 1$. 
+			Znormování této rovnosti dává spor:
+			\[
+				1 = \norm{1} = \norm{aq^m+bp^m} \leq \norm{a}\cdot \norm{q}^m + \norm{b}\cdot \norm{p}^m < 1 \cdot \half + 1 \cdot \half = 1.
+			\]
+			Zde jsme využili trojúhelníkovou nerovnost, multiplikativitu normy a to, že nyní $\norm{a} \leq 1$ pro každé $a \in \Z$.
+			
+			Tedy $\norm{q} = 1$ pro každé prvočíslo $q\neq p$. 
+			Odtud pomocí multiplikativity normy a rozkladu nenulového zlomku $ x $ na součin mocnin prvočísel dostáváme vyjádření
+			\begin{flalign*}
+				\norm{x} &= \norm{\prod_{q=2,3,5,\ldots}q^{\ord_q(x)}} = \prod_{q=2,3,5,\ldots}\norm{q}^{\ord_q(x)} = \norm{p}^{\ord_p(x)}\\
+					&= c^{\ord_p(x)}~~, \qquad \text{ kde } c := \norm{p}\in (0,1).
+			\end{flalign*}
+			Také $\norm{0} = c^{\ord_p(0)} = c^{\infty} = 0$. Dostali jsme tak \textit{případ 3} Ostrowskiho věty. 
+		\end{itemize}
+	\end{proof}
+\end{thm}
+
+
+\section{Heine–Borelova věta}
+
+\begin{Def} (Homeomorfismus): \normalfont
+	Zobrazení $f : M \to N$ mezi metrickými prostory $(M, d)$ a $(N, e)$ je jejich \textit{homeomorfismus}, pokud $f$ je bijekce a pokud $f$ a $f^{-1}$ jsou spojitá zobrazení.
+\end{Def}
+
+\begin{Def} (Topologická kompaktnost): \normalfont
+	Podmnožina $A \subseteq M$ metrického prostoru $(M, d)$ je \textit{topologicky kompaktní},
+	pokud pro každý systém otevřených množin $\{X_i \mid i \in I:= [0, 2\pi)\} \in M$ platí: \[
+		\bigcup_{i \in I} X_i \supset A \implies \textit{ existuje konečná množina } J \subset I: \bigcup_{i \in J} X_i \supset A.
+	\]
+\end{Def}
+
+\begin{thm} Podmnožina $A \subseteq M$ metrického prostoru $ (M, d) $ je kompaktní $\iff$ je topologicky kompaktní.\normalfont
+	\begin{proof}
+		BÚNO můžeme vzít $A = M$.
+		\begin{itemize}
+			\item [$ \Rightarrow $] Nechť $(M, d)$ je kompaktní metrický prostor a nechť $\displaystyle M = \bigcup_{i \in I} X_i$ je jeho otevřené pokrytí, takže každá množina $ X_i $ je otevřená.
+			Nalezneme jeho konečné podpokrytí. 
+			Nejprve dokážeme, že \[\forall \delta > 0 \textit{ existuje konečná množina } S_{\delta} \subset M : \bigcup_{a\in S_{\delta}} B(a, \delta) = M .\]
+			Kdyby ne, pak by existovalo $\delta_0 > 0$ a $(a_n) \subset M$, že $m < n \implies d(a_m , a_n) \geq \delta_0$ 
+			\textit{(tato posloupnost nemá konvergentní podposloupnost, což je ve sporu s předpokládanou kompaktností množiny $ M $)}. 
+			
+			Kdyby existovalo $\delta_0 > 0$, že pro každou konečnou množinu $S \subset M$ je \[M\setminus \bigcup_{a\in S} B(a,\delta_0) \neq \emptyset,\]
+			pak \textit{(pokud již máme definované body $a_1 , a_2 , \ldots , a_n$ s $d(a_i , a_j ) \geq \delta_0$ pro každé $1 \leq i < j \leq n$)} vezmeme $$a_{n+1} \in M \setminus \bigcup_{i=1}^n B(a_i, \delta_0)$$ a $a_{n+1}$ má od každého bodu $a_1, a_2,\ldots , a_n$ vzdálenost alespoň $\delta_0$.
+			Tak definujeme celou posloupnost $(a_n)$.
+			\newpage
+			Pro spor nyní předpokládejme, že hořejší otevřené pokrytí množiny $ M $ množinami $X_i$ nemá konečné podpokrytí.
+			
+			Tvrdíme, že odtud vyplývá, že \[(\forall n \in \N) (\exists b_n \in S_{1/n}) (\forall i \in I) :~ B\left(b_n , \frac{1}{n}\right) \nsubseteq X_i.\] 
+			
+			Kdyby to tak nebylo \textit{(negujeme předchozí tvrzení)}, pak by existovalo $n_0 \in \N$, že pro každé $b \in S_{1/n_0}$ existuje $i_b \in I$, že $B(b, 1/n_0) \subset X_{i_b}$. 
+			Pak ale, protože $M =\displaystyle \bigcup_{b\in S_{1/n_0}} B(b, 1/n_0)$, dávají indexy $J = \{i_b \mid b \in S_{1/n_0}\} \subset I$ (ve sporu s předpokladem) konečné podpokrytí množiny $ M $ .
+
+			Výše uvedené tvrzení o $ n $ a $b_n$ tak platí a lze vzít posloupnost $(b_n) \subset M$. 
+			
+			Podle předpokladu má konvergentní podposloupnost $(b_{k_n})$ s $b := \lim b_{k_n} \in M$. 
+			Protože $X_i$ pokrývají $M$, existuje $j \in I$, že $b \in X_j$. 
+			Díky otevřenosti $X_j$ existuje $r > 0$, že $B(b, r) \subset X_j$. 
+			
+			Vezmeme tak velké $n \in \N$, že $\frac 1{k_n} < \frac r2$ a $d(b, b_{k_n}) < \frac r2$. 
+			Pro každé $x \in B(b_{k_n}, 1/k_n)$ pak podle trojúhelníkové nerovnosti máme, že: $$\displaystyle d(x, b) \leq d(x, b_{k_n}) + d(b_{k_n} , b) < \frac r2 + \frac r2 = r.$$
+			Z toho vyplývá, že: $$B(b_{k_n} , 1/k_n ) \subset B(b, r) \subset X_j.$$
+			To je ovšem ve sporu s vlastností bodů $ b_n $. Tedy pokrytí $ M $ množinami $X_i$, $i \in I$, má konečné podpokrytí.
+			
+			\item [$\Leftarrow$] Předpokládáme, že každé otevřené pokrytí množiny $M$ má konečné podpokrytí a odvodíme z toho, že každá posloupnost $(a_n) \subset M$ má konvergentní podposloupnost. 
+			Nejprve ukážeme, že předpoklad, že množina \[
+			(\forall b \in M)(\exists r_b > 0) : ~ M_b := \{n \in \N \mid a_n \in B(b, r_b)\}
+			\] je konečná, vede ke sporu.
+			
+			Z pokrytí $M = \displaystyle \bigcup_{b\in M}B(b, r_b)$ totiž můžeme vybrat konečné podpokrytí dané konečnou množinou $N \subset M$.
+			Dále si můžeme všimnout, že $\exists n_0, n \geq n_0 \implies a_n \notin \bigcup_{b\in N}B(b, r_b)$, protože množina indexů $\bigcup_{b\in N}M_b$ je konečná \textit{(respektive je to konečné sjednocení konečných množin)}. 
+			To nám ovšem dává spor, protože $\displaystyle \bigcup_{b\in N} B(b,r_b) = M$ a platí tak, že je $M_b$ nekonečná.
+			
+			Nyní z $(a_n)$ vybereme konvergentní podposloupnost $(a_{k_n})$ s limitou $ b $. 
+			
+			Nechť už jsme definovali indexy $1 \leq k_1 < k_2 < \ldots < k_n$ takové, že $d(b, a_{k_i} ) < \frac 1i$ pro $i = 1, 2, \ldots , n$. 
+			Množina indexů $M_{1/(n+1)}$ je nekonečná, takže můžeme zvolit takové $k_{n+1} \in \N$, že $k_{n+1} > k_n$ a $k_{n+1} \in M_{1/(n+1)}$. 
+			
+			Pak i $d(b, a_{k_{n+1}} ) < \frac{1}{n + 1}$. Takto je definována podposloupnost $(a_{k_n})$ konvergující k $ b $.
+			
+		\end{itemize}
+	\end{proof}
+\end{thm}
+
+
+\section{Existence n-tých odmocnin v komplexních číslech}
+
+\begin{thm}(souvislost a spojitost). Nechť $f : X \to N$ je spojité zobrazení ze souvislé množiny $X \subseteq M$ v metrickém prostoru $(M, d)$ do prostoru $(N, e)$. Potom $f [X] = \{f (x) \mid x \in X\} \subseteq N$ je souvislá množina.
+\end{thm}
+
+\begin{thm} Komplexní čísla obsahují všechny n-té odmocniny, tedy \[(\forall u \in \Cc) (\forall n \in \N) (\exists v \in \Cc) ~~v^n = u.\]
+	\begin{proof}
+		Předpokládejme, že $u\in S$ a že $n \in \N$ je liché. 
+		Potřebujeme dokázat, že zobrazení $$f (z) = z^n : S \to S, \textit{ kde $S$ je komplexní jednotková kružnice,}$$ které je zřejmě spojité, je \textit{na}. 
+		
+		Pro spor předpokládejme, že $\exists w \in S \setminus f[S]$. 
+		Tedy číslo $w$, které nemá $n$-tou odmocninu. 
+		
+		Vzhledem k lichosti  $ n$ platí, že $w \in S \setminus f[S]$.
+		To vychází z lichosti funkcí, tedy $f(-z) = -f(z)$. 
+		
+		Skrz body $ w $ a $ -w $ vedeme přímku $\ell \subseteq \Cc$ a dostaneme tak rozklad: 
+		$$C = A \cup \ell \cup B,$$
+		kde $ A $ a $ B $ jsou otevřené poloroviny určené přímkou $ \ell $. 
+		
+		Protože víme, že \textit{pro každou přímku $\ell \subseteq \Cc$ je $\Cc \setminus \ell$ sjednocení dvou disjunktních otevřených množin}, tak jsou $A,B$ disjunktní otevřené množiny. Zároveň víme, že platí:
+		\begin{flalign*}
+			(A \cup B) \cap S &= S \setminus \{w, -w\} \quad \leadsto \quad 
+			\{1, -1\} \subseteq f[S] \cap (A \cup B) \quad \leadsto \quad
+			| A \cap \{1, -1\}| = 1.
+		\end{flalign*}
+		Množiny $ A $ a $ B $ tedy trhají množinu $ f [S] $ a ta je nesouvislá. 
+		To je ale ve sporu s \textit{větou o souvislosti a spojitosti}, protože $ f [S] $ je obraz souvislé množiny $ S $ spojitou funkcí $ f $ a musí tedy být souvislá.
+	\end{proof}
+\end{thm}
+
+\section{Baierova věta}
+
+\begin{Def} Cauchyova posloupnost \normalfont $(a_n)$ splňuje, že \[\forall \varepsilon, ~\exists n_0 : m, n \geq n_0 \implies d(a_m , a_n ) < \varepsilon .\]
+\end{Def}
+
+\begin{Def} (Řídkost). \normalfont
+	Množina $X \subseteq M$ v metrickém prostoru $(M, d)$ je řídká, pokud:\[
+(\forall a \in M) (\forall r > 0) (\exists b \in M) (\exists s > 0): B(b, s) \subseteq B(a, r) \land B(b, s) \cap X = \emptyset.
+\]
+\end{Def}
+
+
+\begin{thm}
+	Nechť $ (M,d) $ je úplný metrický prostor a $ \displaystyle M = \bigcup_{n=1}^{\infty} X_n$. Pak nějaká množina $X_n$ není řídká.\normalfont
+	
+	\begin{proof}
+		Pro spor předpokládáme, že všechny množiny $ X_n $ jsou řídké. 
+		Cílem je sestrojit posloupnost $(\overline{B_n})$ do sebe vnořených uzavřených koulí, jejichž středy konvergují k bodu $a \in M$ ležícímu mimo všechny $X_n$, což dá ve výsledku pochopitelně spor. 
+		
+		$ $
+		
+		Nechť $B(b, 1) \subseteq M$ je libovolná koule. 
+		Protože $X_1$ je řídká množina, tak existuje $a_1 \in M$ a $s_1 > 0$ takové, že $B(a_1, s_1) \subseteq B(b, 1)$ a $B(a_1, s_1 ) \cap X_1 = \emptyset$. 
+		Položíme:\[
+		\overline{B}(a_1 , r_1 ) := \overline{B}\left(a_1 , \min\left(\frac{s_1}2, \frac 12\right)\right) .
+		\]
+		Pak $\overline{B}(a_1, r_1) \subseteq B(a_1, s_1 )$, tedy $\overline{B}(a_1 , r_1) \cap X_1 = \emptyset$, a $r_1 \leq 1/2$.
+		Nechť jsou už definované takové uzavřené koule \[
+		\overline{B}(a_1, r_1)\supseteq \overline{B}(a_2 , r_2 ) \supseteq \ldots \supseteq \overline{B}(a_n, r_n ) ,
+		\]že pro $i=1,2,\ldots, n$ je $\overline B(a_i, r_i) \cap X_i = \emptyset$ a $ r_i \leq 2^{-i} $.
+		
+		Protože $X_{n+1}$ je řídká množina, existuje $a_{n+1} \in M$ a $s_{n+1} > 0$, že $B(a_{n+1} , s_{n+1} ) \subseteq B(a_n , r_n )$ a $B(a_{n+1} , s_{n+1} ) \cap X_{n+1} = \emptyset$. Položíme \[
+		\overline B(a_{n+1} , r_{n+1} ) := B \left(a_{n+1}, \min\left(\frac{s_{n+1}}{2}, 2^{-n-1} \right)\right).
+		\] Pak \[\overline B(a_{n+1} , r_{n+1} ) \subseteq \overline B(a_{n} , r_{n} ) \cap B(a_{n+1} , s_{n+1} ),
+		\] tedy i $\overline B(a_{n+1} , r_{n+1} ) \cap X_{n+1} = \emptyset$, a $r_{n+1} \leq 2^{-n-1}$.
+		
+		Posloupnost $(a_n ) \subseteq M$ středů výše definovaných uzavřených kouli je Cauchyova, protože\[
+		m \geq n \implies \overline B(a_m, r_m) \subseteq \overline B(a_n, r_n ) \text{ a tedy } d(a_m, a_n ) \leq r_n \leq \frac1{2^n}.
+		\]
+		
+		Nyní použijeme úplnost metrického prostoru $(M, d)$ a vezmeme limitu $ a:= \lim a_n \in M $.
+		
+		Protože $m \geq n \implies a_m \in \overline B(a_n, r_n )$ a protože každá $\overline B(a_n, r_n )$ je uzavřená množina, tak leží limita $ a $ v každé uzavřené kouli $\overline B(a_n, r_n )$ a tedy v žádné z množin $X_n$, což je spor.
+	\end{proof}
+
+\end{thm}
+
+\newpage
+
+\section{Basilejský problém}
+
+Tento problém byl pojmenován po švýcarském městě Basilej, kde působil matematik Johann Bernoulli a jeho bratr Jakob Bernoulli, kteří se tímto problémem zabývali.
+\[ 
+	\sum_{n=1}^{\infty} \frac{1}{n^2} = \frac{1}{1^2} + \frac{1}{2^2} + \frac{1}{3^2} + \frac{1}{4^2} + \cdots =  \frac{\pi^2}{6} 
+\]
+Řešení tohoto problému nalezl švýcarský matematik Leonhard Euler v roce 1734.
+
+
+\begin{Def} Řada \normalfont $\sum a_n$ je posloupnost $(a_n)\subseteq \R$, které je přiřazena posloupnost částečných součtů
+	\[
+		(s_n) := (a_1 + a_2 + \ldots + a_n) \subseteq \R
+	\]
+	Tedy platí $\sum a_n := lim(s_n)$
+\end{Def}
+
+\begin{Def}\normalfont Pro každou funkci $f\in \mathcal R(-\pi, \pi)$ definujeme její:
+	\begin{flalign*}
+		\textit{kosinové Fourierovy koeficienty}: \qquad a_n :&= \frac{\langle f(x), \cos(nx)\rangle}{\pi} = \frac{1}{\pi} \int_{-\pi}^{\pi} f(x)\cos(nx) ~ dx, \qquad n = 0,1, \ldots\\
+		\textit{sinové Fourierovy koeficienty}: \qquad a_n :&= \frac{\langle f(x), \sin(nx)\rangle}{\pi} = \frac{1}{\pi} \int_{-\pi}^{\pi} f(x)\sin(nx) ~ dx, \qquad n = 0,1, \ldots
+	\end{flalign*}
+\end{Def}
+
+\begin{Def} Fourierova řada funkce \normalfont $f\in \mathcal R (-\pi,\pi)$ je trigonometrická řada
+	$$F_f(x) := \frac{a_0}{2} + \sum_{n=1}^{\infty} \left(a_n \cos (nx) + b_n \sin(nx)\right),$$
+	kde $ a_n $ a $ b_n $ jsou, po řadě, její kosinové a sinové Fourierovy koeficienty.
+\end{Def}
+
+\begin{cons}
+	Nechť $f : \R \to \R$ je $2\pi$-periodická a spojitá funkce, jejíž zúžení na interval $[-\pi, \pi]$ je hladké. 
+	Potom pro každé $a \in \R$ je $F_f (a) = f (a)$.
+	Spojitá a hladká funkce se tedy rovná součtu své Fourierovy řady.
+\end{cons}
+
+
+\begin{thm} $\displaystyle \sum_{n=1}^{\infty} \frac{1}{n^2} = \frac{\pi^2}{6}.$
+	\begin{proof}
+		Spočítáme Fourierovu řadu funkce $f : \R\to \R$ na intervalu $[-\pi, \pi]$ definovanou $f (x) = x^2$.
+		Pak je $f$ $2\pi$-periodicky rozšířená na celé $\R$ \textit{(což je možné díky tomu, že $(-\pi)^2 = \pi^2$ )}. 
+		
+		Její sinové Fourierovy koeficienty jsou nulové a první (respektive nultý) kosinový Fourierův koeficient je roven 
+		\[
+			a_0 = \frac 2{\pi} \int_{0}^{\pi} x^2 ~dx = \frac{2\pi^2}{3}.
+		\]
+		Další, pro $\forall n \in \N$, jsou:
+		\begin{flalign*}
+			a_n &= \frac 2{\pi} \int_{0}^{\pi} x^2 \overbrace{\cos(nx)}^{(\sin (nx)/n)'} ~dx \\
+			&= \frac 2{\pi n} \underbrace{[x^2 \sin(nx)]_{0}^{\pi}}_{0-0=0} - \frac 4{\pi n} \int_{0}^{\pi} x \underbrace{\sin (nx)}_{(-\cos (nx)/n)'} ~ dx\\
+			&= \frac 4{\pi n^2} \underbrace{[x \cos(nx)]_{0}^{\pi}}_{\pi(-1)^n} - \frac 4{\pi n^2} \int_{0}^{\pi} \underbrace{\cos (nx)}_{\sin \leadsto 0} ~ dx\\
+			&= (-1)^{n}\frac{4}{n^2}.
+		\end{flalign*}
+		Protože funkce $ f $ je spojitá a na $[-\pi, \pi]$ hladká, podle \textit{Důsledku 6.1.} Dirichletovy věty pro každé $a \in \R$ je
+		\[
+			f(a) = \frac{a_0}{2} + \sum_{n=1}^{\infty} a_n \cos(na) = \frac{\pi^2}{3} + 4 \sum_{n=1}^{\infty} (-1)^n \frac{\cos(na)}{n^2}.
+		\]
+		Pro $a = \pi$, dostaneme:
+		\[
+			\pi^2 = f(\pi) =  \frac{\pi^2}{3} + 4 \sum_{n=1}^{\infty} (-1)^n \frac{(-1)^n}{n^2} = \frac{\pi^2}{3} + 4 \sum_{n=1}^{\infty} \frac{1}{n^2}.
+		\]A tedy $\displaystyle \sum_{n=1}^{\infty} \frac{1}{n^2} = \frac{\pi^2}{6}.$
+	\end{proof}
+\end{thm}
+
+\section{Úplnost spojitého metrického prostoru}
+
+\begin{thm} Nechť $C(I)$ je množina všech spojitých funkcí z $I=[0,1] \to \R$. Potom metrický prostor $ (C(I) , || f-g ||_{\infty}) $, kde $I=[0,1]$ je úplný. \normalfont
+	\begin{proof}
+		Nechť $(f_n) \subset C(I)$ je Cauchyovská posloupnost v tomto metrickém prostoru, tedy
+		\[
+		(\forall \varepsilon >0) (\exists m) (n, n' \geq m \implies ||f_n - f_{n'}||_{\infty} < \varepsilon).
+		\]
+		Potom pro každé $x \in I$ posloupnost $(f_n(x))\subseteq \R$ je Cauchyovská, tedy konverguje a můžeme tak definovat limitu $$f(x) = \lim f_n(x).$$
+		
+		Nyní dokážeme, že je uniformě konvergentní, tedy, že $||f - f_n||_{\infty} \to 0.$
+		
+		Nechť $x \in I$ a nechť je dáno $\varepsilon > 0$. Vezmeme $m$ (je nezávislé na $x$) takové, že výše zmíněná Cauchyova podmínka je splněna s $\frac{\varepsilon}2$. 
+		Dále tedy vezměme $k \geq m$ t.ž. $|f_k (x) - f (x)| < \varepsilon/2$. 
+		Tedy 
+		\[
+		n \geq m \implies |f_n(x) - f (x)| \leq |f_n (x)- f_k(x)| + |f_k(x) - f(x)|< \frac{\varepsilon}2 + \frac{\varepsilon}2 = \varepsilon
+		\] a tedy $\lim f_n = f$ v tomto metrickém prostoru.
+		
+		$ $
+		
+		Už nám zbývá dokázat jen že $f$ je spojitá (tedy, že je prvkem tohoto metrického prostoru).
+		
+		Nechť $x_0 \in I$ a nechť je dáno $\varepsilon > 0$. Vezmeme $n_0$ takové, že 
+		\[
+			n \geq n_0 \implies ||f - f_n ||_{\infty} \leq \frac{\varepsilon}2 .
+		\]
+		Dále si vezme $\delta > 0$ takové, že:
+		\[
+			x \in U (x_0 , \delta) \cap I \implies |f_{n_0} (x) - f_{n_0} (x_0)| \leq \frac{\varepsilon}2.
+		\]
+		Využili jsme zde spojitosti $f_{n_0}$ v bodě $x_0$. 		
+		Potom $\forall x \in U (x_0 , \delta) \cap I$, platí:
+		\[
+			|f (x) - f (x_0 )| \leq |f (x) - f_{n_0} (x)| + |f_{n_0} (x) - f_{n_0} (x_0 )| \leq \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon.
+		\]
+		 Dostáváme tak tedy, že $ f $ je spojitá v bodě $x_0$.
+	\end{proof}
+\end{thm}
+
+\section{Pólyova věta pro $ d=2 $}
+
+\begin{Def} (náhodná procházka)
+	Procházka \normalfont $ w $ v grafu $G = (V, E)$ je taková konečná $w = (v_0, v_1 , \ldots, v_n)$ s délkou $|w| := n\in \N_0$, či nekonečná $w = (v_0 , v_1 , \ldots )$, posloupnost vrcholů $v_i \in V$, že pro každé $i \in \N_0$ je $\{v_i, v_{i+1}\} \in E$.
+\end{Def}
+
+\begin{thm} (Slabá Abelova). Když mocninná řada $\displaystyle U(x):= \sum_{n=0}^{\infty}u_nx^n \in \R[[x]]$ konverguje pro každé $x \in [0,R)$, kde $R \in (0, +\infty)$ je reálné číslo, a má všechny koeficienty $u_n\geq 0$, pak následující limita a suma jsou definované a rovnají se, a to bez ohledu na konečnost/nekonečnost. Tedy
+	\[\lim_{x\to R^{-}} U(x) = \sum_{n=0}^{\infty} u_nR^n ~~(=:U(R)).\]
+	\begin{proof}
+		Pro každé $N \in \N$ je:
+		\begin{flalign*}
+			 \sum_{n=0}^{N} u_nR^n &= \lim_{x\to R^-} \sum_{n=0}^{N} u_nx^n \\
+			 \leq \lim_{x\to R^-} U(x) &= \lim_{x\to R^-} \sum_{n=0}^{\infty} u_nx^n \leq \sum_{n=0}^{\infty}u_nR^n,
+		\end{flalign*}
+		kde všechny limity a nekonečné součty jsou definované \textit{(s možnou hodnotou $+\infty$)} díky monotonii a nezápornosti. Úvodní rovnost plyne z faktu, že pro každé $n \in \N_0$ se $\lim_{x\to R^-} x^n = R^n$. 
+		
+		Dvě následující nerovnosti plynou z nezápornosti koeficientů $u_n$. Limitní přechod $N \to +\infty$ dává větu.
+	\end{proof}
+\end{thm}
+
+
+\begin{thm} Pro $d=1$ a $d=2$ je $\displaystyle \lim_{n\to \infty} \frac{a_n(\Z^d)}{d_n(\Z^d)} = \lim_{n\to \infty} \frac{a_n(\Z^d)}{(2d)^n} = 1$
+	a pro $d\geq 3$ je limita $< 1$.
+	
+	(neboli pro $d \leq 2$ pro velké $ n $ náhodná procházka délky $ n $ skoro jistě opětovně navštíví start, ale pro $d \geq 3$ ho s pravděpodobností $> 0$ opětovně nenavštíví.)
+	\begin{proof} Nechť $d = 2$ a $w = (v_0,v_1, \ldots, v_n)$ je procházka v grafu $\Z^2$ s délkou $n \in \N_0$. 
+		
+		Nechť $ \underline{b_n} $ je počet procházek $ w $ s $ v_n = v_0 = \bar{0}$ a $\underline{c_n}$ je počet procházek $ w $ s $ v_n = v_0 = \bar{0} $, ale $v_j \neq \bar 0$ pro $ j $ s $0 < j < n$.
+		
+		Díky tranzitivitě grafu $\Z^2$ tyto počty nezávisí na startu procházky. 
+		Položíme $c_0 := 0$. 
+		Je jasné, že pro každé $n \in \N_0$ je $a_n \leq d_n, c_n \leq b_n \leq d_n$ a $d_n = 4^n$.
+		Procházky počítané $ a_n $ rozdělíme do skupin podle jejich prvního návratu do $ \bar 0 $ ve vrcholu $ v_j $ . 
+		Pomocí vztahů $d_n = 4^n$ a $a_n \leq 4^n$ dostaneme pro každé $n \in \N_0$ rovnice:
+		\[
+			a_n = \sum_{j=0}^{n}c_jd_{n-j} \quad \text{, takže } \quad \frac{a_n}{4^n} = \sum_{j=0}^{n}\frac{c_j}{4^j}\leq 1.
+		\]Tedy stačí dokázat, že:
+		\[
+			\sum_{j=0}^{\infty} \frac{c_j}{4^j} = 1.
+		\]
+		Druhý vztah, který použijeme, je mezi mocninnými řadami:
+		\[
+		B(x) = \sum_{n\geq 0} \frac{b_n}{4^n}x^n= 1 + \ldots\quad \text{ a }~~ C(x) = \sum_{n\geq 0}\frac{c_n}{4^n}x^n=\frac{x^2}{4} + \ldots,
+		\]
+		tedy
+		\[
+		B(x) = \frac{1}{1-C(x)} = \sum_{k\geq0}C(x)^k.
+		\]
+		Snadno se to nahlédne formálně, tedy jako vztah mezi formálními mocninnými řadami, rozdělením procházky počítané $b_n$ jejími $k +1$ návraty do $ \bar 0 $ na $ k $ úseků s délkami $j_1,j_2, \ldots,j_k$ splňujícími $j_1 + \ldots + j_k = n$.
+		
+		Ty jsou počítány čísly $c_{j_1}, \ldots, c_{j_k}$. 
+		Ale tento vztah také platí na úrovni reálných funkcí $B(x)$ a $C(x)$ pro $x \in [0, 1)$, protože obě mocninné řady mají
+		poloměry konvergence $\geq 1$ \textit{(neboť $b_n$, $c_n \leq 4^n$ )}.
+
+		Nyní stačí dokázat, že \[
+		\lim_{x\to1^-} B(x) = +\infty .\]
+		Vztah výše implikuje, že $\lim_{x\to1^-} C(x) = 1$ a to podle \textit{Abelovy věty} dává, že \[
+			\sum_{j=0}^{\infty}\frac{c_j}{4^j} =: C(1) = \lim_{x\to 1^-}C(x) = 1.
+		\]
+		To je přesně požadovaný součet nekonečné řady.
+		
+		Abychom dokázali, že $\lim_{x\to1^-} B(x) = +\infty$, stačí opět podle \textit{Abelovy věty} dokázat, že:
+		\[
+			B(1) := \sum_{j=0}^{\infty}\frac{c_j}{4^j} = +\infty.
+		\]To dokážeme spočtením $b_n$. 
+		Patrně $b_n = 0$ pro liché $ n $. 
+		Pro sudé délky $ n $ je:
+		\[
+			b_{2n} = \sum_{j=0}^{n}\frac{(2n)!}{j!(n-j)! \cdot j!(n-j)!} = \binom{2n}{n} \sum_{j=0}^{n}\binom{n}{j}^2 = \binom{2n}{n}^2.
+		\]
+		První rovnost plyne uvážením všech $j$ kroků doprava v procházce $ w $. 
+		Ty vynucují týž počet $ j $ kroků doleva a stejný počet $n - j$ kroků nahoru a dolů. 
+		Tyto možnosti počítá multinomický koeficient $\binom{2n}{j,j,n-j, n-j}$.
+		
+		Poslední rovnost plyne ze známé binomické identity $\displaystyle\sum_{j=0}^{n}\binom nj^2=\binom{2n}n$.
+		
+		Stirlingův vzorec pro aproximaci faktoriálu $n! \approx \sqrt{2\pi n} \left(\frac{n}{e}\right)^n$, pro $n\to \infty$, vede na asymptotiku $ \binom{2n}{n}\approx cn^{-1/2}4^n $, pro $n\to \infty$ a konstantu $c>0$.
+		Takže $2n$-tý sčítanec v řadě $B(1) \approx c^2 n^{-1}$ a 
+		\[
+			B(1) = \sum_{n=0}^{\infty}\frac{c_n}{4^n} = \sum_{n=0}^{\infty}\binom{2n}{n}^2 4^{-2n} = +\infty,
+		\]
+		protože $\sum n^{-1} = +\infty$.
+	\end{proof}
+\end{thm}
+
+
+\section{Konstanta $ \rho \neq 0$}
+
+\begin{Def}(Čtverec): \normalfont
+	Obdélník $R \subseteq \Cc$ je množina $$R := \{z \in \Cc \mid \alpha \leq \re(z) \leq \beta \land \gamma \leq \im(z) \leq \delta\}$$
+	daná reálnými čísly $\alpha < \beta$ a $\gamma < \delta$. 
+	Pokud $\beta - \alpha = \delta - \gamma$, jde o čtverec.
+\end{Def}
+
+\begin{Def} Cauchyova suma \normalfont $ C(f,p) $ pro funkci $ f: u\to \Cc $ a dělení $ p = (a_0, \ldots, a_k) $ úsečky $u=ab$ je: $$ C(f,p) = \sum_{i=1}^{k}f(a_i)(a_i-a{i-1}) \in \Cc .$$
+\end{Def}
+
+\begin{Def}($ n $-ekvidělení úsečky): \normalfont
+	Pro $n \in \N$ a pro úsečku $u \subseteq \Cc$ jejím $ k $-ekvidělením rozumíme dělení $ u $ na $ n $ podúseček stejné délky $|u|/k$, které je dané obrazy dělení $0 < \frac 1k < \frac 2k < ´\ldots < \frac{k-1}{k} < 1$ jednotkového intervalu.
+\end{Def}
+
+\begin{Def} (Křivkový integrál): \normalfont
+	Pokud $f : U \to \Cc$ je funkce a $\varphi: [a, b] \to U$ je spojitá a po částech hladká funkce, pak integrál funkce f přes křivku $\varphi$ definujeme jako:
+	\begin{flalign*}
+		\oint_{\varphi}f :&= \int_a^b f(\varphi(t))\cdot \varphi'(t)~dt\\
+		&=\int_a^b \re\left(f(\varphi(t)) \cdot \varphi'(t)\right)~dt + i\int_a^b \im\left(f(\varphi(t)) \cdot \varphi'(t)\right)~dt
+	\end{flalign*}
+	pokud poslední dva (reálné) Riemannovy integrály existují.
+\end{Def}
+
+\textit{Konstanta $\rho = 2\pi i$. Kdyby $\rho=0$, žádné Cauchyovy vzorce, by neexistovaly a komplexní analýza by se zhroutila.}
+
+\begin{thm} Nechť $S$ je čtverec s vrcholy $ \pm 1 \pm i $. Potom 
+	$\rho := \displaystyle\oint_{\partial S}\frac{1}{z} \neq 0,$dokonce $ \im (\rho) \geq 4. $
+	\begin{proof}
+		Kanonické vrcholy čtverce $ S $ jsou 
+		$$a := -1 - i, \quad b := 1 - i, \quad c := 1 + i, \quad d = -1 + i.$$ 
+		
+		Nechť $p_n = (a_0, a_1, \ldots, a_n)$ je $n$-ekvidělení úsečky $ab$. 
+		
+		Protože násobení $ i $ je otočení kolem počátku kladným směrem 
+		\textit{(proti směru hodinových ručiček)} 
+		o úhel $\pi/2$, tak $q_n = ip_n := (ia_0,, \ldots , ia_n)$ je $ n $-ekvidělení úsečky $ bc $. 
+		Podobně vezměme i $r_n$ a $s_n$.
+		Pro funkci $f(z) = 1/z$: 
+		\begin{flalign*}
+			C(f,p_n) &= \sum_{j=1}^{n} \frac{(b-a)/n}{a+j (b-a)/n} = \sum_{j=1}^{n} \frac{(ib-ia)/n}{ia+j (ib-ia)/n} = \\
+			&= \sum_{j=1}^{n} \frac{(c-b)/n}{b+j (c-b)/n} = C(f, q_n).
+		\end{flalign*}
+		a analogicky pro zbylé dvě rovnosti, tedy dostaneme: $$C(f, p_n ) = C(f, q_n ) = C(f, r_n) = C(f, s_n ).$$
+		
+		Můžeme si všimnout, že $b-a = 2$ a že lze sumu rozšířit zlomkem $\frac {2j}n -1 + i$. Dostaneme tak:
+		\begin{flalign*}
+			\im(C(f, p_n)) &= \im \left(\sum_{j=1}^{n} \frac{2/n}{-1-i+2j/n}\right)\\
+			&= \im \left(\frac{2}{n}\sum_{j=1}^{n} \frac{2j/n -1+i}{(2j/n - 1)^2 + 1}\right)\\
+			&= \frac{2}{n}\sum_{j=1}^{n} \frac{1}{(2j/n - 1)^2 + 1}¨ \geq \frac{2}{n}\sum_{j=1}^{n} \frac 12 = 1
+		\end{flalign*}
+		A jelikož pro konvergentní posloupnost komplexních čísel platí, že $\im(\lim z_n) = \lim\im(z_n)$, tak:
+		\begin{flalign*}
+			\im(\rho) &= \im\left(\oint_{\partial S}\frac 1z \right) = 4 \cdot \im \left(\oint_{ab}\frac 1z \right)\\
+			&= 4 \cdot \lim_{n \to \infty} \left(\im \left(C \left(\frac 1z, p_n\right)\right)\right)\\
+			&\geq 4 \cdot 1 = 4
+		\end{flalign*}
+		A tedy skutečně $\rho \neq 0$.
+	\end{proof}
+\end{thm}
+\newpage
+
+\section{Cauchy–Goursatova věta pro obdélníky}
+\setcounter{equation}{0}
+
+\begin{Def} Diametr (průměr) \normalfont pro množinu $X \subseteq \Cc$ je definovaný jako $ \diam(X) = \sup(\{|x-y| \mid x,y \in X\})$.
+\end{Def}
+
+\begin{Def} \normalfont Pro funkci $f: U \to \Cc$ a bod $z_0 \in U$ je její \textit{derivace} v $ z_0 $ definována $\displaystyle f'(z_0):=\lim_{z\to z_0}\frac{f(z) - f(z_0)}{z-z_0} \in \Cc$
+\end{Def}
+\begin{Def} \normalfont Funkce $f: U\to \Cc$ je \textit{holomorfní} na $ U $, pokud má v každém bodu $ z_0 \in U $ derivaci.
+	
+	(Pokud je holomorfní na celé komplexní rovině, nazývá se funkce $f: \Cc \to \Cc$ \textit{celá}.)
+\end{Def}
+
+
+\begin{cons} Nechť $\alpha \in \Cc, \beta \in \Cc$ a $R \subseteq \Cc$ je obdélník. Pak $\displaystyle \oint_{\partial R}(\alpha z + \beta ) = 0$.
+\end{cons}
+
+
+\begin{thm}(Cauchy–Goursatova věta pro obdélníky) Nechť $f: U \to \Cc$ je holomorfní funkce a $R \subseteq U$ je obdélník. Pak
+	$$\oint_{\partial R} f = 0.$$
+	\begin{proof}
+		Nechť $f: U \to \Cc$ je holomorfní a nechť a $R \subseteq U$ je obdélník. 
+		Sestrojíme takové vnořené obdélníky $R = R_0 \supset R_1 \supset R_2 \supset \ldots$, že pro každé $n \in \N_0$ je $R_{n+1}$ čtvrtka obdélníku $R_n$ a \begin{equation}
+			\left| \oint_{\partial R_{n+1}}f\right| \geq \frac 14 \left|\int_{\partial R_n}f\right|.
+		\end{equation}
+		Nechť už jsou takové obdélníky $R_0 , R_1 , \ldots , R_n$ definované a $A, B,C, D$ jsou čtvrtky obdélníku $R_n$. 
+		Tvrdíme, že \begin{equation}
+			\oint_{\partial R_n}f = \oint_{\partial A}f + \oint_{\partial B}f + \oint_{\partial C}f + \oint_{\partial D}f.
+		\end{equation}
+		Tato identita plyne z použití věty: \textit{Pro každý vnitřní bod $c$ úsečky $ab$ je $ \oint_{ab}f = \oint_{ac}f + \oint_{cb}f $}. 
+		
+		Po rozvinutí každého integrálu $\oint_{\partial A}f,\ldots, \oint_{\partial D}f$ jako součtu čtyř integrálů přes strany dostáváme na pravé straně \textit{rovnosti (2)} $ 16 $ členů. 
+		Osm z nich odpovídá stranám čtvrtek uvnitř $R_n$ a vzájemně se zruší, protože vytvoří čtyři dvojice opačných orientací stejné úsečky. 
+		Zbylých osm členů odpovídá stranám čtvrtek ležícím na $\partial R_n$ a sečtou se na integrál na levé straně \textit{rovnosti (2)}.
+		
+		Z té zároveň plyne, podle trojúhelníkové nerovnosti, že pro nějakou čtvrtku $E \in \{A, B, C, D\}$ je \[
+		\left| \oint_{\partial E}f\right| \geq \frac 14 \left| \oint_{\partial R_n}f\right|.
+		\] Položíme tedy $R_{n+1} = E$.
+		
+		Protože $\lim \diam(R_n) = 0$, tak existuje bod $z_0$ takový, že $\displaystyle z_0\in \bigcap_{n=0}^{\infty}R_n.$
+		A protože $R_0 = R \subset U$, je i $z_0 \in U$. 
+		
+		Nyní použijeme existenci derivace $f'(z_0)$. 
+		Pro dané $(\forall \varepsilon > 0)(\exists \delta > 0): B(z_0, \delta) \subset U$ a pro nějakou funkci $\Delta: B(z_0 , \delta) \to \Cc$ a $\forall z \in B(z_0, \delta)$ je $|\Delta(z)| < \varepsilon$, a:\[
+			f(z) = \underbrace{f(z_0) + f'(z_0) \cdot (z-z_0)}_{g(z)} + \underbrace{\Delta(z) \cdot (z-z_0)}_{h(z)}.
+		\]		
+		Je jasné, že $ g(z) $ je lineární a $h(z) = f (z) - g(z)$ je spojitá na $B(z_0 , \delta)$. 
+		
+		Nechť $n \in \N_0$ je tak velké, že $R_n \subset B(z_0, \delta)$, protože musíme zajistit, aby $\lim \diam(R_n) = 0$.
+		Podle linearity integrálu a \textit{Důsledku 10.1.} máme: \begin{equation}
+				\oint_{\partial R_n}f = \oint_{\partial R_n}g + \oint_{\partial R_n}h \stackrel{D. 2}{=} \oint_{\partial R_n}h.
+		\end{equation}
+		Platí proto odhad: \begin{align}
+				\left| \oint_{\partial R_n}h\right| &\leq \max_{z\in \partial R_n} |\Delta(z)(z-z_0)| \cdot \obv(R_n)\nonumber\\
+				&< \varepsilon \cdot \diam(R_n) \cdot \obv(R_n) = \varepsilon \cdot \frac{\diam(R)}{2^n} \cdot \frac{\obv(R)}{2^n}\nonumber \\
+				&< \varepsilon \cdot \frac{\obv(R)}{4^n}.
+		\end{align}
+		Zde jsme použili výše zmíněné \textit{zmenšení} průměru a obvodu na \textit{polovinu po čtvrcení} a to, že průměr obdélníka je \textit{menší} než jeho obvod.
+		Podle předchozích výsledků tak máme \[
+		\frac{1}{4^n}\left| \oint_{\partial R}f\right| \stackrel{(1)}{\leq}
+		\left| \oint_{\partial R_n}f\right| \stackrel{(3)}{=}
+		\left| \oint_{\partial R_n}h\right| \stackrel{(4)}{<}
+		\varepsilon \cdot \frac{\obv(R)^2}{4^n}
+		\quad \text{ a tedy }\quad
+			\left| \oint_{\partial R}f\right|< \varepsilon \cdot \obv(R)^2.
+		\]
+		A protože to platí pro $\forall \varepsilon > 0$, tak $\displaystyle \oint_{\partial R}f = 0$.
+	\end{proof}
+\end{thm}
+
+
+\section{Picardova věta}
+
+\textit{Věta o existenci a jednoznačnosti řešení obyčejné diferenciální rovnice prvního řádu s explicitní první derivací.}
+\setcounter{equation}{0}
+
+\begin{Def} Kontrahující zobrazení \normalfont je každé takové zobrazení, kde pro: \[
+	\forall c\in (0,1), \forall a,b \in M: ~~ d(f(a), f(b)) \leq c \cdot d(a,b)
+	\]
+	Tedy $ f $ zkracuje vzdálenosti nějakým faktorem menším než $100\%$.
+\end{Def}
+
+\begin{thm} (Banachova o pevném bodu). Každé kontrahující zobrazení $f : M \to M$ úplného metrického prostoru do sebe má právě jeden pevný bod.
+	Tedy takový bod $a \in M$ , že $f(a) = a$.
+\end{thm}
+
+\begin{prp} (Úplnost spojitých funkcí). Pro každá $a,b \in \R: a < b$ je metrický prostor $(C[a, b], d)$, spojitých funkci $f : [a, b] \to \R$ a s maximovou metrikou $ \displaystyle d(f,g) = \max_{a\leq x\leq b} |f(x) - g(x)|$ úplný.
+\end{prp}
+
+\begin{thm}(Picardova). Nechť $a, b \in \R$ a $F : \R^2 \to \R$ je spojitá funkce, pro níž existuje konstanta $M > 0$ taková, že pro každá tři čísla $u, v, w \in \R$ je: $$|F (u, v) - F (u, w)| \leq M \cdot |v - w|.$$
+	Potom existuje $\delta > 0$ a jednoznačně určená funkce $f : [a - \delta, a + \delta] \to \R$, že: \begin{equation}
+	f (a) = b ~\land ~ \forall x \in [a - \delta, a + \delta] :~~ f' (x) = F (x, f (x)).
+	\end{equation}
+	V krajních bodech intervalů se zde i dále hodnoty derivací berou jednostranně.
+	
+	\begin{proof}
+		Nechť $I := [a -\delta, a + \delta]$, pro nějaké malé $\delta > 0$. 
+		
+		Můžeme si všimnout, že řešitelnost \textit{rovnice (1)} pro neznámou funkci $ f $ je ze \textit{ZVA1} a \textit{ZVA2} ekvivalentní: \begin{equation}
+			\forall x \in I: ~~ f(x) = b + \int_{a}^{x} F(t, f(t)) ~dt,
+		\end{equation}
+		jednoduchým zintegrováním/ zderivováním obou stran.
+		
+		$ $
+		
+		Ukážeme, že pro dostatečně malé $\delta > 0$ mají na intervalu $ I $ \textit{rovnice (1, 2)} jednoznačné řešení $ f $. 
+		
+		Pravá strana \textit{rovnice (2)} definuje zobrazení $A : C(I) \to C(I)$ z množiny spojitých funkcí $f : I \to \R$ do sebe, tedy:
+		\[
+		A(f) = g ~~ \text{, kde pro } ~~x \in I: ~g(x) := b+  \int_{a}^{x} F(t, f(t)) ~dt.
+		\]
+		Dokážeme, že $ A $ je kontrahující zobrazení metrického prostoru $ (C(I), d) $, s maximovou metrikou $ d $, do sebe. 
+		
+		Vzhledem k \textit{Banachově větě} a \textit{Tvrzení 11.1.} pak má $ A $ jednoznačný \textit{pevný bod}, tedy funkci $f \in C(I)$ takovou, že $A(f) = f$, a obě rovnice \textit{(1)} i \textit{(2)} mají jednoznačná řešení.
+
+		Dokážeme tedy, že pro dostatečně malé $\delta > 0$ je $ A $ kontrahující zobrazení. Nechť $f,g \in C(I)$. Potom: \begin{flalign*}
+			d(A(f), A(g)) &= \max_{x \in I} |A(f)(x) - A(g)(x)|  \qquad\qquad\qquad\qquad\ldots\ldots\textit{ definice metriky }d\\
+			&= \max_{x \in I} \left| \int_{a}^{x} F(t, f(t)) ~dt -  \int_{a}^{x} F(t, g(t))\right| \qquad\ldots\ldots\textit{ definice zobrazení }A\\
+			&= \max_{x \in I} \left| \int_{a}^{x} \left(F(t, f(t)) - F(t, g(t))\right)~dt\right| \qquad\quad\ldots\ldots\textit{ linearita }\int\\
+			&\leq \max_{x \in I} \int_{a}^{x} \left| F(t, f(t)) ~dt - F(t, g(t))\right|~dt \qquad~~\ldots\ldots~~ \left|\int h\right| \leq \int |h|\\
+			&\leq \max_{x \in I} \int_{a}^{x} M \left| f(t)- g(t)\right| ~dt \qquad\qquad\qquad\quad~\ldots\ldots\textit{ předpoklad pro }F\\
+			&\leq \max_{x \in I} \int_{a}^{x} M \cdot d(f, g) ~dt \qquad\quad\qquad\qquad\qquad~\ldots\ldots ~~ h \leq j \implies \int h \leq \int j\\
+			&= \delta M \cdot d(f,g). \qquad\qquad\qquad\qquad\quad\qquad\qquad~~\ldots\ldots ~~\int_a^x c = (x-a)c
+		\end{flalign*}
+		Například pro $\delta = \half M$ je tedy $A$ kontrahující zobrazení, s konstantou $c = \half$
+	\end{proof}
+\end{thm}
+\newpage
+
+\section{Diferenciální rovnice)}
+\setcounter{equation}{0}
+
+\paragraph{Lineární diferenciální rovnice} jsou rovnice tvaru $ a_n(x)y^{(n)}  + a_{n-1}(x)y^{(n-1)} + \ldots + a_1(x)y^{'}+a_0(x)y = b(x).$
+
+\paragraph{Zadání:}  \textit{Vyřešte diferenciální rovnici $y' + ay = b$ pro neznámou funkci $ y = y(x) $ (a dané funkce $ a(x) $ a $ b(x) $).}
+Jedná se o lineární diferenciální rovnici prvního řádu tvaru: \begin{equation}
+(x_0, y_0 \in \R): y(x_0) = y_0 ~~\land~~ y' + a(x)y = b(x),
+\end{equation} kde $y = y(x)$ je neznámá funkce a funkce $a(x)$ a $ b(x) $ jsou dané, definované a spojité na nějakém otevřeném intervalu $I$, $x_0 \in I$.
+
+Lokální jednoznačnost a existence řešení rovnice plyne z Picardovy věty, takže stačí rovnici jen vyřešit.
+
+\paragraph{Řešení:} 
+
+Hledáme tedy \textit{integrační faktor} $c = c(x)$ takový, že $c \cdot (y' + ay) = (cy)'$.
+Potom $ cy' + acy = cy' + c'y $ a $ c $ musí splňovat rovnici $ac = c'$, čili $(\log c)' = a$.
+Funkce $c = e^A$, kde $A = \int a$, má tedy požadovanou vlastnost. 
+
+Výchozí lineární rovnici vynásobíme integračním faktorem a dostaneme: $$ (cy)' = \underbrace{c(y' + ay) = cb}_{c\cdot (1)}. $$
+Takže $(cy)' = cb$ a $cy = D + c_0$ , kde $D = \int cb$ a $c_0$ je \textit{integrační konstanta}. Máme tedy řešení $y = c^{-1} (D + c_0)$. Neboli: 
+\[
+	y(x) = e^{-A(x)} \left(\int e^{A(x)}b(x) ~dx + c_0\right), \textit{\quad kde } A(x) = \int a(x) ~dx.
+\]
+
+Můžeme si všimnout, že $y(x)$ je definováno na celém $ I $ a že $\forall y(x_0) = y$ odpovídá právě jedna hodnota $ c_0 $.
+
+\end{document}

@@ -1,0 +1,1247 @@
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[margin=0.7in]{geometry}
+\usepackage{amssymb, amsthm, amsmath, amsfonts}
+\usepackage{array, xcolor, enumitem, graphicx}
+
+\usepackage[czech, shorthands="]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[unicode]{hyperref}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue,
+    pdftitle={Úvod do počítačových sítí - shrnutí},
+    pdfpagemode=FullScreen,
+}
+
+\setlength{\parindent}{0em}
+
+\title{Úvod do počítačových sítí - shrnutí základních pojmů}
+\date{30-12-2022}
+\author{Karel Velička}
+\renewcommand*\contentsname{Obsah}
+
+\begin{document}
+\pagenumbering{arabic}
+\maketitle
+
+\begin{center}
+    Vyučující: \textit{RNDr. Libor Forst} a \textit{Mgr. Klára Pešková, Ph.D.}
+\end{center}
+
+\tableofcontents
+
+\newpage
+\pagenumbering{arabic}
+
+\section{Lekce}
+
+\subsection{Komunikace - odolnost a bezpečnost}
+
+\subsubsection{Okruhy X Pakety}
+    
+\paragraph{Okruhy} síť pro propojení \textit{našeho} a \textit{koncového} zařízení musí najít posloupnost uzlů. 
+
+Náchylné k vypadkům - odpojením uzlu zanikne spojení. Přesnos dat je rychlý ale nespolehlivý.
+
+\paragraph{Packet} rozdělení dat na menší blok. Každý paket si najde vlastní cestu k cílovému uzlu. 
+
+Při výpadku uzlu si paket najde alternativní cestu. Přenos je pomalý a spolehlivý.
+
+\subsubsection{DoS a DDoS}
+\paragraph{Denial of Service} útok snažící se zahlcením znepřístupnit komunikaci s ostatními uživateli
+
+\paragraph{Distributed Denial of Service} využití cizích serverů k provádění \textit{DoS}
+
+\subsection{Síť a její rozšiřitelnost}
+Animované video: \href{https://youtu.be/NyZWSvSj8ek}{YouTube}.
+
+\subsubsection{LAN}
+
+\textbf{LAN (Local Area Network):} místní privítní síť, je rozdělena na 3 vrstvy
+
+\begin{enumerate}
+    \item \textbf{Core:} hlavní část sítě, napřímo spojená s \textit{IPS (Internet Service Provider)}
+        \begin{enumerate}
+            \item \textbf{Router:} uzel propojující různé sítě
+            \item \textbf{Switch:} přepínač - propojuje uzly navzájem.
+        \end{enumerate}
+    \item \textbf{Distrubuční:} distrubuuje síť do všech částí budovy.
+    \item \textbf{Přístupová (access):} umožňuje připojení k síti koncovym zařízením.
+\end{enumerate} 
+
+\subsubsection{WAN}
+\textbf{WAN (Wide Area Network):} globální veřejná síť \textit{(LAN je součástí WAN)}. Rozdělena do tří vrstev.
+
+\begin{enumerate}
+    \item \textbf{Tier 1:} klíčoví hráči internetu - společnosti s přímym přístupem. Propojují kontinenty.
+    \item \textbf{Tier 2:} regionální/ národní operátoři
+    \item \textbf{Tier 3:} ISP propojující koncové zákazníky, kteří chtějí LAN připojit k internetu
+\end{enumerate}
+
+\subsubsection{Přenosové parametry}
+
+\textbf{Latence:} zpoždění komunikace - doba od odeslání do doručení
+
+\textbf{Jitter:} rozptyl zpoždění - vyjadřuje pravidelnost přijatych dat
+
+\textbf{Ztrárovost:} kolik packetů nebylo doručeno
+
+\textbf{Bandwidth (Šířka pásma):} \textit{"rychlost"} - kolik dat lze přenášet
+
+\subsubsection{Kvalita služeb}
+
+\textbf{QoS (Quality of Service):} určuje prioritu.
+
+\textbf{Best effort:}
+Síťovy uzel vybírá z fronty podle priorit.
+
+\subsection{Veřejné a privátní sítě}
+
+\subsubsection{VPN}
+
+\paragraph{Virtual Private Network} spojuje dvě privátní sítě přes veřejnou síť.
+
+Dvě LAN jsou propojeny \textit{VPN tunelem}, ktery vede přes WAN.
+Machanismus je v rámci obou LAN transparentní a tváří se jako jedna LAN.
+
+Provoz z LAN$_1$ se zašifruje a vstoupí do \textit{tunelu}, odešle se přes WAN, při výstupu z \textit{tunelu} se dešifruje a nakonec je doručen do LAN$_2$. 
+
+\subsection{Historie internetu}
+
+\subsubsection{ARPA(NET)}
+
+\paragraph{Advanced Research Project Agency} agentura specializující se na přepínání paketů. Vytvořili první \textit{point-to-point} spojení přes telefonní linky - \textit{ARPANET}.
+
+\subsubsection{RFC}
+
+\paragraph{Request for Comments} prostředek standardizace intenetu
+
+\subsection{Souhrn 1}
+
+\subsubsection{Jaké jsou výhody a nevýhody přepojování paketů?}
+Vyhodou je spolehlivost přenosu, nevýhodou je rychlost \textit{(resp. pomalost)}.
+
+\subsubsection{Jak se na síťových protokolech projevilo to, že vznik sítí iniciovala armáda z důvodů zvýšení bezpečnosti komunikace?}
+Bylo bráno v potaz jen fyzické bezpečnostní riziko (překopnutí kabelu), ne ochrana dat a soukromí.
+
+
+\subsubsection{Co je smyslem požadavku na škálovatelnost sítě?}
+Aby přidání nového počítače bylo snadné a nemusely se kvůli němu provádět zásadní změny.
+
+\subsubsection{Jak se liší nároky elektronické pošty a telefonování po IP síti na přenosové parametry sítě?}
+Pošta může mít vyšší latenci, ale požadujeme po ní nulovou ztrátovost. Při telefonování si můžeme dovolit pár dat poztrácet, protože chceme mít latenci co nejnižší.
+
+\subsubsection{Jaká je definice LAN?}
+Přesná definice neexistuje. 
+
+Můžeme ji definovat například jako místní privátní síť, která je napojena na IPS a která umožňuje připojení k síti koncovym uživatelům.
+
+\subsubsection{Co je podstatou VPN?}
+
+Spojuje dvě privátní sítě přes jednu síť veřejnou.
+
+\newpage
+
+\section{Lekce}
+
+\subsection{Síťovy (referenční) model}
+
+\paragraph{Síťovy model} počet vrstev, jejich struktur; rozdělení práce mezi vrstvy
+
+\subsubsection{OSI model}
+
+\paragraph{Open System Interconnection} síťová architektura sestavená z Basic Reference Modelu a sady protokolů. 
+
+Je vhodny pro dokumentaci, v reálu nepoužitelné - navrženo shora, neprakticky. Rozdělen do sedmi vrstev:
+
+\begin{enumerate}
+    \item \textbf{vrstva - fyzická:} zajišťuje fyzicky přenos bitů mezi uzly
+    \item \textbf{vrstva - linková:} zajišťuje přenos dat mezi uzly, určuje zdroj a cíl přenosu, hledá a opravuje chyby
+    \item \textbf{vrstva - síťová:} zajišťuje přenos datovych bloků s \textbf{proměnlivou} délkou pakety mezi dvěma uzly v různych sítích \textit{(jinak předá pižadavek linkové vrstvě)}.
+    \item \textbf{vrstva - transportní:} zajišťuje přenos a příjem datovych bloků s \textbf{neomezenou} délkou mezi dvěma aplikacemi. Možná segmentace velkych bloků. End-to-End přenos datovych bloků.
+    \item \textbf{vrstva - relační:} řídí dialog mezi dvěma aplikacemi
+    \item \textbf{vrstva - prezentační:} datová konverze pro aplikace
+    \item \textbf{vrstva - aplikační:} zajišťuje interakci mezi uživatelem a protokolem, ktery implementuje komunikaci k vykonání požadavku
+\end{enumerate}
+
+\subsection{Síťová architektura}
+
+\paragraph{Síťová architektura} síťový model s konkrétními technologiemi, službami a protokoly
+
+\subsubsection{TCP/IP} 
+
+\begin{enumerate}
+    \item \textbf{vrstva - síťové rozhraní:} Ethernet, WiFi, ...
+    \item \textbf{vrstva - síťová:} odpovídá 3. vrstvě v OSI. Používán protokol IP (IPv4, IPv6) \textit{(Internet Protocol)}
+    \item \textbf{vrstva - transportní:} odpovídá 4. vrstvě v OSI. Používány protokoly TCP a UDP
+    \item \textbf{vrstva - aplikační:} odpovádá 5,6,7 vrstvě v OSI. Je snazší definovat pravidla dialogu a vyznam dat bez mezivrstev.
+\end{enumerate}
+
+\subsubsection{TCP}
+
+\paragraph{Transaction Control Protocol} spojovaná služba $\implies$ spolehlivé doručení dat, je jednodušší aplikace, nemůže řídit komunikaci, složitá implmentace.
+
+Odešle datovy blok, rozsegmentuje data na menší bloky, odešle v jednotlivych paketech a mezitím potvrzuje úspěšné doručení \textit{(pokud se nedoručí, odešle se znovu)}.
+
+\subsubsection{UDP}
+
+\paragraph{User Datagram Protocol} nespojovaná služnba $\implies$ nespolehlivá - není zaručeno pořadí ani doručení paketů, kontrolu provádí aplikace, může řídit komunikaci.
+
+Odešle pakety a odpovědnost přenechá na aplikaci.
+
+\subsection{Aplikační modely a adresování počítačů}
+
+\subsubsection{Klient-Server X Peer-To-Peer}
+
+\paragraph{Klient-Server} Klient musí znát adresu serveru a pokusí se ho kontaktovat, poté se zahájí přenos dat.
+
+\paragraph{Peer-To-Peer} Uživatel nemusí znát adresu serveru, vyměna dat je obousměrná, nejsou zde vyhraněné role $\implies$ každý je server i klient
+
+\subsubsection{Adresování počítačů}
+
+\paragraph{HW - Linková vrstva} fyzická MAC adresa, nastavitelná \textit{dříve dána vyrobcem}
+
+\paragraph{SW - Síťová vrstva} IP adresa, určuje jednoznačně počítač v síti, předělována podle topologie sítě
+
+\paragraph{Lidé - aplikační vrstva} doménová adresa, hierarchie je zprava doleva - poslední je \textbf{TLD = Top Level Domain} \textit{(ostatní SLD - Second Level Domain, spravováno majitelem)}, k převodu mezi doménovymi jmeny a IP se používá DNS, k převodu mezi síťovými a MAC se používá protokol ARP
+
+\paragraph{Socket} jeden konec komunikačního kanálu mezi klientem a serverem - IP adresa + port \textit{(16b int)}
+
+\paragraph{NAT (Network Address Translation)} LAN používá privátní adresy a ven se představuje veřejnymi adresami, \href{https://youtu.be/FTUV0t6JaDA}{video}
+
+\subsection{Adresování služeb}
+
+\subsubsection{URI}
+
+\paragraph{Uniform Resource Identifier} definuje odkaz, buď umístění zdroje (URL - Locator) nebo mázev služby (URN - Name - nebylo úspěšně implementováno)
+
+URI = \textit{schéma}://\textit{autorita}/\textit{cesta}/(?\textit{dotaz}, \#\textit{fragment})
+URI = http://sunsite.mff.cuni.cz/Net/RFC\#ahoj
+
+\subsection{Datovy tok v TCP/IP}
+
+\href{https://youtu.be/uwoD5YsGACg}{Video}.
+
+\subsubsection{Multiplexing a zapouzdření}
+
+\paragraph{Multiplexing} několik komunikačních kanálů v určité vrstvě používá stejny komunikační kanál v podřízené vrstvě
+
+\paragraph{Zapouzdření} vrstva $n-1$ převezme řídící informace, zpracuje je a připraví PDU (Protocol Data Unit), která se skládá z těla obsahující PDU$_n$ a záhlaví s řídícími informacemi.
+
+\newpage
+
+\section{Lekce}
+
+\paragraph{Autentizace} proces používán uživatelem k prokázání totožnosti
+
+\paragraph{Autorizace} proces přiřazení serverem oprávnění nějakému ověřenému subjektu
+
+\paragraph{OTP (One Time Password)} umožňuje nereplikovatelnou plain-text autentikaci uživatele
+
+používalo se \textit{challenge-response} - server po přihlášení pošle náhodny řetezec, ktery potom uživatel zadá spolu s heslem do kalkulačky a vysledek napíše serveru jako odpověď.
+
+Nyní se používají malá HW zařízení (tokeny), která jsou synchronizovaná se serverem a generují kód pro identifikaci - platnost jen několik sekund, na jedno použití
+
+\subsection{Kryptografické algoritmy}
+
+\subsubsection{Symetrické šifrování}
+
+\textit{Pro šifrování a dešifrování se používá stejny klíč.}
+
+Vyhodou je rychlost, nevyhodou je, že obě strany si potřebují předat klíč
+
+Například \textit{Blowfish, AES}
+
+\subsubsection{Asymetrické šifrování}
+
+\textit{Pro šifrování a dešifrování se používá pár navzájem neofvoditelnych klíčů}.
+
+Třeba mít dva klíče - tajny a veřejny.
+
+Vyhodou je, že obě strany nemají společny klíč, nevýhodou je rychlost + autenticita veřejného klíče (ověřuje třetí strana - \textit{web of trust} nebo \textit{CA - Certification Authorities})
+
+Například \textit{RSA, DSA}.
+
+
+\subsubsection{Hashovací funkce}
+
+\textit{Vytvoření z jakéhokoli datového vstupu pevny kód krátké délky.}
+
+Malá změna vstupu zajístí naprosto odlišny vysledek.
+Funkce je jednocestná.
+
+\subsection{Šifrování dat}
+
+Efektivní šifrování kombinuje symetrické i asymetrické šifrování. 
+
+Vygenerujeme klíč → symetricky zašifrujeme text → asymetricky zašifrujeme klíč veřejnym klíčem příjemce → předáme příjemci → asymetricky dešifruje tajnym klíčem klíč → klíčem symetricky dešifruje text.
+
+\subsubsection{Elektronicky podpis}
+
+Kombinace asymetrického šifrování a hashovací funkce.
+
+Odesílatel vezme text → vypočítá jeho hash → vezme svůj soukromy klič a zašifruje hash → připojeno k původnímu textu → příjemce dešifruje hash veřejnym klíčem odesílatele  → pokud jsou obě hodnoty hashe stejné, je podpis pravy.
+
+Odhalí změny v souboru a změnu odesílatele.
+
+\subsection{Algoritmy}
+
+\subsubsection{Diffie-Hallmanův algoritmus}
+
+Umožňuje dvěma partnerům dohodnout se na společném tajemství pomocí komunikace přes otevřeny nezašifrovany kanál.
+
+\begin{enumerate}
+    \item Alice vygeneruje tajné číslo $a$ a veřejná prvočísla $p,q$.
+    \item Spočítá $A = p^a \mod q$ a pošle $p,q$ Bobovi.
+    \item Bob vygeneruje tajné číslo $b$, spočítá $B = p^b \mod q$ a pošle $B$ Alici.
+    \item Alice spočítá $s = B^a \mod q$ a Bob taktéž $s = A^b \mod q$
+\end{enumerate}
+
+\textit{Kanálem se posílají pouze vysledky diskrétních logaritmů. Funkce jsou jednocestné.}
+
+$A^b = (p^a)^b = p^{ab} = p^{ba} = (p^b)^a = B^a$
+
+\subsubsection{SSL a TSL}
+
+\paragraph{Secure Socket Layer a Transport Layer Security} Mezivrstva mezi transportní a aplikačnívrstvou umožňující autentikaci a šifrování \textit{(například HTTPS - HTTP přes SSL)}
+
+\begin{enumerate}
+    \item Klient pošle požadavek na SSL + parametry
+    \item Server pošle odpověď + parametry + certifikát serveru
+    \item Klient ověří server, vygeneruje šifrovací klíč, zašifruje ho veřejnym klíčem serveru a pošle mu ho
+    \item Server rozšifruje šifrovací klíč  a vytvoří z něj oba hlavní šifrovací klíč
+    \item Klient i server si potvrdí komunikaci šifrovanou tímto klíčem
+\end{enumerate}
+
+
+\subsection{Aplikační vrstva TCP/IP}
+
+Určuje pravidla komunikace mezi serverem a klientem. Protokol definuje: \textit{formát zpráv (txt, bin...), průběh dialogu (kdo inicioval spojení...), typ zpráv (požadavky a odpovědi), vyznam zpráv (musí $\exists !$ interpretace), interakce s transportní vrstvou (UDP nebo TCP, ...)}
+
+\subsection{DNS}
+
+\paragraph{Domain Name System} služba \textit{(klient-server)} pro překlad doménovych jmen na IP adresy a naopak.
+
+Běžné dotazy se vyřizují přes UDP, větší datové vyměny přes TCP \textit{(pokud data překročí limit a zopakuje se zpráva za pomoci TC (truncated))}.
+
+\textit{Klient:} posílá dotazy na servery, které má ve své komunikaci, postupně zvyšuje timeout na příchod odpovědi, dokud ji nedostane. Pokud odpověď neobsahuje potřebné informace, obsahuje odkaz na další servery.
+
+\textit{Binární protokol:} zpráva obsahuje hlavičku, počet záznamů \textit{(RR - Resource Record)} . Každy záznam obsahuje jméno, TTL - Time To Live\textit{(doba platnosti v sekundách)}, typ záznamu a odpovídající data.
+
+Například: \textit{ns.cuni.cz 3600 in A 195.113.19.78}
+
+\subsubsection{DNS záznamy}
+
+\begin{enumerate}
+    \item \textbf{SOA} (Start Of Autority): obecné informace o doméně
+    \item \textbf{NS} (NameServer): jméno nameserveru domény
+    \item \textbf{A}: IPv4 adresa počítače
+    \item \textbf{AAAA}: IPv6 adresa počítače
+    \item \textbf{PTR}: reverzní jméno, slouží pro převod adresy na jméno. Důvodem je hierarchie jmen (zprava doleva) a adres (zleva doprava).
+    \item \textbf{CNAME} (Canonical NAME): záznam pro tvorbu aliasů. Na levé straně jméno aliasu, na pravé kanonické jméno PC.
+    \item \textbf{MX} (Mail eXchanger): definuje ktery server přijímá pro danou doménu poštu.
+\end{enumerate}
+
+\subsubsection{Servery DNS}
+
+\paragraph{Autoritativní nameserver} primární + sekundární server; každá doména musí mít alespoň jeden
+
+\begin{enumerate}
+    \item \textbf{primární (master):} spravuje databázu záznamů domény
+    \item \textbf{sekundární (slave):} stahuje a uchovává kopii dat o doméně; "záloha"
+    \item \textbf{caching-only:} udržuje jen (ne)vyřešené dotazy po dobu platnosti
+\end{enumerate}
+
+Obnovu databáze iniciuje většinou slave v závislosti na periodě v SOA záznamu. Master pouze, když cití, že je to třeba (velká změna dat).
+
+\subsubsection{Vyřizování DNS dotazu}
+
+\href{https://youtu.be/mpQZVYPuDGU}{Video}.
+
+www.mff.cuni.cz → rekurzivně na nameserver v doméně → adresu nemá v databázi → pošle nerekurzivně na kořenovy nameserver → nemá v databázi, takže vyhodnotí TLD → server uloží informaci o TLD do cache → pošle dotaz na navrhovany server → např. ns.cesnet.cz → opakuje se, dokud nedostaneme konečnou odpověď.
+
+\textit{(odkaz posíláme kořenovému serveru cely, protože je DNS navrženo tak, že ve jméni může byt tečka)}
+
+\paragraph{Dotaz} záhlaví - 2B číslo dotazu (ID), příznaky (požadavek na rekurzi), QUERY (RR obsahující jméno a typ: \textit{www.cuni.czu IN A}).
+
+\paragraph{Odpověď} záhlaví - ID, příznaky (autoritativnost odpovědi), QUERY, Answer (RR s odpovědí), AUTHORITY (seznam nameserverů mohoucí dát autoritativní odpověď/ informaci), ADDITIONAL (dodatečné informace)
+
+\subsubsection{Bezpečnost v DNS}
+
+Náročné se dostat ke znění dotazu $\implies$ nemůže změnit odpověď.
+
+\paragraph{cache-poisioning} útočník donutí klienta poslat DNS dotaz, v sekci AUTHORITY změní informaci o tom, že server pro doménu cz je také útočníkův server (uloží do cache)$\implies$ úplná kontrola nad dotazy
+\textit{řešení je neukládat do cache neautoritativní odpovědi}
+
+\paragraph{DNSSEC} rozšíření; podepisování záznamů klíčem; extrémně komplikované
+
+\newpage
+
+\section{Lekce}
+
+\subsection{FTP}
+
+\href{https://youtu.be/tOj8MSEIbfA}{Video}.
+
+\paragraph{File Transfer Protocol} textovy protokol k umožnění vzdáleného přístupu pro přenos dat (s otevřenym heslem). 
+
+Dnes anonymní přístup \textit{(místo hesla email)} k volně šířenym datům. Klient naváže řídící spojení na server (port \textbf{21}).
+
+\subsubsection{Kódy odpovědí}
+
+\begin{enumerate}
+    \item[--] 1xx - \textbf{Předběžne kladná odpověď:} server přijal požadavek a bude ho řešit.
+    \item[--] 2xx - \textbf{Kladná odpověď:} server úspěšně dokončil požadavek
+    \item[--] 3xx - \textbf{Neúplná kladná odpověď:} server přijal požadavek, je vyžadováno klientem doplnění informací \textit{(např. jméno a heslo)}
+    \item[--] 4xx - \textbf{Dočasná záporná odpověď:} operace se nezdařila, je možné požadavek opakovat. Obvykle chyba serveru \textit{(přetížení)}
+    \item[--] 5xx - \textbf{Trvalá záporná odpověď:} fatální chyba, opakování požadavku nebude úspěšné
+\end{enumerate}
+
+\subsubsection{Aktivní/ pasivní datové spojení}
+
+FTP má dodatečny datovy kanál, pomocí nějž přenáší veškery datovy obsah (download, upload souboru...)
+
+\paragraph{Aktivní datové spojení} navazuje server, na portu 20 s názvem \textit{ftp-data}
+\paragraph{Pasivní datové spojení} navazuje klient, potřebuje od serveru adresu a port \textit{(požádá příkazem PASV)}
+
+\subsubsection{Aplikace pro FTP}
+
+webové prohlížeče \textit{(pro download stačí URL)}, Total Commander, Command app ftp \textit{(příkazy jako normálně v UNIXu, pro přenos: mget, mput)}
+
+\subsection{SMTP}
+
+\paragraph{Simple Mail Transfer Protovol} textovy protokol na TCP s portem 25, odesílá zprávy a odpovědi \textit{(jako u FTP)}
+
+\subsubsection{Příjem a odeslání pošty v SMTP}
+
+odešli dopis → server zkontroluje adresu za zavináčem → přiřadí doménu → mail se předá serveru v LAN \textit{(mail-forwarder)} = \textit{mail-submission} → každy uzel, ktery přijímá a doručuje se nazyva MTA \textit{(Mail Transfer Agent)}, chová se jako server a server → MTA pošle dalšímu MTA, dokud nejsme na správném serveru \textit{(případně čeká ve frontě)}
+
+\paragraph{MX záznam} zabránění čekání ve frontě - nastevení v DNS, jméno \textit{mail exchangeru} pro dočasné přijímání pošty a prioritu. Potom MTA zkouší doručovat podle priorit, dokud neuspěje.
+
+Není vhodné pro velké soubory, neustálé ukládání do front v MTA uzlech
+
+\subsubsection{MUA}
+
+\paragraph{Mail User Agent} zajišuje pro uživatele přístup do poštovního systému
+
+\begin{enumerate}
+    \item přímé připojení - uživatel se připojí na MTA, kde má mailbox. Aplikace má přímy přístup k mailboxu a zároveň k lokálním MTA → odesílané zptávy přímo do fronty MTA
+    \item protokol POP / IMAP - klient se připojí na server (ktery je na MTA). Umožňuje pouze doručovat, odesílání musí provádět mail submission přes SMTP
+\end{enumerate}
+
+\subsubsection{Elektronicky dopis}
+
+\paragraph{Záhlaví (Hlavička)} určeno pro informaci pro koncového uživatele, pro práci mailovych programů
+\begin{itemize}
+    \item \textbf{Date:} Datum pořízení dopisu (americky formát)
+    \item \textbf{From:} autor dopisu ("jméno <email>")
+    \item \textbf{Sender:} odesílatel dopisu
+    \item \textbf{Reply-To:} adresa pro odpověď
+    \item \textbf{To:} adresát dopisu, příjemce
+    \item \textbf{Cc:} Carbon Copy - adresáti kopie
+    \item \textbf{Bcc:} Blind Carbon Copy - program přidá adreáta do obálky, ale ne do textu → ostatní příjemci neví, že byl mezi adresáty
+    \item \textbf{Messege-ID:} identifikace dopisu, vyrábí program, pro pořadí vláken
+    \item \textbf{Subject:} předmět dopisu
+    \item \textbf{Received:} záznam o přenosu dopisu - uvedeny všechny uzly, které dopis přeposlaly
+\end{itemize}
+
+Možnost používat nonascii znaky v rozšíření ESMTP (8b kódování přenosu) nebo MIME (definuje strukturu a vyznam těla dopisu)
+
+\subsubsection{Diakritika v poště a kódování}
+
+Problém zažívali také UNIXové sítě UUCP (UNIX-to-UNIX copy), vymysleli UUENCODE.
+
+\paragraph{UUENCODE} vezmou se 3B původního souboru → rozdělí se do 4 skupin po 6b → 6b kódy se převedou na 4 tisknutelné znaky pomocí pevné tabulky. Zakódování má o $33\%$ větší velikost.
+
+Chybělo systematické začlenění do dopisu
+
+\paragraph{Multipurpose Internet Mail Extension} řeší strukturu dokumentu. Obsahuje \textit{hlavičku} a \textit{tělo}. Hlavička definuje:
+
+\begin{itemize} 
+    \item \textbf{typ dokumentu} - \textit{(txt, html, jpg, ...)}
+    \item \textbf{znakovou sadu a kódování dokumentu} - \textit{(Base64, Quoted-Printable)}
+    \item \textbf{původní název souboru}
+    \item \textbf{způsob zpracování} - \textit{(zobrazení jako příloha, vložení do textu apod.)}
+\end{itemize}
+
+\textbf{Multipart:} tělo je strukturované, aplikace vygeneruje náhodny řetězec, ktery odděluje části dokumentu
+
+\paragraph{Base64} kódování UUENCODE s novou kódovací tabulkou (i velká písmena). Vyhodou je stabilní velikost vysledného kódu $133\%$.
+\paragraph{Quoted-Printable} každy non-ASCII znak se převede na sekvenci \textbf{=HH} \textit{(HH je hex hodnota znaku)}. Pouze non-ASCII $= 300\%$ původního kódu a pouze ASCII znaky $= 100\%$ původního kódu.
+
+\subsubsection{Bezpečnost pošty a Spam}
+
+\paragraph{Open-relay-server} server dovolí komukoliv, aby se připojil a poslal dopis kamkoliv, riziko hromadnych mailů
+
+\paragraph{ESMTP} rozšíření SMTP, obsahuje šifrovací příkaz \textit{STARTTLS}, kterym zahájí SSL/TLS spojení. Využíváno ve firmách.
+
+\paragraph{Gray-listing} spamovací automaty nekontrolují úspšnost doručení → nejprve mail odmítne s odpovědí 450, vyčká a poté už soubor přijme s odpovědí 250 a doručí. Adresu non-spam uživatele si uloží do seznamu a neblokuje prvotní žádost po dobu obvykle 5ti tydnů. Adresu spam uživatele naopak napíše na "černou listinu" a blokuje zprávy dál.
+
+\paragraph{Sender Policy Framework} doména definuje, jaké servery používá pro odeslání pošty, od nikoho jiného poštu nepřijme. Problém s přeposlanymi emaily.
+
+\paragraph{DomainKeys Identified Mail (DKIM)} odesílací stroj dopis podepíše (text a hlavičky) a příjemce zkontroluje podpis.
+
+\paragraph{Antispam} algoritmy odhadující pravděpodobnost, že mail je spam \textit{(atributy jako: frekvence vyskytu slov, Subject pouze velkymi písmeny)}. Časté riziko \textit{false positive}.
+
+\section{Lekce}
+
+\subsection{Poštovní protokoly}
+
+\href{https://youtu.be/SBaARws0hy4}{Video}.
+
+\subsubsection{POP}
+
+\paragraph{Post Office Protocol} protokol pro přístup k počtovní schránce, bezpečnostní problémy a nevýhody \textit{(otevřené posílání hesla, nutno stahovat cely dopis ze serveru, nelze pracovat se strukturou dokmentů)}
+
+\subsubsection{IMAP}
+
+\paragraph{Internet Message Access Protocol} nástupce POOP, možnost šifrovaného spojení, vyhledávání v dopisů, stažení jen konkrétní části, podpora více schránek, uchování stvu dopisu na serveru...
+
+Používá se šifrování TLS na portu 993 (nebo příkaz STARTTLS).
+
+\subsection{Web}
+
+\href{https://youtu.be/hExRDVZHhig}{Video}.
+
+\subsubsection{Gopher}
+
+První celosvětově rozšířená služba distruované databáze - fungoval jako web, ale uměl pracovat pouze s textem
+
+\subsubsection{World Wide Web}
+
+\paragraph{Hypertext} hierarchicky text, základní myšlenka vznikla po válce, později rozšířeno o netextové informace, implementováno v CERNU roku 1989 spolu s WWW
+
+\paragraph{WWW} obrovská distribuovaná hypertextová databáze (distribuováno na obrovském množství serverů), základní jednotka je hypertextová stránka, kterou server posílá na žádost klienta
+
+Přenos stránek zajišťuje protokol HTTP, zabezpečení pomocí TLS (HTTPS)
+
+\subsubsection{Metody HTTP}
+
+
+\paragraph{Idempotence} opakované použití má stejny efekt
+
+\begin{itemize}
+    \item[--] \textbf{GET:} klient žádá o poskytnutí stránky, požadavek=nic, odpověď=dokument, nemění obsah serveru, je idempotentní
+    \item[--] \textbf{HEAD:} zjednodušené GET, odpověď jsou pouze hlavičky
+    \item[--] \textbf{POST:} klient pošle na server nějaké informace a dostane zpět obsah dokumentu, může měnit obsah na serveru, není idempotentní
+    \item[--] \textbf{PUT:} má za úkol přepsat obsah dokumentu na serveru poslanym dokumentem z požadavku, je idempotentní
+    \item[--] \textbf{DELETE:} smaže dokument na serveru, je idempotentní
+    \item[--] \textbf{CONNECT:} pouze ověření spojení podle požadovanych parametrů, umožňuje budování tunelu pro realizaci jiného spojení na jiném protokolu (bezpečnostní riziko)
+\end{itemize}
+
+Hlášení: 
+\begin{itemize}
+    \item[--] 1xx - \textbf{Informativní dpověď:} server přijal požadavek, zpracovává se.
+    \item[--] 2xx - \textbf{Kladná odpověď:} server úspěšně dokončil požadavek
+    \item[--] 3xx - \textbf{Přesměrování:} server přijal požadavek, je vyžadován od klienta další požadavek
+    \item[--] 4xx - \textbf{Chyba na straně klienta} nesprávny požadavek \textit{(špatná URL, autentikace, ...)}
+    \item[--] 5xx - \textbf{Chyba na straně serveru:} požadavku se nedalo vyhovět
+\end{itemize}
+
+\subsubsection{HyperText Transfer Protocol v.1}
+
+V podstatě pouze textová verze. Formát: úvodní řádka \textit{(požadavek, odpověď)}, (doplňující hlavička - kódování, jazyk, typ dokumentu), prázdná řádka, tělo dokumentu
+
+Z hlaviček je povinná pouze hlavička \textbf{Host} = na jaky server se klient obrací.
+
+\textbf{Vlastnosti:}
+
+\paragraph{perzistentní spojení} klient nemusí zavírat TCP spojení a navazovat nové, může používat jedno spojení pro více požadavků
+\paragraph{Cookies} serverem vygenerovaná data na základě informací od uživatele poslána klientovi při odpovědi ve formě hlaviček \textit{Set-Cookie}. Prohlížeč si je uloží a posílá hlavičku při každém požadavku na stejny server. 
+
+\subsubsection{HTTP v.2}
+
+Změna z textového protokolu na binární. 
+
+Vytvořen koncept vlastních streamů provozovanych nad jedním TCP (vzájemně se neblokují, dají se prioritizovat)
+
+Server může poslat více dat než klient požadoval, pokud usoudí, že budou potřeba (stránka s obrázky)
+
+Možnost komprimovat hlavičky
+
+\paragraph{HyperText Markup Language (HTML)} textovy obsah stránky, doplněn formátováním, struktorou atd.
+
+\subsection{Vzdáleny přístup}
+
+\href{https://youtu.be/tZop-zjYkrU}{Video}.
+
+\subsubsection{Telnet}
+
+\paragraph{TELecommunication NETwork} protokol pro přihlašování na vzdálené stroje, \textit{(port 23)}
+
+K dispozici je terminál, existují čtyři zprávy: \textit{DO ECHO, DON'T ECHO, WILL ECHO, WON'T ECHO}.
+
+Problémy: otevřeny přenos dat, riziko zacyklení
+
+\subsubsection{SSH}
+
+\paragraph{Secure SHell} bezpečná náhrada Telnetu, šifrovaná komunikace, server je ověřen.
+
+Umožňuje otevírat paralelně více kanálů \textit{(můžeme byt přihlášeni v terminálu a zároveń přenášet soubory)}
+
+Umožňuje tunelovat kanálem jiny provoz a zpřístupnit souborovy systém SSHFS
+
+\paragraph{Bezpečnost na SSH}
+
+Klient ověřuje server → kontrola klíče/ certifikát
+Server ověřuje klienta → heslo/ veřejny klíč/ pomocí vyzev a odpovědí
+Je třeba dávat pozor na MITM a na internetové červy (pokud máme recipročně nastavené přihlášení)
+
+\subsection{Voice over IP}
+
+\paragraph{VoIP} není konkrétní protokol, ale obecně technologie pro přenos hlasu po IP.
+
+Časté problémy jsou digitalizace hlasu, dohadování vlastností zařízení, propojení s telefonní sítí
+
+Existují tři způsoby - standard H.323, standard SIP a proprietárně (např. Skype)
+
+\subsubsection{H.323}
+
+Vytvořeno společností ITU, založeno na ASN.1 .
+
+Řeší všechny problémy, ale je stary a neprakticky. Protokoly jsou binární (doslova, nepracuje se s bajty ale s bity) - jsou nečitelné a těžko implementovatelné.
+
+Nahrazován protokolem SIP.
+
+\paragraph{Abstract Syntax Notaion 1 (ASN.1)} formálně definuje datovou strukturu. Opět problém implementace - každá hodnota se zapíše pouze tolika bity, kolika je potřeba - řeší se nákupem knihoven, které vytvoří z textového zápisu ASN.1 kód, ktery zapis a čtení realizuje
+
+\subsubsection{SIP}
+
+\paragraph{Session Initiation Protocol} textovy protokol se strukturou zpráv (podobná HTTP, informace v hlavičkách - uzly a cesty) pro navázání spojení, nahrazuje H.323
+
+Může byt provozováno nad TCP i UDP.
+
+Zavádí pojem \textbf{proxy} - článek komunikačního řetězu, ktery usnadňuje komunikaci přes hranice různych sítí (včetně privátních)
+
+Řeší pouze problém vyhledání cíle, nalezení cesty a navazování spojení, zbytek řeší SDP
+
+\paragraph{Session Description Protocol (SDP)} txt protokol, přenášen pomocí SIP.
+
+Po dohodnutí protisran se otevřou datové kanály a za pomoci protokolů \textbf{RTP/RTCP} se začne posílat audio
+
+\paragraph{Ukázka hovoru přes SIP:} volající pošle INVITE \textit{(obashue URL a nabídku dat. kanálů jako SDP zprávu)} → příkaz dorazí na proxy → najde další uzel k volanému (nalezne volaného) → zkontroluje obsah SDP → volající odešle 100 Trying → volany vrátí 100 Trying → cílové zařízení začne vyzvánět 180 Ringing (end-to-end) → \textit{ZVEDNUTÍ TELEFONU} → odešle 200 OK + SDP s datovymi kanály → zpráva dorazí na proxy → kontorola/ úprava SDP → volající potvrdí příjem SDP → ACK → \textit{přenos audia v RTP/RTCP kanálech} → konec příkazem BYE → 200 OK
+
+\newpage
+
+\section{Lekce}
+
+\subsection{Sdílení systému souborů}
+
+Připojení cizího disku z jiného počítače a pracovat s ním, jako by byl lokální disk.
+
+\subsubsection{NFS}
+
+\paragraph{Network File System} otevřeny protokol jako RFC, použíá se především na UNIXu, autentizace prostředím Kerbenos
+
+NFS pracuje nad UDP (je možné i TCP). Vnitřní struktura kopíruje OSI model - relační vrstva(Remote Procedure Call (RPC)) a prezentační vrstvu (eXchange Data Representation (XDR)).
+
+Identifikace zdroje: \textit{server:cesta}
+
+\subsubsection{SMB}
+
+\paragraph{Server Message Block} původně vyvíjel IBM, nyní Microsoft, kvůli propojení UNIXu a Windows vznikla open implementace Samba. K autentizaci se používá jméno a heslo.
+
+Identifikace zdroje: \textit{$\setminus\setminus$server$\setminus$cesta}
+
+\subsection{NTP}
+
+\paragraph{Network Time Protocol} protokol pro synchronizaci času mezi uzly na síti - aby oba PC měly stejny čas; porovnávání času při řešení problémů
+
+Existuje zdroj s absolutně přesnym časem: Stratum 0 → Stratum 1 → ... → Stratum N. 
+
+Podle Logické vzdálenosti od absolutně přesného zdroje, \textit{tj. Stratum N ignoruje Stratum N+1}. Prevence před zacyklením.
+
+\paragraph{Funkcionalita v LAN} Stratum 0 → Stratum 1 → ... → ISP → několik NTP serverů s klienty
+
+Problém se stupňujícím se zpožděním, řeší Murzellův algortimus (nalezne nejlepší průnik intervalů, ktery byl vytvořen podle časovych známek)
+
+\subsection{BOOTP a DHCP}
+
+\href{https://youtu.be/e6-TaH5bkjo}{Video}.
+
+Přiřazení IP adresy klientovi a předání základních informací o LAN
+
+\subsubsection{Bootstrap Protocol} vyvinut pro konfiguraci bezdiskovych stanic (nebylo možné uložit konfigurace, včetně IP)
+
+BOOTP umožňoval vyslat žádost o přidělení adresy → server posoudil žádost podle MAC adresy → klient na seznamu → odeslání správné IP adresy klientovi
+
+\paragraph{Limited broadcast} klient pošle žádost všem uzlů v síti (ti je ignorují), protože nemá informaci o adresách, které se v síti nachází.
+
+Nechceme, aby se žádosti šířily po internetu → směřovače nepropouštějí mimo síť → komplikace pokud má LAN složitou strukturu oddělenou routery
+
+\begin{enumerate}
+    \item \textbf{řešení:} musíme mít BOOTP server v každé podsíti
+    \item \textbf{řešení:} na směrovačích spustit \textit{BOOTP forwarding} - BOOTP dotazy přeposílá z rodné sítě určitému BOOTP serveru a jeho odpověď zase zpátky klientovi.
+\end{enumerate}
+
+\subsubsection{Dynamic Host Configuration Protocol}
+
+Nahradil BOOTP (zpětně komatibilní), zachoval formát zpráv, přidal dynamickou alokaci adres \textit{(pevné přidělování ztratilo smysl)}, pronájem adres s časovym omezením \textit{(doba pronájmu - lease-time)}, možnost práce s více servery v síti.
+
+
+\paragraph{Průběh DHCP} Klient pošle broadcast požadavek DHCPDISCOVER → DHCP servery pošlou nabídky 
+
+DHCPOFFER → klient sbírá a posuzuje odpovědi (určity timeout) → vybere nejlepší odpověď → pošle 
+
+DHCPREQUEST obsahující zvolenou adresu \textit{(stále broadcastem musí dostat všechny navštívené servery, aby uvolnili adresu, kterou mu nabízely)} → server potvrdí DHCPACK → začne doba pronájmu → → v polovině pronájmu se klient ujistí DHCPREQUESTem svému serveru → pokud DHCPACK, má novou dobu pronájmu, pokud ne → v $7/8$ doby pronájmu pošle broadcastem DHCPREQUEST → případně po uplynutí  DHCPDISCOVER
+
+\paragraph{Zjednodušeny průběh DHCP} $ $
+
+\textit{Klient} pošle DHCPDISCOVER (Broadcastem)
+
+\textit{Server} pošle DHCPOFFER
+
+\textit{Klient} pošle DHCPREQUEST \textit{sám si vybere, který offer přijme}
+
+\textit{Server} pošle DHCPACK
+
+\textit{Klient} pošle DHCPREQUEST v $4/8$ (buď DHCPACK nebo nic)
+
+\textit{Klient} pošle DHCPREQUEST v $7/8$ (Broadcastem, opět DHCPACK nebo nic)
+
+\textit{Klient} pošle $8/8$ DHCPDISCOVER
+
+\subsection{OSI vrstvy}
+
+\subsubsection{Prezentační vrstva (OSI 6)}
+
+Snaha o vytvoření obecného mechanizmu, jak odstínit konkrétní architekturu uzlu sítě od formátu používaného nižšími vrstvami. (nezdařily pokus ASN.1)
+
+TCP/IP přenechal starost na aplikaci, což je jednodušší.
+
+\textbf{Problémy:} konce řádek \textit{(Windows CR+LF; Appple = CR; UNIX = LF)}, pořadí bytů \textit{big a little endian}
+
+\subsubsection{Relační vrstva (OSI 5)}
+
+Snaha o obecny model - jeden dialog může = více spojení, jedno spojení = více dialogů
+
+TCP/IP opět přenechal starost na aplikaci. 
+
+Např. SMTP: jedno spojení, více mailů; SIP iniciuje dialog s více spojeními pro přenos audio/video dat
+
+\subsubsection{Transportní vrstva (OSI 4)}
+
+Poskytuje komunikační kanál pro přenos dat mezi aplikacemi na koncovych zařízeních \textit{(end-to-end přenos dat)}.
+
+Zprostředkovává služby aplikačním protokolům
+
+Umožňuje provoz více klientů a serverů na stejném uzlu.
+
+Může zabezpečit spolehlivost přenosu dat \textit{(reliable TCP, unreliable UDP)}.
+
+Může segmentovat a skládat data pro snazší přenos.
+
+Může řídit tok dat - flow control, rychlost vysílání
+
+\subsubsection{Síťová vrstva (OSI 3)}
+
+Přenáší data získaná z OSI 4 od zdroje k cíli. Například IPv4, IPv6, ... Funkci vykonává za pomoci:
+
+\textbf{adresace} - protokol OSI 3 definuje tvar a strukturu adres komunikujících partnerů
+
+\textbf{encapsulation (zapouzdření)} - řídící data potřebná pro přenos se musí vložit do PDU
+
+\textbf{routing (směrování)} - vyhledání nejvhodnější cesty k cíli přes mezilehlé sítě
+
+\textbf{forwarding (přeposílání)} - předání dat ze vstupního síťového rozhraní na výstupní
+
+\textbf{decapsulation} - vybalení dat a předání transportní vrstvě
+
+\subsection{Internet Protocol}
+
+Nespolehlivá služba - OSI 3 negarantuje doručení
+
+Nespojovaná služba - datagramy se doručují nezávisly
+
+Nezávislost na médiu - OSI 4 nemusí řešit použitou technologii
+
+\paragraph{Přidělení IP} rozhoduje správa sítě - privátní (tvoří sama) nebo veřejné uzly (tvoří ISP → jeden z 5 regionálních registrátorů (RIPE NCC, APNIC, ARIN, LACNIC, AFRINIC) → IANA)
+
+\subsubsection{IPv4}
+
+Hlavička ze : Verze (polovina bajtu), Délka hlavičky (druhá polovina bajtu), QoS, Fragmentace, TTL, číslo protokolu, kontrolní součet hlavičky, IP odesílatele, IP příjemce
+
+\paragraph{Speciální IPv4 adresy}
+
+\begin{itemize}
+    \item \textbf{0.0.0.0/8} - potřebujeme komunikovat, ale neznáme svoji adresu
+    \item \textbf{127.0.0.1/8} - adresa lokálního počítače, loopback adresa = umožňuje vytvoření smyčky
+    \item \textbf{xxx.xxx.0.0} - adresa sítě (PC část pouze nuly)
+    \item \textbf{xxx.xxx.1.1} - broadcast (PC část pouze jedničky), chceme-li oslovit všechny PC v síti
+    \item \textbf{255.255.255.255} - omezeny broadcast, oslovuje všechny v síti; nesmí opustit síť
+\item \textbf{privátní adresy} - \textit{10.0.0.0/8} (1 třída A); \textit{172.16-31.0.0/16} (16 tříd B), \textit{192.168.*.0/24} (256 tříd A)
+\end{itemize}
+
+\subsubsection{Subnetting}
+
+\href{https://youtu.be/6_giEv20En0}{Video}.
+
+Umožňuje rozčlenit síť na menší celky, redukuje počet použitelnych adres (ne samé nuly/ jedničky $\implies$ máme jen 70\% adres)
+
+
+\paragraph{Síťová maska} číslo obsahující jedničky na místech, kde je adresa - pro ověření stačí bitové AND
+
+\paragraph{Variable Length Subnet Mask (VLSM)} pokud se v síti používají různé masky
+
+\paragraph{Supernetting} posunutí hranice opačnym směrem
+
+
+\subsubsection{IPv6}
+
+Má oproti IPv4 128b (16B), hex zápis: \textit{fec0::1:800:5a12:3456/64} (možné zkrátit sekvenci nul $::$)
+
+\textbf{Unicastové adresy} - základní typ adres → \textit{loopback, link-local, unique-local (obdoba privátních z IPv4)}
+
+\textbf{Multicastové adresy} - nahrazení broadcastovych adres
+
+\textbf{Anycastové adresy} - unicastová adresa, přidělená více uzlům; distribuuje servery po světě
+
+\subsection{Přenos dat v TCP/IP}
+
+\subsubsection{UDP}
+
+V UDP hlavičce: informace o multiplexingu (zdrojovy, cílovy port, délka a kontrolní součet)
+
+\subsubsection{TCP}
+
+Hlavička (max 60B) - zdrojovy + cílovy port, sequence number, acknowledge number, posun (vúči počátku streamu), flags, okno, kontrolní součet, urgent pointer, ostatní
+
+\paragraph{TCP okno} navrhne se velikost okna → odesílatel posílá data → dosáhne velikosti okna → pokud přijde ACK, posune offset o velikost poslanych dat → pokud nepřijde, přeruší spojení a znovu pošle poslední blok dat
+
+\paragraph{Three-way handshake} tři pakety s prázdnou datovou částí nesoucí v hlavičce informaci o náhodném sekvenčním čísle
+
+\begin{enumerate}
+    \item \textbf{paket:} (klient) poslání příznaku \textit{SYN (synch. paket)}, \textit{Seq. num} číslo $c$ a \textit{Ack. num} s hodnotou $0$
+    \item \textbf{paket:} (server) potvrzení příznakem \textit{SYN + ACK}, \textit{Seq. num} číslo $s$ a \textit{Ack. num} s hodnotou $c+1$
+    \item \textbf{paket:}  (klient) poslání \textit{ACK}, \textit{Seq. num} číslo $c+1$ a \textit{Ack. num} s hodnotou $s+1$
+\end{enumerate}
+
+\paragraph{Ukončení spojení}
+
+\begin{enumerate}
+    \item \textbf{paket:} (klient) poslání příznaku \textit{FIN}, \textit{Seq. num} číslo $x$ a \textit{Ack. num} s hodnotou $y$
+    \item \textbf{paket:} (server) potvrzení příznakem \textit{ACK}, \textit{Seq. num} číslo $y$ a \textit{Ack. num} s hodnotou $x+1$
+\end{enumerate}
+
+\paragraph{TCP příznaky}
+
+\begin{itemize}
+    \item[--] \textbf{SYN:} k synchronizaci čísel segmentů (inicializace \textit{Sequence number})
+    \item[--] \textbf{ACK:} potvrzení doručení až po \textit{Acknowledge number}
+    \item[--] \textbf{PSH:} informuje příjemce o obdržení kompletního bloku dat \textit{(push)}
+    \item[--] \textbf{FIN:} odesílatel zavírá svou stranu spojení
+    \item[--] \textbf{RST:} odesílatel odmítá přijmout spojení \textit{(reset)}
+    \item[--] \textbf{URG:} paket obsahuje urgentní data, adresa v \textit{Urgent pounteru}
+\end{itemize}
+
+
+\newpage
+
+\section{Lekce}
+
+\subsection{Směrování}
+
+\href{https://youtu.be/s_Ntt6eTn94}{Video}.
+
+Měla by umět každá stanice v TCP/IP.
+
+\subsubsection{Směrovací tabulka} 
+
+"cedule na křižovatce", cíl obsahuje adresu sítě a její rozsah zadaný síťovou maskou
+
+Např: chceme z $1.1.1.1$ na $3.0.0.0/8 \implies 1.1.1.1 \to$ Gateway $1.0.0.1 \to 2.0.0.3 \to 3.0.0.0/8$
+
+\begin{itemize}
+    \item[--] \textbf{Adresa sítě} - destination
+    \item[--] \textbf{maska (rozsah)} těto sítě -  netmask
+    \item[--] \textbf{Gateway}:
+    \begin{itemize}
+        \item[--] \textit{next-hop router}, předá se paket, pokud vede do cizí sítě
+        \item[--] adresa některého vlastního síťového rozhraní, 
+        pokud se jedná o záznam přímý (vede do přímo připojené sítě).
+    \end{itemize}
+\end{itemize}
+
+\textbf{Typy záznamů:}
+\begin{itemize}
+    \item[--] \textbf{Direct} - přímo připojená síť - gateway
+    \item[--] \textbf{Indirect, default} - směřuje na ISP
+\end{itemize}
+
+
+\textbf{Vznik záznamů:}
+\begin{itemize}
+    \item[--] \textbf{Implicitní} - automaticky po pořízení adresy
+    \item[--] \textbf{Explicitní} - ručně zadán
+    \item[--] \textbf{Dynamický} - v průběhu práce od parametrů v síti
+\end{itemize} 
+
+\subsubsection{Směrovací algoritmus} 
+
+V tabulce se najdou všechny záznamy shodující se s cílem paketu → pokud neexistuje, nelze doručit (pokud neobsahuje Defaultní záznam) → z nalezených se vybere ten s nejširší maskou → pokud odkazuje záznam na můj PC, vrátí na vstup (loopback) → záznam přímý (v mojí síti), pak se odešle příjemci → záznam nepřímý, pošle se směrovači (next-hop router)
+
+
+\subsection{ICMP}
+
+\paragraph*{Internet Control Message Protocol} mezi OSI 3 a OSI 4; přeposílá řídící informace ve formě datagramů, např Echo/ Echo Reply, Destination Unreachable \textit{(router nemá jak doručit paket, zahazuje ho)}, Time Exceeded, Source Quench \textit{(snížení rychlosti toku datagramů)}, Redirect, Parameter Problem 
+
+\subsubsection{Ping}
+
+Základní prostředek pro diagnostiku sítě, testuje dostupnost uzlu.
+
+Periodické odesílání \textbf{ICMP Echo}, pokud zpráva dorazí, pošle \textbf{ICMP Echo Reply} a vypíše dobu přenosu.
+
+Na ICMP odpovídá síť sama. Není zaručena dostupnost sítě, pouze její vrstvy.
+
+\subsubsection{TTL (IP)}
+
+Ochrana před zacyklením v ICMP \textbf{Time Exceeded}. Udává počet hopů, \textbf{NE ČAS}, které smí paket ještě přeskočit, dosáhne-li 0, nastane ICMP Time Exceeded
+
+
+\subsubsection{Diagnostika směrování}
+
+Výpis routovací tabulky \texttt{netstat -r} nebo \texttt{route}.
+
+Kontrolu cesty zajišťují \texttt{traceroute} nebo \texttt{tracert} - odhalí strukturu cesty, dokáže nalézt konkrétní chybný směrovač
+
+
+\subsubsection{Statické řízení směrovacích tabulek}
+
+Nejjednodušší řízení tabulky, vhodné pro jednodušší sítě. Počítač má někde uložené informace pro všechny záznmy, které po bootu postupně přidává.
+
+\textbf{Klady:} stabilita, dostupnost
+
+\textbf{Zápory:} nepružné při změnách v síti, problém se subnettingem, složité zálohování
+
+\paragraph*{Redirekce} umožňuje pokrytí složitější sítě staticky, za pomoci \textbf{ICMP Redirect}.
+
+Router zkusí poslat paket do sítě bez záznamu, redirekce přidá síť do routovací tabulky, nyní možné paket poslat.
+
+\textit{(Není bezpečné, někdo může šířit vadné ICMP Redirect pakety a způsobit nefunkčnost sítě.)}
+
+\subsubsection{Dynamické řízení směrovacích tabulek}
+
+Založen na informacích, které si vzájemně vyměňují sousední routery a na základě nichž si upravují svoje tabulky.
+
+\textbf{Klady:} jednoduchá změna konfigurace, síť se umí sama "opravit", tabulky se udržují automaticky
+
+\textbf{Zápory:} citlivé na problémy a útoky
+
+Je zapotřebí pro komunikaci v protokolu speciální software - BIRD, routed, ...
+
+Pro lokální sítě jsou používány protokoly \textit{distance-vector} a \textit{link-state}.
+
+\subsubsection{Distance Vector protokoly}
+
+Uzel má u záznamů v tabulce i "vzdálenosti". Tabulku periodicky posílá sousedům, kteří ji upraví a posílají dál.
+
+\textbf{Klady:} jednoduchost, snadná implementace
+
+\textbf{Zápory:} pomalá reakce na chyby, 
+nezohledňuje vlastnosti linek (rychlost, spolehlivost, cenu...),
+ omezený rozsah sítě, 
+ chyba ve výpočtu jednoho routeru ovlivňuje celou síť (zacyklení)
+
+
+\paragraph{Routing Information Protocol (RIP)} zástupce distance-vector protokolu, velmi rozšířený.
+
+\begin{itemize}
+    \item \textbf{Vzdálenost} počet routerů v cestě (hop count).\\ Není vhodné, protože nepreferuje nejlepší, ale nejkratší cestu (80km po vedlejší \textbf{VS} 100 km po dálnici).
+    \item \textbf{Counting to Infinity} je omezen na 15 hopů ($7 \times 30$s) - po odpojení sítě, stále se tváří jako dostupná (i když není), prevence před zacyklením
+    \item \textbf{Algoritmus} pro výpočet nejkratší cesty se využívá Nellman-Fordův algoritmus (ne rychlejší Dijkstrův → nemusí se opakovat celý výpočet)
+\end{itemize}
+
+\subsubsection{Link State protokoly}
+
+Každý router zná mapu celé sítě, posílají se informace o stavech linek, přepočítává si router sám optimální cesty.
+
+\textbf{Klady:} pružná reakce na změny/ výpadky; každý router si počítá sám \textit{(chyby neovlivní ostatní)},\\ 
+síť je možné rozdělit na menší podsítě (zrychlení); výměna dat probíhá pouze při změnách (ne v intervalech)
+
+\textbf{Zápory:} výpočet mapy je náročnější na výkon CPU i na paměť, zátěž sítě
+
+
+\paragraph*{Open Shortest Path First (OSPF)} nejznámější představitel lin-state
+\begin{itemize}
+    \item \textbf{Vzdálenost} tzv. cena cesty \textit{(path cost)}, určuje se pomocí složitého vzorce.\\Umí zahrnout šířku pásma, latenci, propustnost, skutečnou „cenu“ provozu lince.    
+    \item \textbf{Algoritmus}  pro výpočet nejkratší cesty se využívá Dijkstrův algoritmus
+    \item \textbf{Hierarchické rozdělení} - výpočet probíhá na menší množině uzlů
+    \begin{itemize}
+        \item \textbf{Oblast 0} - páteř (backbone)
+        \item \textbf{Ostatní oblasti} - připojují se na páteř
+        \item  každý router zná mapu své oblasti a cestu k páteři
+    \end{itemize}
+\end{itemize}
+
+
+\subsection{Autonomní systém}
+
+\paragraph*{AS} blok sítí se společnou routovací politikou. Určen pro směrování ve vzdálených sítích. 
+
+\paragraph{Externí Routovací Protokoly (EGP)} pro řízení routování mezi AS, snazší routování na globální úrovni
+\paragraph{Gateway Protocol (BGP)} nejpoužívanější zástupce EGP \textit{(path-vector = posloupnost čísel, přes než vede cesta, zabraňuje zacyklení)}
+
+
+\subsection{IP filtrování}
+
+Filtrování na transporní vrstvě, stanovuje pravidla pro typ provozu a za jakých podmínek.
+
+\paragraph*{Přísná konfigurace}: ven vybrané (konkrétní porty), dovnitř nic
+
+\begin{itemize}
+    \item vhodné pro protokoly s jedním kanálem (HTTP, SMTP)    
+    \item problém u protokolů s více kanály (FTP, SIP)
+\end{itemize}
+
+\paragraph*{Obvyklá konfigurace}: ven cokoliv, dovnitř nic
+
+\begin{itemize}
+    \item naráží např. u FTP s aktivním přenosem  
+    \item nepoužitelné u protokolů s mnoha kanály (SIP)
+\end{itemize}
+
+Velký problém při poskytování služby z vlastní sítě \textit{(např. www server, pošta)}
+
+\begin{itemize}
+    \item musí se ve filtru otevřít permanentní díra povolující provozu z vnější sítě přístup na konkrétní server a port
+    \item řeší se odděleným segmentem DMZ \textit{(demilitarizovaná zóna)} - benevolentnější filtr
+\end{itemize}
+
+\subsection{Proxy server}
+
+\href{https://youtu.be/5cPIukqXe5w}{Video}.
+
+Software, který kontroluje provoz určitého protokolu \textit{(obvykle na rozhraní lokální sítě a internetu)}.
+
+\paragraph*{Transparentní provoz}
+\begin{itemize}
+    \item Router zachytí klientův požadavek, uloží ho, připojí se na server, zkontroluje (bezpečnost) a odešle ho
+    \item Odpověď přijde zpět na router, ten ji uloží (pro další klienty) a zároveň odešle původnímu žadateli.
+    \item Není třeba měnit na klientovi konfiguraci
+\end{itemize}
+
+\paragraph*{Netransparentní provoz}
+\begin{itemize}
+    \item Proxy server nemusí být nutně router, ale vhodnější zařízení.
+    \item Nutná podpora v protokolu.
+    \item Klienty je třeba nakonfigurovat, aby se požadavky neposílaly přímo, ale proxy-serveru v lokální síti.
+\end{itemize}
+
+\paragraph*{Bezpečnost a výkonnost}
+\begin{itemize}
+    \item Umožňuje efektivně kontrolovat činnost klientů \textit{(může filtrovat operace na úrovni aplikačního protokolu)}
+    \item Umožňuje omezit provoz na připojné lince \textit{(nemusí opakovat stejný požadavek, odpověď může do cache a žádajícím poslat sám)}
+\end{itemize}
+
+
+\newpage
+
+\section{Lekce}
+
+\subsection{ARP}
+
+\href{https://youtu.be/cn8Zxh9bPio}{Video}.
+
+\paragraph*{Address Resolution Protocol} spojovací článek mezi síťovou a linkovou vrstvou. 
+Umožňuje uzlům v síti zjišťovat linkové (MAC) adresy odpovídající konkrétním síťovým adresám.
+
+Neznámé adresy se zjišťují broadcastovou výzvou, krom držitele výzvu všichni ignorují.
+Hledaný uzel \textit{(ARP server)} na dotaz zareaguje unicastovou ARP odpovědí s požadovanou MAC adresou.
+
+Výsledky se vkládají do \textit{ARP cache} (stejně tak server).
+
+$ $
+
+\textbf{Bezpečnostní rizika:} odpovědět na broadcast může kdokoli; \textit{nevyžádané (gratuitous) ARP} je odpověď bez dotazu - 2 stroje se stejnou IP, jeden informuje ostatní o svojí MAC.
+
+\subsubsection{Proxy ARP}
+
+Ve složitých LAN, kde správné směrování zajišují směrovače.
+
+Služba, která zachytí ARP dotaz, a protože pozná, že by se tazatel nikdy nedočkal odpovědi (linková síť), 
+pošle mu svou odpověď místo stroje B a jako hledanou adresu uvede svoji MAC adresu
+
+Princip
+\begin{enumerate}
+    \item host A posílá broadcastem \texttt{ARP request} s IP adresou B \textit{(A pracuje na linkové síti, kde není B)}
+    \item router pozná, že dotaz \textbf{nebude zodpovězen}, sám posílá \texttt{ARP reply} s MAC adresou routeru
+    \item přiřadí se \textbf{MAC routeru} k \textbf{IP adrese B} a uloží do ARP cache na A
+    \item host A nyní posílá data pro B s \textbf{MAC adresou routeru}
+\end{enumerate}
+
+Možné pozorovat při náhledu do ARP cache - více IP adres se stejnou MAC adresou \textit{(pokud nemáme v síti ARP proxy, jedná se o napadení)}
+
+
+\subsection{Linková vrstva (OSI 2)}
+
+Přesun od SW k HW, přesun mimo TCP/IP; dělí se na dvě podvrstvy:
+\begin{itemize}
+    \item \textbf{Horní - Logical Link Control (LLC)} umožňuje různým protokolům síťové vrstvy přístup ke stejnému médiu \textit{(multiplexing)}
+    \item \textbf{Spodní - Media Access Control (MAC)} řídí \textit{adresaci uzlů} a \textit{přístup k médiu} - kdo, kdy a jak může data odesílat a jak je přijímat    
+\end{itemize}
+
+\paragraph*{Frame Check Sequence (FCS)} hodnota sloužící ke kontrole správnosti doručeni.
+
+\paragraph*{Rámec (frame)} datová jednotka linkového protokolu, formát obsahuje:
+\begin{itemize}
+    \item \textbf{Synchronizační pole} - sekvence bitů, probouzí cílovou stanici a odlišuje data od šumu.
+    \item \textbf{Hlavička} - obsahuje MAC adresy příjemce, odesilatele a řídící informace LLC.
+    \item \textbf{Data (payload) } - nadřazeného protokolu.
+    \item \textbf{Patička} - obsahuje hodnotu sloužící ke kontrole správnosti doručení \textit{- Frame Check Sequence (FCS)}
+\end{itemize}
+
+
+\subsection{Síťové topologie}
+
+\subsubsection{Multipoint}
+
+Umí propojit více uzlů. Technologie:
+
+\begin{itemize}
+    \item \textbf{Sběrncie} - všechny uzly sériově na stejném médiu. Přerušení kabelu, rozpad celé sítě. Všechny uzly se pokouší poslat zprávu tzv. Kolize.
+    \item \textbf{Hvězda} - nejobvyklejší topologie; obsahuje centrální prvek, uzly jsou vázány na něj. Sběrnice v centrálním prvku, kabeláž pouze mezi koncovými stanicemi.
+    \item \textbf{Kruh} - jednotlivé uzly jsou propojeny do kruhu
+\end{itemize}
+
+Řízení přístupu uzlů k médiu:
+\begin{itemize}
+    \item \textbf{Deterministicky} - někdo/něco deterministicky určuje, kdo právě smí vysílat
+    \item \textbf{Nedeterministicky} - nikdo neomezuje uzly ve vysílání, řešení kolize
+\end{itemize}
+
+
+\subsubsection{Point-to-point}
+
+Propojení pouze dvou uzlů (např. RS-232). 
+
+Dosah Point-to-point je možné prodloužit:
+\begin{itemize}
+    \item \textbf{Kabel} - stále se používá stejný protokol jako v multipoint zapojení.
+    \item \textbf{Modem} - linky nahradí modem, který moduluje datový provoz pro přenášení pomocí telefonního spojení.
+    \item \textbf{Bezdrát} - lasery
+\end{itemize}
+
+Zzel dokáže nebo nedokáže současně přijímat i vysílat:
+\begin{itemize}
+    \item \textbf{Half duplex} - nedokáže → kolize pri zapojení Ethernetu
+    \item \textbf{Full duplex} - dokáže → zbavení se kolizí
+\end{itemize}
+
+\subsubsection{Řešení kolize}
+
+Nosná = přenosové médium
+
+\paragraph*{Carrier Sense with Multiple Access (CSMA)} "kontrola nosné", uzel čeká, dokud není nosná volná
+\paragraph*{Collision Detection (CSMA/CD)} např. Ethernet - je schopen detekovat kolizi, kontroluje během vysílání nosnou;\\při kolizi přestane vysílat, upozorní ostatní, náhodnou dobu počká a pak opakuje pokus
+\paragraph*{Collision Avoidance (CSMA/CA)} např. WiFI - hvězdicová topologie, centrální prvek je Access point (AP), stanice připojeny k AP, všechny je v podstatě point-to-point; pokud nedorazí ACK, zahájí se exponenciální čekání
+
+\subsubsection{Ethernet}
+
+\href{https://youtu.be/1SpY1vwEIJI}{Video}.
+
+Vznikl ve firmě Xerox (kopírky), převzala IEEE (standardizace IEEE 802.3 - normy proprietární)
+Vůdčí technologie pro lokální sítě - pružně reaguje na vývoj HW.
+
+Kolize se řeí za metodou CSMA/CD. Exponenciální končí po 16 pokusech chybou.
+
+Adresa - 3B prefix (multicast,...), 3B adresa
+
+\subsubsection{VLAN}
+
+\href{https://youtu.be/jC6MJTh9fRE}{Video}.
+\paragraph*{Virtální sítě LAN} po jedné fyzické síti lze provozovat více nezávislých LAN
+
+Ethernetový rámec je prodloužen o 32 bitový tag (tagovat může switch, pro koncovou stanici transparentně)
+
+\textbf{VLANID:} 12B identifikátor označující sítě
+
+Vsune se 4B úsek do rámce za MAC → změní se rámec na VLAN → vložený úsek nese info o VLANID → vše se odehrává transparentně → stanice se připojí do portu switche (součást sítě) → tváří se jako obyčejná síť
+
+\textbf{Trunk:} uzly, které potřebují mít přístup k rámcům ze všech virtuálních sítí
+
+
+\subsubsection{CRC}
+
+\paragraph*{Cyklický kontrolní součet} hashovací funkce pro kontrolu dat \textit{(např. v hlavičce IP, ...)}
+
+Funkce založena na dělení polynomů - polynom se zapíše binárně a vydělí se charakteristickým polynomem
+
+Zbytek po dělení je považován za výsledek, převeden na bity a použit znovu jako hash.
+
+
+\subsubsection{WiFI}
+
+\href{https://youtu.be/J_bf_KE5llQ}{Video}.
+\href{https://youtu.be/OxiY4yf6GGg}{Video - AP}
+
+\paragraph*{Wirelss LAN} skupinu protokolů IEEE 802.11 ve frekvenčních pásmech 2,4 a 5 GHZ a kanálech (jen 13)
+
+Řeší kolize za pomoci CSMA/CA a má hvězdicovou topologii - ve středu AP \textit{(obvykle, může být i p2p)}, kte kterému se připojují koncová zařízení.
+
+\subsection{Fyzická vrstva (OSI 1)}
+
+Přenáší data úp fyzickém médiu, převádí digitální informace na analogovou a zpět
+
+\paragraph*{Používaná média} metalická \textit{(eltekrické pulzy)}; optická \textit{(světelné pulzy)}; bezdrátová \textit{(modulace vln)}
+
+\subsubsection{Druhy přenosu dat}
+
+\paragraph*{Analogový, digitální} vše analogové; digitální rozhoduje, zda hodnota signálu spadá do nějakého intervalu; D→A modem, A→D codec
+\paragraph*{Baseband, broadband} basebend přenáší signál a kóduje ho (Ethernet - Manchester); broadband přenáší signál v širokém pásmu a moduluje ho (AM, FM)
+
+\subsubsection{UTP}
+
+\href{https://youtu.be/_NX99ad2FUA}{Video}.
+
+\paragraph*{Unshielded Twisted Pair} připojuje stanice v LAN, v kabelu je 8 vodičů
+
+Dva vodiče navzájem zakroucené vytváří při průchodu proudu ochranné (proti rušení) elektromagnetické pole (Alternativou je kabel s kovovým stíněním - STP)
+
+Dvěmi páry protéká 100Mbps, takže je možné rozdělit na další dva páry.
+
+\subsubsection{Optická vlákna}
+
+Signál se šíří jako světelné pulzy křemíkovým vláknem
+
+\textbf{Výhody:} nemá problém s rušením; velmi nízký útlum; velká šířka přenosového pásma \textit{("rychlost")}.
+
+\textbf{Nevýhody:} cena; náročná manipulace \textit{(velký minimální poloměr ohybu)}.
+
+Druhy vláken:
+\begin{itemize}
+    \item \textbf{Jednovidá (singlemode)} - svítí se laserem → jeden paprsek, větší dosah (omezený lom) a šířka pásma
+    \item \textbf{Mnohovidá (multimode)} - svítí se i LED → paprsky hodně se lámou
+\end{itemize}
+
+\subsubsection{Segmentace sítě}
+
+\href{https://youtu.be/1z0ULvg_pW8}{Video}.
+
+\paragraph*{Repeater (opakovač)} spojuje od sebe vzdálené stanice, distribuuje signál na fyzické vrstvě; v kabeláži \textit{hub}; řeší dosah signálu; zhoršuje kolizi
+\paragraph*{Bridge (most)} řeší propustnost, distrib signál na linkové vrstvě; v kabeláži \textit{switch}; snižuje kolizi
+
+\subsubsection{Learning bridge}
+
+\href{https://youtu.be/x0ult-Ln9hc}{Video}.
+
+Přepínače si udržují samy připojené MAC adresy na konkrétním portu - udržují si pro každý port tabulku MAC adres
+
+Switch posílá všechny rámce do správných portů, \textit{(krom broadcastů, neznámých unicastů (BUS) a multicastů (BUM)}.
+
+\subsubsection{Spanning Tree Algoritmus}
+
+Pokud pracují oba switche, síť se zaplaví přeposíláním rámců a learning bridge selže.
+
+Algoritmus hledá acyklickou podmnožinu, kostru (spanning tree) v cyklickém grafu.
+
+Switche se musejí dohodnout, který z nich bude mít potlačeno forwardování a bude pouze monitorovat provoz
+
+\paragraph*{Spanning Tree Protocol (STP)} protokol pro hledání koster grafu sítě; je pomalý
+cyklech
+
+
+
+\end{document}

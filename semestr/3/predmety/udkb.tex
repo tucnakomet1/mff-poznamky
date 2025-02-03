@@ -1,0 +1,545 @@
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[margin=0.7in]{geometry}
+\usepackage{amssymb, amsthm, amsmath, amsfonts}
+\usepackage{array, xcolor, enumitem, graphicx}
+\usepackage{cancel}
+
+\usepackage[czech]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[unicode]{hyperref}
+\usepackage[useregional]{datetime2}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue,
+    pdftitle={Úvod do kybernetické bezpečnosti},
+}
+
+% tahak - prikazy %
+% \includegraphics{obrazek.png} $\equiv$         % import konkretniho obrazku
+% a~b                                   % mezera mezi pismeny 'a' a 'b'
+% a \quad b                             % velka mezera mezi pismeny 'a' a 'b'
+% \sim                                  % ~
+% \Longleftarrow                        % <==
+
+
+% zkratky %
+\newtheorem{veta}{Věta}
+\newtheorem{definice}{Definice}
+\newtheorem{tvrzeni}{Tvrzení}
+\newtheorem{lemma}{Lemma}
+\newtheorem{pozorovani}{Pozorování}
+\newtheorem{dusledek}{Důsledek}
+\newtheorem{priklad}{Příklad}
+
+\newcommand{\N}{{\mathbb{N}}}         % prirozena cisla
+\newcommand{\Z}{{\mathbb{Z}}}         % cela cisla
+\newcommand{\Zs}{{\mathbb{Z}_n^*}}    % cela cisla vcetne nekonecna
+\newcommand{\Q}{{\mathbb{Q}}}         % racionalni cisla
+\newcommand{\R}{{\mathbb{R}}}         % realna cisla
+\newcommand{\Cc}{{\mathbb{C}}}        % komplexni cisla
+\newcommand{\F}{{\mathbb{F}}}         % teleso
+\newcommand{\Pp}{{\mathcal{P}}}       % potencni mnozina
+
+\newcommand{\hr}{{\begin{center}\par\rule{\textwidth}{0.5pt}   \end{center}}}
+\newcommand\makesmall{\fontsize{8pt}{11pt}\selectfont}
+
+\renewcommand*{\contentsname}{Obsah}
+\renewcommand*{\proofname}{Důkaz:}
+\renewcommand*{\figurename}{\makesmall Obr.}
+
+% hlavicka
+\setlength{\parindent}{0em}
+
+\title{Úvod do kybernetické bezpečnosti - přehled}
+\date{\today}
+\author{\sc Karel Velička}
+
+\graphicspath{ {img/}   }               % obrazky ulozeny ve slozce img/
+
+\begin{document}
+\pagenumbering{arabic}
+\maketitle
+
+
+\tableofcontents
+\newpage
+
+
+%%%%%%%%%%%%%%%%%%
+%%%%%% UVOD %%%%%%
+%%%%%%%%%%%%%%%%%%
+
+\section{Úvod}
+
+\paragraph*{Informační bezpečnost} $\equiv$ Ochrana informací v jakékoliv podobě (digitální i papírová)
+\paragraph*{Kybernetická bezpečnost} $\equiv$ Ochrana informací pouze v digitální podobě
+\paragraph*{Kybernetická událost} $\equiv$ může způsobit narušení bezpečnosti
+\paragraph*{Kybernetický incident} $\equiv$ narušení bezpečnosti
+\paragraph*{Technická opatření} $\equiv$ zajišťuje hardware a software, detekce a zamezení kybernetických událostí a incidentů
+\paragraph*{Organizační opatření} $\equiv$ zajišťují procesy, podpora a doplnění pro technická opatření.
+
+\subsubsection*{SoD – Separation of Duty}
+\begin{itemize}
+    \item Jedna osoba nemůže přistoupit, upravit, spustit proces bez toho, aniž by toto někdo schválil
+    \item Jsou rozděleny práva/povinnosti
+\end{itemize}
+
+\subsubsection*{Least Privilege / Need-to-know}
+\begin{itemize}
+    \item Zamezení přístupu do systémů, které daný uživatel nepotřebuje k práci
+\end{itemize}
+
+\subsubsection*{Zero trust}
+\begin{itemize}
+    \item Neexistuje "důvěrný" uživatel, systém nebo zařízení
+\end{itemize}
+
+\subsubsection*{Fail secure}
+\begin{itemize}
+    \item Pokud selže nějaká ochrana, tak tím nevznikne prostor pro útočníka, protože výchozí stav je bezpečný
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%
+%%%%% RIZIKA %%%%%
+%%%%%%%%%%%%%%%%%%
+
+\section{Rizika}
+
+\subsubsection*{Analýza rizik}
+\begin{itemize}
+    \item \textit{Primární aktiva}: informace, nebo procesy (služby), které organizace potřebuje pro své fungování (receptura)
+    \item \textit{Podpůrná aktiva}: co potřebují primární aktiva pro své fungování
+    \item \textit{Skupinová aktiva}: pokud se záměrně sdružujeme více podpůrných aktiv dohromady (Linux/ Win servery)
+    \item \textit{Riziko}: co se může našim primárním aktivům stát a proti čemu je musíme zabezpečit\\
+    událost, která s určitou pravděpodobností může (ne)nastat. Hrozba zneužije zranitelnost a vznikne incident.
+\end{itemize}
+
+\subsubsection*{Úrovně detailu}
+\begin{itemize}
+    \item \textit{Malá úroveň}: Jednoduše vytvořená analýza rizik + lehce spravovatelná - ALE - malá přidaná hodnota
+    \item \textit{Velká úroveň}: Přesný popis procesů + pokrývá hodně rizik - ALE - dlouhá analýza rizik + nelze jednoduše aktualizovat
+\end{itemize}
+
+
+\paragraph*{PDCA – Plan-Do-Check-Act} $\equiv$ Začneme na malém detailu a v příštím běhu procesu jdeme o úroveň níže do většího detailu, nebo zahrneme více systémů.
+
+\subsubsection*{CIA Triad}
+\begin{itemize}
+    \item \textit{Confidentiality}: data nebudou dostupná neoprávněné osobě (krádež firemní databáze, ...)
+    \item \textit{Integrita}: data nejsou pozměněna a mohu se na ně spolehnout (MITM,  Změna čísla bankovního účtu, ...)
+    \item \textit{Availability}: data jsou dostupná v čase, kdy jsou potřebná (DDoS, Ransomware ...)
+\end{itemize}
+
+\paragraph*{Hodnocení aktiv} $\equiv$ jak jsou pro mě jednotlivá aktiva důležitá z pohledu důvěrnosti, integrity a dostupnost
+
+%%%%%%%%%%%%%%%%%%
+%%%%% THREAT %%%%%
+%%%%%%%%%%%%%%%%%%
+
+\section{Threat Intelligence, Kybernetický zločin a jeho ekonomika}
+
+\paragraph*{Threat Intelligence} $\equiv$ porozumění hrozbám, před tím, než se objeví 
+
+\subsubsection*{Pravidlo tří otázek}
+\begin{itemize}
+    \item \textit{Hrozba}: Co nám hrozí? 
+    \item \textit{Dopad}: Jaký bude dopad?
+    \item \textit{Akce}: Jaká opatření navrhnout?
+\end{itemize}
+
+\subsubsection*{Typy}
+\begin{itemize}
+    \item \textit{Taktická}: Bezpečnostní provoz a monitoring - popis akcí a opatření
+    \item \textit{Operativní}: Vedení informační bezpečnosti, Threat Hunting - popis chování útočníků a skupin
+    \item \textit{Strategická}: Vedení organizace/ informační bezpečnosti - popis dopadu hrozeb na organizac
+\end{itemize}
+
+\paragraph*{Kybernetický zločin} jakákoliv kriminální aktivita která zahrnuje využití výpočetních zařízení, síťových zařízení nebo sítě
+
+\subsubsection*{Advanced Persistent Threat (APT)}
+\begin{itemize}
+    \item Dlouhodobé, nedetekované hrozby
+    \item Cílí na organizaci/ stát s cílem získat cenná data (špionáž)
+    \item Úmyslně pomalý progres, nepozorované vniknutí
+\end{itemize}
+
+
+%%%%%%%%%%%%%%%%%%
+%%%% PROTOKOLY %%%
+%%%%%%%%%%%%%%%%%%
+
+\section{Protokoly v kybernetické bezpečnosti}
+
+\paragraph*{Protokol} Série kroků/akcí, zahrnující dvě nebo vice stran, navržených za účelem dosažení cíle/splnění úlohy. Kryptografie v protokolech pro zajištění CIAutentizace.
+
+\subsection{Autentizační protokoly}
+
+\subsubsection*{Selfie útok}
+\begin{itemize}
+    \item Autentizace prostřednictvím předem dohodnutého tajemství, které musí znát oba účastníci 
+    \item Např. TLS 1.3 umožňuje mód Pre Shared Key (PSK)
+\end{itemize}
+
+\paragraph*{Diverzifikace klíčů} $\equiv$ kompromitace jednoho uživatelského klíče nesmí ovlivnit bezpečnost ostatních klíčů
+
+\subsubsection*{Útok na pseudonáhodný generátor}
+\begin{itemize}
+    \item V každém okamžiku je generátor ve stavu
+    \item Útočník se pokusí rekonstruovat tento stav z výstupu $\implies$ stejný stav vede ke stejné generované sekvenci
+    \item Stejný stav bude použit více než jednou (např. $2+$ virtuálních strojů nabootuje ze stejného snapshotu)
+    \item Zdroj entropie je nevyhnutný pro iniciální seed hodnotu
+\end{itemize}
+
+\subsection{SSL/TLS Protokol -  Secure Socket Layer, Transport Layer security}
+
+Zajišťuje důvěrnost a integritu dat mezi dvěma komunikujícími aplikacemi a garantuje bezpečnou komunikaci v přítomnosti útočníka na síťové vrstvě
+
+\subsubsection*{Handshake protokol}
+\begin{itemize}
+    \item Dvě komunikující strany (klient a server) - dojednání verze protokolu a sady kryptografických algoritmů
+    \item Autentizace serveru, ustanovení tajného klíče
+\end{itemize}
+
+\subsubsection*{Record protokol}
+\begin{itemize}
+    \item Přenos a odeslání zprávy z aplikace - fragmentace do bloků, komprese, počítání MAC, šifrování, hlavičky
+\end{itemize}
+
+\subsubsection*{Truncation útok (zkracování)}
+\begin{itemize}
+    \item Útočník manipuluje TCP spojení pro ukončení přenosu dat
+    \item Strany budou předpokládat, že přenášená zpráva je kratší, než je ve skutečnosti
+    \item Řešením je mít různé typy bloků ($0$ - data, $1$ - uzavření spojení)
+\end{itemize}
+
+
+%%%%%%%%%%%%%%%%%%
+%%%%%  SITE  %%%%%
+%%%%%%%%%%%%%%%%%%
+
+\section{Bezpečnost sítí}
+
+\subsubsection*{Model síťové bezpečnosti}
+\begin{itemize}
+    \item Internet - zaměstnanci, klienti
+    \item DMZ - VPN gateway
+    \item Trusted - soukromé služby, App server
+    \item Privileged - PCI server
+\end{itemize}
+
+
+\subsubsection*{Zero trust}
+\begin{itemize}
+    \item důvěra není nikdy garantována
+    \item Princip minimálních oprávnění
+    \item Rozšířené řízení identit, Mikro segmentace, Softwarově definovaný perimetr
+\end{itemize}
+
+\subsubsection*{Zdroje data}
+\begin{itemize}
+    \item Sběr packetů - Zachycení přesné kopie provozu (paketů, tak jak byly přenášeny po síti)
+    \item NetFlows - IP packety přenesené po síti během daného intervalu (v jedné NetFlow mají všechny společné vlastnosti)
+    \item Logy - Síťová zařízení (směrovače, přepínače), Firewally, ...
+\end{itemize}
+
+\paragraph*{Packetová analýza} $\equiv$ hledání vzorů, parsování specifických příznaků, filtrování
+\paragraph*{SPF (Sender Permitted From)} $\equiv$ pouze vybrané systémy mohou posílát emaily jménem mé domény
+\paragraph*{DKIM (Domain Keys Identified Email)} $\equiv$ emailový server domény kryptograficky podepíše zprávu (info v hlavičce, klíč v txt)
+\paragraph*{PDMARC} $\equiv$ autentizace emailu, politika, a protokol pro reportování. Spoléhá na SPF a DKIM
+
+
+\subsubsection*{Statistická analýza NetFlows}
+\begin{itemize}
+    \item Identifikace kompromitovaných zařízení - kompromitovaná zařízení mohou posílat/ přijímat více dat než obvykle
+    \item Potvrzení či vyvrácení úniku dat - je možné provést analýzu objemu odeslaných dat pro ověření zda mohlo dojít k úniku dat
+    \item Profilování uživatelské aktivity - data z uživatelských zařízení mohou odhalit standardní pracovní dobu, časy neaktivity, apod.
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%
+%%%%%%  OS  %%%%%%
+%%%%%%%%%%%%%%%%%%
+
+\section{Opeační Systémy}
+
+\subsection{UEFI (Unified Extensible Firmware Interface)}
+\begin{itemize}
+    \item Nástupce původního rozhraní BIOS (grafické prostředí, možnost ovládání myší)
+    \item hrozby: Buffer overflow, Úprava proměnných UEFI (SecureBoot), SMM code injection, Disclosure of SMRAM contents, ...
+\end{itemize}
+
+\subsection{Firmware}
+
+program pro provádění základních nízkoúrovňových operací (mezi HW a SW)
+
+\paragraph*{SecureBoot} $\equiv$ brání načtení nedůvěryhodného (bez certifikátu) operačního systému (klíče uloženy na TPM)
+
+\paragraph*{TPM} $\equiv$ standard bezpečného čipu pro uložení šifrovacích klíčů; umožňuje používání SecureBoot, Šifrování disku, Biometrické autentizace, ...
+
+\paragraph*{Buffer overflow} $\equiv$ do zásobníku zapsáno více, než je kapacita $\implies$ zápis do sousedního úseku operační paměti $\implies$ možnost zápisu dat do prostoru paměti jiné aplikace
+
+\subsection{Operační systémy}
+
+\paragraph*{Hardening} $\equiv$ bezpečné nastavení operačních systémů a aplikací (snaha o snížení Attack surface $\implies$ \\vypnutí/blokování nepotřebných služeb apod.)
+
+\subsubsection*{Ochrana Windows}
+\begin{itemize}
+    \item \textit{UAC}: bez potvrzení uživatele nemůže aplikace eskalovat oprávnění
+    \item \textit{Smart App Control}: kontrola spouštěných aplikací.
+    \item \textit{Virtualization-based security}:  aplikace v separátních virtualizovaných prostředích (izolace)
+\end{itemize}
+
+\subsubsection*{Ochrana Linux}
+\begin{itemize}
+    \item \textit{SELinux}: lze nastavit přístupová oprávnění pro každého uživatele, aplikaci, process a soubor na disku
+    \item \textit{chroot}: technika posunutí kořenu souborového systému (ztráta/ nabytí oprávnění)
+    \item \textit{Fail2ban}:  opakované pokusy o přihlášení (brute force) způsobí zablokování síťového prostupu
+\end{itemize}
+
+\subsection{Virtualizace}
+\paragraph*{HW hypervisor} $\equiv$ slouží k emulaci HW (např. VMware, KVM, ...), 
+\paragraph*{SW hypervisor} $\equiv$ instalován na OS hosta (Virtualbox, ...), méně bezpečné než HW hypervisor
+
+\subsection{Kontejnery}
+\begin{itemize}
+    \item Virtualizace OS, instalace až na OS (Docker, ...)
+    \item \textit{chroot}: technika posunutí kořenu souborového systému (ztráta/ nabytí oprávnění)
+    \item \textit{Fail2ban}:  opakované pokusy o přihlášení (brute force) způsobí zablokování síťového prostupu
+\end{itemize}
+
+\subsubsection*{Namespaces a cgoups}
+\begin{itemize}
+    \item \textit{Namespaces}: umožňuje oddělení jednotlivých procesů na tzv. jmenné prostory (user ID, process ID, network, mount)
+    \item \textit{cgoups}: umožňuje řídit zdroje (CPU, RAM, HDD, síť), omezovat přidělené zdroje, prioritizovat jeden proces před druhým, měřit spotřebované zdroje
+\end{itemize}
+
+
+%%%%%%%%%%%%%%%%%%
+%%  WEB, MOBIL  %%
+%%%%%%%%%%%%%%%%%%
+
+\section{Webová a mobilní bezpečnost}
+
+\paragraph*{Statické stránky} $\equiv$ pouze front-end, žádná logika na straně serveru, žádný vstup od uživatele
+\begin{itemize}
+    \item Obsah přímo v HTML kódu (resp. + CSS, JS), do kódu stránek nelze sáhnout
+    \item \textit{Útok}: DDoS, změna HTML souboru (přes FTP/SCP)
+\end{itemize}
+
+\paragraph*{Dnyamické stránky} $\equiv$ front-end i back-end, logika, vstup od uživatele, obsah načítán z databáze
+\begin{itemize}
+    \item Vykonává se na straně PHP serveru, práce s proměnnými
+    \item \textit{Útok}: podvržený vstup, špatně napsaný back-end
+\end{itemize}
+
+\paragraph*{Server Side Includes (SSI)} $\equiv$ možnost při načítání stránky vložit (element) do statické HTML další kód; částečně dynamické
+
+
+\subsection{Vstupy od uživatele}
+$>$ "Každý vstup je nebezpečný"
+\begin{itemize}
+    \item \textit{Formuláře}: kontrolovat HTTP POST; např. vyhledávání, přihlášení, vložení do košíku, ...
+    \item \textit{URL adresy}: back-end PHP volání \texttt{\$\_GET} - ovlivnění chování stránky;  přístup k jinému účtu, ...
+    \item \textit{Cookies}: posílá se HTTP Request požadavku + cookies; obstarává historii, zajišťuje identifikaci
+    \item \textit{HTTP hlavičky}: Request (user) a Response (server); obsahují HTTP headers (Referrer-Policy, X-XSS-Protection,  HTTP Public Key Pinning (HPKP)...)
+\end{itemize}
+
+
+\subsection{HTTP headers}
+
+\subsubsection*{CSP (Content-Security-Policy)}
+\begin{itemize}
+    \item Určí politika, odkud se mohou nahrávat externí zdroje (obrázky, JS, fonty)
+    \item Ochrana proti XSS, data injection
+\end{itemize}
+
+\subsubsection*{HSTS (HTTP Strict Transport Security header)}
+\begin{itemize}
+    \item Vynutí přístup pouze přes HTTPS
+    \item Ochrana proti Man-in-the-middle
+\end{itemize}
+
+\subsubsection*{HPKP (HTTP Public Key Pinning)}
+\begin{itemize}
+    \item Prohlížeč přijímá odpověď serveru pouze když přijde i s certifikátem s odpovídajícím public key
+    \item Zabraňuje vystavení falešných certifikátů pro doménu
+\end{itemize}
+
+\subsection{Šifrování spojení}
+\begin{itemize}
+    \item Přesměrovat HTTPS na HTTP, přepnout komunikaci na „slabé šifrování“, přesměrovat komunikaci přes svoji doménu
+\end{itemize}
+
+\subsection{OWASP TOP 10}
+
+\subsubsection*{A05:2021 – Security Misconfiguration}
+\begin{itemize}
+    \item \textit{Popis}: špatná konfigurace prostředí, ve kterém je web-aplikace provozována (nastavení serveru, zapomenuté konfigurační/instalační skripty, výchozí adresáře a hesla, přístupovýá práva hostingu/cloudu)
+    \item \textit{Ochrana}: hardening webového, aplikačního serveru; aktualizace knihoven + frameworků, změna výchozího nastavení; nastavení oprávnění; odinstalace nepoužívaných komponent/portů/frameworků
+    \item Security through obscurity -  Změna výchozího nastavení; vhodné proti automatizovaným útokům
+\end{itemize}
+
+\subsubsection*{A06:2021 – Vulnerable and Outdated Components}
+\begin{itemize}
+    \item \textit{Popis}: zastaralá a zranitelná komponenta (webový server, databáze, ...), neprovedení okamžitého upgrade platformy
+    \item \textit{Ochrana}: pravidelné a okamžité patchování a skenů zranitelností; sledování nově zveřejněných zranitelnost
+\end{itemize}
+
+\subsubsection*{A09:2021 – Security Logging and Monitoring Failures}
+\begin{itemize}
+    \item \textit{Popis}: nezaznamenávání logů (neúspěšné přihlášení, podezřelá aktivita); logy se ukládají pouze lokálně; 
+    \item \textit{Ochrana}: zajistit logování ve správném a čitelném formátu; logování úspěšných i neúspěšných přihlášení
+\end{itemize}
+
+\subsection{Testování webových aplikací}
+
+\subsubsection*{SAST (Static Application Security Testing)}
+\begin{itemize}
+    \item Testování zdrojového kódu aplikace (inside-out)
+    \item Nevyžaduje běžící systém k provedení scanu; rychlé; navede na konkrétní řádku kódu
+    \item Hodně false-positives; nedokáže najít zranitelnosti u služeb třetích stran; musí mít přístup ke zdrojovému kódu
+\end{itemize}
+
+\subsubsection*{DAST (Dynamic Application Security Testing)}
+\begin{itemize}
+    \item Testování skrze front-end; simuluje chování uživatele (outside-in)
+    \item Nevyžaduje přístup ani změny ve zdrojovém kódu; málo false-positives; tester nemusí o aplikaci nic vědět
+    \item Neidentifikuje zranitelnost ve zdrojovém kódu; riziko incidentu v produkčním prostředím; trvá dlouho
+\end{itemize}
+
+\subsubsection*{IAST (Interactive Application Security Testing)}
+\begin{itemize}
+    \item Kominace SAST a DAST; pracuje nad běžící aplikací; nepotřebuje přístup ke zdrojovému kódu
+\end{itemize}
+
+
+\subsection{Mobilní bezpečnost}
+\begin{itemize}
+    \item pravidelně aktualizovat, mít antivirus, zálohovat, nepřipojovat se k nedůvěryhodným wifi, zámek displeje
+    \item instalovat z ověřených zdrojů, číst podmínky, nepovolovat nepotřebná oprávnění
+\end{itemize}
+
+\subsubsection*{Mobile Device Management (MDM)}
+\begin{itemize}
+    \item Nástroj pro zajištění kontroly nad mobilními zařízením
+    \item Kontrola bezpečnostních firemních politik
+    \item správa a kontrola nad aplikacemi, které jsou na zařízen nainstalovány
+    \item Uzamknoutí, smazání, skenování zařízení, vypnout kameru/NFC/GPS, ...
+\end{itemize}
+
+
+%%%%%%%%%%%%%%%%%%%
+%%  LEGISLATIVA  %%
+%%%%%%%%%%%%%%%%%%%
+
+\section{Legislativa v kybernetické bezpečnosti}
+
+\subsection{Organizační opatření}
+\begin{itemize}
+    \item řízení rizik a aktiv, bezpečnostní politika, organizační bezpečnost, stanovení bezpečnostních požadavků, 
+\end{itemize}
+
+\subsubsection*{ISMS - Systém řízení bezpečnosti informací}
+\begin{itemize}
+    \item Soubor pravidel, cílem je zachovat důvěrnost, integritu a dostupnost informací aplikováním procesu řízení rizik
+\end{itemize}
+
+\subsubsection*{Řízení rizik}
+\begin{itemize}
+    \item Otázku řízení rizik jako činnost zahrnující hodnocení rizik
+\end{itemize}
+
+\subsubsection*{Technická opatření}
+\begin{itemize}
+    \item Fyzická bezpečnost; kryptografické prostředky; nástroj pro ověřování identity, řízení přístupových oprávnění, ochranu před škodlivým kódem, detekci, sběr a vyhodnocění kybernetických bezpečnostních událostí
+    \item Je součást procesů a celkového systému řízení organizace
+    \item Aplikace na organizaci, Specifický informační a komunikační systém
+\end{itemize}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% DIGITALNI STOPA  %%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Digitální stopa}
+
+\paragraph*{Cookies prvních stran} $\equiv$ preference uživatele, provoz stránky, analýza
+
+\paragraph*{Digitální stopa} $\equiv$ soubor informací o činnosti uživatele ve virtuálním prostředí
+\begin{itemize}
+    \item \textit{Aktivní}: záměrně sdílená informace (sociální sítě, ...)
+    \item \textit{Pasivní}:  bez vědomí, někdy i bez souhlasu (IP adresy, ...)
+\end{itemize}
+Lze díky ní sestavit identita každého člověka.
+
+
+%%%%%%%%%%%%%%%%%%%%%%
+%%%% BEZPECNY SW  %%%%
+%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Bezpečný software}
+Splňuje CIA, závislý na modelu hrozeb, 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% KYBER-FYZIKALNI, IoT  %%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Kyber-fyzikální systémy, IoT}
+Většinou je cílem způsobit fyzickou škodu; přístupy z IT bezpečnosti nelze vždy aplikovat; nízké náklady na bezpečnost
+\paragraph*{IoT} $\equiv$ jakékoliv zařízení, které sbírá data z fyzického světa a sdílí přes Internernet za účelem poskytnutí služeb a informací
+\paragraph*{CPS - Kyber-fyzikální systémy} $\equiv$ snímání, výpočty, řízení, komunikace a analýza za účelem interakce s fyzickým světem
+
+\subsubsection*{Architektura CBS a vektory útoku}
+\begin{itemize}
+    \item \textit{Kompromitace senzoru} - falešný signál
+    \item \textit{Útočník mezi senzorem a kontrolérem} - DoS, zpožďování, blokování
+    \item \textit{Kompromitovaný kontrolér -} škodlivé příkazy
+    \item \textit{Útočník zpozdí/ zablokuje řídící příkazy} - DoS
+    \item \textit{Kompromitace akčního členu} - škodlivé/náhodné akce nezávisle na kontroléru
+    \item \textit{Fyzický útok}
+\end{itemize}
+
+
+\subsection{Mirai Botnet}
+\begin{itemize}
+    \item Botnet z IoT zařízení běžící na linuxu; cílem byly DDoS útoky
+    \item \textit{Fáze skenování} - Rychlé skenování asynchronně; packety na generované IPv4
+    \item \textit{Fáze Brute-force} - zkokuší přihlašovací údaje 
+    \item \textit{Fáze instalace} - nahrán malware 
+    \item Mirai snaží zakrýt svou přítomnost - maže binárky, kill procesy, 
+\end{itemize}
+
+\subsection{Detekce útoků proti CPS }
+\begin{itemize}
+    \item \textit{Remote attestation} - ověření aktuálního vnitřního stavu (RAM)
+    \item \textit{Network intrusion detection} - sledování interakcí zařízení CPS (jednoduché síťové chování)
+    \item \textit{Active detection} - detekuje anomálie v systému
+\end{itemize}
+
+\subsection{Mitigace}
+Zmírnění poruch
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% KRITICKA INFRASTRUKTURA  %%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Kritická infrastruktura}
+
+\subsubsection*{Modbus}
+\begin{itemize}
+    \item protokol zasílání zpráv aplikační vrstvy
+    \item \textit{Chybějící autentizace} - vyžaduje pouze platnou adresu a platný kód funkce
+    \item \textit{Chybějící šifrování.} - vše v otevřeném textu
+    \item \textit{Chybějící kontrolní součet zpráv} - možnost poslat podvržené příkazy
+    \item \textit{Chybějící zamezení broadcast zpráv} - možnost DoS
+    \item \textit{Programovatelnost.} - možnost vložení škodlivé logiky 
+\end{itemize}
+
+\subsubsection*{ICCP}
+\subsubsection*{DNP3}
+\subsubsection*{Stuxnet}
+\subsubsection*{Ransomware}
+
+
+\end{document}

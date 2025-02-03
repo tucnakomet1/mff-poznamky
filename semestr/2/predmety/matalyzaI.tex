@@ -1,0 +1,1234 @@
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[margin=0.7in]{geometry}
+\usepackage{amssymb, amsthm, amsmath, amsfonts}
+\usepackage{array, xcolor, enumitem, graphicx}
+\usepackage{cancel, stmaryrd}   % stmaryrd - lighting
+\usepackage[czech]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[unicode]{hyperref}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue,
+    pdftitle={Zkouška - Matematická analýza 1},
+}
+
+\setlength{\parindent}{0em}
+
+\title{Zpracování vět a definic ke zkoušce z Matematické analýzy 1}
+\date{\today}
+\author{Matěj Foukal a Karel Velička}
+\renewcommand*\contentsname{Obsah}
+
+\newcommand{\N}{{\mathbb{N}}}
+\newcommand{\Z}{{\mathbb{Z}}}
+\newcommand{\Q}{{\mathbb{Q}}}
+\newcommand{\R}{{\mathbb{R}}}
+\newcommand{\Cc}{{\mathbb{C}}}
+\newcommand{\Pp}{{\mathcal{P}}}
+\renewcommand\qedsymbol{$\blacksquare$}
+
+\graphicspath{ {img/} }
+
+\begin{document}
+\pagenumbering{arabic}
+\maketitle
+
+\begin{center}
+    1. ročník bc. informatika\\ doc. RNDr. Martin Klazar, Dr.
+\end{center}
+
+
+\tableofcontents
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Definice}
+
+%%%%%%%%%%%%%%%%
+% REÁLNÁ ČÍSLA %
+%%%%%%%%%%%%%%%%
+\subsection{Reálná čísla}
+
+%1.1.1%
+\subsubsection{Definice funkce, funkce prostá, na a bijekce}
+
+\begin{itemize}
+    \item \textbf{Funkce (zobrazení):} Funkce $f$ z množiny $A$ do množiny $B$, neboli $f:A\to B$, je uspořádaná trojice $(A, B, f)$, kde $f\subseteq A\times B$ a  \(\forall a \in A, \exists ! b\in B: afb\), neboli $f(a) = b$. \textit{(Platí: $\mathbb{D}_f = A$, $\mathbb{H}_f = B$)}
+    \item \textbf{Funkce prostá (injektivní):} Funkce $f: X\to Y$ pro $\forall x,x' \in X$ je prostá $\iff$ $f(x) = f(x') \implies  x = x'$. \\ \textit{Dvěma různým $x$ nepřiřadíme stejné $y$. Takže $\forall y$ existuje nejvýše jedno $x$.}
+    \item \textbf{Funkce na (surjektivní):} Funkce $f: X\to Y$ je na $\iff f[X] = Y$. \\ \textit{$\forall y$ existuje alespoň jedno $x$.}
+    \item \textbf{Funkce bijektivní:} Funkce $f: X\to Y$ je bijektivní $\iff$ je \textit{prostá} i \textit{na}. \textit{( $\exists !x$ )}
+\end{itemize}
+
+\textit{Obraz množiny $C \subseteq A$ je $f[C]:=\{f(a) \mid a \in C\} \subseteq B$}.
+
+%1.1.2%
+\subsubsection{Supremum a infimum v lineárním uspořádání}
+
+Nechť $A$ je množina s uspořádáním $(A, <)$ a $B$ je množina, t.ž.: $B \subseteq A$. 
+Prvky $a\in A$ jsou \textit{supremem} (resp. \textit{infimem}) množiny $B$, když splňují $\sup (B) := \min (\mathcal{H}(B))$ a $\inf (B) := \max (\mathcal{D}(B))$ v $A$.
+
+\begin{enumerate}
+    \item Množina \textit{horních mezí} \(\mathcal{H}(B) := \{\exists h \in A, \forall b \in B \mid b\leq h\}\)
+    \item Množina \textit{dolních mezí} \(\mathcal{D}(B) := \{\exists d \in A, \forall b \in B \mid b\geq d\}\)
+\end{enumerate}
+
+%1.1.3%
+\subsubsection{Nejvýše spočetná a nespčetná čísla}
+
+Nechť $X$ je množina, potom $X$ je:
+
+\begin{itemize}
+    \item \textit{spočetná} $\iff$ existuje bijekce $f: \N \to X$.
+    \item \textit{nejvýše spočetná} $\iff$ je konečná nebo spočetná.
+    \item \textit{nespočetná} $\iff$ není nejvýše spočetná.
+\end{itemize}
+
+\textit{Nekonečná $\iff$ existuje prostá funkce $f:\N \to X$.}
+
+\textit{Konečná $\iff$ není nekonečná.}
+
+%%%%%%%%%%%%%%%%%%%%%%%
+% LIMITA POSLOUPNOSTI %
+%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Limity}
+\subsubsection{Vlastní a nevlastní limita posloupnosti, podposloupnost}
+\textit{Reálná posloupnost $(a_n) = (a_1, a_2, \dots) \in \R$} je funkce $a: \N \to \R$.
+
+%1.2.1%
+\paragraph*{Limita posloupnosti}
+
+Nechť $(a_n)$ je reálná posloupnost a $L \in \R ^*$, kde $\R^*$ je $\R$ spolu s $\pm \infty$.
+Potom $L$ je limita posloupnosti $(a_n)$, pokud:
+ \[\forall \varepsilon, \exists n_0: n \geq n_0 \implies a_n \in U(L, \varepsilon).\]  Píšeme $\displaystyle \lim_{n\to \infty} a_n = L$.
+ 
+\begin{itemize}
+    \item \textit{Okolí bodu} $b \equiv U(b, \varepsilon):= (b-\varepsilon, b+\varepsilon)$
+    \item \textit{Prstencové okolí bodu} $b \equiv P(b, \varepsilon):= U(b, \varepsilon)\setminus \{\varepsilon\} = (b-\varepsilon, b) \cup (b, b+\varepsilon)$
+\end{itemize}
+
+\paragraph*{Vlastní a nevlastní limita}
+
+Pokud $L \in \R$, pak konverguje a mluvíme o limitě \textit{vlastní}, pokud $L=\pm \infty$, pak diveguje a mluvíme o limitě \textit{nevlastní}.
+
+\paragraph*{Podposloupnost} $(b_n)$ je podposloupností posloupnosti $(a_n)$, pokud existuje taková posloupnost $$\forall m \in \N: m_1 < m_2 < \dots \in \N,$$ kde $\forall n: b_n = a_{m_n}$. \textit{Značíme jako $(b_n) \prec (a_n)$.}
+
+%1.2.2%
+\subsubsection{Liminf a limsup posloupnosti}
+\textit{Limes inferior (resp. superior)} reálné posloupnosti $(a_n)$ definujeme jako $\lim \inf a_n$, resp. $\lim \sup a_n$.
+
+\begin{itemize}
+    \item \textit{Hromadný bod} $A$ posloupnosti $(a_n)$, pokud je limitou nějaké podposloupnosti posloupnosti $(a_n)$.
+    \item $\mathcal{H}$ definujeme jako množinu hromadných bodů, neboli $\mathcal{H}(a_n):= \{A\in \R^* \mid A \textit{ je hromadný bod } (a_n)\}$.
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%
+%        ŘADY         %
+%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Řady}
+
+%1.3.1%
+\subsubsection{Řada, částečný součet řady, součet řady}
+
+\paragraph*{Řada} je posloupnost $(a_n) \subseteq \R$.
+
+\paragraph*{Částečný součet řady} $(a_n)$ je $(s_n):= (a_1 + a_2 + \dots + a_n)$
+
+\paragraph*{Součet řady} je limita $\displaystyle \sum a_n = \sum_{n=1}^\infty a_n = a_1 + a_2 + \dots := \lim_{n\to \infty}(a_1 + a_2 + \dots + a_n) = \lim s_n \in \R^*$.
+
+%1.3.2%
+\subsubsection{Geometrická řada a její součet, absolutně konvergentní řada}
+
+\paragraph*{Geometrická řada} je řada $\displaystyle \sum_{n=0}^{\infty}q^n = 1 + q + q^2 + \dots + q^n + \dots$, kde $q \in \R$ je kvocient.
+\paragraph*{Součet geometrické řady} je $\displaystyle \sum_{n=0}^{\infty}q^n = \begin{cases}
+    \frac{1}{1-q} & \text{pro } |q| < 1\\
+    + \infty & \text{pro } q \geq 1\\
+    \text{neexistuje} & \text{pro } q \leq -1
+\end{cases}$
+\paragraph*{Absolutně konvergentní řada} Řada $\sum a_n$ je \textit{AK}, pokud konverguje řada $\sum |a_n|$.
+\\ \textit{Tvrzení: Každá AK konverguje. Důkaz: $\sum a_n$ má $(s_n)$. Ukážeme, že $(s_n)$ je Cauchyova...}
+
+%%%%%%%%%%%%%%%%%%%%%%%
+%        FUNKCE       %
+%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Funkce}
+%1.4.1%
+\subsubsection{Limita funkce, jednostranná limita funkce}
+
+\paragraph*{Limita funkce}
+
+Funkce $f: M\to \R$ má v bodě $a \in \R^*$, kde $a$ je limitní bod množiny $M$, limitu $A \in \R^*$, pokud
+\[
+    \forall \varepsilon >0, \exists \delta>0, \forall x \in P(a, \delta) \cap M : f(x) \subseteq U (A, \varepsilon)\textit{, tedy } \displaystyle \lim_{x\to a}f(x) = A.
+\]
+
+\textit{Limitní body množiny $M\subseteq \R$ prvku $L\in \R^* \equiv \forall \varepsilon:P(L, \varepsilon) \cap M \neq \emptyset$.}
+
+\paragraph*{Jednostranná limita funkce} Podobně, jen $\forall x \in P^{\pm}(a, \delta) \cap M ...$
+
+%1.4.2%
+\subsubsection{Exponenciála, logaritmus, kosinus a sinus}
+\paragraph*{Exponenciála} $\displaystyle \forall x \in \R: e^x = \exp(x) := \sum_{n=0}^{\infty} \frac{x^n}{n!} = 1+x+\frac{n^2}2 + \frac{n^3}6 + \dots : \R \to \R$.\\
+\textit{Eulerovo číslo $\equiv e^1 = \displaystyle \sum_{n=0}^{\infty} \frac{1}{n!} \in \mathbb{I}$ a je rovno $\approx 2.718...$}
+\paragraph*{Logaritmus} $\log x$ je inverzní funkce k exponenciále, tedy $\log := \exp^{-1}:(0, \infty) \to \R$\\
+\textit{Platí důležité vztahy: $\log(xy) = \log(x)+\log(y)$, $\log(1) = 0$, atd.}
+
+\paragraph*{Cosinus a sinus} \(\displaystyle
+    \forall t \in \R : \cos t := \sum_{n=0}^{\infty} \frac{(-1)^nt^{2n}}{(2n)!} \text{ a } \sin t := \frac{(-1)^nt^{2n+1}}{(2n+1)!} \text{ jdoucí z } \R \to \R
+\)
+
+%1.4.3%
+\subsubsection{Spojitost funkce v bodě a jednostranná spojitost}
+\paragraph*{Spojitost funkce v bodě} Nechť $a\in M \subseteq \R$ a $f: M \to \R$. Funkce $f$ je spojitá v bodě $a$, když 
+\[
+    \forall \varepsilon, \exists \delta, \forall x \in U(a, \delta) \cap M: f(x) \subseteq U(f(a), \varepsilon).
+\]
+\\ \textit{Neboli funkce $f$ je v bodě $a$ spojitá, pokud $\lim_{x\to a} f(x) = f(a)$.}
+\paragraph*{Jednostranná spojitost} Podobně, jen je zleva ($-$) resp. zprava ($+$) spojitá a pro $\forall x \in U^{\pm}(a, \delta) \cap M...$
+
+%1.4.4%
+\subsubsection{Asymptotické symboly}
+
+\paragraph*{Symbol $O$} Nechť je $M \subseteq \R$, $N\subseteq M$ a $f,g: M \to \R$ jsou funkce. 
+Potom pokud $\exists c \geq 0, \forall x \in N: |f(x)| \leq c \cdot |g(x)|$, pak píšeme $f(x) = O(g(x))$, pro $x \in N$.
+\textit{(Nesmí nastat $\lim \frac{f(x)}{g(x)} = \infty$.)}
+\paragraph*{Symbol $o$ a $\sim$} Nechť $a \in \R^*$ je limitní bod množiny $M \subseteq \R$ a $f,g: M\to \R$ jsou funkce, kde \[\exists \delta \forall x \in P(A, \delta) \cap M(g(x) \neq 0) \text{ potom pro }\]
+\begin{itemize}
+    \item \textit{malé o:} $\displaystyle \lim_{x\to a} \frac{f(x)}{g(x)} = 0 \implies f(x) = o(g(x))$ pro $x\to a$,
+    \item \textit{asymptotickou rovnost $\sim:$} $\displaystyle \lim_{x\to a} \frac{f(x)}{g(x)} = 1 \implies f(x) \sim g(x)$ pro $x\to a$.
+\end{itemize}
+
+%1.4.5%
+\subsubsection{Kompaktní, otevřená a uzavřená množina}
+
+\paragraph*{Kompaktní množina} Množina $M \subseteq \R$ je \textit{kompaktní}, když $\forall (a_n)\subseteq M$ má konvergentní podposloupnost $(a_{m_n})$ s $\lim a_{m_n}\in M$. \textit{(Když je $M$ omezená a uzavřená.)}
+\paragraph*{Otevřená množina} Množina $M \subseteq \R$ je \textit{otevřená}, když $\forall a \in M, \exists \delta: U(a, \delta) \subseteq M$.
+\paragraph*{Uzavřená množina} Množina $M \subseteq \R$ je \textit{uzavřená}, když $\forall (a_n) \subseteq M: \lim a_n = a \implies a\in M$.
+
+%1.4.6%
+\subsubsection{Lokální a globální a ostré extrémy}
+
+\paragraph*{Globální extrém} Nechť $a\in M \subseteq \R$ a nechť $f:M\to \R$. Funkce $f$ má na $M$ v bodě $a$ \textit{globální maximum} (resp. \textit{minimum}), když $\forall x \in M: f(x) \leq f(a)$, resp. $f(x) \geq f(a)$.
+
+\paragraph*{Lokální extrém} Nechť $a\in M \subseteq \R$ a nechť $f:M\to \R$. Funkce $f$ má na $M$ v bodě $a$ \textit{lokální maximum} (resp. \textit{minimum}), když $\exists \delta, \forall x\in U(a, \delta) \cap M: f(x)\leq f(a)$, resp $f(x) \geq f(a)$.
+
+\paragraph*{Ostrý extrém} Pokud platí ostré nerovnosti v definici o lokálním/globálním extrému, jedná se o \textit{ostrý extrém}.
+
+%1.5%
+\subsection{Derivace}
+
+\textit{Oboustranný limitní bod (OLB) množiny $M$ je $\forall \delta: P^-(a,\delta) \cap M \neq 0 \neq P^+(a, \delta) \cap M$.}
+
+%1.5.1%
+\subsubsection{Derivace funkce, jedonstranná derivace funkce}
+\textit{Funkce $f$ je diferencovatelná, pokud á vlastní limitu, tedy pokud je spojitá.}
+
+\paragraph*{Derivace funkce} Nechť bod $a\in M$ je limitní bod množiny $M \subseteq \R$ a $f = f(x): M\to \R$ je funkce. Potom derivace $f$ v bodě $a$ je limita \[
+    f'(a) = \frac{df}{dx}(a) := \lim_{x\to a}\frac{f(x) - f(a)}{x-a} = \lim_{h\to 0}\frac{f(a+h)-f(a)}{h}. \]
+\paragraph*{Jedonstranná derivace funkce}
+Nechť bod $a\in M$ je \textit{levý ($-$)}, resp. \textit{pravý ($+$)}, limitní bod množiny $M \subseteq \R$ a $f = f(x): M\to \R$ je funkce. 
+Potom derivace funkce $f$ v bodě $a$ \textit{zleva}, resp. \textit{zprava} je limita \[
+    f'_{\pm}(a) := \lim_{x\to a^{\pm}}\frac{f(x) - f(a)}{x-a} = \lim_{h\to 0^\pm}\frac{f(a+h)-f(a)}{h}.
+\]
+
+%1.5.2%
+\subsubsection{Standardní definice tečny}
+
+Nechť $a\in M \subseteq \R$, $a$ je limitní bod množiny $M$ a $f: M\to \R$ je diferencovatelná v $a$. 
+\textit{Tečnou} ke grafu $G_f$ funkce $f$ v bodě $(a, f(a))\in G_f$ rozumíme přímku $l$ definovanou: $$l:y=f'(a)\cdot (x-a) + f(a).$$
+\textit{Je to jediný přímka se sklonem (směrnicí) $f'(a)$ procházející bodem $(a, f(a))$.}
+
+%1.5.2%
+\subsubsection{Derivace vyšších řádů}
+
+Nechť $\emptyset \neq M \subseteq \R$ je otevřená množina a $f:M\to \R$, $f_0 := f$ a pro $i = 1, 2, \dots, n \in \N$ platí, že $D(f_{i-1}) = M$ a $f_i:= (f_{i-1})'$. Pak každou funkci $f^{(i)}:= f_i:M\to \R$, $i=1,2,\dots,n$ nazveme \textit{derivací řádu $i$}.
+
+\textit{\textbf{Alternativně:}}
+
+Nechť $a \in M \subseteq \R$, pokud $f:U(a, \delta) \to \R$ na $U(a, \delta)$ má derivaci $f^{(n-1)}(x)$ řádu $n-1$, potom derivace řádu $n$ je 
+$$f^{(n)}(a):= \lim_{x\to a}\frac{f^{(n-1)}(x) - f^{(n-1)}(a)}{x-a}.$$
+
+%1.5.3%
+\subsubsection{Ryze konvexní a konkávní funkce}
+Nechť $I \subseteq \R$ je interval. Funkce $f:I\to \R$ je \textit{konvexní (resp. konkávní)}, pokud
+\[
+    \forall a,b,c \in I, a < b< c: (b, f(b) \leq \mathcal{K} (a, f(a), c, f(c)). \textit{ (resp. $\geq$)}
+\]
+
+\textit{Pro ostré nerovnosti je ryze konvexní/ ryze konkávní}.
+
+%1.5.4%
+\subsubsection{Inflexní bod}
+
+Nechť $a \in M \subseteq \R$, kde $a$ je OLB množiny $M$; $f:M\to \R$ a $l$ je tečna ke $G_f$ v $(a, f(a))$. 
+Tento bod je potom \textit{inflením bodem} grafu funkce $f$, pokud:
+\[
+    \exists \delta, \forall x\in P^{-}(a, \delta) \cap M \land \forall x'\in P^{+}(a, \delta) \cap M \implies (x, f(x)) \leq l \land (x', f(x')) \geq l,
+\] 
+
+\textit{(= bod, ve kterém $f''=0$ a $f'=0$ nebo $f'$ neexistuje; dochází ke změně směru funkce)}.
+
+%1.5.5%
+\subsubsection{Svislé asymptoty a asymptoty v nekonečnu}
+
+\paragraph*{Svislé asymptoty} Nechť $M\subseteq \R$, $b\in \R$ je levý \textit{(resp. pravý)} limitní bod množiny $M$ a $f:M\to \R$ je funkce. \\
+Potom když $\displaystyle \lim_{x\to b^{\mp}}f(x) = \pm \infty$, nazveme přímku $x=b$ levou \textit{(resp. pravou)} svislou asymptotou funkce $f$.
+\paragraph*{Asymptoty v nekonečnu} Nechť $M\subseteq \R$; $\pm \infty$ je limitní bod množiny $M$; $a,b\in \R$ a $f:M\to \R$ je funkce. 
+Potom když $\displaystyle \lim_{x\to \pm\infty} (f(x) - (ax + b)) = 0$, nazveme přímku $y = ax + b$ \textit{asymptotou} funkce $f$ v $\pm\infty$.
+
+%1.5.6%
+\subsubsection{Taylorův polynom funkce, Taylorova řada funkce}
+
+\paragraph*{Taylorův polynom funkce} Nechť $\forall n\in \N: f, f', f{''}, \dots, f^{n-1}: U(b, \delta) \to \R$ a $\exists f^{(n)}(b)\in \R$. 
+Potom polynom
+\[
+    T_n^{f,b}(x):= \sum_{j=0}^{n}\frac{f^{(j)}(b)}{j!}(x-b)^j,
+\] nazveme Taylorovým polynomem funkce $f$ řádu $n$ se středem v $b$.
+
+\textit{Příklady důležitých Taylorových polynomů: $e^x = T_n^{f,0}(x)$, $\sin(x) = T_{2n+1}^{f,0}(x)$}.
+
+\paragraph*{Taylorova řada funkce} Nechť $\forall n \in \N_0: f^{(n)}: U(a, \delta) \to \R$. Pokud $\forall x \in U(a, \delta)$ platí
+\[
+    f(x):= \sum_{n=0}^{\infty}\frac{f^{(n)}(a)}{n!}\cdot(x-a)^n,
+\] pak řekneme, že funkce $f$ na $U(a, \delta)$ je součtem své \textit{Taylorovy řady} se středem v $a$.
+
+%1.7%
+\subsection{Integrály}
+
+%1.6.1%
+\subsubsection{Primitivní funkce} 
+Nechť $I\subseteq \R$ je netriviální interval a $F, f: I\in \R$. Potom $F$ je primitivní funkce k $f$, neboli $\displaystyle F = \int f$, pokud $F'=f$ na celém $I$. 
+
+%1.6.2%
+\subsubsection{Stejnoměrná spojitost} 
+
+Nechť $M\subseteq \R$ a $f:M\to \R$, potom $f$ na $M$ je \textit{stejnoměrně spojitá}, pokud:
+\[
+    \forall \varepsilon, \exists \delta : \forall a, b \in M \land |a-b| \leq \delta \implies |f(a) - f(b) \leq \varepsilon.
+\] 
+
+\textit{Platí, že každá spojitá funkce $f:M\to \R$ je pro kompaktní $M\subseteq \R$ stejnoměrně spojitá}.
+
+%1.6.3%
+\subsubsection{Newtonův integrál funkce (nevlastní)}
+
+Nechť $f:(a,b)\to \R$, kde $a<b$, má primitivní funkci $F$ a existují vlastní limity $\displaystyle F(a):= \lim_{x\to a}F(x)$ a $F(b):= \displaystyle \lim_{x\to b}F(x)$, 
+potom Newtonův integrál funkce $f$ na intervalu $(a, b)$ definujeme jako:
+
+\[
+    \int_{a}^{b}f:= F(b) - F(a) = \lim_{x\to b}F(x) - \lim_{x\to a} F(x).
+\] 
+
+%1.6.4%
+\subsubsection{Riemannův integrál funkce a množina míry O}
+\paragraph*{Riemannův integrál funkce} Funkce $f: [a, b] \to \R$, kde $a< b$, je riemannovsky integrovatelná, neboli \\
+$f\in R(a,b)$, pokud $\exists c, \forall \varepsilon, \exists \delta, \forall (\overline{a}, \overline{t})$ platí, že:
+\(
+    ||\overline{a}|| < \delta \implies |R(\overline{a}, \overline{t}, f) - C | < \varepsilon.
+\).
+
+Píšeme také jako:
+\[
+    (R) \int_{a}^{b} f = c \text{ nebo jako } (R) \int_{a}^{b} f(x) dx = c.
+\]
+
+\paragraph*{Množina míry O} Množina $M \subseteq \R$ má míru $0$, pokud platí: 
+$$\forall \varepsilon, \exists [a_n, b_n], \forall n\in \N \textit{, kde } a_n < b_n: M\subseteq \bigcup_{n=1}^{\infty}[a_n, b_n] \land \sum_{n=1}^{\infty} (b_n - a_n) < \varepsilon.$$
+%1.6.5%
+\subsubsection{Henstock-Kurzweilův integrál} 
+Nechť $f:[a,b] \to \R$ je HK-integrovatelná, neboli $f\in \text{HK}(a,b)$, pokud $\exists c, \forall \varepsilon, \exists \delta_c$, kalibr na $[a,b]$, 
+že pro $\forall$ dělení s body $(\overline{a}, \overline{t})$ intervalu $[a, b]$ platí, že
+$(\overline{a}, \overline{t}) \text{ je } \delta_c \text{-jemné } \implies |R(\overline{a}, \overline{t}, f) - c| < \varepsilon.$ 
+
+Píšeme také jako:
+\[
+    (HK) \int_{a}^{b} f = c \text{ nebo jako } (HK)\int_{a}^{b} f(x) dx = c
+\]
+
+%1.6.6%
+\subsubsection{Délka grafu funkce, plocha mezi grafy, objem rotačního tělesa}
+
+\paragraph*{Délka grafu funkce} Nechť $f:[a,b]\to \R$ má ratifikovatelný graf, pokud:
+\[
+    \ell(G_f) := \sup (\{ L(\overline{a}, f) \mid \overline{a} \textit{ je dělení intervalu } [a,b] \}).
+\]
+\paragraph*{Plocha mezi grafy} 
+Nechť $f,g:[a,b]\to \R$, kde $f \leq g$. Plocha útvaru $G_{f,g}$ je potom:
+
+\[
+    A(G_{f,g}):= \inf (\{ M(f, g, \overline{a}) \mid \overline{a} \textit{ je dělení intervalu } [a,b] \}).
+\]
+
+\textit{Vzorec pro výpočet plochy mezi grafy je: $\displaystyle A(G_{f,g}):= \int_{a}^{b}(g-f)$.}
+
+\paragraph*{Objem rotačního tělesa} Nechť funkce $f:[a,b]\to [0, +\infty)$. Objem útvaru $T_f$ je:
+\[
+    V(T_f):= \inf(\{K(f, \overline{a}) \mid \overline{a} \textit{ je dělení intervalu } [a,b]\}).
+\]
+
+\textit{$K$ definujeme jako součet a $T_f:= \{(x,y,z)\in \R^3 \mid a\leq x \leq b \land y^2 + z^2 \leq f(x)^2\}$}.
+
+\textit{Vzorec pro výpočet objemu rotačního tělesa je: $\displaystyle V(a,b,f) = V(T_f):= \pi \int_{a}^{b} f^2 .$}
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Věty a tvrzení bez důkazu}
+
+%%%%%%%%%%%%%%%%
+% REÁLNÁ ČÍSLA %
+%%%%%%%%%%%%%%%%
+\subsection{Reálná čísla}
+
+%2.1.1%
+\subsubsection{Definice a vlastnosti reálných čísel}
+\paragraph*{Reálná čísla} tvoří množinu $\R:= C / \sim$, kde $C$ je množina všech Cauchyových posloupností a $\sim$ je relace shodnosti na $C$.
+ \textit{Kde pro $k,n_0, m,n \in \N$ je:}
+\begin{itemize}
+    \item \textit{Cauchyova posloupnost} $(a_n) \subseteq \Q: \forall k \exists n_0: m,n \geq n_0 \implies |a_m - a_n| \leq \frac{1}{k}$.
+    \item \textit{Relace shodnosti} $(a_n) \sim (b_n) \iff \forall k \exists n_0: n \geq n_0 \implies |a_n-b_n| \leq \frac{1}{k}$
+\end{itemize}
+\paragraph*{Vlastnosti reálných čísel} Na množině $\R$ je dána binární relace $(<) \subseteq \R \times \R$, operace sčítání $(+)$, násobení $(\cdot)$ a význačné prvky $0,1$, tedy uspořádané těleso $(\R, 0, 1, +, \cdot, <)$.
+
+\textit{(Platí komutativita, distributivita, asociativita, existence $0,1$, atd.)}
+
+% 2.2 %
+\subsection{Limity}
+%2.2.1%
+\subsubsection{O podposloupnostech a existence monotónní posloupnosti}
+
+\paragraph*{O podposloupnostech} Nechť $(a_n)$ je libovolná reálná posloupnost a $A\in \R^*$. Potom platí:
+\begin{enumerate}
+    \item $(a_n)$ má podposloupnost, která má limitu.
+    \item $(a_n)$ nemá limitu $\iff (a_n)$ má dvě podposloupnosti s dvěma různými limitami.
+    \item $\lim a_n \neq A \iff (a_n)$ má podposloupnost, která má limitu různou od $A$.
+\end{enumerate}
+
+\paragraph*{Existence monotónní posloupnosti} Každá posloupnost reálných čísel má monotónní podposloupnost.
+
+%2.2.2%
+\subsubsection{Geometrická posloupnost a Liminf a limsup}
+
+\paragraph*{Limita geometrická posloupnosti} Nechť $q \in \R$, potom
+\[
+    \lim_{n\to \infty}q^n = \begin{cases}
+        0 & |q|<1\\
+        1 & q = 1\\
+        +\infty & q>1\\
+        \textit{neexistuje} & q \leq -1
+    \end{cases}.
+\]
+\paragraph*{Liminf a limsup} Pro každou $(a_b)\subseteq \R$ je množina $H(a_n)$ neprázdná. V lineárním uspořádání $(\R^*, <)$ má minimum i maximum.
+
+% 2.3 %
+\subsection{Řady}
+%2.3.1%
+\subsubsection{O harmonických číslech a Riemannova věta}
+
+\paragraph*{O harmonických číslech} Nechť $h_n = \displaystyle \sum_{j=1}^{n} \frac 1j$ jsou harmonická čísla, potom $\exists c>0$, t.ž.:
+\[
+    \forall n\in \N: h_n = \log n + \gamma + \Delta_n,
+\] kde $c$ je konstanta, $|\Delta_n| \leq \frac cn$, a $\gamma = 0.57721\dots$ je tzv. Eulerova konstanta.
+
+\textit{Harmonická čísla jsou $(s_n)$ harmonické řady. Eulerova konstanta $\displaystyle \gamma := \lim_{n\to \infty}(1+\frac 12 + \frac 13 + \dots + \frac 1n - \log n)$.}
+
+\paragraph*{Riemannova věta} Nechť $\displaystyle \sum_{n=1}^{\infty} a_n$ je řada typu $1 - 1 + \frac 12 - \frac 12 + \dots + \frac 1n - \frac 1n + \dots$, tedy nechť platí:
+\begin{enumerate}
+    \item $\lim a_n = 0$,
+    \item $\sum a_{k_n} = +\infty$, kde $a_{k_n}$ jsou kladné sčítance řady,
+    \item $\sum a_{z_n} = -\infty$, kde $a_{z_n}$ jsou záporné sčítance řady,
+\end{enumerate} 
+potom pro každé $S\in \R^*$ existuje bijekce $\pi: \N \to \N$, t.ž.: $\displaystyle \sum_{n=1}^{\infty} a_{\pi(n)} = S$.
+
+% 2.4 %
+\subsection{Funkce}
+%2.4.1%
+\subsubsection{O Riemannově funkci a Limita složené funkce}
+
+\paragraph*{O Riemannově funkci} \textit{Riemannova funkce} je spojitá právě a jenom v iracionálních číslech.
+
+\textit{Riemannova funkce $r: \R \to \{0\} \cup \{ \frac 1n \mid n\in \N \}$, tedy
+\(
+    r(x) = \begin{cases}
+        0 & x\in \mathbb{I}\\
+        \frac 1n & x = \frac mn \in \Q \text{ a } \frac mn \text{ je zlomek v základním tvaru.}
+    \end{cases}
+\)}
+
+\paragraph*{Limita složené funkce} Nechť $a,b,L \in \R^*$, $M,N \subseteq \R$, $a$ je limitní bod $M$, 
+$b$ je limitní bod $N$ a nechť funkce $g: M\to N$ a $f: N\to \R$ mají limity $\displaystyle \lim_{x\to a}g(x) = b$ a $\displaystyle \lim_{x\to b}f(x) = L$. 
+
+Složená funkce $f(g):M\to \R$ má potom limitu $\lim_{x\to A} f(g)(x) = L \iff$ platí jedna z podmínek:
+\[
+    \begin{cases}
+        b \in N \implies f(b) = L \dots \dots \dots \dots . f(x) \textit{ je spojitá v } L\\
+        \exists \delta, \forall x \in P(A, \delta) \cap M: b \notin g(x) \dots \textit{na nějakém prstencovém okolí funkce nenabývá hodnotu } b
+    \end{cases}.
+\]
+%2.4.2%
+\subsubsection{Heineho definice spojitosti, Blumbergova definice spojitosti a počet spojitých funkcí}
+
+\paragraph*{Heineho definice spojitosti} Funkce $f:M\to \R$ je spojitá v bodě $a\in M \subseteq \R$ právě tehdy, když 
+\[\forall (a_n) \subseteq M: \lim a_n = a \implies \lim f(a_n) = f(a).\]
+
+\paragraph*{Blumbergova definice spojitosti} $\forall f: \R \to \R, \exists M \subseteq \R$, t.ž.: $M$ je hustá v $\R$ a restrikce $f|M$ je spojitá funkce.
+
+\begin{itemize}
+    \item \textit{Hustá množina $N$ v $M$:} $\forall a \in M, \forall \delta: U(a, \delta) \cap N \neq 0$
+    \item \textit{Restrikce (zúžení):} $A \subseteq B, C; f:B\to C$. Restrikce na $A$ je funkce $f|A: A\to C\equiv \forall x\in A: (f|A)(x):= f(x)$
+\end{itemize}
+
+\paragraph*{Počet spojitých funkcí} $\exists$ bijekce $h: \R\to C(\R)$, kde $C(M)$ definujeme pro $M \subseteq \R$ jako $$C(M):= \{f:M \to \R \mid f \textit{ je spojitá}\}.$$
+
+% 2.5 %
+\subsection{Derivace}
+
+%2.5.1%
+\subsubsection{Derivace složené funkce a derivace inverzní funkce}
+
+\paragraph*{Derivace složené funkce} Nechť $a\in M\subseteq \R$, $a$ je limitní bod množiny $M$, $g:M\to N$ je spojitá v $a$ s derivací $g'(a)\in \R^*$; $g(a)\in N$ je limitní bod množiny $N\subseteq \R$. 
+Nechť $f:N\to \R$ je funkce s derivací $f'(g(a))\in \R^*$, potom složená funkce $f(g):M\to \R$ má derivaci
+$$(f(g))'(a) = f'(g(a))\cdot g'(a) \textit{, pokud je součin napravo definován.}$$
+
+\textit{\textbf{Alternativně:}}
+
+Nechť $f$ má derivaci v bodě $b$, funkce $g$ má derivaci v bodě $a$, $b = g(a)$ a $g$ je spojitá v $a$. Potom $$(f\circ g)'(a) = f'(b) \cdot g'(a) = f'(g(a))\cdot g'(a).$$
+
+\paragraph*{Derivace inverzní funkce} Nechť $a\in M\subseteq \R$, $a$ je limitní bod množiny $M$, $f:M\to \R$ je prostá funkce s derivací $f'(a)\in \R^*$ a inverzní funkce $f^{-1}:f[M]\to M$ je spojitá v $b:=f(a)$, potom když:
+\begin{enumerate}
+    \item $f'(a)\in \R \setminus \{0\}$, pak $\displaystyle(f^{-1})'(b)=\frac{1}{f'(a)} = \frac{1}{f'(f^{-1}(b))}$
+    \item $f'(a)=0$ a $f$ roste (resp. klesá) v bodě $a$, pak $\displaystyle(f^{-1})'(b) = \pm \infty$
+    \item $f'(a)=\pm \infty$ a $b$ je limitní bod množiny $f[M]$, pak $\displaystyle(f^{-1})'(b) = 0 $.
+\end{enumerate}
+
+%2.5.2%
+\subsubsection{l'Hospitalovo pravidlo a konvexivita a konkavita f''}
+
+\paragraph*{l'Hospitalovo pravidlo} Nechť $a \in \R; f,g: P^+ (a, \delta)\to \R$ mají vlastní derivace, $g' \neq  0$ a \\
+$\displaystyle \lim_{x\to a}f(x) = \lim_{x\to a}g(x) = 0$ nebo $\displaystyle \lim_{x\to a}g(x) = \pm \infty$, potom:
+\[
+    \lim_{x\to a}\frac {f(x)}{g(x)} = \lim_{x\to a}\frac{f'(x)}{g'(x)}, \text{ pokud poslední limita existuje.}
+\] \textit{Věta platí i pro $P^-(a, \delta), P(a, \delta)$ a pro $a = \pm \infty$.}
+
+\paragraph*{Konvexivita a konkavita $f''$:} Nechť $I\subseteq \R$ je interval, $f:I\to \R$ je spojitá, $D(f)=I^0, \forall c \in I^0, \exists f''(c)\in \R^*$.
+\begin{enumerate}
+    \item $f''\geq 0$ (resp. $f''\leq 0$) $\implies f$ je \textit{konvexní} (resp. \textit{konkávní})
+    \item $f''> 0$ (resp. $f'' < 0$) $\implies f$ je \textit{ryze konvexní} (resp. \textit{ryze konkávní}).
+\end{enumerate}
+
+% 2.6 %
+\subsection{Integrály}
+
+%2.6.1%
+\subsubsection{Lagrangeův a Cauchyův zbytek Taylorova polynomu a Bellova čísla}
+ Nechť $f, f', f'', \dots, f^{(n+1)}: U(a, \delta) \to \R$, kde $n \in \N$.
+ 
+ \paragraph*{Lagrangeův zbytek} $\forall x \in P(a, \delta) \exists c$ mezi $a$ a $x$, t.ž.: 
+ \[
+    R_n^{f,a}(x):=\frac{f^{(n+1)}(c)}{(n+1)!}\cdot (x-a)^{n+1}
+ \]
+
+\paragraph*{Cauchyův zbytek} $\forall x \in P(a, \delta) \exists c$ mezi $a$ a $x$, t.ž.:
+\[
+   R_n^{f,a}(x):=\frac{f^{(n+1)}(c)\cdot (x-c)^n}{n!}\cdot (x-a)
+\]
+
+\paragraph*{Bellova čísla} $\forall x \in (-1, 1)$ platí: $\displaystyle e^{e^x-1} = \exp(\exp(x)-1) = \sum_{n=0}^{\infty}\frac{B_n x^n}{n!}$, \textit{kde $B_n$ je počet rozkladů množiny.}
+
+%2.6.2%
+\subsubsection{Riemann = Newton a integrace substitucí}
+
+\paragraph*{Riemann = Newton} Nechť $f:[a,b]\to \R$ je spojitá a $F:[a,b]\to \R$ je k ní primitivní, potom
+\[
+    \lim_{||\overline{a}||\to 0}R(\overline{a}, \overline{t}, f) = F(b) - F(a).
+\]
+
+\textit{Riemannův součet: $R(\overline{a}, \overline{t}, f):= \displaystyle \sum_{i = 1}^{k}(a_i - a_{i-2})\cdot f(t_i)$}, 
+kde \textit{$\overline{a}$ je dělení intervalu $I$, tedy $\overline{a} = (a_0, \dots, a_k)$}.
+
+\paragraph*{Integrace substitucí} Nechť $I, J \subseteq \R$ jsou netriviální intervaly; $g: I\to J$; $g': I\to \R$ a $f:J\to \R$. Potom
+\begin{enumerate}
+    \item $\displaystyle F = \int f$ na $\displaystyle J \implies F(g) = \int f(g) \cdot g'$ na $I$
+    \item pokud $g$ je surjekce $\land$ $g' \neq 0$ na $I$, pak platí: $\displaystyle G = \int f(g)\cdot g' \text{ na } I \implies G(g^{-1}) = \int f \text{ na } J$.
+\end{enumerate}
+
+%2.6.3%
+\subsubsection{Per partes a int(r(x))}
+
+\paragraph*{Per partes} Nechť $f,g, F, G: (a,b) \to \R$, kde $a<b \in \R^*$; $F$ (resp. $G$) je primitivní k $f$ (resp. ke $g$). 
+Potom, když jsou definovány dva ze tří členů $T_i$, pak platí:
+\[
+    (N) \underbrace{\int_{a}^{b}f G}_{T_1} = \underbrace{[F G]_a^b}_{T_2} - (N)\underbrace{\int_{a}^{b}Fg}_{T_3}.
+\]
+
+\textit{(= pro neurčitý integrál:$\displaystyle \int f' g = fg - \int f g'$ )}
+
+\paragraph*{Integrál r(x):} $\forall$ racionální funkce $r(x)$, kde $r(x) = \frac{p(x)}{q(x)}: \R \setminus Z(r) \to \R$, existuje funkce $R(x)$ ve tvaru:
+\[
+    R(x) = r_0(x) + \sum_{i=1}^{k}s_i \cdot \log(|x-\alpha|) + \sum_{i=1}^{l}t_i \cdot \log(a_i(x)) + \sum_{i=1}^{m}u_i\cdot \arctan(b_i(x)),
+\] 
+kde $r_0(x)$ je racionální funkce; $k,l,m \in \N_0$; prázdné $\sum := 0$; $s_i,t_i,u_i\in \R$; 
+$\alpha_i\in Z(r(x))$; $a_i(x)$ jsou ireducibilní trojčleny a $b_i\in \R[x]$ jsou nekonstantní lineární polynomy, 
+t.ž.: na každém $\emptyset \neq I\subseteq \R\setminus Z(r(x))$ platí $\displaystyle R(x) = \int r(x)$.
+
+\textit{Platí, že Ireducibilní trojčlen je polynom stupně $2$ a $Z(r):= \{a\in \R \mid q(a) = 0\}$.}
+%2.6.4%
+\subsubsection{O restrikcích, Lebesgueova věta a ZVA 2}
+
+\paragraph*{O restrikcích} Pokud $a<b<c \in \R$ a $f:[a,c]\to \R$, pak: $f\in R(a,c)\iff f\in R(a,b) \land f\in R(b,c)$, 
+neboli $$\int_{a}^{c} f = \int_{a}^{b} f + \int_{b}^{c}f .$$
+
+\paragraph*{Lebesgueova věta} Pro každou $f:[a, b] \to \R$ platí, že $f\in R(a,b)\iff f$ je omezená a nespojitá (*) s mírou $0$.
+
+(*) \textit{$BN(f):= \{x \in M \mid f $ je nespojitá v $x \}$ }.
+
+\paragraph*{Základní věta analýzy 2} Nechť $f, F: (a, b) \to \R$, kde $a<b$; $F$ je primitivní k $f$ a $f\in R(a,b)$. 
+Potom existují vlastní limity $F_a := \displaystyle \lim_{x\to a}F(x)$ a $\displaystyle F_b := \lim_{x\to b}F(x)$ a platí:
+\[
+    (R) \int_{a}^{b} f = F_b - F_a = (N) \int_{a}^{b} f.
+\]
+
+%2.6.5%
+\subsubsection{Riemann = Darboux a HK. int a N. int}
+
+\paragraph*{Riemann = Darboux} Nechť $f:[a,b] \to \R$, potom:
+\[
+    f\in R(a,b) \iff \underline{\int_{a}^{b}}f = \overline{\int_{a}^{b}}f \in \R.
+\] 
+
+\textit{Pokud platí obě strany ekvivalence, pak: $\displaystyle (R) \int_{a}^{b} f = \underline{\int_{a}^{b}}f = \overline{\int_{a}^{b}}f$.}
+
+\paragraph*{HK. \(\int \) a N. \(\int \):} Nechť $a<b$; $F,f:[a,b]\to \R$, kde $F$ je spojitá a $F' = f$ na $(a,b)$. 
+Pak $f\in HK(a,b)$ a platí
+\[
+    (HK) \int_{a}^{b}f= F(b) - F(a) = (N) \int_{a}^{b} f.
+\]
+
+%2.6.6%
+\subsubsection{Délka grafu  a Integrální kritérium}
+
+\paragraph*{Délka grafu} Nechť $f:[a,b]\to \R$ je spojitá a $f'\in R(a,b)$, potom:
+\[
+    \ell(G_f)=\int_{a}^{b}\sqrt{1 + (f')^2} \in (0, +\infty).
+\]
+\paragraph*{Integrální kritérium} Nechť $m\in \Z$ a $f:[m, +\infty) \to \R$ je nezáporná a nerostoucí funkce. Potom
+\[
+    \text{řada }\sum_{n=m}^{\infty}f(n) \text{ konverguje } \iff \lim_{n\to \infty} \int_{m}^{n} f < +\infty.
+\]
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Věty a tvrzení s důkazem}
+
+%%%%%%%%%%%%%%%%
+% REÁLNÁ ČÍSLA %
+%%%%%%%%%%%%%%%%
+\subsection{Reálná čísla}
+
+%3.1.1%
+\subsubsection{Odmocnina ze dvou není racionálních a Cantorova věta}
+
+\paragraph*{Věta ($\sqrt{2}\notin \Q$):} Rovnice $x^2 = 2$ nemá v oboru $\Q$ řešení.
+
+\begin{proof}
+    Pro spor předpokládejme, že $\exists a,b \in \N$, t.ž.: $\left (\frac ab \right ) ^2 = 2$. 
+    Máme tedy $a^2 = 2b^2$, kde $a^2$ je sudé. Neboli $a = 2c$ pro nějaké $c\in \N$.
+    Dostáváme $(2c)^2 = 2b^2 \iff 4c^2 = 2b^2 \iff b^2 = 2c^2$,
+    neboli $b^2$ je sudé, proto i $b$ je sudé, což je spor s nesoudělností $a,b$. $\lightning$
+\end{proof}
+
+\paragraph*{Cantorova věta:} Pro žádnou množinu $X$ neexistuje surjekce $f: X \to \Pp(X)$ z $X$ na její potenci.
+
+
+\begin{proof}
+    Pro spor předpokládejme, že $f:X \to \Pp(X)$ je surjektivní, kde $X \neq \emptyset$. 
+    Dále uvažme: \[Y := \{x\in X \mid x \notin f(x)\} \subseteq X.\]
+
+    Protože $f$ je \textit{surjektivní}, tak $\exists y\in X$ t.ž. $f(y) = Y$.
+    
+    $(a)$ Pokud $y \in Y$, pak podle definice množiny $Y$ platí, že $y \notin f(y) = Y$. 
+    
+    $(b)$ Pokud $y \notin Y = f(y)$, má $y$ vlastnost definující množinu $Y$ a $y \in Y$. 
+    
+    V obou připadech se jedná o spor. $\lightning$
+\end{proof}
+
+
+%%%%%%%%%%
+% LIMITY %
+%%%%%%%%%%
+\subsection{Limity}
+
+%3.2.1%
+\subsubsection{Jendoznačnost limity a Bolzano-Weierstrassova věta}
+
+\paragraph*{Věta (Jendoznačnost limity):} Limita posloupnosti je \textit{jednoznačná} $\equiv \lim a_n = K \land \lim a_n = L \implies K = L$.
+
+\textit{(Neboli když má nejvýše jednu limitu.)}
+\begin{proof}
+    Nechť $\lim a_n = K$ i $\lim a_n = L$ a nechť $\exists \varepsilon$. 
+    
+    Podle \textit{definice limity posloupnosti} $\exists n_0$, t.ž.: $n\geq n_0  \implies a_n \in U(K, \varepsilon)$ i $a_n \in U(L, \varepsilon)$. 
+    
+    Dostáváme $\forall \varepsilon: U(K, \varepsilon) \cap U(L, \varepsilon) \neq \emptyset$. 
+    Tedy $K = L$.
+\end{proof}
+
+\paragraph*{Věta (Bolzano-Weierstrassova):} Omezená posloupnost reálných čísel má vždy konvergentní podposloupnost.
+
+\begin{proof}
+    Nechť $(a_n)$ je omezená posloupnost a $(b_n)$ je monotónní podposloupností $(a_n)$, neboli $(b_n) \preceq (a_n)$.
+    
+    $(b_n)$ je tak zjevně je omezená a podle \textit{věty o robustně monotónní posloupnosti} má vlastní limitu.
+\end{proof}
+
+%3.2.2%
+\subsubsection{Limita a uspořádání a Cauchyova podmínka}
+
+\paragraph*{Věta (Limita a uspořádání):} Nechť $(a_n)$ a $(b_n)\in \R$ s $\lim a_n = K \in \R^*$ a $\lim b_n = L \in \R^*$. Potom platí:
+\begin{enumerate}
+    \item $K < L \implies \exists n_0 : \forall m, n \geq n_0$ je $a_m < b_n$.
+    \item $\forall n_0, \exists m, n \geq n_0 \land a_m \geq b_n \implies K \geq L$.    
+\end{enumerate}
+
+\begin{proof}
+    $ $
+
+    \begin{enumerate} 
+        \item
+    Nechť $K < L$, pak $\exists \varepsilon : U (K, \varepsilon) < U (L, \varepsilon)$.
+    Podle \textit{definice limity} máme $\exists n_0 : m, n \geq n_0 \implies a_m \in U(K, \varepsilon)$ a $b_n \in U (L, \varepsilon)$. 
+    Tedy $m, n \geq n_0 \implies a_m < b_n$.
+        \item Triviálně obměnou implikace.
+    \end{enumerate}
+
+\end{proof}
+
+\paragraph*{Věta (Cauchyova podmínka):} Posloupnost reálných čísel $(a_n)$ je konvergentní $\iff (a_n)$ je Cauchyova.
+
+\begin{proof}
+    \begin{itemize}
+        \item [$\implies$] Nechť $\varepsilon$ je dáno a $\lim a_n = a$. 
+        
+        Potom $\exists n_0 : n\geq n_0 \implies |a_n - a| < \frac{\varepsilon}2$. Tedy:
+        \[
+            m,n\geq n_0 \implies |a_m - a_n| \leq |a_m - a| + |a-a_n| < \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon,
+        \] pak $(a_n)$ je Cauchyova posloupnost.
+        \item [$\Longleftarrow$] Nechť $(a_n)$ je Cauchyova posloupnost. Víme, že $(a_n)$ je omezená a proto má podle \textit{Bolzano-Weierstrassovy věty} konvergentní podposloupnost $(a_{m_n})$ s limitou $a$.
+        Pro dané $\varepsilon$ tak máme $n_0:n\geq n_0 \implies |a_{m_n} -a| < \frac{\varepsilon}{2}$ a zároveň $n\geq n_0 \implies |a_n -a| \leq |a_n-a_{m_n}| + |a_{m_n}-a| < \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon.$
+        Dostáváme tedy, že $a_n\to a$.
+    \end{itemize}
+\end{proof}
+
+\textit{(Použili jsme vyjádření $a_m-a_n = (a_m - a)+ (a-a_n)$ a trojúhelníkovou nerovnost $|c+d| \leq |c| + |d|$.)}
+
+% 3.3 %
+\subsection{Řady}
+%3.3.1%
+\subsubsection{Nutná podmínka konvergence řady a Harmonická řada}
+
+\paragraph*{Tvrzení (Nutná podmínka konvergence řady):} Když řada $\sum a_n$ konverguje, pak $\lim a_n = 0$.
+
+\begin{proof}
+    Když $\sum a_n$ konverguje, pak $S:= \lim s_n \in \R$, kde $\displaystyle s_n = \sum_{j=1}^{n}a_j$. 
+    
+    Podle výsledků o limitě podposloupnosti a podle aritmetiky limit dostáváme:
+    \[
+        \lim a_n= \lim(s_n - s_{n-1})= \lim s_n - \lim s_{n-1} = S - S = 0.
+    \]
+\end{proof}
+\textit{Využíváme platnosti $\lim (s_n) = \lim(s_{n-1}) = S$.}
+
+\paragraph*{Tvrzení (Harmonická řada):} Harmonická řada $\displaystyle \sum_{n=1}^{\infty} \frac 1n = 1+\frac 12 + \frac 13 + \dots$ diverguje a má součet $+\infty$.
+
+\begin{proof}
+    Nechť $(h_n)$ jsou částečné součty $\displaystyle \sum_{n=1}^{\infty} \frac 1n$ a $(s_n)$ jsou částečné součty $\displaystyle \sum_{n=1}^{\infty} a_n$.
+    
+    Potom platí $\forall n: \frac 1n > a_n$, tedy i $\forall n: h_n > s_n$. 
+    Protože podle \textit{věty o jednom strážníkovi} se $\lim s_n = +\infty$, pak i $\lim h_n = +\infty$ a proto je $\sum \frac 1n = +\infty$.
+\end{proof}
+
+\begin{proof} \textit{(Alternativně)}
+
+    Pro částečné součty $n$ a $2n$ platí:
+    \begin{flalign*}
+        s_n &= 1 + \frac 12 + \frac 13 + \dots + \frac 1n \land s_{2n} = 1 + \frac 12 + \frac 13 + \dots + \frac 1n + \frac 1{n+1} + \dots + \frac 1{2n}\\
+        s_{2n} - s_n &= \frac{1}{n+1} + \frac{1}{n+2} + \dots + \frac{1}{2n} \geq \frac{1}{2n} + \frac{1}{2n} + \dots + \frac{1}{2n} = \cancel{n} \cdot \frac{1}{2\cancel{n}} = \frac 12.
+    \end{flalign*}
+
+    Proto $\forall n \in \N: s_{2n} - s_n \geq \frac 12$ a posloupnost $(s_n)$ tím splňuje Cauchyovu podmínku a diverguje.
+    
+\end{proof}
+% 3.4 %
+\subsection{Funkce}
+
+%3.4.1%
+\subsubsection{Heineho deﬁnice a Aritmetika limit funkcí}
+
+\paragraph*{Věta (Heineho deﬁnice):} Nechť $M \subseteq \R$, $K, L$ jsou prvky $\R^*$, $K$ je limitní bod množiny $M$ a $f : M \to \R$. 
+Pak \[
+    \lim_{x\to K}f(x) = L \iff \forall (a_n)\subseteq M\setminus \{K\}: \lim a_n = K \implies \lim f(a_n) = L.
+\] \textit{Tedy $L$ je limita funkce $f$ v $K \iff$ pro každou posloupnost $(a_n)$ v $M$, 
+která má limitu $K$, ale nikdy se $K$ nerovná, funkční hodnoty $(f(a_n))$ mají limitu $L$.}
+
+\begin{proof}
+    $ $
+
+    \begin{itemize}
+        \item [$\implies$] Předpokládáme, že $\displaystyle \lim_{x\to K} f(x) = L$, že
+        $(a_n) \subseteq M \setminus \{K\}$ má limitu $K$ a žě $\varepsilon$ je dáno. 
+        Potom $$\exists \delta: \forall x \in M \cap P(K, \delta) \text{ je } f(x) \in U(L, \varepsilon).$$ 
+        Pro toto $\delta$ zároveň $\exists n_0: n \geq n_0 \implies a_n \in P (K, \delta) \cap M$. 
+        Tedy $n \geq n_0 \implies f(a_n) \in U(L, \varepsilon)$ a $f(a_n) \to L$.
+        \item[$\Longleftarrow$] Za pomoci obměny $\neg \implies \neg$. 
+        Předpokládáme, že $\displaystyle \lim_{x\to K} f(x) = L$ neplatí a proto ani pravá strana ekvivalence neplatí. 
+        Tedy pro bod $b$: $$\exists \varepsilon > 0: \forall \delta > 0, \exists b = b(\delta) \in M \cap P(K, \delta) \textit{, t.ž.: } f(b) \notin U(L, \varepsilon).$$
+        Položíme pro $n \in \N: \delta = \frac 1n$ a $\forall n\in \N$ vybereme bod:
+        $$b_n := b\left(\frac 1n\right) \in M \cap P\left(K, \frac 1n\right)\textit{, t.ž.: }f(b_n) \notin U(L, \varepsilon).$$
+        Posloupnost $(b_n)$ leží v $M \setminus \{K\}$ a konverguje ke $K$, ale posloupnost hodnot $(f(b_n))$
+        nekonverguje k $L$.\\Pravá strana ekvivalence tedy neplatí. $\lightning$
+    \end{itemize}
+\end{proof}
+
+\paragraph*{Věta (Aritmetika limit funkcí):}  Nechť $M \in \R$, nechť $a, K, L \in \R^*$, kde $a$ je limitní bod množiny $M$ a nechť funkce $f, g : M \to \R$ mají limity
+$\displaystyle \lim_{x\to a} f(x) = K$, $\displaystyle \lim_{x\to a} g(x) = L$. 
+
+Potom platí $\displaystyle \begin{cases}
+    \displaystyle \lim_{x\to a}f(x) + g(x) = K +L\\
+    \displaystyle \lim_{x\to a}f(x) \cdot g(x) = K\cdot L\\
+    \displaystyle \lim_{x\to a}\frac{f(x)}{g(x)} = \frac KL \text{, kde pro $g(x)=0$ definujeme $\frac{f(x)}{g(x)} := 0$.}
+\end{cases}$
+
+\begin{proof}
+    \textit{Z důvodu podobnosti probereme jen podíl.} 
+    
+    Nechť $(a_n) \subseteq M \setminus \{aA\}$ s $\lim a_n = a$. 
+    Podle \textit{Heineho definice} limity funkce platí: 
+    \begin{itemize}
+        \item [$\implies$] Nechť $\lim f(a_n) = K$, $\lim g(a_n) = L$ a předpokládejme, že $L \neq 0$, proto i $\forall n \geq n_0: g(a_n) \neq 0$.
+        Zároveň předpokládejme, že  $K, L \neq \pm \infty$, tedy že konvergují.
+        Podle věty o AK posloupností se pak limity rovnají: \[
+            \lim \left (\frac{f(a_n)}{g(a_n)}\right ) = \frac{\lim f(a_n)}{\lim g(a_n)} = \frac KL.
+        \] 
+        \item [$\Longleftarrow$] Protože tento vztah platí pro každou posloupnost $\left (\frac {f(a_n)}{g(a_n )}\right )$ s $(a_n)$ jako výše, tak podle \textit{Heineho definice} je
+            $\displaystyle \lim_{x\to a} \frac {f(x)}{g(x)} = \frac KL$.
+    \end{itemize}
+\end{proof}
+%3.4.2%
+\subsubsection{Nabývání mezihodnot a Princip minima a maxima}
+
+\paragraph*{Věta (Nabývání mezihodnot):} Nechť $a,b,c \in \R$; $a < b$; $f:[a, b] \to \R$ je spojitá a $f(a) < c < f(b)$ nebo $f(a) > c > f(b)$. 
+Potom $\exists d \in (a, b): f(d) = c$.
+
+\begin{proof}
+    Předpokládejme, že $f(a) < c < f(b)$ \textit{(pro opačnou nerovnost obdobně)}. 
+    
+    Nechť $A := \{x\in [a,b] \mid f(x) < C\}$ a $d:=\sup(A) \in [a,b]$. 
+    
+    Číslo $d$ je korektně definované, protože množina $A \neq \emptyset$ $(a \in A)$ a je shora omezená ($b$).
+    
+    Ukážeme, že ke sporu vede $f(d) < c$ i $f(d) > c$, proto $f(d) = c$.
+    Ze spojitosti funkce $f$ v $a$ a v $b$ plyne, že $d \in (a, b)$.
+    
+    \begin{itemize}
+        \item [$(a)$] Pro $f(d) < c$. Ze spojitosti funkce $f$ v $d$ plyne, že $\exists \delta : x \in U(d, \delta) \cap [a, b] \implies f(x) < c$.
+        Pak ale $A$ obsahuje větší čísla než $d$. Dostáváme spor, protože $d$ je horní mez množiny $A$.
+        \item [$(b)$] Pro $f(d) > c$. Ze spojitosti funkce $f$ v $d$ plyne, že $\exists \delta : x \in U(d, \delta) \cap [a, b] \implies f(x) > c$.
+            Pak ale $\forall x \in [a, d)$ dostatečně blízké $d$ leží mimo $A$, což je ve sporu $d$, jakožto nejmenší horní mezí množiny $A$.
+    \end{itemize}
+\end{proof}
+
+
+\paragraph*{Věta (Princip minima a maxima):} Nechť $M \subseteq \R$ je \textit{neprázdná kompaktní} množina a $f : M \to \R$ je spojitá.
+Potom $\exists a, b \in M, \forall x \in M: f(a) \leq f(x) \leq f(b)$. 
+
+Řekneme, že $f$ nabývá na $M \begin{cases} 
+    \text{ v bodu $a$ minimum (nejmenší hodnotu) $f(a)$ }\\
+    \text{ v bodu $b$ maximum (největší hodnotu) $f(b)$.}
+\end{cases}$
+
+\begin{proof}
+    Dokážeme existenci maxima \textit{(pro minimum obdobně).}
+
+    Zjevně platí, že $\forall x \in M: f(x) \neq \emptyset$. 
+    Ukážeme, že $M$ je shora omezená sporem.
+
+    $ $
+
+    Kdyby nebyla, tak $\exists (a_n) \subseteq M : \lim f(a_n) = +\infty$. 
+
+    Podle kompaktnosti $M$ má $(a_n)$ konvergentní podposloupnost $(a_{m_n})$ s $b := \lim (a_{m_n}) \in M$. 
+    Pak i $\lim f (a_{m_n}) = +\infty$, což je spor, protože podle \textit{Heineho definice} je $\lim f(a_{m_n}) = f(a)$. $\lightning$
+
+    $ $
+
+    Lze definovat $\forall x \in M: s:=\sup(f(x))\in \R$ a podle definice suprema $\exists (a_n)\subseteq M$ s $\lim f(a_n) = s$.
+    
+    Díky kompaktnosti $M$ má $(a_n)$ konvergentní podposloupnost $(a_{m_n})$ s $b := \lim a_{m_n} \in M$. 
+    
+    Podle \textit{Heineho definice} je $\lim f(a_{m_n}) = f(b) = s$. 
+    Protože $s = f(b)$ je horní mezí, tak $\forall x \in M: f(b) \geq f (x)$.
+    
+
+\end{proof}
+
+% 3.5 %
+\subsection{Derivace}
+
+%3.5.1%
+\subsubsection{Nutná podmínka extrému a Leibnizův vzorec}
+
+\paragraph*{Věta (Nutná podmínka extrému):} Nechť $b\in M$ je OLB $M\subseteq \R, f:M\to \R, \exists f'(b)\in \R^*$ a $f'(b)\neq 0$. Potom
+\[
+    \forall \delta \exists c, d\in U(b, \delta) \cap M: f(c) < f(b) < f(d).
+\] \textit{Tedy funkce $f$ nemá v bodě $b$ lokální extrém, nemá v $b$ ani lokální minimum ani lokální maximum.}
+
+\begin{proof}
+    Nechť $b\in M\subseteq \R$ a $f:M\to \R$ a $\delta$ je dáno. 
+    Nechť $f'(b) < 0$ \textit{(opačná nerovnost obdobně).} 
+    
+    Vezmeme tak malé $\varepsilon$, že $\exists y \in U(f'(b), \varepsilon) \implies y < 0$). 
+    Nyní podle \textit{definice derivace funkce v bodě}:
+    \[
+        \exists \theta: x\in P(b, \theta) \cap M \implies \overbrace{\frac{f(x) - f(b)}{x-b}}^{<0} \in U(f'(b), \varepsilon).
+    \] Tedy když $P^-(b,\theta) \cap M$, pak $f(x) > f(b)$, protože $x-b < 0$ a $\displaystyle \frac{f(x) - f(b)}{x-b} < 0$.
+
+    Podobně když $x \in P^+(b, \theta) \cap M$, pak $f(x)<f(b)$. 
+    
+    Předpokládejme, že $\theta < \delta$ a $\exists c\in P^+(b, \theta) \cap M$ a $d\in P^-(b,\theta) \cap M.$
+    Prvky $c, d$ existují, protože $b$ je OLB $M$. 
+    
+    Proto platí $c,d \in U(b, \delta) \cap M \implies f(c) < f(b)$ a $f(d) > f(b)$.
+\end{proof}
+
+\paragraph*{Věta (Leibnizův vzorec):}  Nechť $b \in M \subseteq \R$, $b$ je LB množiny $M$, 
+$f, g : M \to \R$ a $f$ nebo $g$ je spojitá v $b$. Potom
+\[
+    (fg)'(b) = f'(b) \cdot g(b) + f(b) \cdot g'(b),
+\] \textit{když pravá strana není neurčitý výraz.}
+
+\begin{proof}
+    Nechť je $g$ spojitá v $b$ \textit{(druhý případ obdobně)}. Podle podle AL funkcí platí
+    \begin{flalign*}
+        (fg)'(b) &= \lim_{x\to b} \frac{f(x)g(x) - f(b)g(b)}{x-b} = \\
+        &= \lim_{x\to b} \frac{f(x)g(x) \overbrace{-f(b)g(x) + f(b)g(x)}^0 - f(b)g(b)}{x-b} = \\
+        &= \lim_{x\to b} \frac{\left(f(x) - f(b)\right)g(x) + f(b)\left(g(x) - g(b)\right)}{x-b} = \\
+        &= \lim_{x\to b} \frac{f(x) - f(b)}{x-b} \cdot \lim_{x\to b} (g(x) + f(b)) \cdot \lim_{x\to b} \frac{g(x) - g(b)}{x-b} = \\
+        &\stackrel{\textit{spojitost}}{=} f'(b)\cdot g(b) + f(b) \cdot g'(b).
+    \end{flalign*}
+\end{proof}
+
+%3.5.2%
+\subsubsection{Lagrangeova věta a Derivace a monotonie 1}
+
+\paragraph*{Věta (Lagrangeova):} Pokud $f$ je hezká funkce, pak $\displaystyle \exists c\in (a,b) : f'(c) = \frac{f(b) - f(a)}{b-a} =: z$.
+
+\textit{Hezká funkce $f:[a,b] \to \R$ je spojitá}.
+\begin{proof}
+    Nechť $g(x):=f(x)-(x-a)\cdot z : [a,b]\to \R$ splňuje předpoklady \textit{Rolleovy věty}, především $g(a) = g(b) = f(a)$, takže $0 = g'(c) = f'(c)- z$ pro nějaké $c \in (a,b)$.
+\end{proof}
+
+\textit{Rolleova věta: $f$ je hezká $\&$ $f(a)=f(b) \implies \exists c \in (a,b):f(c) = 0$.}
+
+\paragraph*{Věta (Derivace a monotonie 1):} Nechť $I\subseteq \R$ je interval, $f:I\to \R$ je spojitá a $\forall c \in I^0, \exists f'(c)$. Potom
+\begin{enumerate}
+    \item $f'\geq 0$ (resp. $f' \leq 0$) na $I^0 \implies f$ na $I$ neklesá (resp. neroste)
+    \item $f' > 0$ (resp. $f' < 0$) na $I^0 \implies f$ na $I$ roste (resp. klesá).
+\end{enumerate}
+
+\textit{Kde $I^0\subseteq I$ značí vnitřek intervalu $I$, tedy $I^0 = \{a\in I \mid \exists \delta: U(a,\delta) \subseteq I\}$.}
+\begin{proof}
+    Nechť je $f' < 0$ na $I^0$ \textit{(klesá)} a $x < y$ jsou libovolná čísla v $I$.
+    
+    Podle \textit{Lagrangeovy věty} pro nějaké $z \in (x, y) \subseteq I^0$ je $\frac{f(y) - f(x)}{y-x} = f'(z) < 0$.
+    
+    Protože $y - x > 0$, je $f(x) > f (y)$ a $f$ na $I$ klesá. \textit{(Zbývající tři možnosti obdobně.)}
+     
+\end{proof}
+
+%3.5.3%
+\subsubsection{Taylorův polynom a Nejednoznačnost primitivní funkce}
+
+\renewcommand\qedsymbol{$\square$}
+
+\paragraph*{Lemma (o polynomech):} Nechť $b\in\R$, $n\in \N_0$ a $p(x)\in \R[x]$ s $\deg p \leq n$. Pak $\displaystyle \lim_{x\to b}\frac{p(x)}{(x-b)^n} = 0 \implies p(x) \equiv 0$.
+\begin{proof}
+    Indukcí podle $n$. 
+    \begin{itemize}
+        \item $(i)$ Pro $n = 0$ platí. $p(x) = a_0$ a $\frac {a_0}1 \to 0$ je $a_0 = 0$.
+        \item $(ii)$ Pro $n > 0$ předpokládejme, že platí $\displaystyle \lim_{x\to b}\frac{p(x)}{(x-b)^n} = 0 \implies p(x) \equiv 0$.
+    
+        Potom $\displaystyle p(b) = \lim_{x\to b} p(x) = 0$, tedy $b$ je kořenem $p(x) = (x - b) \cdot q(x)$, kde $q(x) \in \R$ je stupně nejvýše $n - 1$.
+
+        Dostáváme tak z indukčního předpokladu \[
+        0 = \lim_{x\to b}\frac{p(x)}{(x-b)^n} = \lim_{x\to b}\frac{\cancel{(x-b)}\cdot q(x)}{\cancel{(x-b)^n}} = \lim_{x\to b}\frac{q(x)}{(x-b)^{n-1}}
+    \] neboli, že $q(x) = 0$, proto i $p(x) = (x-b)\cdot 0 = 0$.
+    \end{itemize}
+     
+    
+\end{proof}
+
+\renewcommand\qedsymbol{$\blacksquare$}
+
+\paragraph*{Věta (Taylorův polynom)} Nechť $n\in \N$ a $f: U(b, \delta) \to \R$ jsou jako v definici \textit{Taylorova polynomu}. \\
+$T_n^{f,b}(x)$ je jediný polynom $p(x)\in \R$ stupně nejvýše $n$, t.ž.:
+\[
+    f(x) = p(x) + o((x-b)^n) \text{ pro } x\to b.
+\]
+
+\begin{proof}
+    Indukcí podle $n$ dokážeme aproximaci $T_n^{f,b}$, tj. že $\displaystyle \lim_{x\to b}\frac{f(x) - T_n^{f,b}(x)}{(x-b)^n} = 0$.
+    
+    \begin{itemize}
+        \item $(i)$ Pro $n=1$: podle AL funkcí je $\displaystyle \lim_{x\to b}\frac{f(x) - T_1^{f,b}(x)}{x-b} = \lim_{x\to b}\frac{f(x) - f(b)}{x-b} - \lim_{x\to b}f'(b) = f'(b) - f'(b) = 0$.
+        \item $(ii)$ Pro $n\geq 2$: podle L'Hospitalova pravidla a indukce máme, že:
+            \[
+                \lim_{x\to b}\frac{f(x) - T_n^{f,b}(x)}{(x-b)^n} = \lim_{x\to b} \frac{\left(f(x) - T_n^{f,b}(x)\right)'}{\left((x-b)^n\right)'} = 
+                \frac 1n \lim_{x\to b}\frac{f'(x) - T_{n-1}^{f',b}(x)}{(x-b)^{n-1}}= \frac 1n \cdot 0 = 0.
+            \] Nechť $p(x) \in \R[x]$ s $\deg (p)\leq n$ splňuje, že $\displaystyle \lim_{x\to b}\frac{f(x) - p(x)}{(x-b)^n}=0$,
+             potom ale:
+            \[
+                \displaystyle \lim_{x\to b}\frac{f(x) - T_n^{f,b}(x)}{(x-b)^n} = \lim_{x\to b}\frac{p(x) - f(x)}{(x-b)^n} + \lim_{x\to b}\frac{f(x) - T_n^{f,b}(x)}{(x-b)^n} = 0 + 0 = 0.
+            \]Podle předešlého \textit{Lemmatu o polynomech} tak dostáváme $p(x) = T_n^{f,b}(x)$.
+    \end{itemize}
+
+\end{proof}
+
+\paragraph*{Věta (Nejednoznačnost primitivní funkce)} Nechť $I \subseteq \R$ je netriviální interval; 
+$F_1 , F_2, f:I \to \R$ a $F_1,F_2$ je primitivní k $f$. Potom $\exists c \in \R : F_1 - F_2 = c$ na $I$.
+
+\begin{proof}
+    Nechť $\exists a,b \in I$, $a < b$. 
+    
+    Podle \textit{Lagrangeovy věty o střední hodnotě}, použité pro funkci $F_1 - F_2$ a interval $[a, b]$ platí, že:
+    \[
+        \exists c \in (a, b): \frac{(F_1 - F_2)(b) - (F_1 - F_2)(a)}{b-a} = (F_1-F_2)'(c) = F'_1(c) - F_2'(c) = f(c)-f(c)=0.
+    \]
+    Dostáváme tedy pro nějaké $c$, že $\forall x \in I: F_1(b) - F_2(b) = F_1(a) - F_2(a) \implies F_1(x) - F_2(x) = c$.
+
+\end{proof}
+\subsection{Integrály}
+
+%3.6.1%
+\subsubsection{Monotonie Newtonova integrálu a Derivace jsou Darbouxovy}
+
+\paragraph*{Věta (Monotonie Newtonova integrálu):} 
+Pokud $f,g \in N(a,b)$ a $f\leq g$ na $(a,b)$, pak $\displaystyle (N)\int_a^b f \leq (N) \int_a^b g$.
+
+\begin{proof}
+    Nechť $F$, resp. $G$, je primitivní k $f$, resp. ke $g$, a nechť čísla $c,d \in (a,b)$, kde $c<d$, jsou libovnolná.
+
+    Použijeme \textit{Lagrangeovu větu o střední hodnotě} pro $F - G$ a interval $[c,d].$
+
+    Pro nějaký bod $e \in (c,d)$ platí:
+    \begin{flalign*}
+        (F(d) - G(d)) - (F(c) - G(c)) &= (F-G)'(e) \cdot (d-c) =\\
+        &= (F'(e) - G'(e)) \cdot (d-c) =\\
+        &= (f(e) - g(e)) \cdot (d-c) \leq 0.
+    \end{flalign*}
+
+    Proto platí $F(d) - F(c) \leq G(d) - G(c)$.
+
+    Tato nerovnost se zachovává při lineárních přechodech $c\to a$, $d\to b$ a dostaneme tak $\displaystyle (N)\int_a^b f \leq (N) \int_a^b g$.
+\end{proof}
+
+\paragraph*{Věta (Derivace jsou Darbouxovy):} Nechť $I\neq \emptyset$ je interval a 
+$f : I \to \R$ má primitivní funkci $\implies f$ má Darbouxovu vlastnost.
+
+\begin{proof}
+    Nechť $a < b$; $f, F : [a, b] \to \R$; $F$ je primitivní k $f$ a $f(a) < c < f(b)$. \textit{Pro opačné nerovnosti obdobně.}
+    Uvážme funkci $G(x) := F (x) - cx : [a, b] \to \R .$
+
+    Patrně $G' = F' - c = f - c$ na $[a, b]$ a $G$ je proto spojitá.
+
+    Podle \textit{věty o Principu minima a maxima} $G$ nabývá v nějakém $d \in [a, b]$ minimum
+    a podle \textit{tvrzení O derivaci a monotonii 2} plyne z 
+    $$G' (a) = f (a) - c < 0 \textbf{ a } G'(b) = f(b) - c > 0 \text{, že } d \in (a, b).$$ 
+    
+    Nakonec podle \textit{věty O nutné podmínce extrému} se 
+    $$G'(d) = f(d) - c = 0 \text{, takže } f(d) = c.$$
+\end{proof}
+
+%3.6.2%
+\subsubsection{Bachetova identita}
+
+\paragraph*{Tvrzení (Bachetova identita):} Nechť $p,q\in \R[x]$ nemají společný kořen, tj.: 
+pro žádné $z \in \Cc$ neplatí, že $p(z) = q(z) = 0$. Potom $\exists r,s \in \R[x]$, t.ž.:
+\[
+    r(x) \cdot p(x) + s(x) \cdot q(x) = 1.
+\]
+
+\begin{proof}
+    Nechť $p,q \in R[x]$ a $S := \{r(x) \cdot p(x) + s(x) \cdot q(x) \mid r(x), s(x) \in \R[x]\}.$
+    
+    Nechť polynom $0 \neq t(x) \in S$, má nejmenší stupeň. 
+    
+    Libovolný $a(x) \in S$ jím dělíme se zbytkem:
+    \[
+        a(x) = t(x) \cdot b(x) + c(x) ,
+    \]
+    kde $b(x), c(x) \in \R[x]$ a $\deg (c(x)) < \deg (t(x))$ nebo $c(x) = 0$. 
+
+    Protože ale $c(x) = a(x) - b(x) \cdot t(x) \in S$, platí $c(x) = 0$ a $a(x) = b(x)t(x)$, takže $t(x)$ dělí každý prvek v $S$.
+    
+    Ale $p(x), q(x) \in S$ a $t(x)$ je oba dělí. 
+    
+    Protože $p(x)$ a $q(x)$ nemají společný kořen, tak podle \textit{Zvalgovy věty *} je $t(x)$ nenulový konstantní polynom.
+    
+    B.Ú.N.O. je $t(x) = 1$. Tedy $1 \in S$ a máme uvedenou identitu.  
+\end{proof}
+
+\textit{* Zvalgova věta: $\forall p(x) \in \Cc[x] \setminus \Cc, \exists d \in \Cc: p(\alpha) = 0$.}
+\newpage
+
+%3.6.3%
+\subsubsection{Neomezené funkce jsou špatné a Baireova věta}
+\paragraph*{Tvrzení (Neomezené funkce jsou špatné):} Pokud funkce $f : [a, b] \to \R$ neomezená, pak $f \notin R(a, b)$.
+
+\textit{(Pokud je neomezená, pak není riemannovsky integrovatelná.)}
+
+\begin{proof}
+    Předpokládáme, že $f : [a, b] \to \R$ je neomezená. 
+    Ukážeme, že:
+    \[
+        \forall n, \exists (\overline{a}, \overline{t}): ||\overline{a}|| < \frac{1}{n} \land |R(\overline{a}, \overline{t}, f)| > n.
+    \] 
+    To je však v rozporu s \textit{Cauchyho podmínkou pro riemannovskou integrovatelnost} funkce $f$.
+
+    Z neomezenosti $f$ a z kompaktnosti $[a, b]$ vyplývá, že existuje konvergentní posloupnost $(b_n) \subseteq [a, b]$ s limitou $\lim b_n = \alpha \in [a, b]$ a s $\lim |f (b_n)| = +\infty$. 
+    
+    Nechť je dáno $n \in \N$. 
+    
+    Jako $\overline{a}$ vezmeme libovolné dělení $\overline{a} = (a_0, \dots, a_k)$ intervalu $[a, b]$ s $||\overline{a}|| < \frac 1n$, ale
+    t.ž.: $\exists j \in [k] : \alpha \in [a_{j-1}, a_j]$. 
+    
+    Pak vybereme libovolné body $\forall i \neq j: t_i \in [a_{i-1}, a_i]$ a uvážíme
+    neúplný \textit{Riemannův součet}
+    \[
+        s:= \sum_{i=1, i\neq j}^{k}(a_i - a_{i-1})f(t_i).
+    \]
+    Nyní vybereme zbývající bod $t_j \in [a_{j-1}, a_j]$ tak, že: \[
+        |(a_j - a_{j-1}) f(t_j) | > |s| + n.
+    \] To lze, protože $b_n\in [a_{j-1}, a_j]$ pro každé dostatečně velké n. 
+    
+    Pak definujeme $\overline{t}$ jako sestávající ze všech těchto bodů a pomocí trojúhelníkové
+    nerovnosti dostaneme požadované: \[
+        |R(\overline{a}, \overline{t}, f )| \geq |(a_j - a_{j-1})f(t_j)| - |s| > n.
+    \]
+    
+
+\end{proof}
+
+\paragraph*{Věta (Baireova):} Pokud $a < b\in \R$ a $\displaystyle [a, b] = \bigcup_{n=1}^{\infty} M_n$, pak některá množina $M_n$ není řídká.
+
+\begin{proof}
+    Nechť v $[a,b] = \displaystyle \bigcup_{n=1}^{\infty} M_n$ je každá množina $M_n$ řídká, odvodíme spor.
+
+    $M_1$ je řídká $\implies \exists [a_1, b_1] \subseteq [a, b]$, t.ž.: $a_1 < b_1$ a 
+    $[a_1 , b_1 ] \cap M_1 = \emptyset$. 
+    
+    $M_2$ je řídká $\implies \exists [a_2, b_2] \subseteq [a_1, b_1]$, t.ž.: $a_2 < b_2$ a $[a_2 , b_2] \cap M_2 = \emptyset$, atd. 
+    
+    Takto získáme posloupnost vnořených intervalů:
+    \[
+        [a,b] \supseteq [a_1, a_2] \supseteq [a_2, a_2] \supseteq \dots \supseteq [a_n, b_n] \supseteq \dots \text{, t.ž.:}
+    \]
+    $$\forall n\in \N: a_n < b_n \land [a_n, b_n] \cap M_n = \emptyset.$$
+    
+    Nechť $\alpha := \lim a_n \in [a, b]$. 
+
+    \textit{(Limita existuje, protože $a\in [a, b]$, protože $(a_n)$ je neklesající a je zdola omezená číslem $a$ a shora číslem $b$.)} 
+    
+    Dokonce $\forall m,n: a_n < b_m$, takže $\forall n: \alpha\in [a_n , b_n]$.
+
+    Potom ale $\forall n: \alpha \notin M_n$ dává spor, protože $\alpha \in [a, b]$.
+\end{proof}
+
+%3.6.4%
+\subsubsection{Dolní součet je menší než horní a ZVA 1}
+
+\paragraph*{Věta ($\underline{\int} \leq \overline{\int}$):} 
+Nechť $f:[a, b] \to \R$. Pro každá dvě dělení $a, b \in \mathcal{D}(a, b)$ platí, že \[
+    s(\overline{a}, f) \leq \underline{\int_a^b}f \leq \overline{\int_a^b}f \leq S(\overline{b}, f),
+\]
+
+\begin{proof}
+    Nechť $\overline{a}$ a $\overline{b}$ jsou dělení intervalu $[a, b]$.
+    
+    Víme, že $\overline{c} := \overline{a} \cup \overline{b}$. 
+    Pak totiž $\overline{a}, \overline{b} \subseteq \overline{c}$ a podle \textit{tvrzení O monotonii dolního a horního součtu} je
+    \[
+        s(\overline{a}, f)\leq s(\overline{c}, f) \leq S(\overline{c},f) \leq S(\overline{b}, f) \text{ a dostáváme } s(\overline{a}, f) \leq S(\overline{b}, f).
+    \]
+\end{proof}
+
+\textit{Dolní součet: $s(\overline{a}, f)$}
+
+\textit{Horní součet: $S(\overline{a}, f)$}
+
+\paragraph*{Věta (ZVA $1$):} Nechť $f:[a,b] \to \R$ a $f\in R(a,b)$. Potom $\forall x\in (a,b]$ je $f\in R(a,x)$ a $F:[a,b] \to \R$, kde
+\[
+    F(x):= \int_{a}^{x} f \text{, je lipschitzovsky spojitá.}
+\] \textit{t.j.: spojitá v $x\in [a,b] \implies F'(x) = f(x)$.}
+
+\begin{proof}
+    Nechť $f \in R(a, b)$. Podle \textit{tvrzení o restrikcích} je $f \in R(a', b')$ pro každé $a \leq a' < b' \leq b$. 
+    
+    Tedy $F$ je správně definováno a $F(a) = 0$. 
+    
+    Protože $f$ je omezená \textit{(tvrzení, že neomezené funkce jsou špatné)}, vezmeme omezující konstantu $d > 0$.
+
+    Nechť $c := 1 + d$, nechť $x < y \in [a, b]$ a podle \textit{definice Riemannova integrálu} nechť $(\overline{a}, \overline{t})$ je takové s body intervalu $[x, y]$, 
+    že $\displaystyle \left |\int_{x}^{y}f-R(\overline{a}, \overline{t}, f)\right|<y-x$.
+    
+    Podle \textit{tvrzení o restrikcích} a \textit{definice funkce} $F$ platí, že:
+    \[
+        |F(y) - F (x)| = \left|\int_{x}^{y} f \right| \leq y-x + |R(\overline{a}, \overline{t}, f)|\leq y-x + c\cdot (y-x),
+    \] a tak $|F(y) - F(x)| \leq c\cdot |y-x|$ a $F$ je lipschitzovsky spojitá.
+
+    $ $
+
+    Nechť $f$ je v $x_0 \in [a, b]$ spojitá a $\exists \varepsilon$. Vezmeme číslo $\delta$, t.ž.: 
+    $$x \in U(x_0, \delta) \cap [a, b] \implies f(x) \in U(f(x_0), \varepsilon).$$
+    
+    Nechť $x \in P(x_0, \delta) \cap [a,b]$ je libovolné, řekněme, že $x>x_0$ \textit{(pro $<$ obdobně)}.
+
+    Vezmeme dělení s body $(\overline{a}, \overline{t})$ intervalu $[x_0, x]$, t.ž.: $\displaystyle \left|\int_{x_0}^{x}f-R(\overline{a}, \overline{t}, f)\right| < \varepsilon(x-x_0)$.
+    Potom: \[
+        \frac{F(x) - F(x_0)}{x-x_0} - f(x_0) = \frac{1}{x-x_0} \cdot \int_{x_0}^{x} f-f(x_0)
+    \] je menší, než:
+    \[
+        \frac{R(\overline{a}, \overline{t}, f) + \varepsilon(x-x_0)}{x-x_0}-f(x_0) < \frac{\cancel{(x-x_0)}(\cancel{f(x_0)} + \varepsilon + \varepsilon)}{\cancel{x-x_0}} - \cancel{f(x_0)} = 2\varepsilon.
+    \] Podobně se dokáže, že je i větší, než $-2\varepsilon$ a dostaneme tak $F'(x_0) = f(x_0)$.
+
+\end{proof}
+
+%3.6.5%
+\subsubsection{Abelova sumace}
+
+\paragraph*{Věta (Abelova sumace):} Nechť $a < b \in \Z$ a $f, f' \in R(a, b)$ a $f$ je spojitá v $b$. 
+Potom
+\[
+    \sum_{a<n\leq b}f(n) = \int_{a}^{b}f + \int_{a}^{b}\{x\} f'(x) =: \int_{a}^{b}T \text{, je identita.}
+\]
+
+\begin{proof}
+    Dokažme, že $b = a + 1$ (elmentární identita).
+
+    Identitu s mezemi $a < b$ pak dostaneme jako součet elem. identit s mezemi \underline{$a$ a $a + 1$}, \underline{$a + 1$ a $a + 2$} ... \underline{$b - 1$ a $b$}. 
+    Dokažme tedy elementární identitu.
+    Podle integrace per partes pro $b = a + 1$ je
+\[
+    T = \int_{a}^{a+1}(x-a)f'(x) = [(x-a)f(x)]_a^{a+1} - \int_{a}^{a+1}f,
+\] takže opravdu: $\displaystyle \sum_{a<n\leq b}f(n) = [(x-a)f(x)]_a^{a+1} = f(a+1)$.
+\end{proof}
+
+
+\end{document}

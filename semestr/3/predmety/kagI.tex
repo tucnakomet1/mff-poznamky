@@ -1,0 +1,945 @@
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[margin=0.7in]{geometry}
+\usepackage{amssymb, amsthm, amsmath, amsfonts}
+\usepackage{array, xcolor, enumitem, graphicx}
+\usepackage{cancel, subcaption}
+
+\usepackage[czech]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[unicode]{hyperref}
+\usepackage[useregional]{datetime2}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue,
+    pdftitle={Kombinatorika a grafy},
+}
+
+% tahak - prikazy %
+% \includegraphics{obrazek.png}         % import konkretniho obrazku
+% a~b                                   % mezera mezi pismeny 'a' a 'b'
+% a \quad b                             % velka mezera mezi pismeny 'a' a 'b'
+% \sim                                  % ~
+% \Longleftarrow                        % <==
+
+
+% zkratky %
+\newtheorem{veta}{Věta}
+\newtheorem{definice}{Definice}
+\newtheorem{tvrzeni}{Tvrzení}
+\newtheorem{lemma}{Lemma}
+\newtheorem{pozorovani}{Pozorování}
+\newtheorem{dusledek}{Důsledek}
+\newtheorem{priklad}{Příklad}
+\newtheorem{poznamka}{Poznámka}
+\newtheorem{fakt}{Fakt}
+
+\newcommand{\N}{{\mathbb{N}}}       % prirozena cisla
+\newcommand{\Z}{{\mathbb{Z}}}       % cela cisla
+\newcommand{\Zs}{{\mathbb{Z}_n^*}}  % cela cisla vcetne nekonecna
+\newcommand{\Q}{{\mathbb{Q}}}       % racionalni cisla
+\newcommand{\R}{{\mathbb{R}}}       % realna cisla
+\newcommand{\Cc}{{\mathbb{C}}}      % komplexni cisla
+\newcommand{\F}{{\mathbb{F}}}       % teleso
+\newcommand{\Pp}{{\mathcal{P}}}     % potencni mnozina
+
+\newcommand{\hr}{{\begin{center}\par\rule{\textwidth}{0.5pt} \end{center}}}
+\newcommand\makesmall{\fontsize{8pt}{11pt}\selectfont}
+
+\renewcommand*{\contentsname}{Obsah}
+\renewcommand*{\proofname}{Důkaz:}
+\renewcommand*{\figurename}{\makesmall Obr.}
+
+
+% hlavicka
+\setlength{\parindent}{0em}
+
+\title{Kombinatorika a grafy}
+\date{\today}
+\author{\sc Karel Velička}
+
+
+\graphicspath{ {../../Skripta a poznamky/img/} }             % obrazky ulozeny ve slozce img/
+
+\begin{document}
+\pagenumbering{arabic}
+\maketitle
+
+% podnadpis + obsah 
+\begin{center}
+    Doc. RNDr. Vít Jelínek Ph.D.
+\end{center}
+
+\tableofcontents
+\newpage
+
+\section{Definice}
+
+%% vytvorujici funkce %%
+\subsection{Vytvořující funkce}
+
+\definice (Vytvořující funkce): \normalfont Vytvořující funkce posloupnosti $a_0, a_1, \ldots = (a_n)_{n=0}^{\infty} \in \R$ je funkce proměnné $x$ definována jako součet $f(x) = \displaystyle \sum_{n=0}^{\infty}a_nx^n$.
+\definice {(Catalanova čísla)}: \normalfont $(C_n)_{n=0}^{\infty}$ udávájí počet binárních stromů s $n$ vnitřními vrcholy.
+
+%% projektivni roviny %%
+\subsection{Projektivní roviny}
+\definice (Hypergraf): \normalfont je dvojice $(V,H)$, kde $H$ je množina podmnožin $V$, tedy $H\subseteq \Pp(V)$. Prvky $V$ jsou \textit{vrcholy} a prvky $H$ jsou \textit{hyperhrany}.
+\definice (Graf incidence): \normalfont hypergrafu $(V,H)$ je bipartitní graf s partitami $V$ a $H$, kde mezi $x \in V$ a $h \in H$ vede hrana $\iff x \in h$.
+
+\begin{definice} (Projektivní rovina): \normalfont je hypergraf $(X, \Pp)$, kde prvky $X$ jsou \textit{body} a prvky $\Pp$ jsou \textit{přímky}, t.ž.:
+    \begin{enumerate}[label=(\roman*)]
+        \item \textit{Každé dva různé body určují právě jednu přímku.}\\$\forall x,y \in X, x\neq y,~ \exists ! p\in \Pp : \{x,y\}\subseteq p$
+        \item \textit{Každé dvě různé přímky se protínají v právě jednom bodě.}\\$\forall p,q \in \Pp, p\neq q: |p \cap q| = 1$
+        \item \textit{Existuje čtveřice bodů taková, že žádné tři body neleží na stejné přímce.}\\$\exists C \in X, |C| = 4, ~ \forall p \in \Pp: |p \cap C| \leq 2$
+    \end{enumerate}
+\end{definice}
+\definice (Řád projektivní roviny): \normalfont KPR $(X, \Pp)$ má \textit{řád} $n \in \N$, pokud každá její přímka má $n+1$ bodů.
+\begin{definice} (Duální projektivní rovina): \normalfont
+    k projektivní rovině $(X, \Pp)$ je hypergraf $(X^*, \Pp^*)$, kde:
+    \begin{enumerate}[label=(\roman*)]
+        \item $X^* = \Pp$,
+        \item pro $x \in X$ definujeme $x^*:= \{x\in p \mid p\in \Pp\}$,
+        \item $\Pp^* = \{x^* \mid x\in X\}$.
+    \end{enumerate}
+\end{definice}
+
+%% toky %%
+\subsection{Toky v sítích}
+\begin{definice} (Toková síť): \normalfont
+    Je pětice $(V,E,z,s,c)$: \begin{itemize}
+        \item $V~ \equiv$ množina vrcholů 
+        \item $E~\equiv$ množina orientovaných hran $E \subseteq V \times V$
+        \item $z\in V~ \equiv$ zdroj
+        \item $s \in V\setminus\{z\}~\equiv$ stok/ spotřebič
+        \item $c: E \to [0, +\infty) ~\equiv c(e)$ je kapacita hrany $e$
+    \end{itemize}
+\end{definice}
+
+\begin{definice} (Tok): \normalfont
+    V síti $(V, E, z, s, c)$ je funkce $f: E\to [0, +\infty)$ splňující: \begin{enumerate}[label=(\roman*)]
+        \item $\forall e \in E: 0 \leq f(e) \leq c(e)$
+        \item $\forall x \in V\setminus\{z,s\}: \displaystyle \sum_{\stackrel{y\in V}{(x,y)\in E}}f(x,y) = \sum_{\stackrel{y\in V}{(x,y)\in E}}f(x,y)$, respektive $\forall x \in V\setminus\{z,s\}: f[In(x)] = f[Out(x)]$.
+    \end{enumerate}
+\end{definice}
+
+\definice (Velikost toku): \normalfont Velikost toku $f$ v síti $(V, E, z,s,c)$ je $w(f):= f[Out(z)] - f[In(z)]$.
+
+\definice (Maximální tok): \normalfont je takový tok, který má největší velikost.
+
+\begin{definice} (Řez): \normalfont 
+    v síti $(V, E, z,s,c)$ je množiana hran $R \subseteq E$, t.ž.: každá orientovaná cesta ze $z$ do $s$ má neprázdný průnik s $R$.
+    \begin{itemize}
+        \item \textit{Kapacita} řezu $\displaystyle R \equiv c(R) = \sum_{e\in R}c(e)$
+        \item \textit{Minimální} řez je řez, který má ze všech řezů nejmenší kapacitu.
+    \end{itemize}
+\end{definice}
+\definice (Elementární řez): \normalfont Nechť $A\subseteq V$ je množina vrcholů, t.ž. $z\in A$ a $s \notin A$. Potom zjevně $Out(A)$ tvoří řez. Každý takový řez je \textit{elementární řez.}
+
+\begin{definice} (Nenasycená cesta): \normalfont Nechť $f$ je tok v síti $(V, E, z, s, c)$. 
+    \textit{Nenasycená cesta} pro $f$ je neoreintovaná cesta $x_1e_1 x_2e_2\ldots x_{k-1}e_{k-1} x_ke_k x_{k+1}$, kde $\forall i = 1, \ldots, k: $ 
+    \begin{itemize}
+        \item $e_i$ je buď \textit{dopředná hrana}, tedy $e_i = (x_i, x_{i+1})$, nebo 
+        \item $e_i$ je \textit{zpětná hrana}, tedy $e_i(x_{i+1}, x_i)$.
+    \end{itemize}
+    Zároveň platí $f(e_i) < c(e_i)$ pro každou dopřednou hranu a $f(e_i) > 0$ pro každou zpětnou hranu.
+\end{definice}
+
+\definice (Zlepšující cesta): \normalfont Zlepšující cesta pro $f$ je nenasycená cesta ze $z$ do $s$.
+
+\definice (Párování): \normalfont v grafu $G=(V, E)$ je množina hran $M \subseteq E$, t.ž. každý vrchol patří do nejvýše jedné hrany z $M$.
+\definice (Vrcholové pokrytí): \normalfont v grafu $G=(V, E)$ je množina vrcholů $C \subseteq V$, t.ž. každá hrana obsahuje alespoň jeden vrchol z $C$.
+
+\begin{definice}
+    (Systím různých reprezentantů - SRR): \normalfont v hypergrafu $H=(V,E)$ je funkce $r: E \to V$, t.ž.:
+    \begin{enumerate}
+        \item $\forall e \in E: r(e) \in e$, kde $r(e)$ je \textit{reprezentant} hyperhrany $e$
+        \item $\forall e,f \in E: e\neq f \implies r(e) \neq r(f) $, tedy funkce $r$ je prostá
+    \end{enumerate}
+\end{definice}
+
+
+\definice (Hranový řez): \normalfont $F\subseteq E$ je hranový řez v $G$ pokud $G \setminus F$ je nesouvislý.
+\definice (Hranová $k-$souvislost): \normalfont $G$ je hranově $k-$souvislý, pokud neobsahuje žádný hranový řez velikosti menší než $k$.
+
+\definice (Vrcholová $k$-souvislost): \normalfont Graf $G$ je \textit{vrcholově $k$-souvislý}, pokud má alespoň $k+1$ vrcholů a neobsahuje žádný vrcholový řez velikosti $<k$.
+\definice (Vrcholová souvislost): \normalfont grafu $G$, značeno $K_v(G)$, je největší $k$, t.ž.: $G$ je vrcholově $k$-souvislý.
+
+
+%% ramseyovy vety %%
+\subsection{Ramseyovy věty}
+\definice{(Klika): \normalfont v grafu $G=(V,E)$ je množina vrcholů, t.ž. každé dva jsou spojené hranou.}
+\definice{(Nezávislá množina): \normalfont v grafu $G=(V,E)$ je množina vrcholů, t.ž. žádné dva nejsou spojené hranou.}
+
+%% samoopravne kody %%
+\subsection{Samoopravné kódy}
+\definice{(Hammingova vzdálenost): \normalfont Pro $x,y\in \Z_2^n$ je \textit{Hammingova vzdálenost} $d(x,y):=$ počet $i$, t.ž. $x_i \neq y_i$.}
+\definice{(Hammingova váha): \normalfont $||x||:=$ počet $i$, t.ž. $x_i \neq 0$.}
+
+\definice{(Minimální vzdálenost): \normalfont pro kód $C \in \Z_2^n$ je $\Delta(C):=\displaystyle \min_{\stackrel{x,y\in C}{x\neq y}} d(x,y)$.}
+\definice{($(n,k,d)$-kód): \normalfont je množina $C \in \Z_2^n$ taková, že $|C|=2^k$ a $\Delta(C) = d$.}
+
+\definice{(Lineární kód): \normalfont je kód $C \in \Z_2^n$, který je vektorový podprostor $\Z_2^n$.}
+\definice{(Generující matice kódu $C$): \normalfont pro lineární $(n,k,d)$-kód je matice $G\in \Z_2^{k\times n}$, jejíž řádky tvoří bázi $C$.}
+
+\definice{(Kódování): \normalfont Nechť $C$ je $(n,k,d)$-kód pro $k\in \N$, tak \textit{kódování} pro $C$ je bijekce $\Z_2^k \to C$.}
+\definice{(Dekódování): \normalfont $(n,k,d)$-kódu $C$ je funkce $g:\Z_2^n \to C$ taková, že $\forall x \in \Z_2^n: d(x,g(x))=\displaystyle \min_{y\in C}d(x,y)$. \\ \textit{(Přiřazujeme nejbližší slovo; slovo s nejmenší vzdáleností.)}}
+
+\definice{(Duální kód k $C$ "orotgonální doplněk"): \normalfont $C^{\bot} := \{\langle x,y\rangle = 0 \mid y\in \Z_2^n, \forall x \in C\}$}
+\definice{(Kontrolní matice): \normalfont Nechť $C$ je lineární $(n,k,d)$-kód. \textit{Kontrolní matice} kódu $C$ je matice, jejíž řádky tvoří bázi $C^{\bot}$.}
+\definice{(Hammingovy kódy): \normalfont Nechť $r\in \N, r\geq 2$, nechť $K_r$ je matice s $r$ řádky a $2^r-1$ sloupci, jejíž sloupce jsou nenulové a různé. Potom Hammingovy kódy $H_r$ jsou kódy s kontrolní maticí $K_r$.}
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Věty a tvrzení}
+
+%% vytvorujici funkce %%
+\subsection{Odhady kombinatorických funkcí}
+\begin{veta} (Odhad faktoriálu 2): \normalfont
+    $$e \left(\frac ne\right)^n \leq n! \leq en \left(\frac ne\right)^n$$
+
+    \begin{proof}
+        Dokazovat budeme za pomoci integrálu a součtu, $n!$ je ale násobek, musíme proto užít vlastnosti logaritmů:
+        $$\ln(n!) = \sum_{i=1}^{n}\ln(i) = \sum_{i=2}^{n}\ln(i).$$
+
+        \begin{figure}[h]
+            \caption{\makesmall\textit{Součet "schodů" podél křivky}}
+            \centering
+            \includegraphics[width=.4\textwidth]{sumint.pdf}
+        \end{figure}
+
+        \begin{itemize}
+            \item \textit{Dolní odhad:} Budeme sčítat "schody" nad křivkou:
+            \begin{flalign*}
+                \ln(n!) & \geq \int_{1}^{n}\ln(x) dx =\\
+                &= \left[x \ln (x) -x\right]^n_1 = n\ln(n)-n +1 \implies\\
+                n! &= e^{n \ln n -n + 1} = e \left(\frac ne\right)^n
+            \end{flalign*}
+            \item \textit{Horní odhad:} Podobně jako dolní odhad, jen budeme sčítat "schody" pod křivkou:
+            $$\sum_{i=1}^{n-1}\ln(i) = \ln((n-1)!) \leq n \ln (n) - n + 1$$
+            Vy výsledku dostaneme: 
+            \begin{flalign*}
+                n \ln n -n + 1 \geq ln ((n-1)!) &\implies e^{n \ln n -n+1} \geq (n-1)! \implies\\
+                &\implies n \cdot e^{n \ln n -n +1} \geq n! \implies\\
+                &\implies n \cdot e \left(\frac en\right)^n \geq n!
+            \end{flalign*}
+        \end{itemize}
+    \end{proof}
+\end{veta}
+
+\begin{veta} (Odhad kombinačního čísla): \normalfont
+    Pro $1\leq k \leq n$ platí $\displaystyle \left(\frac nk\right)^k \leq \binom nk \leq \left(\frac{en}{k}\right)^k$.
+
+    \begin{proof}
+        Budeme využívat vztahu $\displaystyle \binom nk = \frac{n!}{k!(n-k)!}$
+        \begin{itemize}
+            \item \textit{Dolní odhad:} 
+            $$\binom nk = \frac{n (n-1)(n-2) \cdot ... \cdot (n-k+1)}{k(k-1) \cdot ... \cdot 1} = \frac nk \cdot \frac{n-1}{k-1} \cdot \frac{n-2}{k-2} \cdot ... \cdot \frac{n-k+1}{1} \geq \left(\frac{n}{k}\right)^k$$
+            Dostáváme, že $\frac nk$ je nejmenší a zbytek je rostoucí posloupnost.
+            \item \textit{Horní odhad:}
+            $$\binom nk = \frac{n (n-1)(n-2) \cdot ... \cdot (n-k+1)}{k!} \leq \frac{n^k}{\left(\frac ke\right)^k} = \left(\frac{e\cdot n}{k}\right)^k$$
+            Tento vztah platí, protože $\displaystyle \left(\frac ke\right)^k$ je dolní odhad $k!$.
+        \end{itemize}
+    \end{proof}
+\end{veta}
+
+\begin{veta} (Odhad binomického čísla $\binom {2m} m$): \normalfont
+    $$\forall m\in \N_0: \frac{2^{2m}}{2\sqrt m} \leq \binom {2m}m \leq \frac{2^{2m}}{\sqrt {2m}}$$
+
+    \begin{proof}
+        Definujme $\displaystyle P := \frac{\binom{2m}{m}}{2^{2m}}$ a dokažme, že $\displaystyle \frac 1{2\sqrt m} \leq P \leq \frac 1{\sqrt {2m}}$.
+
+        \[
+            P:= \frac{\binom{2m}{m}}{2^{2m}} = \frac{\frac{(2m)!}{m! \cdot m!}}{\underbrace{2 \cdot 2 \cdot ... \cdot 2}_{2m}} = \frac{1\cdot 2 \cdot 3 \cdot ... \cdot 2m}{(2\cdot 4 \cdot ... \cdot 2m) (2\cdot 4 \cdot ... \cdot 2m)} =  \frac{1\cdot 3 \cdot 5 \cdot ... \cdot (2m-1)}{2\cdot 4 \cdot 6 \cdot  ... \cdot 2m}
+        \]
+
+        \begin{itemize}
+            \item \textit{Horní odhad:}
+            \begin{flalign*}
+                P^2 &= \frac{1\cdot 1 \cdot 3 \cdot 3 \cdot 5 \cdot 5 \cdot ... \cdot (2m-1) \cdot (2m-1)}{2\cdot 2 \cdot 4 \cdot 4 \cdot 6 \cdot 6 \cdot ... \cdot (2m) \cdot (2m)} \stackrel{\text{Pozorování 2.}}{=} \\
+                &= 1 \cdot \frac{1\cdot 3}{2\cdot 2} \cdot \frac{3\cdot 5}{4\cdot 4} \cdot \frac{5\cdot 7}{6\cdot 6} \cdot ... \cdot \frac{(2m-3)\cdot (2m-1)}{(2m-2)\cdot (2m-2)} \cdot \frac{2m - 1}{(2m) \cdot (2m)} \leq\\
+                &\leq \frac{2m - 1}{(2m) \cdot (2m)} < \frac 1{2m} \text{, a proto tedy } P \leq \frac{1}{\sqrt {2m}}.
+            \end{flalign*}
+            \item \textit{Dolní odhad:}
+            \begin{flalign*}
+                P^2 &= \frac{1\cdot 1 \cdot 3 \cdot 3 \cdot 5 \cdot 5 \cdot ... \cdot (2m-1) \cdot (2m-1)}{2\cdot 2 \cdot 4 \cdot 4 \cdot 6 \cdot 6 \cdot ... \cdot (2m) \cdot (2m)} \stackrel{\text{Pozorování 3.}}{=} \\
+                &= \frac 12 \cdot \frac{3\cdot 3}{2\cdot 4} \cdot \frac{5\cdot 5}{4\cdot 6} \cdot ... \cdot \frac{(2m-1)\cdot (2m-1)}{(2m-2)\cdot (2m)} \cdot \frac{1}{2m} \geq\\
+                &\geq \frac{1}{4m} \text{, a proto tedy } P^2 \geq \frac{1}{4m} \text{ a } P \geq \frac{1}{2\sqrt m}.
+            \end{flalign*}
+        \end{itemize}
+    \end{proof}
+\end{veta}
+
+\newpage
+
+%% vytvorujici funkce %%
+\subsection{Vytvořující funkce}
+
+
+\begin{veta}(Zobecněná binomická věta): \normalfont
+    Pro $d\in \R$ platí $\displaystyle (1+x)^d = \sum_{n=0}^{\infty} \binom dn x^n$, pro $|x|<1$.
+
+    \begin{proof}
+        Označme $f(x)=(1+x)^d$. Vidíme, že:
+        \begin{flalign*}
+            f'(x)&=d(1+x)^{d-1}\\
+            f''(x)&=d(d-1)(1+x)^{d-2}\\
+            &\vdots\\
+            f^{(n)}(x)&=d(d-1)\cdot ... \cdot (d-n+1)(1+x)^{d-n}
+        \end{flalign*}
+        Určíme Taylorovým polynomem. Nechť $a_0, a_1, \dots$ je posloupnost vytvořující funkce $f(x)$, potom $\displaystyle a_n = \frac{f^{(n)}(0)}{n!} \binom dn$.
+    \end{proof}
+\end{veta}
+
+\begin{fakt} \normalfont
+    Mějme funkci $f(x)=\frac{P(x)}{Q(x)}$, kde $P(x)$ a $Q(x)$ jsou polynomy se stupněm $d(P(x))<d(Q(x))$.
+    
+    Nechť $Q(x)$ má navzájem různé reálné kořeny $\rho_1, \rho_2, \dots, \rho_k$ a nechť $n_i$ označuje stupeň kořenu $\rho_i$.
+    
+    Předpokládejme, že $Q(x)$ nemá nereálné kořeny, tedy $Q(x)=\gamma \cdot (x-\rho_1)^{n_1}(x-\rho_2)^{n_2}\cdot ... \cdot (x-\rho_k)^{n_k}$, kde $\gamma\in \R$.
+
+    Potom $f(x)$ se dá vyjádřit jako součet parciálních zlomků pro kořeny $\rho_1, \dots, \rho_k$, kde parciální zlomky pro kořen $\rho_i$ mají stupeň nejvýše $n_i$, neboli: 
+    $$\exists \alpha_{i,j}\in \R: f(x) = \sum_{i=1}^{k} \sum_{j=1}^{n_i}\frac{\alpha_{i,j}}{(x-\rho_i)^j}.$$
+\end{fakt}
+\newpage 
+
+\begin{priklad} (Odvození Catalanova čísla): \normalfont \\
+    Mějme funkci $\displaystyle C(x):= \sum_{n=0}^{\infty}C_nx^n$, $\quad C_0 = 1 \quad$ a $\quad \displaystyle C_n = C_0C_{n-1} + C_1C_{n-2} + ... + C_{n-1}C_{0} = \sum_{i=0}^{n-1}C_iC_{n-i-1}$:
+    \begin{figure}[h]
+        \caption{\makesmall\textit{Odvození součtu Catalanových čísel pro $\forall n \geq 1$}}
+        \centering
+        \includegraphics[width=.4\textwidth]{catalan.png}
+    \end{figure}
+    \begin{flalign*}
+        \sum_{n=1}^{\infty}C_nx^n &= \sum_{n=1}^{\infty}\left(\sum_{i=0}^{n-1}C_iC_{n-i-1}\right)x^n \implies\\
+        C(x) - 1 &= x \sum_{n=0}^{\infty}\left(\sum_{i=0}^{n}C_iC_{n-i}\right)x^n = x\cdot C^2(x)
+    \end{flalign*}
+    Dostáváme tak: $C(x) = 1 + xC^2(x)$, což si můžeme zapsat jako kvadratickou rovnici a vyjdou nám dvě řešení:
+    \begin{flalign*}
+        xC^2(x) - C(x) + 1 \implies \begin{cases}\frac{1 +\sqrt{1-4x}}{2x} = C^+(x) & \text{není řešením - diverguje}\\\frac{1 -\sqrt{1-4x}}{2x} = C^-(x) & \text{konverguje k $1$ při $x \to 0$}\end{cases}
+    \end{flalign*}
+    Počítáme tak dál a vyjádříme vzorec pro $n$-tý člen:
+
+    \begin{flalign*}
+        C_n &:= [x^n]\frac{1 -\sqrt{1-4x}}{2x} = [x^{n+1}]\frac{1 -\sqrt{1-4x}}{2} = [x^{n+1}]\left(\frac 12 - \frac{\sqrt{1-4x}}{2}\right) =\\
+        &= -\frac 12[x^{n+1}]\sqrt{1-4x} = -\frac 12 (-4)^{n+1}[x^{n+1}]\sqrt{1-x} = -\frac 12 (-4)^{n+1}[x^{n+1}](1-x)^{\frac 12} = \\
+        &\stackrel{ZBV}{=} -\frac 12 (-4)^{n+1}[x^{n+1}]\binom{\frac 12}{n+1} = (-1)^n2^{2n+1} \cdot \frac{\frac 12(\frac 12 - 1)(\frac 12 - 2)\cdot ... \cdot (\frac 12 - n)}{(n+1)!} =\\
+        &= (-1)^n2^{2n+1} \cdot \frac{\frac 12(-\frac 12)(-\frac 32)\cdot ... \cdot (-\frac {2n-1}2)}{(n+1)!} = 2^n \cdot \frac{1\cdot 3 \cdot 5\cdot ... \cdot (2n-1)}{(n+1)!} =\\
+        &= \frac{1\cdot 3 \cdot 5\cdot ... \cdot (2^n n!)}{(n+1)!n!} =  \frac{(2n)!}{(n+1)!n!} = \frac{1}{n+1}\binom{2n}{n}.
+    \end{flalign*}
+\end{priklad}
+
+
+\newpage
+%% projektivni roviny %%
+\subsection{Projektivní roviny}
+
+\begin{tvrzeni} Pro konečnou projektivní rovinu $(X, \Pp)$ řádu $n$ platí:
+    \begin{enumerate}[label=(\alph*)]
+        \item Každý bod KPR patří do právě $n+1$ přímek.
+        \item Počet bodů je $|X| = n^2 + n + 1$.
+        \item Počet přímek je $|\Pp| = n^2 + n + 1$.
+    \end{enumerate}
+
+    \begin{proof} Budeme postupně dokazovat jednotlivé body.
+        \begin{enumerate}[label=(\alph*)]
+            \item Zvolme si $x\in X$ a dle Lemmatu víme, že $\exists p \in \Pp: x\neq p$.\\
+            Označme $p = \{y_1, y_2, \dots, y_{n+1}\}$ a definujme přímky $g_1, g_2, \dots, g_{n+1}$, kde $g_i= \overline{xy_i}$.\\
+            Tvrdíme, že pro $i\neq j$ je $g_i\neq g_j$, protože kdyby ne, tak $\{y_i, y_j\} \subseteq g_i \cap p$, což je spor.
+            Tvrdíme $\forall r \in \Pp$, kde pokud $x\in r$, tak platí $r \in \{g_1, \dots, g_{n+1}\}$.
+            \begin{figure}[h]
+                \caption{\makesmall\textit{Obrázek důkazu $(a)$}}
+                \centering
+                \includegraphics[width=.3\textwidth]{projektivni_rovina_dukaz1.png}
+            \end{figure}
+
+            Zvolme si přímku $r\in \Pp$, t.ž.: $x\in r$, což má podle axiomu zřejmě $|r\cap p|=1$. 
+            Dále nechť $y$ je prvek $r\cap p$, potom, potom $r = \overline{xy_i} = g_i$. Tedy bodem $x$ prochází právě $n+1$ přímek.
+
+            \item Zvolme si $x\in X$ a nechť $p_1, p_2, \dots, p_{n+1}$ jsou přímky procházející $x$. 
+            Všimněme si, že každý bod $y\in X\setminus\{x\}$ patří do právě jedné z přímek $p_1, p_2, \dots, p_{n+1}$.\\
+            Takže $|X|=|\{x\}| + |p_1\setminus \{x\}| + |p_2\setminus \{x\}| + \dots + |p_{n+1}\setminus \{x\}|= 1 + (n+1)n = n^2+n+1$.
+            \begin{figure}[h]
+                \caption{\makesmall\textit{Obrázek důkazu $(b)$}}
+                \centering
+                \includegraphics[width=.3\textwidth]{projektivni_rovina_dukaz2.png}
+            \end{figure}
+
+            \item Počítáme počet dvojic $(x,p)\in X\times \Pp$ takových, že $x\in p$. To lze udělat dvěma způsoby:\\
+            dvojic je $|X|(n+1)=(n^2+n+1)(n+1)$ a dvojic $|\Pp|(n+1)=(n^2+n+1)(n+1) \implies$
+            $$|\Pp|(n+1)=(n^2+n+1)(n+1) \implies |\Pp|=n^2+n+1$$
+            \begin{figure}[h]
+                \caption{\makesmall\textit{Obrázek důkazu $(c)$}}
+                \centering
+                \includegraphics[width=.35\textwidth]{projektivni_rovina_dukaz3.png}
+            \end{figure}
+        \end{enumerate}
+    \end{proof}
+\end{tvrzeni}
+\newpage
+\begin{tvrzeni}
+    Duální projektivní rovina $(X^*, \Pp^*)$ je projektivní rovina.
+
+    \begin{proof}
+        Musíme dokázat všechny axiomy klasické projektivní roviny. $(X^*, \Pp^*)$ splňuje:
+        \begin{enumerate}[label=(\roman*)]
+            \item $\forall p,q \in X^*, p\neq q, \exists! x^* \in \Pp^*:\{p,q\}\subseteq x^* \iff \forall p,q \in \Pp, p\neq q, \exists ! x \in X: x \in p ~~\&~~x\in q$ \\ 
+                $\iff (X,P) \text{ splňuje }(ii).$
+            \item Vychází z $(i)$. Tedy splňuje $(ii) \iff (X, \Pp)$ splňuje $(i)$.
+            \item $\exists C^* \subseteq X^*, |C^*|=4 ~~\&~~ \forall x^*\in \Pp^*: |x^*\cap C^*|\leq 2 \iff \exists C^* \subseteq \Pp^*, |C^*|=4 ~~\&~~ \forall x\in X: \textit{ Nejvýše dvě přímky z $C$ procházejí skrz $x$}:$\\
+                Ukážeme, že $(X, \Pp)$ splní výše uvedené tvrzení a to tak, že ukážeme, že $\{a,b,c,d\} \subseteq X$, t.ž.: žádné tři body $C$ neleží na jedné přímce.
+                \begin{figure}[h]
+                    \caption{\makesmall\textit{Protipříklad}}
+                    \centering
+                    \includegraphics[width=.25\textwidth]{protipriklad.png}
+                \end{figure}
+
+                Předpokládejme $C^*:= \{\overline{ab}, \overline{bc}, \overline{cd}, \overline{ad}\}$. Zvolme si například přímky $\overline{ab}, \overline{bc}, \overline{cd}:$\\
+                Jelikož $\overline{ab} \cap \overline{bc} = \{b\}$  a $\overline{bc} \cap \overline{cd} = \{c\}$, tak platí, že $\overline{ab} \cap \overline{bc} \cap \overline{cd} = \emptyset$, což nám dává spor.
+        \end{enumerate}
+    \end{proof}
+\end{tvrzeni}
+
+
+\subsubsection*{Konstrukce konečné projektivní roviny řádu $n\in \N$}
+\begin{enumerate}[label=(\arabic*)]
+    \item Nechť $T$ je konečné těleso s $n$ prvky, potom uvažujme vektorový prostor $V = T^3 = \{(x,y,z) \mid x,y,z \in T\}$. Platí $|V| = n^3$.
+    \item Nechť $X$ je množina podprostorů dimenze $1$ ve $V$. Platí $|X| = \frac{n^3-1}{n-1} = n^2+n+1$.
+    \item Pro každý podprostor $p\subseteq V$ dimenze $2$ definujme $\tilde{p}:=\{x \in X \mid x \subseteq p\}$.
+    \item $\Pp = \{\tilde{p} \mid p \text{ je podprostor } V \text{ dimenze } 2\}$. \textit{($|\Pp|=n^2+n+1 = |X|$, v $\dim = 1$, protože orotgonální doplněk)}
+\end{enumerate}
+
+Tvrdím, že $(X, \Pp)$ je projektivní rovina.
+\begin{enumerate}[label=(\roman*)]
+    \item Z lineární nezávislosti.
+    \item $P,Q$ podprostory $V$: $\overbrace{\dim P}^{2} + \overbrace{\dim Q}^{2} - \overbrace{\dim P\cap Q}^{1} = \dim (\overbrace{\text{obalu } P\cup Q}^{3})$.
+    \item Například $C=\{(1,0,0), (0,1,0), (0,0,1), (1,1,1)\}$.
+\end{enumerate}
+
+\newpage
+%% toky %%
+\subsection{Toky v sítích}
+
+\begin{fakt}
+    V každé tokové síti existuje maximální tok.
+\end{fakt}
+
+
+\begin{veta}\normalfont Nechť $f$ je tok v síti $(V, E, z, s, c)$, potom následující tvrzení jsou ekvivalentní:
+    \begin{enumerate}[label=(\roman*)]
+        \item $f$ je maximální
+        \item $f$ nemá zlepšující cestu
+        \item Existuje řez $R$, t.ž.: $w(f) = c(R)$.
+    \end{enumerate}
+    \begin{proof}
+        Dokážeme postupně implikace.
+        \begin{itemize}
+            \item $(i)\implies (ii):$ Kdyby měl $f$ nějakou zlepšující cestu, tak můžeme zvětšit $f$ a ten tak potom není maximální.
+            \item $(iii) \implies (i):$ Víme, že pro libovolný řez $R'$ a libovolný tok $f'$ platí, že $w(f')\leq c(R')$.
+                Kdyby $f$ nebyl maximální, tak existuje tok $f^+$ splňující $w(f^+)>w(f)$. 
+                
+                Potom pro každý řez $R$ platí, že $c(R)\geq w(f^+)>w(f)$, tedy neexistuje žádný řez $R$ splňující $c(R) = w(f)$.
+            \item $(ii) \implies (iii):$ Nechť $f$ je tok, který nemá zlepšující cestu.\\
+                Definujeme si množinu $A=\{x\in V\mid \text{ ze $z$ do $x$ vede nenasycená cesta}\}$.
+                Zjevně $z\in A, s\notin A$ a dále definujeme $R:= Out(A) = \{u,v\in E \mid u\in A, v\notin A\}$.
+                
+                Můžeme si všimnout, že $\forall e \in Out(A): f(e) = c(e)$ a analogicky $\forall e' \in In(A): f(e') = 0$.
+                
+                Z \textit{(Lemmatu 3.)} dostáváme, že: $$w(f) = \underbrace{f[Out(A)]}_{c(Out(A))}-\underbrace{f[In(A)]}_{0} =c(Out(A))= c(R).$$
+        \end{itemize}
+    \end{proof}
+\end{veta}
+
+\begin{dusledek} (Minimaxová věta o toku a řezu) \normalfont 
+    Nechť $f_{\max}$ je maximální tok a $R_{\min}$ je minimání řez v $(V, E, z,s,c)$, potom $w(f_{\max}) =  c(R_{\min})$.
+    \begin{proof}
+        Budeme dokazovat $(i)~  w(f_{\max}) \leq c(R_{\min})$ a $(ii) ~w(f_{\max}) \geq c(R_{\min})$
+        \begin{enumerate}[label=(\roman*)]
+            \item Triviální. Víme díky předchozímu lemmatu. Pro každý tok $f'$ a pro každý řez $R'$ platí $w(f') \leq c(R')$.
+            \item Díky předchozí větě. Existuje řez $R$, t.ž.: $w(f_{\max}) = c(R) \geq c(R_{\min})$.
+        \end{enumerate}
+    \end{proof}
+\end{dusledek}
+
+\dusledek \normalfont V síti, kde všechny kapacity jsou celočíselné, Ford-Fulkersonův algoritmus nalezne maximální tok, který je také celočíselný.
+
+\textbf{Algoritmus} \textsc{Ford-Fulkerson}($G$):
+\begin{enumerate} \setlength\itemsep{0em}
+    \item $f ~\leftarrow~$ nulový tok
+    \item \textbf{while} existuje zlepšující cesta $P$ ze $z\to s$ \textbf{do}:
+    \item \quad $\varepsilon \leftarrow \min_{e\in E(P)}r(e)$.
+    \item \quad Zvětšíme tok $f$ podél $P$ o $\varepsilon$ (kažé hraně $e$ po směru zvětšíme $f(e)$ a hranám proti směru zmenšíme $f(e)$)
+    \item \textbf{return} tok $f$.
+\end{enumerate}
+
+\begin{pozorovani} Pokud $M$ je párování a $C$ je vrcholové pokrytí v $G=(V, E)$, tak $|M| \leq |C|$.
+    \begin{proof}
+        Každá hrana z $M$ musí být pokrytá vrcholem z $C$ a zároveň $1$ vrchol z $C$, pokryje nejvýše $1$ hranu z $M$.
+    \end{proof}
+\end{pozorovani}
+
+\newpage
+\begin{veta} (König-Egerváty): \normalfont
+    V každém bipartitním grafu má největší párování stejnou velikost, jako nejmenší vrcholové pokrytí.
+    \begin{proof}
+        Nechť $G=(V, E)$ je bipartitní graf s partitami $A, B$. Vytvořme tokovou síť $(V \cup \{z,s\}, E^+, z,s,c)$, kde $E^+=\{zx \mid x\in A\} \cup \{ys \mid y\in B\} \cup \{xy \mid \{xy\} \in E ~~\&~~ x\in A ~~\&~~ y\in B\}$ a $c(zx)=c(ys)=1$ pro $x\in A, y\in B$ a $c(xy)=|A|+|B|+1$ (záměrně hodně vysoké, aby nemohly nic omezovat - dejme tomu $\infty$).
+
+        $ $
+
+        Nechť $C_{\min}$ je nejmenší vrcholové pokrytí v $G$ a $M_{\max}$ je největší párování v $G$.
+        
+        \begin{itemize}
+            \item Víme, že $|M_{\max}| \leq |C_{\min}|$, a to z \textit{(Pozorování 7.)}.   
+            \item Nechť $f$ je maximální tok v té síti a $R$ je minimání řez. Díky \textit{minimaxové větě} víme, že $w(f)=c(R)$ a nakonec BÚNO $f$ má celočíselné hodnoty.
+
+        Definujeme si množinu $M_f = \{\{x,y\}\in E \mid f(x,y)>0\}$, neboli že v maximálním toku po hranách něco těče. 
+        Zjevně je $M_f$ párování v $G$ a navíc $|M_f| = w(f)$. \textit{(Protože kdyby se stalo, že máme $2$ hrany z $A$ do $B$ se společným vrcholem, tak by přiteklo do $A$ ze zdroje $1$ a odteklo z $B$ ze dvou vrholů do stoku v součtu $2$ - tok ale musí být celočíselný, takže dostaneme spor).}
+        \begin{figure}[ht!]
+            \caption{\makesmall\textit{Příklad bipartitního grafu.}}
+            \centering
+            \begin{subfigure}[b]{.35\textwidth}
+                \includegraphics[width=\linewidth]{bipartit2.pdf}
+                \caption{\textit{Vytvoříme síť a zorientujeme hrany}}
+            \end{subfigure}
+            \begin{subfigure}[b]{.35\textwidth}
+                \includegraphics[width=\linewidth]{bipartit3.pdf}
+                \caption{\textit{Spor s celočíselným ohodnocením}}
+            \end{subfigure}
+        \end{figure}
+        
+        Definujeme si $C_R:= \{x\in A \mid zx \in R\} \cup \{y\in B\mid ys \in R\}$. Všimněme si, že $R$ neobsahuje žádnou hranu z $A$ do $B$ a jistě je tak $C_R$ vrcholové pokrytí $G$.
+
+        \begin{figure}[h]
+            \caption{\makesmall\textit{Obrázek vzniklé sporné nepokryté hrany v biparitním grafu.}}
+            \centering
+            \includegraphics[width=.4\textwidth]{bipartit_rez.pdf}
+
+            \makesmall\textit{Máme $C_R$, t.ž. za každou řez. hranu ze $z$ vložím vrchol z $A$ a za každou řez. hranu do $s$ vložím vrchol z $B$.}
+        \end{figure}
+
+        Kdyby $C_R$ nebylo pokrytí, tak existuje nepokrytá hrana $\{x,y\}\in E$ a potom cesta $z\to x\to y\to s$ by byla ve sporu s tím, že $R$ je řez. \textit{(protože by skrz tuto hranu vedla orientovaná cesta ze $z$ do $s$).}
+        
+        Navíc platí, že $|C_R| = |R| = c(R)$. Dostali jsme tak: $$|C_{\min}| \leq |C_R| = c(R) \stackrel{\text{minimax}}{=} w(f) = |M_f| \leq |M_{\max}|.$$
+        \end{itemize}
+    \end{proof}
+\end{veta}
+\newpage
+
+\begin{veta} (Hallova): \normalfont
+    Nechť $G$ je bipartitní graf s partitami $A, B$. Potom $G$ má párování velikosti $$|A|\iff \forall X \subseteq A : |N(X)| \geq |X|.$$
+    \begin{proof}
+        Musím dokázat obě implikace.
+        \begin{itemize}
+            \item [$\implies$] Pokud existuje párování velikosti $|A|$, tak pro každou $X\subseteq A$ existuje $|X|$ vrcholů spárovaných s $X$ a ty patří do $N(X)$. 
+            Tedy $|N(X)| \geq |X|$.
+            \item [$\Longleftarrow$] Pro spor. Nechť $M$ je největší párování $G$, t.ž.: $|M| < |A|$. 
+            Existuje pokrytí $C$, kde $|C| = |M| < |A|$.
+            Definujeme si $C_A := C\cap A$, $C_B:= C\cap B$ a $X:= A\setminus C_A$.
+            
+            Zjistíme, že $N(X) \subseteq C_B$ a navíc, že $|X| = |A| - |C_A| > |C_B| \geq |N(X)|$, což nám dává spor.
+        \end{itemize}
+    \end{proof}
+\end{veta}
+\begin{veta} (Hallova - hypergrafová verze): \normalfont 
+    Hypergraf $H=(V,E)$ má SRR $\displaystyle\iff \forall F\subseteq E: \left|\bigcup_{e\in F}e\right| \geq |F|$.
+    \begin{proof}
+        Nechť $H=(V,E)$ je hypergraf, nechť $I_H$ je jeho graf incidence.
+
+        Všimneme si, že $H$ má SRR $\iff I_H$ má párování velikosti $|E|$.
+
+        \begin{figure}[h]
+            \caption{\makesmall\textit{Incidence a párování}}
+            \centering
+            \includegraphics[width=.4\textwidth]{parovani.pdf}
+        \end{figure}
+
+        Dále si všimneme, že Hallova podmínka pro $H$,  $\displaystyle\iff \forall F\subseteq E: \left|\bigcup_{e\in F}e\right| \iff$ bipartitní Hallova podmínka pro $I_H$ a partitu $E$.
+        Mezi těmito pozorováními platí ekvivalentní vztah díky bipartitní Hallově podmínce.
+    \end{proof}
+\end{veta}
+
+\begin{veta} (Menger - hranová $xy$-verze): \normalfont
+    Pro dva různé vecholy $x,y$ grafu $G$ platí, že $G$ obsahuje $\forall k \in \N$ hranově disjunktních cest z $x$ do $y \iff G$ neobsahuje hranový $xy-$řez velikosti menší než $k$.
+    \begin{proof} Dokazujeme dvě implikace:
+        \begin{itemize}
+            \item [$\implies$] Pokud mám $k$ hranově disjunktních cest z $x$ do $y$, tak každý hranový $xy-$řez musí dosahovat $\geq 1$ hranu z každé té cesty.
+            \item [$\Longleftarrow$] Nechť $G$ neobsahuje hranový $xy-$řez velikosti $<k$. Vyrobíme tokovou síť $(V, \vec{E}, x,y,c)$, kde $\forall e \in \vec{E}: c(e)=1$ a $\vec{E}= \{uv, ve \mid \{u,v\} \in E\}$.
+            
+            Všimneme si, že v  té síti není žádný řez velikosti $<k$.
+            Tedy v té siti existuje tok velikosti $\geq k$. 
+
+            Nechť $f$ je celočíselný maximální tok a navíc předpokládejme, že mezi všemi celočíselnými maximálními toky zvolíme $f$ tak, aby množina $s(f)=\{e\in \vec{E}\mid f(e)=1\}$ byla co nejmenší.
+
+            \begin{figure}[h]
+                \caption{\makesmall\textit{Důkaz - pár obrázků pro pochopení}}
+                \centering
+                \includegraphics[width=.8\textwidth]{dk.png}
+            \end{figure}
+
+            Dále si všimneme, že $s(f)$ neobsahuje žádný orientovaný cyklus. \textit{Jinak spor s minimalitou s(f)}.
+
+            Pomocí $s(f)$ vyrobím $k$ hranově disjunktních cest z $x$ do $y$:
+            
+            \texttt{opakuj $k$-krát:}
+            \begin{enumerate}
+                \item \texttt{zacni v $x$}
+                \item \texttt{jdi po hranach z $s(f)$, dokud nedojdes do $y$}
+                \item \texttt{pouzite hrany odstran z $s(f)$}
+            \end{enumerate}
+        \end{itemize}
+    \end{proof}
+\end{veta}
+
+\begin{veta} (Menger - globální hranová verze): \normalfont
+    Graf $G$ je hranově $k-$souvislý $\iff$ mezi každými dvěma různými vrcholy existuje $k$ hranově disjunktních cest.
+    \begin{proof}
+        $G$ je hranově $k$-souvislý $\iff$ neexistuje hranový řez $<k \iff \forall x,y$ různé vrcholy neexistuje hranový $xy-$řez velikosti $<k \iff \forall xy$ různé: $\exists k$ hranově disjunktních cest z $x$ do $y$.
+    \end{proof}
+\end{veta}
+
+\begin{veta} (Menger - $xy$-verze pro vrcholovou souvislost): \normalfont
+    Nechť $G=(V, E)$ je graf, nechť $x,y$ jsou různé nesousední vrcholy a nechť $k \in \N$.
+    Potom $G$ obsahuje $k$ navzájem VVD cest z $x$ do $y \iff G$ neobsahuje vrcholový $xy$-řez velikosti $<k$.
+    \begin{proof}
+        Dokazujeme dvě implikace:
+        \begin{itemize}
+            \item [$\implies$] Hodně disjunktních cest znamená, že tam nemůže být malý řez. Zřejmé.
+            \item [$\Longleftarrow$] Nechť $G$ nemá vrcholový $xy$-řez velikosti $<k$.
+            Vyrobíme síť $S$:
+            \begin{enumerate}
+                \item za každý vrchol $u\in V$ dáme do $S$ dva vrcholy $u^+, u^-$ a hranu $u^+u^-$ s kapacitou $1$.
+                \item za každou hranu $\{u,v\}\in E$ dáme do $S$ dvě orientované hrany $u^-v^+$ a $v^+u^-$ s kapacitami "$\infty$".
+                \item zdroj: $x^-$, stok $y^+$
+            \end{enumerate}
+            Tvrdíme, že $S$ nemá řez kapacity $c<k$. \textit{Sporem, nechť takový řez existuje, potom všechny jeho hrany jsou tvatu $u^+u^-$ pro nějaké $u\in V$ a odpovídající vrcholy v $G$ tvoří vrcholový $xy$-řez velikosti $c<k$, což je spor.}
+
+            Minimaxová věta o toku a žezu. V $S$ existuje tok velikosti $\geq k$, BÚNO tok je celočíselný, říkejme mu $f$.
+
+            Z existence takového toku $f$ plyne, že obsahuje $k$ hranově disjunktních cest z $x^-$ do $y^+$ (viz. hranová verze).
+            Označme je $\vec {P_1}, \dots, \vec{P_k}$.
+
+            Tedy cesty $\vec {P_1}, \dots, \vec{P_k}$ jsou i vnitřně vrcholově disjunktní, protože každá cesta (orientovaná) z $x^-$ do $y^+$ v $S$, která obsajuje vrchol $u^+$ nebo $u^-$ pro nějaké $u\in V \setminus \{x,y\}$, musí obsahovat hranu $u^+u^-$.
+
+            Když v cestách $\vec {P_1}, \dots, \vec{P_k}$ nahradíme každou hranu tvaru $u^+u^-$ jedním vrcholem $u$, tak dostaneme $k$ VVD cest z $x$ do $y$ v $G$.
+        \end{itemize}
+    \end{proof}
+\end{veta}
+
+
+\begin{veta} (Menger - vrcholová globální verze): \normalfont
+    $G$ je vrcholově $k$-souvislý $\iff$ mezi každými dvěma vrcholy $x,y$ existuje $k$ navzájem VVD cest.
+
+    \begin{proof}
+        Nechť $G = K_n$, $H_v(K_n)=n-1$, t.j. $K_n$ je vrcholově $k$-souvislý $\iff k \leq n-1$. Nechť $G$ není úplný:
+        \begin{enumerate}
+            \item [$\implies$] Mezi každými dvšma vrcholy je $k$ VVD cest $\implies G$ má $\geq k+1$ vrcholů, žádný řez velikosti $<k \implies G$ je $k$-souvislý.
+            \item [$\Longleftarrow$] Nechť $x,y$ jsou různé vrcholy, máme případy:
+                \begin{enumerate}
+                    \item $\{x,y\} \neq E$. $xy$-verze M.v věty: $\exists k$ VVD cest z $x$ do $y$.
+                    \item $\{x,y\} \in E$. Nechť $G^-:=(V, E\setminus\{e\})$. Lemma $K_v(G^-) \geq k-1$, $xy$-verze M. věty pro $G^-$: v $G^- \exists k-1$ VVD cest z $x$ do $y$.
+                    Přidám k nim hranu $e$ a mám $k$ VVD cest z $x$ do $y$ v $G$.
+                \end{enumerate} 
+        \end{enumerate}
+    \end{proof}
+\end{veta}
+
+\begin{veta} (O uších): \normalfont
+    Graf $G$ je $2$-souvislý $\iff G$ se dá vyrobit z kružnice pomocí přidáváním uší.
+    \begin{proof}
+        Dokazujeme dvě implikace:
+        \begin{itemize}
+            \item [$\Longleftarrow$] Každá kružnice je $2$-vrcholově souvislá a přidáním hran se to nepokazí.
+            \item [$\implies$] Máme $2$-souvislý graf $G=(V,E)$, $C$ je libovolná kružnice (ta tam musí být, jinak by nebyla $2$-souvislá) 
+            Zvolme graf $G_{\max}=(V_{\max}, E_{\max})$, t.ž. je největším podgrafem grafu $G$, který se dá vyrobit pomocí přidávání uší. Tvrdíme $G_{\max}=G$. Kdyby tomu tak nebylo, tak:
+            \begin{enumerate}
+                \item $V_{\max}=V, E_{\max}\subsetneq E$: přidání hrany znamená přidání ucha, což je spor s maximalitou
+                \item $V_{\max} \subseteq V$: $G$ je souvislý. Dále $\exists e =\{x,y\}$, t.ž. $x \in V_{\max}, ~~y \notin V_{\max}, ~~G-x$ je souvislý\\ Dostáváme z toho, že $y$ se dá napojit i jinou cestou než přes $x$, takže jde připojit ucho.
+            \end{enumerate}
+        \end{itemize}
+    \end{proof}
+\end{veta}
+
+
+\newpage
+
+\subsection{Cayleyho vzorec}
+$S_n \equiv $ počet stromů na množině vrcholů $[n]=\{1, 2, \dots, n\} \implies n^{n-2}$
+
+\begin{definice}(Kořenový strom): \normalfont 
+    je strom, ve kterém se jeden vrchol určil jako kořen a všechny hrany se zorientovaly směrem ke kořeni.
+    \textit{V grafu bude každá hrana ukazovat směrem ke kořeni}
+\end{definice}
+
+\definice{(Povykos - "Postup vytváření kořenového stromu"): \normalfont je posloupnost $n-1$ orientovaných hran $(e_1, e_2, \dots, e_{n-1})$ na vrcholech $[n]$, t.ž.: $([n], \{e_1, \dots, e_{n-1}\})$ je kořenový strom.}
+
+\begin{pozorovani}Posloupnost orientovaných hran $(e_1, e_2, \dots, e_{n-1})$ je povykos $\iff$ pro každé $k = \{1, \dots, n-1\}$:
+    \begin{enumerate}[label=(\arabic*)]
+        \item hrana $e_k$ spojuje vrcholy z různých komponent grafu tvořeného předchozími hranami $e_1, \dots, e_{k-1}$
+        \item hrana $e_k$ vyhází z vrcholu, z něhož nevychází žádná z hran $e_1, \dots, e_{k-1}$.
+    \end{enumerate}
+\end{pozorovani}
+
+\begin{veta}(Ceyleyho vzorec, Borchardt 1860): \normalfont $S_n = n^{n-2}$.
+    \begin{proof}
+        Nechť $K_n$ je počet kořenových stromů na $n$ vrcholech a $P_n$ je počet povykosů. Všimneme si, že $K_n = n\cdot S_n$ a že $P_n = (n-1)! \cdot K_n$ (je započítán počet všech permutací hran, které strom vytvoří).
+
+        Využijeme \textit{Pozorování 2.} Začneme s množinou vrcholů a budeme postupně přidávat hrany až skončíme s kořenovým stromem.
+
+        \begin{figure}[h]
+            \caption{\makesmall\textit{Přidávání hran, tvorba kořenového stromu}}
+            \centering
+            \includegraphics[width=.3\textwidth]{dk_cayley_tvorba.pdf}
+        \end{figure}
+        Chceme vyrobit povykos $(e_1, \dots, e_{n-1})$ a máme $n\cdot (n-1)$ možností, jak zvolit $e_1$ \textit{(druhá podmínka bude splňena automaticky, první podmínka říká, že by měla hrana spojovat dva vrcholy, takže $n$ možností pro výběr, kde bude hrana začínat a $n-1$, kde bude končit)}
+
+        Pokračujeme, máme $n\cdot (n-2)$, kde $(n-2)$ je počet možností, jak vyrobit komponentu kde $e_2$ začíná (dle \textit{(2)} musí $e_2$ začínat v kořeni komponenty).
+
+        Pokud už jsme vybrali $e_1, \dots, e_{k-1}$ v souladu s \textit{(1)} a \textit{(2)}, tak máme $n\cdot(n-k)$ možnosí, jak vybrat hranu $e_k$.
+
+        Máme tedy celkem: 
+        \begin{flalign*}
+            P_n &= n (n-1) \cdot n (n-2) \cdot n  (n-3) \cdot \ldots \cdot n \cdot 1 = \prod_{k=1}^{n-1}n(n-k) = n^{n-1}(n-1)!\\
+            K_n &= \frac{P_n}{(n-1)! = n^{n-1}}\\
+            S_n &= \frac{K_n}{n} = n^{n-2}.
+        \end{flalign*}
+    \end{proof}
+\end{veta}
+
+
+\newpage
+\subsection{Počítání dvěma způsoby} 
+
+\definice{(Antiřetězec): \normalfont v $\Pp([n])$ je množina $a \subseteq \Pp([n])$, t.ž.: $\forall M, M'\in a$, kde $M \neq M'$ neplatí $M\subseteq M'$, ani $M'\subseteq M$.}
+
+\paragraph*{Příklad:}$n=4$ je antiřetězec v $\Pp([4])$: $\{\{1\}, \{2\}, \{3\}, \{4\}\}, \{\emptyset\}, \emptyset, \{\{1,2,3\}, \{3,4\}\}, \{X\subseteq [4], |X|=2\}$
+
+\definice{(Nasycený řetězec): \normalfont v $\Pp([n])$ je posloupnost $M_0, M_1, \dots, M_n \subseteq [n]$, kde $M_0\subseteq M_1 \subseteq \dots, \subseteq M_n \subseteq [n]$ a $|M_i| = i$.}
+
+\paragraph*{Příklad:}$n=4$: $\emptyset \subseteq \{2\} \subseteq \{1,2,4\} \subseteq \{1,2,3,4\} = [4]$ a $|M_i| = i$
+
+\begin{veta} (Spernerova - 1928): \normalfont Největší antiřetězec v $\Pp([n])$ má velikost $\binom{n}{\lfloor n/2 \rfloor} = \binom{n}{\lceil n/2 \rceil}$.
+    \begin{proof} Musím dokázat, (i) že existuje a (ii) že neexistuje větší.
+        \begin{enumerate} [label=(\roman*)]
+            \item Antiřetězec velikosti $\binom{n}{\lfloor n/2 \rfloor}$ je např. $\binom{[n]}{\lfloor n/2 \rfloor}$. Víme tak, že existuje.
+            \item Nechť $a$ je antiřetězec, označme množiny, které do něj patří $a = \{A_1, A_2, \dots, A_k\}$, kde $k = |a|$. Chceme ukázat, že $k \leq \binom{n}{\lfloor n/2 \rfloor}$.
+            
+            \begin{figure}[h]
+                \caption{\makesmall\textit{$(ii)$ vytvoříme bipartitní graf}}
+                \centering
+                \includegraphics[width=.3\textwidth]{dk_sperner_bip_graf.pdf}
+            \end{figure}
+
+            Máme $n!$ nasycených řetězců v $\Pp([n])$. Každý nasycený řetězec obsahuje nejvýš jednu množinu $a$. 
+            
+            Počítáme dvěma způsoby dvojice $(A, R)$, kde $A\in a$ a $R$ je nasycený řetězec. Zároveň $A \in R$.
+            \begin{enumerate}[label=(\arabic*)]
+                \item dvojic je $\leq n!$
+                \item pro $A \in a$ máme $A! \cdot (n-|A|)!$ nasycených řetězců obsahující $A$. To lze odvodit například z $n=4$:
+                \[
+                    \underbrace{\emptyset \subseteq \{2\} \subseteq}_{|A|! \text{ možností}} \underbrace{\{2,4\}}_{=A} \underbrace{\subseteq \dots \subseteq [n]}_{(n-|A|)!}
+                \]
+            \end{enumerate}
+
+            Zjistili jsme tak vše potřebné, tedy:
+            \[
+                n! \geq \sum_{A \in a}|A|!(n-|A|)! \implies 1 \geq \sum_{A\in a}\frac{|A|!(n-|A|)!}{n!} = \sum_{A\in a}\frac{1}{\binom{n}{|A|}} \geq \sum_{A\in a}\frac{1}{\binom{n}{\lfloor \frac n2 \rfloor}} = |a| \cdot \frac{1}{\binom{n}{\lfloor \frac n2 \rfloor}} \implies \binom{n}{\lfloor n/2 \rfloor} \geq |a|
+            \]
+        \end{enumerate}
+    \end{proof}
+\end{veta}
+
+
+\newpage
+\begin{veta} \normalfont
+    Nechť $G=(V,E)$ je graf na $n$ vrcholech, který neobsahuje $C_4$ jako podgraf. Potom $|E|\leq O(n^{3/2})$.
+    \begin{proof}
+        Nechť $G=(V,E)$ je graf bez $C_4$, $|V|=n$.
+        Označme $H$ počet dvojic $(x, \{y,z\})$ takových, že $x,y,z\in V, \\y\neq z, x$ je soused $y$ i $z$.
+
+        Počítáme $H$ dvěma způsoby:
+        \begin{itemize}
+            \item Pro dané $x\in V$ máme přesně $\binom{\deg(x)}{2}$ možností, jak zvolit $y$ a $z$.
+            Tedy $$H = \sum_{x\in V}\binom{\deg(x)}2 \geq \sum_{x\in V} \frac{(\deg(x)-1)^2}{2}.$$
+            \item Pro dané $\{y,z\}\in \binom {V}2$ existuje nejvýše jeden společný soused $x\in V$, protože jinak by $G$ obsahoval $C_4$.
+            
+            Tedy $H \leq \binom n2 \leq \frac{n^2}{2}$
+        \end{itemize}
+
+        Máme odhadnuto $H$ z obou stran, proto platí:
+        \[
+            \frac{n^2}{2} \geq \sum_{x\in V} \frac{(\deg(x)-1)^2}{2}, \text{ tedy } n^2 \geq \sum_{x\in V}(\deg(x)-1)^2.
+        \]
+        My chceme $|E| = \frac 12\displaystyle \sum_{x\in V}\deg(x) \leq O(n^{3/2})$. Uvážme proto konvexní funkci $f(x) = (x-1)^2$. 
+        \begin{figure}[h]
+            \caption{\makesmall\textit{Konvexní funkce}}
+            \centering
+            \includegraphics[width=.55\textwidth]{konvex.pdf}
+        \end{figure}
+
+        Tedy pro každé: 
+        \begin{flalign*}
+            x_1, x_2, \dots, x_n \in \R: f\left(\frac{x_1 + \dots + x_n}{n}\right) &\leq \frac{f(x_1) + \dots + f(x_n)}{n}\\
+            \left(\frac{2E}{n}-1\right)^2 \leq \left(\frac{\displaystyle \sum_{x\in V}\deg(x)}{n}-1\right)^2 &\leq \frac{\displaystyle \sum_{x\in V}\left(\deg(x) - 1\right)^2}{n} \leq n\\
+            \sqrt{n} &\geq \frac{2|E|}{n}-1 \qquad // \text{počet hran je polovina součtu stupňů}\\
+            n^{3/2} &\geq 2|E| - n\\
+            \frac 12(n^{3/2}+n) &\geq |E|
+        \end{flalign*}
+    \end{proof}
+\end{veta}
+
+
+\newpage
+%% ramseyovy vety %%
+\subsection{Ramseyovy věty}
+
+\begin{veta}(Ramseyova, grafová verze, 1930): \normalfont
+    $\forall k \in \N, \forall l \in \N, \exists N \in \N$, t.ž.: Pro každý graf $G=(V,E)$ na $N$ vrcholech obsahuje kliku velikosti $k$ nebo nezávislou množinu velikosti $l$.
+    \begin{proof} Indukcí podle $k+l$.
+        
+        Můžeme si všimnout, že pro $R(k,1) = 1 = R(1,l)$, pro $R(k,2) = k = R(2,l)$
+
+        Mějme $k\geq 3, l\geq 3$ a definujme si $N:=\overbrace{R(k,l-1) + R(k-1,l)}^{\text{existuje dle IP}}$.
+        Nechť máme dán graf $G$ na $N$ vrcholech. Nechť $x$ je libovolný vrchol $G$ a označme $S$ množinu sousedů vrcholu $x$ a $T=V\setminus(S \cup \{x\})$.
+
+        Protože $|S| + |T|= N-1 = R(k,l-1)+R(k-1,l)-1$, tak platí $|S|\geq R(k-1,l)$, nebo $|T| \geq R(k,l-1)$.
+
+        $ $
+
+        Předpokládejme, že $|S| \geq R(k-1, l)$ a označme $G_s$ podgraf $G$ indukovaný $S$.
+        Tedy $G_s$ obsahuje kliku velikosti $k-1$ nebo nezávislou množinu velikosti $l$.
+
+        Pokud $G_s$ obsajuje nezávislou množinu velikosti $l$, tak i $G$ ji obsahuje, v takovém případě máme hotovo.
+        
+        Pokud $G_s$ obsajuje kliku velikosti $k-1$, tak klika spolu s $x$ tvoří kliku velikosti $k$ v $G$ a máme tak také hotovo.
+
+        Případ $|T|\geq R(k,l-1)$ analogicky.
+    \end{proof}
+\end{veta}
+
+\begin{veta} (Ramseyova, Vícebarevná verze): \normalfont
+    $\forall b \in \N, \forall m \in \N, \exists N \in \N$, pro každé obarvení hran $K_N$ pomocí $b$ barev existuje množina $m$ vrcholů, t.ž.
+    všechny hrany mezi nimi mají stejnou barvu (resp. klika velikosti $m$).
+    \begin{proof}
+        Indukcí podle $b$. 
+        \begin{itemize}
+            \item $b=1:$ $R^*_1(m)=m$
+            \item $b=2:$ $R^*_2(m) = R(m,m)$
+            \item $b>2:$ Nechť $N = R(m, R^*_{b-1}(m))$. Mějme obarvení $K_N$ pomocí $b$ barev, nechť ty barvy jsou $(1)$ modráa $(2) b-1$ odstínů červené.
+            
+            $R.V.$ pro $2$ barvy: v tom obarvení buď existuje modrá klika velikosti $m$, v takovém případš máme hotovo.
+            Nebo existuje klika $X$ velikosti $R^*_{b-1}$, t.ž. všechny barvy hran mezi vrcholy $X$ jsou odstíny červené.
+
+            $X$ indukuje úplný graf na $R^*_{b-1}$, jehož hrany jsou obarveny pomocí $b-1$ barev, tedy v něm je jednobarevná klika velikosti $m$.
+        \end{itemize}
+    \end{proof}
+\end{veta}
+
+\paragraph*{Notace:} \normalfont
+\begin{itemize}
+    \item pro množinu $X$: $\binom Xp$ je množina $p$-prvkových podmnožin $X$
+    \item $K_N^{(p)}$ je $p$-uniformní úplný hypergraf, což je hypergraf $([N], \binom{[N]}{p})$, $K_{\infty}^{(p)}$ je nekonečný hypergraf $(\N, \binom{\N}p)$
+    \item pro $b\in \N:$ $b$-obarvení $K_N^{(p)}$ je funkce $\binom{[N]}{p} \to [b]$
+    \item pro dané obarvení $\beta$ hypergrafu $K_N^{(p)}$ řekneme, že množina $X\subseteq [N]$ je \textit{jednobarevná} (v obarvení $\beta$), pokud $\beta$ přiřazuje všem množinám $\binom Xp$ tu samou barvu.
+\end{itemize}
+
+\begin{veta} (Ramsey, konečná verze): \normalfont
+    $\forall p \in \N, \forall b \in \N, \forall m\in \N, \exists N \in \N, \forall b$-obarvení $K_N^{(p)}, \exists $ jednobarevná $m$-prvková podmnožina $[N]$.
+\end{veta}
+
+\begin{veta} (Ramsey, nekonečná verze): \normalfont
+    $\forall p \in \N, \forall b \in \N, \forall b$-obarvení $K_{\infty}^{(p)}, \exists $ nekonečná jednobarevná $m$-prvková podmnožina $\N$.
+\end{veta}
+
+
+\begin{lemma} (Königovo): \normalfont
+    Nechť $T$ je strom s nekonečně mnoha vrcholy, který neobsahuje žádný vrchol nekonečného stupně, nechť $X_0$ je libovolný vrchol $T$.
+    Potom $T$ obsahuje cestu začínající v $X_0$.
+    \begin{proof}
+        Zakořeňme $T$ ve vrcholu $X_0$. Indukcí definujme posloupnost vrcholů $X_0, X_1, \dots$  tak, že tvoří cestu pro $\forall i \in \N_0$.
+        Podstrom zakořeněný v  $X_i$ má nekonečně mnoho vrcholů. 
+        
+        Už máme $X_0$. Nechť už máme $X_0, X_1, \dots, X_n$, nechť $y_1, y_2, \dots, y_k$ jsou děti $X_n$.
+
+        Alespoň jeden vrchol $y \in \{y_1, \dots, y_k\}$ je kořenem nekonečného podstromu, tedy definujeme $X_{n+1}:= y$.
+
+        Posloupnost $X_0, X_1, X_2, \dots$ tvoří nekonečnou cestu v $T$.
+    \end{proof}
+\end{lemma}
+
+\newpage
+%% samoopravne kody %%
+\subsection{Samoopravné kódy}
+
+\begin{tvrzeni} \normalfont Pokud $G$ je generující matice $(n,k,d)-$kódu $C$, tak zobrazení, které vektoru $x=(x_1, \dots, x_k)\in \Z_2^k$ přiřadí vektor $xG$, je kódování pro $C$.
+    \begin{proof} Uvažujme zobrazení $f:\Z_2^k \to \Z_2^n$ definované $f(x)=xG$. Stačí ověřit
+        \begin{enumerate}[label=(\arabic*)]
+            \item $\forall x \in \Z_2^k: f(x)\in C$
+            \item $f$ je prosté.
+        \end{enumerate}
+        Nejprve ověříme $(1)$. Nechť $r_1, \dots, r_k$ jsou řádky $G$, tedy $r_1, \dots, r_k \in C$.
+        Potom pro každé $x \in (x_1, \dots, x_k)$ platí $xG = x_1r_1 \oplus x_2r_2 \oplus \dots \oplus x_kr_k$, což je lineární kombinace prvků $C$, tedy prvek $C$.
+
+        Nyní ověříme $(2)$. Kdyby nebylo prosté $\exists x\neq x' \in \Z_2^k: f(x)=f(x')$, tak $xG=x'G\iff (\underbrace{x-x'}_{\neq0})G=\boldsymbol{0}$, což nemůže nastat, protože řádky $G$ jsou lineárně nezávislé.
+    \end{proof}
+\end{tvrzeni}
+
+\begin{tvrzeni}\normalfont
+    Nechť $C$ je lineární $(n,k,d)$-kód s kontrolní maticí $K$. Potom $\forall x \in \Z_2^n: x \in C \iff Kx^T=\boldsymbol{0}$.
+    \begin{proof}
+        Nechť $r_1, \dots, r_{n-k}\in \Z_2^n$ jsou řádky $K$. Potom: 
+        \begin{flalign*}
+            x \in C &\iff x\in (C^{\bot})^{\bot} \iff y \in C^{\bot} \iff \langle x,y \rangle = 0 \iff\\
+            &\iff \forall i = 1, \dots, n-k: \langle x, r \rangle = 0 \iff\\
+            &\iff Kx^T = \boldsymbol{0}.
+        \end{flalign*}
+    \end{proof}
+\end{tvrzeni}
+
+\pozorovani{$\Delta (C)$ je nejmenší $t\geq 1$ takové, že v $K$ lze najít $t$ sloupců, jejichž součet je $\boldsymbol{0}\in \Z_2^{n-k}.$}
+
+\dusledek{\normalfont$\Delta(C)\geq 2 \iff K$ má všechny sloupce $\neq 0$. $\Delta(C)\geq 3 \iff K$ má navíc každé dva sloupce různé.}
+
+
+\begin{tvrzeni}\normalfont
+    $\forall r \geq 2,$ pro $n=2^r-1$, $\forall x \in \Z_2^n; ~\exists! y \in H_r$ takové, že $d(x,y)\leq 1$. Navíc lze $y$ nalézt algoritmem:
+    \begin{enumerate}\setlength\itemsep{0em}
+        \item Spočítej $s:=K_rx^T$
+        \item \texttt{if } $s = \boldsymbol{0}$: $x\in H_r \implies y:=x$.
+        \item \texttt{if } $s\neq \boldsymbol{0}$: Nechť $i=\{1, \dots, n\}$ je takové, že $i$-tý sloupec $K_r$ je roven $s.$
+        Potom nechť $y$ je vektor, který vznikne z $x$ změnou $i$-tého bitu.
+    \end{enumerate}
+\end{tvrzeni}
+
+\paragraph*{Notace:} \begin{itemize}
+    \item "Koule" $B(x,t):=\{d(x,y) \leq t \mid y\in \Z_2^n\}$, neboli okolí poloměru $t$ kolem $x$ v $\Z_2^n$.
+    \item "Objem" $V(t):=|B(x,t)|=\binom n0+ \binom n1 + \ldots + \binom nt$.
+\end{itemize}
+
+\begin{tvrzeni}(Singletonův odhad): \normalfont
+    Pokud existuje $(n,k,d)$-kód $C$, tak $k+d \leq n+1$.
+    \begin{proof}
+        Nechť $C$ je $(n,k,d)$-kód. Definujeme zobrazení $\Psi: \Z_2^n \to \Z_2^{n-d+1}$ tak, že $\Psi(x_1, \dots, x_n) = (x_1, \dots, x_{n-d+1})$. 
+
+        Pro $x,y\in C$, kde $x\neq y \implies \Psi(x) \neq \Psi(y)$. 
+        Tedy $|C| \leq 2^{n-d+1}$ a proto $k \leq n-d+1$.
+    \end{proof}
+\end{tvrzeni}
+\begin{tvrzeni}(Hammingův odhad): \normalfont
+    Pokud existuje $(n,k,d)$-kód $C$, tak $\displaystyle |C| \leq \frac{2^n}{V(\lfloor \frac{d-1}{2}\rfloor)}$
+    \begin{proof}
+        Plyne z toho, že $x,y\in C$, kde $x\neq y$: $B(x, \lfloor \frac{d-1}{2}\rfloor) \cap B(y, \lfloor \frac{d-1}{2}\rfloor) \neq \emptyset$.
+    \end{proof}
+\end{tvrzeni}
+\begin{tvrzeni}(Gilbert-Varshamovův odhad): \normalfont
+    $\forall n,d$, kde $n<d$, existuje kód $C$, t.ž. $\displaystyle |C| \geq \frac{2^n}{V( d-1)}$
+    \begin{proof}
+        Vždy vezmeme vektor, dáme ho do $C$ a hladově hledáme vektory, dokud tam nějaké zbydou.
+
+        V každém kroku nejvýše $\frac{2^n}{V(d-1)}$ vektorů eliminujeme: $1$ vybereme, ostatní jsou zakázané. Z toho plyne vzorec.
+    \end{proof}
+\end{tvrzeni}
+
+\end{document}

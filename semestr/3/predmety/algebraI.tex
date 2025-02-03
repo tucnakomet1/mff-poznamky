@@ -1,0 +1,1018 @@
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[margin=0.7in]{geometry}
+\usepackage{amssymb, amsthm, amsmath, amsfonts}
+\usepackage{array, xcolor, enumitem, graphicx, scrextend}
+\usepackage{cancel, booktabs}
+\usepackage{relsize}
+
+\usepackage[czech]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[unicode]{hyperref}
+\usepackage[useregional]{datetime2}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue,
+    pdftitle={Algebra - zpracované otázky ke zkoušce},
+}
+
+% tahak - prikazy %
+% \includegraphics{obrazek.png}         % import konkretniho obrazku
+% a~b                                   % mezera mezi pismeny 'a' a 'b'
+% a \quad b                             % velka mezera mezi pismeny 'a' a 'b'
+% \sim                                  % ~
+% \Longleftarrow                        % <==
+
+
+% zkratky %
+\newtheorem{veta}{Věta}
+\newtheorem{definice}{Definice}
+\newtheorem{tvrzeni}{Tvrzení}
+\newtheorem{lemma}{Lemma}
+\newtheorem{pozorovani}{Pozorování}
+\newtheorem{dusledek}{Důsledek}
+\newtheorem{priklad}{Příklad}
+\newtheorem{poznamka}{Poznámka}
+\newtheorem{fakt}{Fakt}
+\newtheorem{algoritmus}{Algoritmus}
+
+\newcommand{\N}{{\mathbb{N}}}       % prirozena cisla
+\newcommand{\Z}{{\mathbb{Z}}}       % cela cisla
+\newcommand{\Zs}{{\mathbb{Z}_n^*}}  % cela cisla vcetne nekonecna
+\newcommand{\Q}{{\mathbb{Q}}}       % racionalni cisla
+\newcommand{\R}{{\mathbb{R}}}       % realna cisla
+\newcommand{\Cc}{{\mathbb{C}}}      % komplexni cisla
+\newcommand{\F}{{\mathbb{F}}}       % teleso
+\newcommand{\Pp}{{\mathcal{P}}}     % potencni mnozina
+\newcommand{\V}{{\mathcal{V}}}      % norma
+\newcommand{\RR}{{\mathcal{R}}}     % okruh/ring
+\newcommand{\ds}{{\displaystyle}}   % displaystyle
+
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\ord}{ord}
+
+\newcommand{\hr}{{\begin{center}\par\rule{\textwidth}{0.5pt} \end{center}}}
+\newcommand\makesmall{\fontsize{8pt}{11pt}\selectfont}
+\newcommand{\mydots}[1][1]{\hspace{0.5em}\ifnum#1>1 \mydots[\numexpr#1-1]\fi\hspace{0.5em}}
+
+\renewcommand*{\contentsname}{Obsah}
+\renewcommand*{\proofname}{Důkaz:}
+\renewcommand*{\figurename}{\makesmall Obr.}
+
+% hlavicka
+\setlength{\parindent}{0em}
+
+\title{Algebra - zpracované otázky ke zkoušce}
+\date{\today}
+\author{\sc Karel Velička}
+
+\graphicspath{ {img/} }             % obrazky ulozeny ve slozce img/
+\newcommand*{\threeemdash}{\rule[0.5ex]{6em}{0.55pt}}
+
+\begin{document}
+\pagenumbering{arabic}
+\maketitle
+% podnadpis + obsah 
+\begin{center}
+    Doc. Mgr. et Mgr. Jan Žemlička Ph.D.
+\end{center}
+
+\tableofcontents
+\newpage
+
+% obsah dokumentu
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% TEORIE CISEL %%%%
+%%%%%%%%%%%%%%%%%%%%%
+
+\section{Teorie čísel}
+
+\subsection{Modulární aritmetika}
+
+\subsubsection{Zformulujte a dokažte Základní větu aritmetiky.}
+
+\begin{veta} (Základní věta aritmetiky): \normalfont
+    $\forall a \in \N$, kde $a \neq 1$, existují po dvou různá prvočísla $p_1, \ldots , p_n$ a $k_1, \ldots, k_n \in \N$ splňující:
+    $$a = p_1^{k_1}p_2^{k_2}\cdot \ldots \cdot p_n^{k_n}$$
+\begin{proof} Dokážeme zvášť existenci a jednoznačnost:
+    \begin{enumerate}[label=(\roman*)]
+        \item Existence: Nechť $a\in \N$ je nejmenší číslo, pro nějž neexistuje prvočíselný rozklad.
+        To nemůže být prvočíslem, jinak bychom měli rozklad $a = a^1$, takže $a$ je složené a můžeme ho pro nějaká $1<b, c < a$ rozložit na $a= b\cdot c$. 
+        Podle indukčního předpokladu ale existuje prvočíselný rozklad jak pro $b$, tak pro $c$ a jejich složením získáme rozklad $a$.
+        \item Jednoznačnost: Nechť $a\in \N$ je nejmenší číslo s nejednoznačným prvočíselným rozkladem. A nechť máme dva různé rozklady $a$:
+        $$a = p_1^{k_1}\cdot \ldots \cdot p_m^{k_m} = q_1^{l_1}\cdot \ldots \cdot q_n^{l_n}.$$
+        Jelikož $p_1 \mid a  = q_1^{l_1}\cdot \ldots \cdot q_n^{l_n}$, musí existovat $i$ takové, že $p_1 \mid q_i$.
+
+        Protože je ale $q_i$ prvočíslo, musí tak platit $p_1 = q_i$.
+
+        Nyní uvažme číslo $b = \frac a{p_1}$ opět s dvěma různými rozklady: 
+        $$b = p_1^{k_1-1}\cdot p_2^{k_2}\cdot \ldots \cdot p_m^{k_m} = q_1^{l_1}\cdot \ldots \cdot q_i^{l_i-1} \cdot \ldots \cdot q_n^{l_n}.$$
+        Tím bychom ale dostali, že $b< a$, což je spor s minimalitou.
+    \end{enumerate}
+\end{proof}
+\end{veta}
+
+\subsubsection{Co jsou Bézoutovy koeficienty? Napište Eukleidův algoritmus pro gcd a vysvětlete jak spočítat Bézoutovy koeficienty}
+
+\definice (Bézoutovy koeficienty $u,v$): \normalfont Pro každou dvojici čísel $a, b\in \Z$ existují $u, v\in \Z$ splňující:
+$$\gcd(a,b) = u\cdot a + v \cdot b.$$
+
+\begin{algoritmus} (Eukleidův): \normalfont\\
+    \texttt{VSTUP:} $a,b\in \N, a \geq b$\\
+    \texttt{VÝSTUP:} $\gcd(a,b)\in \Z$ a Bézoutovy koeficienty $u,v \in \Z$
+    \begin{enumerate} \itemsep0em
+        \item $i := 0, \quad (a_0, a_1):=(a,b); \quad (u_0, u_1)=(1,0); \quad (v_0, v_1) = (0,1)$
+        \item \texttt{while } $a_i > 0$ \texttt{ do} $\{$
+        \item $\qquad a_{i+1} := a_{i-1} \mod a_i; \quad q_i := \frac{a_{i-1}}{a_i}; \quad u_{i+1}:= u_{i-1} - u_i \cdot q_i; v_{i+1}:= v_{i-1} - v_i \cdot q_i; \quad i:=i+1$
+        \item $\}$
+        \item \texttt{return} $a_{i-1}, u_{i-1}, v_{i-1}$
+    \end{enumerate}
+\end{algoritmus}
+
+
+\subsubsection{Co je to konkgruence?  Definujte Eulerovu funkci.  Zformulujte a dokažte Eulerovu větu}
+
+\definice (Konkgruence): \normalfont Nechť $a,b,m \in \Z$ a $m\neq 0$, potom $a$ je kongruentní s $b$ modulo $m$, tedy $$a\equiv b \pmod m, \quad \text{ pokud }m \mid a - b.$$
+
+\definice (Eulerova funkce): \normalfont Zobrazení $\varphi: \N \to \N$  značí pro $n\in \N$ počet čísel $k \in \{1, \ldots, n-1\}$ nesoudělných s číslem $n$. 
+Tedy jinak $\varphi(n) = |\{k \in \{1, \dots, n-1\} \mid \gcd(k, n) = 1\}|$.
+\newpage
+\begin{veta} (Eulerova): \normalfont
+    Nechť $\forall a,m \in \N: \gcd(a,m) = 1$, potom $a^{\varphi(m)} \equiv 1 \mod m$.
+
+    \begin{addmargin}[2em]{0em}
+    \begin{lemma} \normalfont
+        Nechť $a, x, m \in \N$ a $\gcd(a,m) = 1 = \gcd(x,m) \iff \gcd(ax, m) = 1$, potom zobrazení 
+        \[
+            f_a : \Phi_m \to \Phi_m \quad \text{ je bijekce a platí } \quad f_a(x) = ax \mod m.
+        \]
+    
+        \begin{proof}
+            Nejprve dokážeme platnost ekvivalence $\gcd(a,m) = 1 = \gcd(x,m) \iff \gcd(ax, m) = 1$:
+        
+            \begin{itemize}
+                \item [$\implies$] Kdyby $\gcd(ax, m) \neq 1$, tak by podle Euklidova algoritmu $\exists p: p \mid ax, m$. Díky ZVA víme, že pokud $\exists p: p \mid ax, m$, pak $p \mid a~~\lor~~ p \mid x$, což je spor s nesoudělností, protože by pak $\gcd(x,m)\neq 1$.
+                \item [$\Longleftarrow$] Kdyby $\gcd(a, m) \neq 1$ nebo $\gcd(x, m) \neq 1$, tak $\exists p: p \mid a$ nebo $ p \mid x \implies p\mid ax,m \implies \gcd(ax,m)\neq 1$
+            \end{itemize}
+            
+            Dále dokážeme, že zobrazení $f_a$ je bijektivní.
+        
+            Nejdříve nechť $x,y \in \Phi_m: f_a(x) = f_a(y)$, neboli $ax \equiv ay \mod m$.  
+            A protože $\gcd(a,m)=1$, uvažme $$\quad x\equiv y \mod m \quad \implies \quad x<m ~\land~ y < m \implies x=y \implies f_a \textit{ je \textit{injektivní}}.$$
+            
+            A protože množiny jsou stejně velké a platí injektivita, dostaneme i potřebnou \textit{surjektivitu} $\implies$ \textit{bijekce} $f_a$.
+        \end{proof}
+    \end{lemma}
+    \end{addmargin}
+
+    \begin{proof}
+        \[
+            \prod_{b\in \Phi_m}b \stackrel{\text{Lemma}}{=} 
+            \prod_{b\in \Phi_m} f_a(b) = 
+            \prod_{b\in \Phi_m} ab \mod m \equiv
+            \prod_{b\in \Phi_m} ab  = 
+            a^{\varphi(m)} \cdot \prod_{b\in \Phi_m}b \mod m.
+        \]
+
+        Rovnici můžeme přepsat jen jako $\displaystyle \prod_{b\in \Phi_m}b \equiv a^{\varphi(m)} \cdot \prod_{b\in \Phi_m}b \mod m$.
+        A protože $\gcd\left(\displaystyle \prod_{b\in \Phi_m}b,~m\right) = 1$, dostáváme potřebné: $$1 \equiv a^{\varphi(m)} \mod m.$$
+    \end{proof}
+\end{veta}
+
+\subsubsection{Zformulujte a dokažte Čínskou větu o zbytku.}
+
+\begin{veta} (Čínská o zbytcích): \normalfont
+    Nechť $m_1, \dots, m_n \in \N$ jsou po dvou nesoudělná čísla, označme $\displaystyle M:=\prod_{i=1}^{n}m_i$.
+    Dále nechť $u_1, \dots, u_n \in \Z$. Potom $\exists ! x \in \Z_m$ takové, že řeší soustavu $\forall i \in \{1, \dots, n-1\}: x \equiv u_i \mod m_i$.
+    \begin{proof} Nejprve ukážeme jednoznačnost.
+
+        Pro spor předpokládejme, že má soustava dvě řešení $x,y \in \{0, \dots, n-1\}$, tedy platí:
+        $$\forall i: x\equiv y \equiv u_i \pmod{m_i} \implies m_i \mid x-y$$
+        a protože všechna $m_i$ jsou navzájem nesoudělná, tak dostáváme 
+        $\displaystyle M = \prod_{i=1}^{n} \mid x-y.$
+        Ovšem obě čísla $x,y$, a tedy i jejich rozdíl, jsou menší než $M$, takže nutně $x-y = 0 \implies x = y$.
+
+        $ $
+
+        Nyní ukážeme existenci. Uvažme zobrazení
+        \begin{flalign*}
+            f: \{0, \ldots , n - 1\} &\to \{0,\ldots , m_1 - 1\} \times \dots \times \{0, \ldots, m_n - 1\}\\
+            x &\to (x \mod m_1 , \ldots, x \mod m_n).
+        \end{flalign*}
+        Ukázali jsme tak, že $f$ je prostá. 
+        Přitom definiční obor i obor hodnot této funkce mají stejnou velikost $M$ 
+        (velikost kartézského součinu je součin velikostí činitelů):
+        $$M = |\Z_m| = \ds \left| \prod_{i=1}^{n} \Z_{m_i}\right| = \prod_{i=1}^{n} |\Z_{m_i}|$$      
+        Takže zobrazení $f$ musí být i na a je proto $f$ bijekce, neboli $\forall i: x \equiv u_i \mod m_i \iff f(x) = u_1, \dots, u_n$.
+
+        Tedy $\exists!x$ ke každé $n$-tici $(u_1 , \ldots , u_n )$, které se na něj zobrazuje, a to je hledaným řešením soustavy.
+    \end{proof}
+\end{veta}
+
+
+\subsubsection{Popište jak spočítat hodnotu Eulerovy funke když známe faktorizaci prvočísla. Dokažte to.}
+
+\begin{tvrzeni} \normalfont 
+    Nechť $p$ je prvočíslo, kde $p_1 < \dots < p_n$ a $k_1, \dots, k_n \in \N$, potom $\varphi\left(\displaystyle\prod_{i}^{n}p_i^{k_i}\right) = \displaystyle\prod_{i}^{n}(p_i - 1) p_i^{k_i-1}$.
+    
+    \begin{proof}
+        Nechť $m_i = p_i^{k_i}$, použijeme zobrazení $f: \Z_n \to \prod \Z_{m_i}$ z Čínské věty o zbytku.
+
+        \begin{flalign*}
+            f(\Phi_m) = \overbrace{\prod_{i}\Phi_{m_i} \subseteq \prod \Z_{m_i}}^{\textit{Kartézský součin}} \text{, proto : }~
+            a \in \Phi_m &\iff \gcd(a,m) = 1\\
+            &\stackrel{\text{Lemma}}{\iff} \gcd(a \mod m_i, ~m_i) = \gcd(a, m_i) = 1\\
+            &\iff \forall i: a \mod m_i \in \Phi_{m_i}\\
+            &\iff f(a) \in \prod_{i=1}^{n} \Phi_{m_i}.
+        \end{flalign*}
+
+        Dostáváme tak $\displaystyle \varphi(m) = |\Phi_m| = |f(\Phi_m)| = \underbrace{\prod_{i=1}^{n}|\Phi_{m_i}|}_{\textit{= příklad } (p_i-1)p_i^{k_i -1}}.$
+    \end{proof}
+\end{tvrzeni}
+
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% POLYNOMY %%%%
+%%%%%%%%%%%%%%%%%%
+
+\section{Polynomy}
+
+\subsection{Tělesa, okruhy, obory}
+
+\subsubsection{Co je to obor integrity? Napiště alespoň dva příklady, kdy obor není těleso.}
+
+
+\begin{definice} (Ring/ okruh): \normalfont
+    Pětice $\RR=(R,+,-,\cdot, 0)$ se nazývá okruh, pokud $R$ je množina s binárními operacemi $+, \cdot: R \times R \to R$, unární operací $-:R\to R$, prvkem $0\in R$ a operacemi $\forall a,b,c\in R$:
+    \begin{flalign*}
+        a+(b+c) = (a+b)+c, \qquad a+b&=b+a, \qquad a + 0 = 0,\\
+        a+(-a)=0, &\qquad a\cdot 1 = 1 \cdot a = a \quad \textit{(okruh s jednotkou $1\in R$)}\\
+        a\cdot(b\cdot c) &= (a\cdot b)\cdot c,\\
+        a\cdot(b + c) = (a\cdot b) + (a\cdot c) \quad &\& \quad (a +b ) \cdot c = (a\cdot c) + (b\cdot c)
+    \end{flalign*}
+\end{definice}
+
+\definice (Komutativní okruh $\RR$): \normalfont $\equiv$ pokud je komutativní také operace násobení, tedy $\forall a,b\in R: a\cdot b = b \cdot a.$
+\definice (Obor integrity): \normalfont $\equiv$ komutativní okruh s jendnotkou, pokud platí: $\forall a,b \in R\setminus\{0\}:~a\cdot b\neq 0.$
+
+\begin{priklad} \normalfont Příklady, kdy obor není tělesem.
+    \begin{enumerate}[label = (\roman*)]
+        \item Obor celých čísel $\Z$ není těleso \textit{(nemá inverzní prvek)}
+        \item Matice s nulovým determinantem, tedy pro těleso $\F$ a $M_n(\F) = \{\text{čtvercová matice $n\times n$ nad $\F$}\}$ definujeme $\left(M_n(\F), +, -, \circ, \begin{pmatrix}
+            0 &\dots &0\\
+            \vdots &\ddots &\vdots\\
+            0 &\dots &0
+        \end{pmatrix} \right)$ je okruh s jednotkou $I_n$. Není ale tělesem \textit{(nemá multiplikativní inverz)}.
+        \item Boolovský okruh $(\Z_2, \oplus, \land, 0, 1)$ není tělesem \textit{(nemá aditivní inverz)}.
+    \end{enumerate}
+\end{priklad}
+
+\subsubsection{Pro která přirozená čísla je okruh 'Zn' oborem? Zdůvodněte svou odpověď.}
+
+\begin{lemma}
+Pro $\forall n > 1\in \N$, je komutativní okruh $\Z_n = (\Z_n, +, -, \cdot, 0)$ s jednotkou $1$ \textit{okruh} $\iff n$ je prvočíslo.
+\begin{proof}
+Z následující věty víme, že každé těleso je obor, dokážeme tedy, že $\Z_n$ je obor $\iff n$ je prvočíslo.
+
+Kdyby $n = k \cdot l$ bylo složené číslo, kde $k, l > 1$, tak by v $\Z_n$ platilo $k \cdot l = n \pmod n = 0 \implies$ není obor. 
+
+A je-li $n$ prvočíslo, pak je $a^{n-2} \pmod n$ inverzním prvkem pro $a \neq 0$, což plyne z malé Fermatovy věty.
+\end{proof}
+\end{lemma}
+
+\subsubsection{Popiště nosnou množinu a operace podílového tělesa oboru. Co je podílové těleso celých čísel? Co je podílové těleso tělesa R?}
+
+\definice (Podílové těleso): \normalfont Definujme nejprve relaci $\sim$ vztahem $(a,b) \sim (c,d) \iff ad = bc$ na množině $R\times M$, kde $M = R\setminus\{0\}$. Jedná se o relaci ekvivalence.
+Struktura $\mathcal{Q}=(Q, +, -, \cdot, 0)$ je tzv. \textit{podílové těleso} oboru $\mathcal{R}$, kde $Q$ je nosná množina všech zlomků $Q=\{\frac ab \mid (a,b) \in R\times M\}$, pro kterou platí operace:
+$$\frac ab + \frac cd = \frac{ad+bc}{bd};\qquad -\frac ab = \frac {-a}b; \qquad \frac ab \cdot \frac cd = \frac{ac}{bd}, \qquad 0 = \frac 01, \qquad 1 = \frac 11.$$
+Nejedná se konkrétně o dvojice $(a,b)$, ale o třídy ekvivalence $\frac{a}{b} = [(a,b)]_{\sim}$. \textit{(Aby platilo $\frac ab = \frac {ax}{bx}$).}
+\priklad {(Podílové těleso $\Z$): \normalfont $\{\frac ab \mid (a, b) \in \Z\}$ je těleso racionálních čísel $\Q$. }
+\priklad {(Podílové těleso tělesa): \normalfont je opět původní těleso $\{\frac ab \mid (a, b) \in R\times M\}$. }
+
+\newpage
+
+\subsubsection{Popiště nosnou množinu a operace komutativního okruhu R[x] nad okruhem R.}
+
+\definice (Komutativní okruh): \normalfont $\RR$ je \textit{komutativní okruh}, pokud je komutativní také operace násobení, tedy $$\forall a,b\in R: a\cdot b = b \cdot a.$$
+\definice (Polynom proměnné $x$): \normalfont nad komutativním okruhem $\mathcal{R}$ rozumíme výraz $$a_0 + a_1x + a_2x^2 + \ldots + a_nx^n  = \displaystyle \sum_{i=0}^{n}a_ix^i,$$ kde $a_0,\ldots,a_n \in R$, $a_n \neq 0$.
+
+Nosná množina všech polynomů na komutativním okruhu $R[x]$ je definována předpisy:
+\begin{flalign*}
+    \sum_{i=0}^ma_ix^i + \sum_{i=0}^nb_ix^i=\sum_{i=0}^{\max(m,n)}(a_i+b_i)x^i&,\qquad -\sum_{i=0}^ma_ix^i =\sum_{i=0}^{m}(-a_i)x^i,\\
+    \left(\sum_{i=0}^ma_ix^i\right) \cdot \left(\sum_{i=0}^nb_ix^i\right)&=\sum_{i=0}^{m+n}\left(\sum_{j+k=i}a_jb_k\right)x^i
+\end{flalign*}
+
+\subsubsection{Dokažte, že komutativní okruh R[x] nad oborem R je obor. Existuje těleso F takové, že F[x] je těleso?}
+
+\begin{veta}\normalfont Nechť $\mathcal{R}=(R[x], +,-,\cdot,0)$ je komutativní okruh s jednotkou, potom
+    \begin{enumerate}[label=(\roman*)]
+        \item $\mathcal{R}[x]$ je komutativní okruh,
+        \item pokud $\mathcal{R}$ je obor, potom $\mathcal{R}[x]$ je také obor a platí $~\forall f,g \in R[x]\setminus\{0\}: ~~\deg(fg) = \deg(f) + \deg(g)$.
+    \end{enumerate}
+
+    \begin{proof} Označme $f = \sum^m_{i=0} a_ix^i,~ g = \sum^n_{i=0} b_ix^i, ~ h= \sum^p_{i=0} c_ix^i.$
+        \begin{enumerate}[label=(\roman*)]
+            \item Dokážeme postupně všechny axiomy.
+            \begin{itemize}
+                \item Sčítání triviálně. Sčítají se nezávisle koeficienty u jednotlivých mocnin, čili rovnosti pro polynomy ihned plynou z rovností v $\mathcal{R}$.
+                \item Komutativita násobení plyne z toho, že vzorec je symetrický vzhledem k prohození písmen $a$ a $b$.
+                \item Jednotka z definice součinu: $\displaystyle f\cdot 1 = \left(\sum_{i=0}^{n}a_ix^i\right)\cdot (1+0+0+\ldots) = \sum_{i=0}^{n}\left(\sum_{j+k=i}a_jb_k\right)x^i$
+                \item Asociativita násobení: z jedné strany, $f \cdot (g \cdot h)$ je rovno:
+                \begin{flalign*}
+                    \left(\sum_{i=0}^{m}a_ix^i\right)\cdot \left( \left(\sum_{i=0}^{n}b_ix^i\right) \cdot  \left(\sum_{i=0}^{p}c_ix^i\right)\right) &= 
+                    \left(\sum_{i=0}^{m}a_ix^i\right) \cdot  \left(\sum_{i=0}^{n+p} \left(\sum_{k+l=i}b_kc_l\right)x^i\right) \\
+                    &= \sum_{i=0}^{m+n+p} \left(\sum_{j+k+l=i}a_jb_kc_l\right)x^i
+                \end{flalign*}
+                \item Distributivita analogicky
+            \end{itemize}
+            \item $\deg(fg)$, kde $f, g\geq0 \implies \deg f \geq 0 \land \deg g \geq 0$ a zároveň $\deg(f)=m$ a $\deg(g)=n$.\\
+            Proto koeficient $f\cdot g: a_0 b_k + a_1b_{k-1} + \dots = \overbrace{a_0\cdot0+ \dots + a_n \cdot0}^{=0}  + \stackrel{\neq0}{a_m}\stackrel{\neq0}{b_n} + \overbrace{a_{m-1}b_{n-1}}^{=0} = a_mb_n \neq 0$.
+
+            Vedoucím koeficientem $f\cdot g$ je $a_m b_n$,  který je nenulový díky tomu, že $\mathcal{R}$ je obor
+        \end{enumerate}
+    \end{proof}
+\end{veta}
+
+Těleso $F$ takové, že $F[x]$ je tělesem neexistuje, protože nesplňuje existenci inverzního prvku vzhledem k násobení.
+
+Předpokládejme pro spor, že existuje. Vezměme $x\in F[x]$, kde zřejmě $x\neq 0$ (protože předpokládáme polynom).
+Pokud ale vynásobímě $x$ jakýmkoliv polynomem$\neq 0$, tak výsledek bude vždy obsahovat $x$ a jeho vyší mocniny, takže nemá inverz.
+\qed
+
+\subsubsection{Co je to kořen polynomu? Zformulujte a dokažte předpoklady o počtu kořenů polynomu nad oborem.}
+
+\definice (Kořen polynomu): \normalfont  Nechť $R \leq S$ jsou obory, $f \in R[x]$ a $a \in S$. Řekneme, že $a$ je kořen polynomu $f$, pokud $f(a) = 0$.
+
+\begin{veta} (Počet kořenů): \normalfont 
+    Nechť $\mathcal{R}$ je obor, $f\in R[x]$, kde $\deg f  = n \geq 0$, potom $f$ má nejvýše $n$ kořenů v $\mathcal{R}$.
+
+    \begin{proof} \textit{(Indukcí podle $n$)}.
+        \begin{enumerate}[label=(\roman*)]
+            \item Pro $n = 0: f\in R\setminus\{0\}$, je nenulový konstantní polynom, nemá kořeny, tedy $\forall \alpha \in R: f(\alpha)\neq f \neq 0$
+            \item Pokud $\deg f = n + 1$, pak buď polynom $f$ nemá žádný kořen, v tom případě tvrzení platí a nebo $\exists \alpha$ kořen:
+            $$\exists \alpha\in R: f(\alpha) = 0 \implies \exists g \in R[x]: f = (x-\alpha)\cdot g  \implies \deg g = n$$
+            Pokud existuje nějaký druhý kořen $\beta \neq \alpha$, tak platí:
+            $$\exists \beta \in R: f(\beta) = 0 \implies 0 = f(\beta) = \underbrace{(\beta - \alpha)}_{0}\cdot g(\beta) \stackrel{\textit{je obor}}{\implies} \alpha = \beta ~~\lor~~ g(\beta) = 0$$
+            A protože má $g$ nejvýše $n$ polynomů, tak má $f$ nejvýše $n+1$ kořenů.
+        \end{enumerate}
+    \end{proof}
+\end{veta}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Delitelnost, UFD %%%
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Dělitelnost, UFD}
+
+\subsubsection{Definujte prvočíslo a ireducibilní prvek. Je každý prvek ireducibilní? Je každý ireducibilní prvek prvočíslo?}
+\definice (Prvočíslo): \normalfont Nechť $a,b,c \in R$, potom $a$ je \textit{prvočíslo}, pokud: \[
+    \forall b,c:~ a\mid b\cdot c \implies a \mid b ~~\lor~~ a\mid c \quad \& \quad a \notin R^* \cup \{0\}.\]
+
+\definice (Triviální dělitel): \normalfont Nechť $a,b \in R$, potom $a$ je \textit{triviální dělitel} $b$, pokud $a \mid\mid b$ nebo $a \mid\mid 1 $.
+
+\definice (Ireducibilní prvek $a$): \normalfont Prvek $0\neq a \in R$ je \textit{ireducibilní}, pokud $a ~\cancel{||}~ 1$ a $a$ nemá triviální dělitele. 
+
+Jinými slovy, pokud pro každý rozklad $a = bc$ platí $b ~||~ 1$ nebo $c ~||~ 1$.
+
+\begin{pozorovani} 
+    Všechna prvočísla jsou ireducibilní.
+    \begin{proof}
+        Nechť rozklad $a = bc$ je prvočíselný prvek. Z toho můžeme odvodit, že $a \mid bc$, tedy $a \mid b$ nebo $a \mid c$, z čehož plyne $a \mid\mid b$ nebo $a \mid\mid c$, čili jde o triviální rozklad. 
+        
+        $ $
+
+        Opačná implikace obecně neplatí (jen pro některé obory, např. pro $\Z$, pro UFD).
+        Konkrétně pro obor $\Z[\sqrt 5]$ je prvek 2 ireducibilní, protože $2 \mid (\sqrt{5}-1)(\sqrt{5}+1)$, ale není prvočíslem, protože $2 \nmid (\sqrt{5}+1)$ ani $2\nmid (\sqrt{5}-1)$.
+    \end{proof}
+\end{pozorovani}
+
+\subsubsection{Co znamená, že dva prvky oboru jsou asociované? Popište tuto relaci na oboru pomocí inverzních prvků.}
+
+\begin{definice} (Asociovanost): \normalfont
+    Nechť $a,b \in R$, kde $R$ je obor. Potom $a$ a $b$ jsou navzájem \textit{asociované}, tedy $a\mid\mid b$, pokud $a\mid b$ a $b \mid a$.
+    Zároveň platí, že prvek $a$ je invertibilní $\iff a \mid\mid 1$ a prvek $b$ splňující $ab = 1$ značíme $a^{-1}$.
+\end{definice}
+
+\pozorovani{Relace dělitelnosti je reflexivní i tranzitivní. \normalfont
+Pokud $a \mid b$ a $b \mid c$, tedy pokud 
+$b = ax$ a $c = by$ pro nějaká $x, y$, pak $c = axy$, tedy $a \mid c$. Z toho ihned plyne, že relace $\mid\mid$ je ekvivalencí.
+}
+\begin{tvrzeni}(Asociovanost vs. invertibilní prvky): \normalfont
+    Nechť $R$ je obor a $a, b \in R$. Pak $a \mid\mid b \iff$ existuje invertibilní prvek $q \in R$ takový, že $a = bq$.
+\begin{proof} Dokazujeme dvě implikace.
+    \begin{itemize}
+        \item [$\Longleftarrow$] Protože $a = bq$, tak platí $b \mid a$. Protože $b = aq^{-1}$, tak platí i $a \mid b$.
+        \item [$\implies$] Pokud $a = 0$, pak i $b = 0$ a tvrzení platí.
+        Uvažujme proto, že $a \neq 0$. Protože $b \mid a$, tak $a = bu$, a protože $a \mid b$, tak $b = av$ pro nějaká $u, v$. 
+        Tedy $a = bu = avu$ a krácením dostáváme $uv = 1$, čili $u, v \mid\mid 1$.
+    \end{itemize} 
+\end{proof}
+\end{tvrzeni}
+
+\subsubsection{Definujte největší společný dělitel dvou prvků na oboru. Co je gcd(a, 1) a gcd(a, 0) pro prvek na nějakém oboru?}
+
+\definice (Největší společný dělitel): \normalfont Nechť $a,b,c,d \in R$, potom $c \text{ je } \gcd(a,b)$, pokud :
+\[
+    c\mid a ~\land~ c \mid b \quad \text{ a } \quad d\mid a ~\land~ d\mid b \implies d \mid c.
+\]
+
+Pro $\forall a \in R: ~\gcd(a,1) = 1 \implies $ pouze $1 \mid a \land 1 \mid 1$.
+Pro $\forall a \in R: ~\gcd(a,0) = \gcd(0, a) = |a| \implies$ pouze $a \mid a$.
+
+\subsubsection{Definujte ireducibilní rozklad. Definujte Gaussův obor (UFD). Dokažte, že existuje gcd(a, b) pro každou dvojici prvků a,b z UFD.}
+
+\definice (Ireducibilní rozklad): \normalfont prvku $a$ je zápis $a \mid\mid p_1^{k_1} \cdot \ldots \cdot p_n^{k_n}$, kde $p_1, \ldots, p_n$ jsou ireducibilní prvky, $p_i ~\cancel{\mid\mid}~ p_j$ pro $i \neq j$ a $k_1, \ldots, k_n \in \N$. 
+
+\definice (Gaussův obor (UFD)): \normalfont Obor $R$ je UFD, pokud má každý nenulový neinvertibilní prvek unikátní rozklad na ireducibilní činitele.
+
+\begin{dusledek}
+    Nechť $R$ je UFD, potom $\forall a,b \in R$ existuje $\gcd(a,b)$.
+    \begin{proof}
+        Uvažujme ireducibilní prvky $p_1, \ldots, p_n, ~ p_i ~\cancel{\mid\mid}~ p_j$, pro $i \neq j$, a $k_i, l_i \geq 0$ takové, že:
+        $$a \mid\mid p^{k_1}_1 \cdot \ldots \cdot p^{k_n}_n, \quad b \mid\mid p^{l_1}_1 \cdot \ldots \cdot p^{l_n}_n$$
+        \textit{(Libovolné ireducibilní rozklady prvků $a, b$ můžeme přepsat do této formy tak, že ze dvou asociovaných činitelů vybereme jeden a do rozkladu případně doplníme činitele v nulté mocnině.)}
+        
+        Nyní $c \mid a, b \iff c \mid\mid p_1^{m_1} \cdot \ldots \cdot p_n^{m_n}$,
+        kde $0 \leq m_i \leq k_i$ a $0 \leq m_i \leq l_i$, čili $\iff 0 \leq m_i \leq \min(k_i, l_i)$, pro všechna $i$. 
+        
+        Největším z těchto společných dělitelů tedy bude ten, kde $m_i = \min(k_i, l_i)$.
+    \end{proof}
+\end{dusledek}
+
+\subsubsection{Formulujte charakteristiku (nutnou a postačující podmínku) UFD za pomoci gcd a řetězce dělitelů. Dokažte to.}
+
+\begin{veta} (Zobecněná základní věta aritmetiky):\normalfont Nechť $\mathcal{R}$ je obor, potom $\mathcal{R}$ je UFD právě tehdy, když:
+    \begin{enumerate}[label=(\roman*)]
+        \item existuje $\gcd$ všech dvojic prvků
+        \item neexistuje poslopunost $a_1, a_2, a_3, \dots \in R$ taková, že $a_{i+1} \mid a_i$ ~a~ $a_{i+1} ~\cancel{\mid\mid}~ a_i$.
+    \end{enumerate}
+    \begin{proof} Budeme dokazovat dvě implikace.
+        \begin{itemize}
+            \item [$\implies$] Dokázali jsme v Důsledku 5.3. 
+            \item [$\Longleftarrow$] Nejprve dokážeme \textit{existenci} rozkladů:
+            
+            Pro spor uvažujme prvek $a$, který nemá ireducibilní rozklad, $0\neq a ~\cancel{\mid\mid}~1$. 
+            Rekurzí zkonstruujeme spornou posloupnost s bodem $(ii)$.
+            \begin{itemize}
+                \item Nechť $a_1 = 1$. Tedy $a_1 ~\cancel{\mid\mid}~ 1$ a nemá ireducibilní rozklad.
+                \item Předpokládejme, že $a_i ~\cancel{\mid\mid}~ 1$ a nemá ireducibilní rozklad.
+                Speciálně, prvek $a_i$ není sám ireducibilní, a tedy $a_i = b \cdot c$ pro nějaká $b, c ~\cancel{\mid\mid}~1$.
+                Kdyby $b$ i $c$ měly ireducibilní rozklad, pak by ho měl i $a_i$, takže aspoň jedno z nich ireducibilní rozklad nemá, označme jej $a_{i+1}$.
+                Je tedy vlastní dělitel $a_i$ a nemá ireducibilní rozklad. Tato posloupnost $a_1, a_2, \dots $je ve sporu s $(ii)$
+            \end{itemize}
+            Nyní dokážeme \textit{jednoznačnost}:
+            (Ve skriptech je, že se na to u zkoušky nebude ptát, takže nezbývá než doufat)
+            
+        \end{itemize}
+    \end{proof}
+\end{veta}
+
+
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% GCD, MOD POLYNOM %%%
+%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{GCD a Modulo polynom}
+
+\subsubsection{Definujte Eukleidovskou normu a obor. Napište dva příklady Eukleidovského oboru, které nejsou tělesa.}
+
+\definice{(Eukleidovská norma): \normalfont je zobrazení $\V:R \to \N_0$ takové, že
+\begin{enumerate}[label=(\roman*)]
+    \item $\V(0) = 0$,
+    \item pokud $\forall a,b \in R, ~a\mid b \neq 0$, pak $\V(a) \leq \V(b)$,
+    \item $\forall a,b \in R, ~b\neq 0, ~\exists q, r \in R$ taková, že $\quad a = bq+r \quad $ a $ \quad \V(r) < \V(b)$.
+\end{enumerate}
+}
+\definice{(Eukleidovský obor): \normalfont Obor $\mathcal{R}$ se nazývá eukleidovský, pokud na něm existuje eukleidovská norma}
+
+\begin{priklad} (Eukleidovského oboru, které nená těleso)\normalfont
+    \begin{itemize}
+        \item Obor $\Z[x]$ není eukleidovský pro libovolné těleso $\Z$, protože nemá Eukleidovskou normu:
+        
+        Jeho normou je $\V(f) = 1+\deg f$. Pro například polynomy $3x$ a $2x$ máme $3x = q\cdot 2x + r$ a $\deg r=0 \implies r=0 \implies 3x = 2qx \notin \Z[x]$.
+        \item Obor $\Z[i]$ není eukleidovský. Jeho norma je $\V(a+bi) = a^2+b^2$
+    \end{itemize}
+\end{priklad}
+
+\subsubsection{Co znamená primitivní polynom? Zformulujte Gaussovo lemma a Gaussovu větu. Pokud R je UFD s podílovým tělesem Q, vysvětlete jak spočítat gcd v R[x] pomocí gcd v Q[x] a v R}
+
+\definice{(Primitivní polynom $f$): \normalfont  $\equiv$ jeho koeficienty jsou nesoudělné. \textit{($c$ dělí všechny koeficienty $\implies c \mid\mid 1$).}}
+
+\begin{lemma}(Gaussovo): \normalfont
+    Nechť $\RR$ je UFD a $f, g$ primitivní polynomy z $\RR[x]$. Potom $fg$ je také primitivní polynom.
+\end{lemma}
+
+\veta{(Gaussova): \normalfont Pokud $\RR$ je UFD, pak $\RR[x]$ je také UFD.}
+
+\begin{veta} ($\gcd$ a UFD vs. podílové těleso) \normalfont Nechť $\RR$ je UFD, $\mathcal{Q}$ jeho podílové těleso a $f, g$ polynomy z $\R[x]$. Potom
+    \begin{enumerate}[label=(\arabic*)]
+        \item existuje $\gcd_{R[x]} (f, g) = c \cdot h$, kde $c = \gcd_{\RR} (c_f , c_g )$ a kde $h = \gcd_{Q[x]} (\frac f{c_f} , \frac g{c_g} )$ je primitivní polynom z $R[x]$. GCD koeficientů polynomu $f$ značíme $c_f$ a GCD koeficientů polynomu $g$ značíme $c_g$.
+        \item $f$ je ireducibilní v $R[x] \iff \begin{cases}
+            \deg f = 0 & f \text{ je ireducibilní v } \RR,\\
+            \deg f > 0 & f \text{ je primitivní a ireducibilní v } Q[x].
+        \end{cases}$
+    \end{enumerate}
+
+    \begin{priklad} Pro obor $\Z[x]$ a polynomy $f=4x^2+8x+4$ a $g=-6x^2+6$ počítáme: \normalfont\\
+        $c=\gcd_{\Z}(4,6)=2$, \quad $h=\gcd_{\Q[x]}(x^2+2x+1, x^2-1)=x+1$. A celkem tak máme $\gcd_{R[x]}(f,g)=2\cdot (x+1)$
+    \end{priklad}
+\end{veta}
+
+\subsubsection{Napište zobecněný Eukleidův algoritmus pro Eukleidovský obor a Eukleidovskou normu}
+
+\begin{algoritmus} (Zobecněný Eukleidův): \normalfont Nechť $\RR$ je eukleidovský obor:\\
+    \texttt{VSTUP:} $a,b\in R, \V(a) \geq \V(b)$\\
+    \texttt{VÝSTUP:} $\gcd(a,b)\in R$ a Bézoutovy koeficienty $u,v \in R$
+    \begin{enumerate} \itemsep0em
+        \item $(a_0, a_1):=(a,b); \quad (u_0, u_1)=(1,0); \quad (v_0, v_1) = (0,1)$
+        \item \texttt{for } $i= 2,3,\dots$ \texttt{ do} :
+        \item \qquad zvol $q,r$ tak, aby $a_{i-1} = a_iq + r$ a $\V(r) < \V(a_i)$ 
+        \item \qquad definuj $a_{i+1} = r; \quad u_{i+1}:= u_{i-1} - u_i  q; \quad v_{i+1}:= v_{i-1} - v_i q; \quad i:=i+1$
+        \item \qquad \texttt{if } $a_{i+1} = 0$:
+        \item \qquad \qquad \texttt{return} $a_i, u_i, v_i$
+    \end{enumerate}
+\end{algoritmus}
+
+\newpage
+\subsubsection{Dokažte, že každý Eukleidovský obor je UFD.}
+
+\begin{veta}
+    Eukleidovské obory jsou UFD.
+    \begin{proof} Použijeme zobecněnou základní větu aritmetiky a ověříme body $(1)$ a $(2)$.
+        \begin{enumerate}[label=(\arabic*)]
+            \item $\forall a,b \in R: \exists \gcd(a,b) \in R$
+            \item Za pomoci následujícího lemma. Taková posloupnost by totiž měla ostře klesající normu, což nelze.
+            \begin{lemma}
+                Nechť $\RR$ je Eukleidovský obor, $a,b\in R$, kde $a,b\neq 0$ a $\V$ je Eukleidovská norma. Potom: $$a\mid b \land a ~\cancel{\mid\mid}~b \implies \V(a) < \V(b).$$
+                \begin{proof}
+                    Nechť $b = au$ pro nějaké $u\in R$ a nechť $a = bq + r$ pro nějaká $q,r \in R$, kde $\V(r) < \V(b)$.
+
+                    Vzhledem k tomu, že $b \nmid a$, tak platí $r\neq 0$. Dosazením dostanem $r = a - bq = a - auq = a(1-uq)$, z čehož plyne, že $a \mid r$.
+
+                    A protože $r \neq 0$, tak dostáváme $\V(a) \leq \V(r) < \V(b)$.
+                \end{proof}
+            \end{lemma}
+        \end{enumerate}
+    \end{proof}
+\end{veta}
+
+\subsubsection{Zformulujte a dokažte Gaussovu větu.}
+
+\begin{veta}(Gaussova): \normalfont 
+    Pokud $\RR$ je UFD, pak $\RR[x]$ je také UFD.
+    \begin{proof} Použijeme \textit{"Zobecněnou základní větu aritmetiky"} a dokážeme oba body.
+        \begin{enumerate}[label=(\arabic*)]
+            \item $\forall a,b \in \RR[x]: ~\exists \gcd(a,b)$. Platnost vychází z věty \textit{"$\gcd$ a UFD vs. podílové těleso"}.
+            \item Předpokládejme nekonečnou posloupnost vlastních dělitelů $\{a_i\}_{i\geq 1} \in \RR[x]\setminus \{0\}$, tedy t.ž: $a_{i+1} \mid a_i$.
+            
+            Potom $\forall i: -1 < \deg(a_{i+1}) \leq \deg(a_i)$ a musí tak $\exists n$ takové, že $\forall i>n:$
+            $$\deg(a_i) = \deg(a_n)\text{, \quad tedy \quad } \deg(a_n)=\deg(a_{n+1})=\dots.$$
+
+            Nakonec pokud si zadefinujeme $u_{i}$ jakožto vedoucí koeficient $a_i$, tak $u_n, u_{n+1}, u_{n+2}, \dots$ tvoří nekonečnou posloupnost vlastních dělitelů v $\RR$, což je spor.
+        \end{enumerate}
+        
+    \end{proof}
+\end{veta}
+
+
+\subsubsection{Popište konstrukci faktorokruhu F[a]/m(a) modulo polynom m(a) nad tělesem F. Zformulujte a dokažte charakteristiku těchto polynomů m(a) tak, že faktor je těleso.}
+
+\begin{definice}(Faktorokruh): \normalfont 
+    Nechť $\F$ je těleso a nechť máme polynom $m \in F[\alpha]$, stupně $n=\deg(m)\geq 1$.
+    Potom \textit{Faktorokruh} $\F[\alpha]/(m)$ je množina všech polynomů stupně $<n$ se standardními oparacemi sčítání, odčítání a opercací násobení modulo $m$. Tedy:
+    \[
+        \F[\alpha]/(m) = (\{f \in F[\alpha] \mid \deg (f) < n\}, +, -, \odot, 0,1),
+    \] kde $f\odot g = f\cdot g \mod m$.\ 
+\end{definice}
+
+\paragraph*{Platnost definice} \normalfont
+
+Je třeba dokázat, že se jedná o komutativní okruh. Axiomy pro $+,-$ jsou totožné s $\F[x]$, dokážeme proto jen axiomy s $\odot$.
+
+Připomeňme si, že $f \equiv g \pmod m \iff f \mod m = g \mod m$ a že tak $f \equiv f \pmod{ m\pmod m}$. 
+Konkrétně využijeme vztahu $(f \cdot g \mod m) \cdot h \mod m = f \cdot (g \cdot h \mod m) \mod m$ a dokážeme za pomoci něj asociativitu:
+$$\forall a,b,c \in F[\alpha]/(m): ~~ a \odot (b\odot c) \equiv a \odot (b \cdot c) \equiv a\cdot (b \cdot c) \equiv (a\cdot b) \cdot c\equiv (a\odot b)\odot c \pmod m$$
+
+\subsubsection{Pro prvočíslo p, přirozené k a ireducibilní celočíselný polynom m stupně k popište konstrukci konečného tělesa s p na n prvky. Jak můžeme počítat inverz prvků v tomto tělese?}
+\begin{tvrzeni}\normalfont
+    Nechť $p$ je prvočíslo a $\F$ je konečné těleso, potom:
+    \begin{enumerate}[label=(\arabic*)]
+        \item pokud $p$ je charakteristikou $\F$, pak $\exists k \in \N: |F| = p^k$
+        \item pokud $k\in \N$ a $\F$ je rozkladové nadtěleso $x^{p^k}-x \in \Z_p[x]$, pak $|F|=p^k$
+        \item $\forall k \in \N, \exists m \in \Z_p[x]$, kde $m$ je ireducibilní se stupněm $\deg(m)=k$, pak $\Z_p[\alpha]/m(\alpha)$ je těleso $p^k$ prvků.
+    \end{enumerate}
+    \begin{proof}$(1)$: 
+        $\F$ je vektorový prostor nad $\Z_p$, takže $k = \dim_{\Z_p}\F$ $\implies |F|=p^k$.
+    \end{proof}
+\end{tvrzeni}
+Inverz $a^{-1}a \equiv 1 \pmod {b}$ se počítá za pomoci Bézoutovy rovnosti a Euklidova algoritmu, tedy $$1=\gcd(b, a)=ub+va\text{\quad , kde \quad}va \equiv 1 \pmod{b}.$$
+
+\subsubsection{Dokažte, že pro libovolný polynom f nad tělesem existuje těleso obsahující kořen f.}
+
+\begin{veta}\normalfont
+    Nechť $\F$ je těleso, $f\in \F[x]$ je polynom a $n=\deg(f)\geq 1$. Potom existuje těleso $\mathcal{S} \geq \F$, kde $f$ má kořen.
+    \begin{proof}
+        Pokud má $f$ kořen v $\F$, vezmeme $\mathcal{S} = \F$. 
+        
+        V opačném případě má $f$ nějaký ireducibilní dělitel $m =\sum_{i=0}^{n}a_ix^i$ stupně alespoň $2$ a stačí najít nadtěleso, kde má kořen polynom $m$. 
+        
+        Uvažujme faktorokruh $\mathcal{S} = \F[\alpha]/(m(\alpha))$. 
+        Víme, že $\mathcal{S}$ je těleso. 
+        Vyhodnotíme-li v $\mathcal{S}$ polynom $m$ na prvku $\alpha$, dostaneme:
+        \[
+            m(\alpha) = \sum_{i=0}^{n}a_i(\alpha^i \mod m(\alpha)) =\sum_{i=0}^{n-1}a_i\alpha^i + a_n(\alpha^n \mod m(\alpha)),
+        \]
+        ovšem $a_n\alpha^n \mod m(\alpha) = - \sum_{i=0}^{n-1}a_i\alpha^i$, takže se to odečte na nulu. 
+        
+        Prvek $\alpha$ je tedy kořenem obou polynomů $m, f$ v nadtělese $\mathcal{S}$.
+    \end{proof}
+\end{veta}
+
+\subsubsection{Zformulujte a dokažte Čínskou větu o zbytcích pro polynomy.}
+
+\begin{veta} (Čínská o zbytcích pro polynomy): \normalfont
+    Nechť $\F$ je těleso a $k,n \in \N$. Nechť $m_1, m_2, \dots, m_n \in F[x]$ jsou po dvou nesoudělné polynomy a nechť $d = \sum \deg(m_i)$.
+    Dále nechť $u_1, \dots, u_n \in F[x]$ jsou libovolné polynomy. Potom $\exists ! f \in F[x]$ polynom stupně $\deg (f) < d$, který řeší soustavu kongruencí:
+    \[
+        f \equiv u_1 \pmod {m_1}~, ~~\dots~~, ~f \equiv u_n \pmod {m_n}.
+    \]
+    \begin{proof} Dokážeme zvlášť jednoznačnost a existenci.
+        \begin{itemize}
+            \item \textit{Jednoznačnost}: Pro spor předpokládejme, že má soustava dvě řešení $f,g$ stupně $<d$, tedy $$\forall i: f \equiv g \equiv u_i \pmod{m_i}.$$
+            Z toho plyne, že $f - g \equiv 0 \pmod {m_i}$, tedy že $m_i \mid f-g$. Zároveň víme, že $\deg(f-g) < d$.
+
+            A protože jsou všechny polynomy $m_i$ navzájem nesoudělné, tak dostaneme:
+            \[
+                \underbrace{\prod_{i=1}^n m_i}_{\deg = d} \mid \underbrace{f-g}_{\deg < d}.  
+            \]
+            
+            Tedy polynom stupně $d$ dělí polynom stupně $< d$, což je možné pouze v případě $f - g = 0 \implies f = g$.
+            \item \textit{Existence}: Nechť $m = \prod_{i=1}^{k}m_i$ a nechť $\displaystyle\Psi: F[x]/(m) \to \prod_{i=1}^{k}F[x]/(m_i)$, tedy:
+                $$f \to (f\pmod{m_1}, f\pmod{m_2}, \dots, f\pmod{m_n}). $$
+            Jedná se o lineární zobrazení $\Psi$ mezi vektorovými prostory. Zároveň víme díky jedinečnosti, že $\Psi$ je injektivní.
+            Určíme si dimenze, tedy: 
+            \begin{flalign*}
+                F[x]/(m) &= \prod_{i=1}^{k}F[x]/(m_i)\\
+                d=\dim_F\left(F[x]/(m)\right) &= \dim_F\left(\prod_{i=1}^{k}F[x]/(m_i)\right) = \sum_{i}^{k}\deg(m_i)=d 
+            \end{flalign*}
+            Mezi vektorovými prostory je stejná dimenze $\implies$ je i surjektivní $\implies$ je bijektivní $\implies$ má právě jedno řešení soustavy $f = \Psi^{-1}(u_1 \mod {m_1}, \dots, u_n \mod {m_n})$.
+        \end{itemize}
+        
+    \end{proof}
+\end{veta}
+
+
+\newpage 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% APLIKACE %%
+%%%%%%%%%%%%%%
+
+\subsection{Aplikace}
+
+\subsubsection{Popište (k, n)-schéma pro sdílení tajemství založený na CRT pro polynomy.}
+
+Máme $(k,n)$-schéma pro sdílení tajemství, kde $n$ účastníků se dělí o tajemství $t$ a $k$ jich je potřeba k jeho odhalení.
+
+Obecně pracujeme v tělese $\F_2^m \sim \F_{2^m}$, kde $t \in \F_{2^m}$ je tajemství.
+
+$ $
+
+Zvolíme si polynom $f\in \F_{2^m}[x]$, kde $\deg(f) < k$ a kde $f(0)=t$.
+Dále vybereme $n$ po dvou různých hodnot $a_1, \dots, a_n \in \F_{2^m}$, tedy $\forall i\neq j: a_i \neq a_j$ .
+
+Následně každému účastníkovi přiřadíme právě jednu konkrétní hodnotu $f(a_1), \dots, f(a_n)$.
+
+\begin{itemize}
+    \item Pokud se sejde $\geq k$ účastníků, vezmou své hodnoty, provedou interpolaci ve svých bodech a spočtou ten jeden jediný polynom stupně $<k$ a vezmou jeho absolutní člen, což je výsledné tajemství
+    \item Pokud se sejde $< k$ účastníků, také vezmou své hodnoty, také provedou interpolaci ve svých bodech, ale polynomů stupně $<k$ je mnoho a nezjistí tak nic o absolutním členu, který hledají. 
+    Museli by polynom uhádnout, což je proveditelné s pravděpodobností $\frac{1}{|\F|} = \frac{1}{2^m}$.
+\end{itemize}
+
+\subsubsection{Popište protokol RSA s veřejným klíčem a vysvětlete proč dešifrování funguje.}
+\paragraph*{Notace:}
+Zadefinujeme si:
+
+\begin{tabular}{ll}
+    $p, q \in \N$ \hphantom{1}\ldots\ldots\ldots\ldots\ldots\ldots .\ldots & velká prvočísla, t.ž.: $p\neq q$ \hphantom{2} \\
+    $(N,e)$\hphantom{3}\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots & dvojice, veřejný klíč, kde $N = p\cdot q$ \hphantom{4} \\
+    $\varphi(N) = (p-1)(q-1)$\hphantom{5}\ldots\ldots. . & Eulerova funkce \hphantom{6} \\
+    $e \in \N, ~~ 0<e<\varphi(N)$\hphantom{7}\ldots\ldots\ldots & šifrovací exponent \hphantom{8} \\
+    $d \in \N$\hphantom{9}\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots. & dešifrovací exponent \hphantom{10} \\
+\end{tabular}
+
+$ $
+
+Zároveň musí plati platit $\gcd(e, \varphi(N))=1$ a dále se hodí k výpočtům následující vztahy:
+
+\begin{tabular}{ll}
+    $y = x^e \pmod N$\hphantom{1}\ldots\ldots\ldots\ldots\ldots & zašifrování plaintextu, výsledkem je ciphertext \hphantom{2} \\
+    $x = y^d \pmod N$\hphantom{3}\ldots\ldots\ldots\ldots\ldots & dešifrování ciphertextu, výsledkem je plaintext \hphantom{4} \\
+    $d\cdot e \equiv 1 \pmod{\varphi(N)}$\hphantom{5}\ldots\ldots\ldots .. & získání $d$ (Euklidovým algoritmem) \hphantom{6} \\
+\end{tabular}
+
+
+Dešifrování se dá lehce odvodit: $y^d \equiv x^{e\cdot d} \equiv x^{1 + u\varphi(N)}\equiv x(\overbrace{x^{\varphi(N)}}^{\equiv 1})^{N} \equiv x \pmod N$
+
+\paragraph*{Popis algoritmu:}
+
+Bob si vygeneruje nahodná velká prvočísla $p,q \in \N, p\neq q$ a vypočítá z nich $N=p\cdot q$. 
+Dále vypočítá Eulerovu funkci $\varphi(N) = (p-1)(q-1)$ a následně vygeneruje číslo $e\in N$, t.ž.: $0<e<\varphi(N)$ a pro které platí, že $\varphi(N)$, tedy $\gcd(e, \varphi(N))=1$.
+Tímto číslem zašifruje plaintext $x$ vztahem $y = x^e \pmod N$.
+
+Pak už jen nalezne číslo $d \in \N$ euklidovým algoritmem $d\cdot e \equiv 1 \pmod{\varphi(N)}$.
+
+Veřejný klíč, neboli dvojici $(N, e)$ pošle Alici spolu s ciphertextem $y$.
+
+$ $
+
+Alice přijme veřejný klíč $(N, e)$ - dvojici,  i ciphertext $y$.
+Pouze Alici je znám soukromý klíč $(N, d)$, využije ho k dešifrování $y$.
+To udělá vztahem $x = y^d \pmod N$.
+
+$ $
+
+Eva nemá možnost si zprávu přečíst, protože nezná dešifrovací exponent $d$. 
+Musela by ho uhádnout, což není pravděpodobné, nebo by musela znát prvočísla $p,q$.
+Kdyby znala $p,q$ mohla by si jednoduše dopočítat $\varphi(N)$ a následně $d$ tak, jak jsme to udělali my.
+
+Bezpečnost RSA tedy stojí na tom, že útočník není schopen rozložit $N=p\cdot q$ na $p,q$, proto je potřeba je volit dostatečně velká.
+
+\subsubsection{Popište schéma Reed-Solomonových kódů. Je zakódování F-lineární zobrazení? Dokažte.}
+
+Rood-Solomonovým $(k,n)$-kódem je zobrazení $\varphi: \F^k \to \F^n$, $f=\sum a_ix^i \to (f(\alpha_1), \dots, f(\alpha_n))$.
+
+Inverzním zobrazením je interpolace v daných bodech.
+
+Různé polynomy $f, g$ mají $< k$ stejných hodnot, čili $>n-k$ různých hodnot, takže jde o kód typu $(k,n; d)$ pro $d\geq n-k+1$ a opravuje tak $\lfloor\frac{n-k}{2}\rfloor$ chyb.
+
+Zakódování můžeme převést na lineární zobrazení následovně:
+\begin{flalign*}
+    (a_0, \dots, a_{k-1}) \to (f(\alpha_1), \dots, f(\alpha_n)) = (a_0, \dots, a_{k-1})\cdot \begin{pmatrix}
+        \alpha_1^0 & \dots & \alpha_n^0\\
+        \vdots & \ddots & \vdots \\
+        \alpha_1^{k-1} & \dots & \alpha_n^{k-1}
+    \end{pmatrix}
+\end{flalign*}
+
+Platí, že každé kódové slovo je lineární kombinací vstupních dat a že kódová slova lze zapsat ve formě lineárního zobrazení.
+
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% GUPY %%%%
+%%%%%%%%%%%%%%
+
+\section{Grupy}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% GRUPY A PODGRUPY %%%
+%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Grupy a podgrupy}
+
+\subsubsection{Definujte pojem grupy a její podgrupy. Co je to řád grupy a prvku? Uveďte příklad grupy řádu 99.}
+
+\begin{definice} (Grupa) \normalfont:
+    \textit{Grupa} je čtveřice $\mathcal{G}=(G, \cdot, ^{-1}, 1)$, kde $G$ je množina, na které jsou definovány binární operace $\cdot:G\times G\to G$, unární operace $^{-1}: G\to G$ a konstanta $1 \in G$, splňující $\forall a,b,c \in G:$
+    \begin{enumerate}[label=(\roman*)]
+        \item $a\cdot(b\cdot c) = (a\cdot b) \cdot c$ \quad (asociativita),
+        \item $a\cdot 1 = 1 \cdot a = a$ \quad(neutrální prvek),
+        \item $a \cdot a^{-1} = a^{-1} \cdot a = 1$ \quad(inverzní prvek).
+    \end{enumerate}
+\end{definice}
+
+\begin{definice} (Podgrupa) \normalfont:
+    Nechť $\mathcal{G}=(G, \cdot, ^{-1}, 1)$ a $\mathcal{H}=(H, \tilde{\cdot}, \tilde{^{-1}}, \tilde{1})$ jsou grupy, potom $\mathcal{H}$ je \textit{podgrupa} grupy $\mathcal{G}$, značeno $\mathcal{H}\leq \mathcal{G}$, pokud:
+    $$1=\tilde{1}, \qquad \forall a,b \in H: a ~\tilde{\cdot}~ b = a\cdot b, \qquad a^{\tilde{-1}} = a^{-1}.$$
+\end{definice}
+
+\definice{(Řád grupy $\mathcal{G}$): \normalfont je počet prvků její nosné množiny, značíme jej $|\mathcal{G}|$.}
+\definice{(Řád prvku v grupě $\mathcal{G}$): \normalfont je nejmenší $n \in \N$ takové, že $a^n = 1$ pokud takové $n$ existuje, resp. $\infty$ v opačném případě. Značíme jej $\ord(a)$.}
+\begin{priklad} (Grupa řádu $99$.) \normalfont
+    Musí mít $99$ prvků. Třeba direktní součin grup $\mathcal{G}$ a $\mathcal{H}$, kde $|\mathcal{G}|=3$ a $|\mathcal{H}|=11$, dostaneme $3\times3\times9=99$, tedy $G_3\times H_9 \to F_{99}$. (Bude Abelovská).
+\end{priklad}
+
+\subsubsection{Definujte mocninu grupy. Mají všechny prvky konečné grupy konečný řád?}
+
+\definice{(Mocnina): \normalfont Nechť $\mathcal{G}$ je grupa, $a \in G, n\in \Z$. Potom mocnina je $a^n = \begin{cases}
+    1 & n=0\\
+    \underbrace{a\cdot a \cdot \ldots \cdot a}_n & n>0\\
+    \underbrace{a^{-1}\cdot a^{-1} \cdot \ldots \cdot a^{-1}}_{-n} & n<0.
+\end{cases}$}
+
+\begin{tvrzeni} (Mocniny): \normalfont Nechť $\mathcal{G}$ je grupa, $a,b \in G, k,l\in \Z$, potom:
+    $a^{k+l}=a^k\cdot a^l, \qquad a^{kl}=(a^k)^l=(a^l)^k.$\\
+    A pokud je abelovská, tak ještě $(ab)^k = a^kb^k$.
+\end{tvrzeni}
+
+\paragraph*{Konečnost grupy a řádu:} \normalfont
+Všechny prvky konečné grupy mají konečný řád, protože v konečné grupě existuje pouze konečný počet různých mocnin prvku. 
+Proto se v určitém okamžiku musí opakovat hodnota $a^n$ a nejmenší takové kladné $n$ je řád prvku.
+
+Kdyby řád byl nekonečný, pak žádné $n \neq 0$ s vlastností $a^n=1$ neexistuje, mocniny $a$ jsou tak po dvou různé a podgrupa je nekonečná.
+
+\subsubsection{Jak spolu souvisí řád prvku a řád příslušné cyklické podgrupy?}
+Nechť $\mathcal{G}$ je konečná grupa a $g \in G$.
+
+Z Lagrangeovy věty plyne, že řád prvku je dělitelem řádu grupy. Tedy $\ord(g) \mid |G|$.
+
+Pokud je řád prvku roven řádu grupy, pak je tento prvek jejím generátorem, tedy $\ord(g) = |G| \implies G=\langle g \rangle$ a tato grupa $\mathcal{G}$ je tak cyklická.
+
+
+\subsubsection{Definujte, formulujte a dokažte ekvivalentní popis podgrupy generované množinou.}
+
+\begin{definice} (Generovaná množina): \normalfont
+    Uvažujme podmnožinu $X \subseteq G$ grupy $\mathcal{G}$.
+    Podgrupou generovanou množinou $X$ rozumíme nejmenší podgrupu (vzhledem k inkluzi) grupy $\mathcal{G}$ obsahující podmnožinu $X$, značíme ji $\langle X\rangle_\mathcal{G}$.
+\end{definice}
+
+\begin{tvrzeni} (Podgrupa generovaná množinou): \normalfont
+    Nechť $\mathcal{G}$ je grupa a $\emptyset \neq X \subseteq G$, potom:
+    \[
+        \langle X \rangle_{\mathcal{G}}=\{a_1^{k_1}\cdot \ldots \cdot a_n^{k_n} \mid n\in \N;~ a_1, \ldots, a_n \in X; ~ k_1, \ldots, k_n \in \Z\}.
+    \]
+    \begin{proof}
+        Označme nejprve $M$ mnořinu na pravé straně rovnosti. Musíme dokázat, že:
+        \begin{itemize}
+            \item \textit{tvoří podgrupu.} Součin dvou prvků z $M$ jistě $\in M$, jednotka $1=a^0 \in M$, inverzy plynou ze vztahu $(a_1^{k_1}\cdot \ldots \cdot a_n^{k_n})^{-1}=a_1^{-k_1}\cdot \ldots \cdot a_n^{-k_n} \in M$.
+            \item \textit{obsahuje $X$.} Volbou $n = 1$, $k_1 = 1$ dostaneme libovolný prvek $X$.
+            \item \textit{je nejmenší podmnožinou grupy $G$ splňující tyto podmínky.} 
+            Uvažujme libovolnou podgrupu $\mathcal{H}$ obsahující $X$. Tato podgrupa musí obsahovat všechny mocniny $a^i, a\in X$ i jejich libovolné násobky, tedy celé $M$.
+        \end{itemize}, .
+    \end{proof}
+\end{tvrzeni}
+
+\subsubsection{Zformulujte a dokažte Langrangeovu větu. Co je levá rozkladová třída podgrupy?}
+
+\begin{veta} (Langrangeova): \normalfont
+    Pokud $\mathcal{H} \leq \mathcal{G}$, pak $|\mathcal{G}| = [\mathcal{G}:\mathcal{H}]\cdot |\mathcal{H}|$.
+    \begin{proof}
+        Zvolme transverzálu $T$ z $\mathcal{H}$ a zapišme ji jako $\displaystyle G = \bigcup_{a\in T}aH$.
+
+        Z lemmatu "$aH\cap bH = \emptyset$ nebo $aH=bH$" víme, že se jedná o disjunktní sjednocení a platí $T=[\mathcal{G}:\mathcal{H}]$, takže počet prvků lze spočítat jako součet velikostí jednotlivých podmnožin:
+        \[
+            |\mathcal{G}| = \sum_{a\in T}|aH|=\sum_{a\in T}|H| = |T| \cdot |H|=[\mathcal{G}:\mathcal{H}]\cdot |\mathcal{H}|
+        \]
+        Rovnost $\displaystyle\sum_{a\in T}|aH|=\sum_{a\in T}|H|$ platí, protože platí lemma "$|aH| = |H|$".
+    \end{proof}
+\end{veta}
+
+\begin{definice} (Levá rozkladová třída): \normalfont
+    Nechť $\mathcal{G}$ je grupa a $\mathcal{H}$ její podgrupa, potom množiny $aH = \{ah \mid h \in H\}$, kde $a \in G$, se nazývají \textit{levé rozkladové třídy} podgrupy $\mathcal{H}$.
+\end{definice}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% CYKLICKE GRUPY A PUSOBENI %%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Cyklické grupy a působení grup}
+
+\subsubsection{Definujte působení grupy na množině X a relace tranzitivity na X. Co je stabilizátor prvku?}
+
+\begin{definice} (Působení grupy $\mathcal{G}$ na množině $X$): \normalfont je libovolné zobrazení $\pi: G \to S_X=\{f:x\to x \mid f \text{ bijektivní}\}$ splňující $\forall g, h \in G$:
+    $$\pi(gh) = \pi(g) \circ \pi(h), \quad \pi(g){-1} = \pi(g)^{-1} ~~a~~ \pi(1) = id$$
+    Hodnotu permutace $\pi(g)$ na prvku $x \in X$ budeme značit $\pi(g)(x)=g(x)$.
+\end{definice}
+
+\begin{definice} (Relace tranzitivity $\sim$ na množině $X$): \normalfont definujeme $x \sim y$,
+    pokud $\exists g \in G$ takové, že $y=g(x)$.
+    
+\textit{($x \sim y$, pokud nějaká permutace přesouvá prvek $x$ na prvek $y$.)}    
+\end{definice}
+
+\definice{(Stabilizátor prvku $x\in X$) \normalfont je množina $G_x = \{g \in G \mid g(x) = x\}$.}
+
+\subsubsection{Zformulujte a dokažte tvrzení o velikosti orbity a indexu stabilizátoru.}
+
+\begin{tvrzeni} (Velikost orbity VS index stabilizátoru): \normalfont
+    Nechť grupa $\mathcal{G}$ působí na množině $X$, potom: $$\forall x \in X: ~|[x]|=[\mathcal{G}:\mathcal{G}_x].$$
+    \begin{proof}
+        Index $[\mathcal{G} : \mathcal{G}_x ]$ značí počet rozkladových tříd podgrupy $\mathcal{G}_x$ , stačí tedy najít bijekci mezi prvky orbity a množinou rozkladových tříd. 
+        Uvažujme zobrazení $$\varphi: \{gG_x \mid g\in G\} \to \{x\}, \quad gGx \to g(x).$$
+        Dokážeme, že to je bijekce. 
+        
+        Nejprve ověříme, že jsme dobře definovali zobrazení.
+        Mohlo by se jinak stát, že tutéž rozkladovou třídu máme označenu dvěma různými způsoby, tj. že $gG_x = hG_x$, a přitom se jí snažíme přiřadit různé hodnoty $g(x)\neq g(x)$.
+
+        Z tvrzení o "rovnosti rozkladových třídách, tedy pro $aH=bH\iff a^{-1}b\in H$" víme, že platí 
+        $$gG_x =hG_x \iff h^{-1}g \in G_x\iff h^{-1}g(x)=x \iff g(x)=h(x).$$
+
+        A tedy $\varphi$ je dobře definováno a zároveň je i prosté. Navíc $\forall y \in [x], \exists g\in G: g(x)=y$, takže $\varphi$ je i bijekce.
+    \end{proof}
+\end{tvrzeni}
+\newpage
+
+\subsubsection{Zformulujte a dokažte Burnsideovo lemma.}
+
+\begin{veta} (Burnsideova): \normalfont
+    Nechť $\mathcal{G}$ je konečná grupa, která působí na konečnou množinu $X$. \\
+    Dále označme $X/\sim$ jako množinu všech orbit $\sim$ na $|X/\sim|$ jako počet orbit daného působení.
+    Potom: $$|X/\sim| = \frac{1}{|G|}\cdot \sum_{g\in G}|X_g| = |\{[x]_{\sim} \mid x \in X\}|.$$
+    \textit{(Můžeme interpretovat jako "počet orbit je roven průměrnému počtu pevných bodů").}
+    \begin{proof}
+        Nechť $M = \{(g,x) \in G\times X \mid g(x) = x\}$ a počítáme prvky dvěma způsoby: 
+        buď ke každému $x$ spočítáme počet $g$ splňujících $(g,x)\in M$, nebo ke kadému $g$ spočítáme počet $x$ splňujících $(g,x)\in M$.
+        Dostaneme rovnost:
+
+        $$|M| = \underbrace{\displaystyle \sum_{g\in G}|X_g|}_{\text{pevné body}} = \underbrace{\sum_{x\in X}|G_x|}_{\text{stabilizátor}}$$
+        \begin{flalign*}
+            \frac{1}{|G|}\cdot \sum_{g\in G}|X_g|&= \frac{|M|}{|G|}=\frac{1}{|G|}\cdot \sum_{x\in X}|G_x| = \cancel{\frac{1}{|G|}}\cdot \sum_{x\in X}\frac{\cancel{|G|}}{|[x]|} = \sum_{x\in X}\frac{1}{|[x]|} = \\
+            &= \sum_{O\in (X/\sim)}\sum_{x\in O}\frac{1}{|[x]|}=\sum_{O\in (X/\sim)}\sum_{x\in O} \frac{1}{|O|}=\sum_{O\in (X/\sim)}|O| \cdot \frac{1}{|O|} =\\
+            &= \sum_{O\in (X/\sim)} 1 \implies \text{ je rovno velikosti množiny } X/\sim .
+        \end{flalign*}
+    \end{proof}
+\end{veta}
+
+\subsubsection{Popište řády a počet prvků daného řádu v konečných cyklických grupách.}
+
+\begin{tvrzeni} (Řády prvků cyklických grup): \normalfont
+    Nechť $\mathcal{G}=\langle a \rangle$ je cyklická grupa konečného řádu $n=|G|$, potom pokud $\forall k \mid n$, tak $|\{b \in G \mid \ord(b) = k\}| = \varphi(k)$, neboli obsahuje právě $\varphi(n)$ prvků řádu $k$ pro každé $k\mid n$.
+    \begin{proof}
+        Nechť $\mathcal{G}=\langle a \rangle$ je cyklická grupa konečného řádu $n=|G|$. 
+        
+        Každý prvek řádu $k \mid n$ je generátorem nějaké cyklické podgrupy řádu $k$. 
+        Taková podgrupa však v $\mathcal{G}$ existuje pouze jedna.
+        Podle Lemmatu, které říká "$|G|=n \implies \langle a^k \rangle = \langle a^{\gcd(k,n)} \rangle$", jsou všechny podgrupy v $\mathcal{G}$ tvaru $\langle a^k \rangle, ~k \mid n$. 
+        
+        Přitom $|\langle a^k \rangle| = \frac nk$, tedy $\langle a^{\frac nk} \rangle$ je jediná podgrupa řádu $d$. 
+        
+        Tato podgrupa má podle Tvrzení říkající "konečná $|G|=n \implies$generátorem jsou prvky $a^k$, kde $k \in \{1, \dots, n-1\}$ nesoudělné s $n$", právě $|\{l \in \Z_k \mid \gcd(l,k)\}|=\varphi (k)$ generátorů.
+    \end{proof}
+\end{tvrzeni}
+
+\subsubsection{Je-li G = [a] konečná cyklická grupa řádu n, rozhodněte, které prvky a na n jsou generátory.}
+
+\begin{tvrzeni} (Generátory cyklických grup): \normalfont
+    Nechť $\mathcal{G} = \langle a \rangle$ je cyklická grupa, potom:
+    \begin{enumerate}[label=(\arabic*)]
+        \item pokud je $\mathcal{G}$ nekonečná, generátorem jsou pouze prvky $a, a^{-1}$
+        \item pokud je $\mathcal{G}$ konečná řádu $n$, tak generátorem jsou takové prvky $a^k$, kde $k \in \{1, \dots, n-1\}$ je nesoudeělné s $n$.
+    \end{enumerate} 
+    \begin{proof} Dokážeme zvlášť oba body:
+        \begin{enumerate}[label=(\arabic*)]
+            \item Oba prvky $a$, $a^{-1}$ grupu $\mathcal{G}$ generují, protože $\{a^k \mid k \in \Z\} = \{a^{-k} \mid k \in \Z\}$. 
+            Žádný jiný generátor $\mathcal{G}$ nemá: 
+            
+            Kdyby $\mathcal{G} = \langle a^n \rangle$ pro nějaké $n$, 
+            pak by $\exists m \in \Z$ takové, že $a = (a^n)^m$, a dostali bychom $$1 = (^an)^m \cdot a^{-1} = a^{mn-1}.$$
+            Řád $a$ je ovšem nekonečný, a tedy $mn = 1$, čili $n = \pm1$.
+            \item  Z Lemmatu o "podgrupách cyklických grup" víme, že platí $\langle a^k \rangle = \langle a^{\gcd(k,n)}\rangle$. \\
+            Uvažme dvě možnosti. Pokud $\begin{cases}
+                \gcd(k, n)=1 & \langle a^k\rangle = \langle a\rangle = \mathcal{G}\\
+                \gcd(k, n)=d\neq 1 & \langle a^k\rangle = \langle a^d\rangle = \{a^d, a^{2d}, \dots, a^{\frac ndd}\} \text{ je vlastní podgrupa}
+            \end{cases}$
+        \end{enumerate}        
+    \end{proof}
+\end{tvrzeni}
+
+\subsubsection{Dokažte, že konečná podgrupa multiplikativní grupy tělesa je cyklická.}
+
+\begin{veta}
+    Nechť $\F$ je těleso a $\mathcal{G}$ je konečná podgrupa grupy $\F^*$. Potom $\mathcal{G}$ je cyklická.
+    \begin{proof}
+        Nechť $k\in \N$ a $n = |G|$. Definujme si počet ptvků $k$ v grupě $\mathcal{G}$, tedy $u_k = \{a \in G \mid \ord(a)=k\}$. 
+        
+        Uvažujme nějaký prvek $a$ řádu $k$ v $\mathcal{G}$,~ tedy $a\in u_k: ~k = \ord(a)$.
+
+        Zároveň platí, že grupa $\langle a \rangle$ je cyklická řádu $k$ a proto $\forall b \in \langle a \rangle: ~~b^k = 1$ a tedy $|\langle a \rangle|=k.$
+            
+        Žádné jiné prvky s touto vlastností v $\mathcal{G}$ nejsou, takže $\langle a \rangle$ je jediná cyklická podgrupa řádu $k$ v $\mathcal{G}$.
+
+        Dostáváme tak, že $b$ je kořenem $x^{k}-1$ a má proto $\leq k$ kořenů (v tělese $\F$).
+        Takže $\langle a \rangle$ je množina všech kořenů $x^k -1 \implies$
+        $u_k \subseteq \langle a \rangle \implies u_k$ jsou všichni generátoři $\langle a \rangle \implies \forall k \mid n:~ |u_k|=\varphi(k) \implies u_k \leq k \implies $ je cyklická.
+    \end{proof}
+    \textit{(Aplikovali jsme lemma říkající, že "pokud $\forall k$ grupa obsajuje $\leq k$ prvků $a$ splňujících $a^k=1$, je potom cyklická").}
+\end{veta}
+
+\subsubsection{Co je to diskrétní logaritmus? Popište Diffie-Hellmanův protokol pro výměnu klíčů.}
+
+\begin{definice} (Diskrétní logaritmus): \normalfont
+    je inverzní zobrazení k tzv. diskrétní exponenciále, tedy k zobrazení $$\exp: \Z_n \to \mathcal{G}, \quad k \to a^k,$$ kde $\mathcal{G}=\langle a \rangle$ je cyklická grupa řádu $n$,
+\end{definice}
+
+\paragraph*{Diffie-Hellmanův protokol} \normalfont Alice a Bob se potřebují dohodnout na nějakém společném klíči, přičemž k dispozici mají pouze veřejný kanál.
+
+Nejprve se Alice a Bob dohodnou na nějaké cyklické grupě a generátoru $\mathcal{G}=\langle a \rangle$. 
+Dále si Alice zvolí číslo $m$ a Bob číslo $n$ z intervalu $2, \dots, |G|-1$, přičemž každý bude svoje číslo držet v tajnosti.
+
+\begin{itemize}
+    \item Alice spočte $u=a^m$ a pošle $u$ Bobovi. 
+    \item Bob spočte $v=a^n$ a pošle $v$ Alici. 
+\end{itemize}
+
+Poté Alice spočte $v^m=(a^n)^m=a^{mn}$ a Bob spočte $u^n = (a^m)^n=a^{mn}$. 
+Oba tak získali stejný prvek $a^{mn}$, což je společný klíč.
+
+$ $
+
+Kdyby je poslouchala Eva, bude znát pouze grupu $\mathcal{G}$, generátor $a$ a hodnoty $u,v$. 
+
+Prvek $a^{mn}$ ale není schopná dopočítat, musela by provést diskrétní logaritmus, určit $mn$ a dopočítat $a^{mn}$.
+Dodnes pro to ale není znám efektivní způsob.
+
+\end{document}

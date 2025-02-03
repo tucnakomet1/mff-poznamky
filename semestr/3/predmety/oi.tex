@@ -1,0 +1,389 @@
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[margin=0.7in]{geometry}
+\usepackage{amssymb, amsthm, amsmath, amsfonts}
+\usepackage{array, xcolor, enumitem, graphicx}
+\usepackage{cancel}
+
+\usepackage[czech]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[unicode]{hyperref}
+\usepackage[useregional]{datetime2}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue,
+    pdftitle={Ochrana informací 1},
+}
+
+% tahak - prikazy %
+% \includegraphics{obrazek.png}         % import konkretniho obrazku
+% a~b                                   % mezera mezi pismeny 'a' a 'b'
+% a \quad b                             % velka mezera mezi pismeny 'a' a 'b'
+% \sim                                  % ~
+% \Longleftarrow                        % <==
+
+
+% zkratky %
+\newtheorem{veta}{Věta}
+\newtheorem{definice}{Definice}
+\newtheorem{tvrzeni}{Tvrzení}
+\newtheorem{lemma}{Lemma}
+\newtheorem{pozorovani}{Pozorování}
+\newtheorem{dusledek}{Důsledek}
+\newtheorem{priklad}{Příklad}
+
+\newcommand{\N}{{\mathbb{N}}}       % prirozena cisla
+\newcommand{\Z}{{\mathbb{Z}}}       % cela cisla
+\newcommand{\Zs}{{\mathbb{Z}_n^*}}  % cela cisla vcetne nekonecna
+\newcommand{\Q}{{\mathbb{Q}}}       % racionalni cisla
+\newcommand{\R}{{\mathbb{R}}}       % realna cisla
+\newcommand{\Cc}{{\mathbb{C}}}      % komplexni cisla
+\newcommand{\F}{{\mathbb{F}}}       % teleso
+\newcommand{\Pp}{{\mathcal{P}}}     % potencni mnozina
+
+\newcommand{\hr}{{\begin{center}\par\rule{\textwidth}{0.5pt} \end{center}}}
+\newcommand\makesmall{\fontsize{8pt}{11pt}\selectfont}
+
+\renewcommand*{\contentsname}{Obsah}
+\renewcommand*{\proofname}{Důkaz:}
+\renewcommand*{\figurename}{\makesmall Obr.}
+
+% hlavicka
+\setlength{\parindent}{0em}
+
+\title{Ochrana informací 1}
+\date{\today}
+\author{\sc Karel Velička}
+
+\graphicspath{ {../img/} }             % obrazky ulozeny ve slozce img/
+
+\begin{document}
+\pagenumbering{arabic}
+\maketitle
+
+% podnadpis + obsah 
+\begin{center}
+    Beneš Antonín, RNDr., Ph.D.
+\end{center}
+
+\begin{em}
+Obecně se u všeho hodí říct věci jako logování, keep-it-simple.
+
+Dále, protože jeho ego je někde v nedosažitelných výšinách, se může hodit mu ho trošku pohladit:
+\begin{itemize}
+    \item Nabízí se říct např. nějaké jeho oblíbené slovo/ frázi - "Hezky česky", "ergo"
+    \item Poděkovat mu předem, že předmět ve svém VOLNÉM ČASE učí a PROJEVUJE TAK MFF SLUŽBU
+    \item Zeptat se ho na pár informací k 'Ochraně informací 2' - o tom on určitě milerád něco poví
+\end{itemize}
+\end{em}
+
+\tableofcontents
+\newpage
+
+% obsah dokumentu
+
+\section{Úvod}
+
+\paragraph*{Informačním systémem (IS)} prostředek, který se používá ke správě svých informací
+
+\paragraph*{Bezpečnostní incident} stav, kdy došlo k porušení alespoň jedné z požadovaných vlastností.
+
+\paragraph*{Zranitelnost} nedostatek bezpečnostního systému.
+
+\paragraph*{Dopad} finanční vyjádření incidentu
+
+Celkově snaha minimalizovat investici, provozní náklady, očekávané ztráty
+
+\paragraph*{Komponenty bezpečnosti} \begin{itemize} \setlength\itemsep{0em}
+    \item Zákony
+    \item Normy
+    \item Politika
+    \item Bezepčnostní cíle
+    \item Kontrola prostředí
+    \item Autentizace + Autorizace
+    \item Separace - fyzická, časová, logická, kryptografická
+    \item Integrita, dostupnost, auditabilita
+\end{itemize}
+
+\paragraph*{Možné hrozby} \begin{itemize}\setlength\itemsep{0em}
+    \item Přerušení - šást ztracena/ nedosažitelná
+    \item Zachycení - útočník má přístup do systému
+    \item Modifikace - útočník může měnit
+    \item Fabrikace - neautorizované vytvoření nového objektu
+\end{itemize}
+
+\section{Řízení bezpečnostních rizik}
+\newpage
+
+\section{Aktiva}
+Jakýkoliv zdroj hodnoty (hmotný/ nehmotný)
+
+Normy GDPR, FIPS 199, SIA (Security of Information Act) 
+
+\subsubsection*{Klasifikace dat}
+Abychom mohli pro jednotlivé kategorie navrhnout odpovídající bezpečnostní mechanismy (ty jsou založené na kontextu, obsahu, uživateli)
+
+U klasifikace obecných aktiv je cílem „inventurní seznam“ aktiv. Pro každou třídu se stanoví minimální sada bezpečnostních opatření.
+
+
+\subsubsection*{Kategorizace dat}
+Seskupení typů dat na základě obdobných nároků na zabezpečení
+
+Děli se na kategorizace dle \textit{senzitivity, kritičnosti (nepostradatelnosti), hodnoty}
+
+\subsubsection*{Požadavky na nakládání s aktivy a informacemi}
+\begin{itemize}
+    \item Označování - viditelné etikety na zařízení značící důležitost, bezpečnostní úroveň, ... v záhlaví/ zápatí dokumentu
+    \item Zpracování - politika, pravidla a postupy používání senzitivních dat a kritických aktiv - důležitost školení
+    \item Uložení - lokace a zabezpečení uložených dat, šifrování, použití HW prostředků
+    \item Deklasifikace - úorava přiřazené klasifikace - musí se dokumentovat, ideálně schválit
+\end{itemize}
+
+\subsubsection*{Role spojené se správou dat}
+\begin{itemize}
+    \item Vlastník - odpovědný za stanovení, jak a kým budou data používána; rozhoduje o udělení/ odebrání přístupu; plně odpovědný za data
+    \item Regulátor - osoba/ agentura/ společnost určující účel a způsoby zpracování dat; odpovědný za dodržování principů, pravidel, legislativy
+    \item správce - odpovědný za údržbu dat a technických prostředků zpracování
+    \item Zpracovatel - odpovědný za nakládání s daty jménem vlastníka
+    \item Uživatel - konzumenti dat
+    \item Subjekt - ten, o kom data vypovídají
+\end{itemize}
+
+\subsubsection*{Správa dat}
+\begin{itemize}
+    \item Umístění - požadavky na geografické omezení zpracování a uložení dat
+    \item Údržba - zpracování, analyzování a sdílení dat; řídí přístup; least priviledge prinicp
+    \item Uchovávání - třeba stanovit pro každý typ dat
+    \item Likvidace - zvážit schválení; třeba likvidace i nosičů (fyzicky - drcení)
+    \item Remanence - smazaná data lze získat zpětně z nosičů; na cloud nelze zajistit - ukládat šifrovaně
+\end{itemize}
+
+\subsubsection*{Opatření pro zajištění bezpečnosti dat}
+\begin{itemize}\setlength\itemsep{0em}
+    \item Technická - firewally, filtry, šifrování
+    \item Administrativní - politiky, standardy, postupy
+    \item Fyzické - stráž, recepce
+\end{itemize}
+
+\newpage
+\section{Architektura}
+
+Systémy a aplikace procházejí fázemi - návrh, vývoj, testing, nasazení, údržba, vyřazení
+
+Používají se obvykle konkrétní standardy ISO, STRIDE, PASTA
+
+\subsection*{Obecné principy}
+
+\subsubsection*{Separace domény}
+
+Doména je soubor souvisejících komponent se společnými bezpečnostními atributy
+
+Komunikace je omezená na kanály
+
+\subsubsection*{Vrstvení (layering)}
+
+Hierarchické strukturování systému - vyšší závisí na nižších
+
+Je to dekompouzice $\implies$ napomáhá srozumitelnosti, atd.
+
+\subsubsection*{Zapozdření (encapsulating)}
+
+Objekty nezpřístupňuí data, ale metody - lepší kontrola přístupu a integrita
+
+\paragraph*{Redundance} replikace komponent, paralelní zpracování, vyšší odolnost
+\paragraph*{Virtualizace} separace; snazší zotavení
+
+\paragraph*{Nejmenší oprávnění (least priviledge)} služby, informace dostupné na základě aktuální potřeby \textit{(need-to-know princip)}
+
+\paragraph*{Attack surface (plocha pro útok)} souhrn všech expozic
+\paragraph*{Hardening} obecně zabezpečení - vypnutí nepotřebných služeb, odstranění standardních účtů, portů, aplikací apod.
+
+\paragraph*{Bezpečné výchozí hodnoty, havarování} po spuštění/ havarování musí mít systém bezpečné výchozí hodnoty
+\paragraph*{Fail safe/open} blokuje se přístup/ zachová se dostupnost (snaha)
+
+\subsection*{Důvěra}
+
+\paragraph*{Keep-it-simple} jednoduchost...
+\paragraph*{Důvěřuj, ale prověřuj (trust but verify)} ověřujte cokoliv, co přichází z vnějšího prostředí 
+\paragraph*{Zero trust} nevěří se ničemu; všichni jsou hrozba - všechny vstupy se validují, přístupy autentizují atd.
+
+\subsection*{Bezpečnostní modely obecně}
+
+První fází tvorby bezpečného IS je volba vhodného bezpečnostního modelu. 
+Základní požadavky bezpečnosti jsou \textit{utajení, integrita, dostupnost, anonymita}.
+Předpokládejme, že umíme rozhodnout, zda danému subjektu poskytnout přístup. 
+\textit{Modely poskytují pouze mechanismus pro rozhodování!}
+\begin{itemize}
+    \item \textbf{Jednoúrovňové modely} jsou vhodné pro případy, kdy stačí jednoduché \textit{ano/ne rozhodování},zda danému subjektu poskytnout přístup k požadovanému objektu a \textit{není nutné pracovat s klasifikací dat}.
+    \item \textbf{Víceúrovňové modely} Může existovat několik stupňů senzitivity a ”oprávněnosti”.
+    Tyto stupně senzitivity se dají použít k algoritmickému rozhodování o přístupu daného
+    subjektu k cílovému objektu, ale také k řízení zacházení s objekty. Víceúrovňový systém
+    \textit{”rozumí” senzitivitě dat} a chápe, že s nimi musí zacházet v souladu s požadavky
+    kladenými na daný stupeň senzitivity. Rozhodnutí o přístupu pak nezahrnuje pouze
+    prověření žadatele, ale \textit{též klasifikaci prostředí, ze kterého je přístup požadován}.
+\end{itemize}
+
+\subsection*{Modely pro speifické účely}
+
+\subsubsection*{Chinese wall model}
+Dynamický model, pravidla generována až v okamžiku používání.
+
+Konzultant nesmí radit konkurenci, ale může radit nekonkurenci.
+
+Objekty jedné organizace tvoří \textit{dataset}, datasety rozčleněny do \textit{tříd} (conflict of interest classes)
+
+\textit{Sanitizovaná informace} – odstraněny ty části, které umožňují identifikovat konkrétního vlastníka
+
+Subjekt na počátku univerzální práva (ke všem objektům)
+
+Přístup je povolen, pokud je ve stejném datasetu/ náleží do jiné třády.
+
+Zápis je povolen, pokud je umožněn přístup/ není čten objekt s informacemi z jiného datasetu.
+\subsubsection*{Clark-Willson model}
+\begin{figure}[ht]
+    \includegraphics[width=.8\textwidth]{clark.png}
+    \caption{Clark-Willson model - zdroj: Tahak\_Ochrany\_Informace.pdf}
+    \label{normal_case}
+\end{figure}
+
+\subsubsection*{Take-Grant systém}
+Systém přidělování a odebírání oprávnění; Efektivních vyhodnocování práv (v $O(n)$)
+
+Čtyřmi základními primitiva: \textit{create, revoke, take, grant}
+
+\subsubsection*{Military security model}
+Řazení do disjunktních kategorií utajení - \textit{unclassified, confidental, secret, top secret}
+
+Uplatnění least priviledge principu.
+
+\subsubsection*{Svazový model (Lattice model)}
+Military je případem tohoto modelu. Uplatnění relace $\leq$. Rozdělení do kategorií podle utajení.
+\newpage
+\subsubsection*{Graham-Denning model}
+\begin{figure}[ht]
+    \includegraphics[width=.65\textwidth]{graham.png}
+    \caption{Graham-Denning model}
+\end{figure}
+
+\subsubsection*{Bell-LaPadula model}
+\begin{figure}[ht]
+    \includegraphics[width=.75\textwidth]{bell.png}
+    \caption{Bell-LaPadula model - zdroj: Tahak\_Ochrany\_Informace.pdf}
+\end{figure}
+
+\subsubsection*{Biba model}
+\begin{figure}[ht]
+    \includegraphics[width=.75\textwidth]{biba.png}
+    \caption{Biba model - zdroj: Tahak\_Ochrany\_Informace.pdf}
+\end{figure}
+
+\section{Mechanismy}
+\section{Sítě}
+
+\subsection*{Firewall}
+
+\paragraph*{Personální firewally} filtry - analýza a odstraňuje nežádoucí objekt
+
+\paragraph*{Aplikační firewally (proxy brány)} musí existovat specializovaná „proxy“ pro každý přenášený protokol
+
+\paragraph*{Síťové IDS, IPS} hlídá známe vzory chování odpovídající útoku (IDS - detekuje, IPS - reaguje)
+
+\subsection*{Protokoly}
+
+\paragraph*{SSL}
+Struktura - handshake, cipher, alert, application protocol (HTTP), record, TCP, IP
+
+\paragraph*{IpSec} dvojice nezávislých protokolů: $\begin{cases}
+    \text{AH (appliation header)} & \text{integirita packetů, HMAC; MD5}\\
+    \text{ESP (encapsulated security payload)} & \text{integrita + utajení dat, HMAC} \\
+    & \text{blokové šifry (AES, Blowfish)}
+\end{cases}$
+
+\subsection*{Internal Security Gateway (ISG)} \begin{itemize}
+    \item Ověřuje soulad se standardy
+    \item Kontroluje použití očekávaných mechanism
+    \item Hlídá hazardní operace aplikací
+    \item Analyzuje nebezpečný kód
+\end{itemize}
+
+\section{IAM}
+\section{Provoz}
+\section{Hodnocení}
+
+$\equiv $ vyhodnocení vlastnosti objektu (pravděpodobnost, předpokládaná velikost, ...); výstupem je report s nálezy a zkoumáním
+
+\subsection*{Návrh a validace - strategie testování}
+
+Explicitní stanovení rozsahu a cílů zkoumání - jasně definovat, volit vhodnou metodologii (umožňuje srovnání)
+
+\paragraph*{Audit} porovnání reálného stavu organizace s deklarovaným stavem (standardy, smluvní závazky, cíle).
+
+\paragraph*{Standardy pro audit} Doporučuje se ISO/IEC 15408, ISO/IEC 27006, NIST 800-53A atd.
+
+\subsubsection*{Interní audit} \begin{itemize} \setlength\itemsep{0em}
+    \item Někým jiným než autorem politiky.
+    \item Výhody: znalost prostředí, kultury a možnost častějšího provádění.
+    \item Vhodný pro hledání slabin, rutinní kontroly patchů, ...
+    \item Ideální příprava na externí audit, omezení dopadu na obchodní aktivity v případě neúspěchu auditu.
+\end{itemize}
+
+\subsubsection*{Externí audit} \begin{itemize} \setlength\itemsep{0em}
+    \item Nezávislý + pohled zvenčí.
+    \item Větší zkušenosti, ale menší znalost objektu
+    \item Jediná možnost pro angažování dostatečně erudovaných pracovníků.
+\end{itemize}
+ 
+\subsubsection*{Audit třetí stranou} \begin{itemize} \setlength\itemsep{0em}
+    \item Provádí zákazník/ jiný obchodní partner $\implies$ odpovědnost vlastníka
+    \item Zaměření na provozní postupy, správa procesů, zabezpečení dat
+\end{itemize}
+
+
+\subsection*{Testování bezpečnostních opatření}
+Slouží k identifikaci slabých míst a rizik v systému.
+
+Kontroly logů + kódu + testů; testování zneužití, rozhraní; analýza pokrytí testů; Simulace narušení a útoku
+
+\subsubsection*{Hodnocení slabin}
+Hledat v kritických komponentách; Po nalezení provést hodnocení dopadu, relevanci a stanovit priority oprav.
+
+\subsubsection*{Penetrační testování}
+
+Kodex etického hackera. Snaha najít známe slabiny a zmapovat dopad + rozsah. Výsledkem je report.
+
+Obvykle - průzkum, sken, využití poznatků, průnik, report
+
+\subsubsection*{Syntetické transakce}
+simulované aplikační transakce, kterými se ověřuje funkčnost cílových systémů a kontroluje se, že systém odpoví očekávanou odezvou
+
+\subsection*{Shromažďování dat o bezpečnostních procesech}
+Založeno na průběžném monitoringu.
+
+Cílem je hodnocení stavu a provozu bezpečnostních opatření.
+
+Vychází z hodnocení rizik a návrhu programu bezpečnosti - díky tomu stanoví strategie tvorby a zpracování logů.
+
+Logování + zavede se centralizace zpracování + automatizace monitoringu.
+
+Nasazení pokročilých metod automatického vyhodnocování (trendy, clustery, AI...)
+
+\subsubsection*{Administrativní opatření}
+
+Politika, pravidla; záznamy o obchůzkách, vydané ceritifikáty... Hodnotí se dopad politiky, efektivita ...
+
+\paragraph*{Správa účtů}
+Administrativní + techická opatření
+
+\subsubsection*{Klíčové indikátory výkonu a rizika}
+Je vhodné se zamýšlet nad budoucím vývojem 
+
+\paragraph*{KPI} hodnocení stávajících opatření na základě vhodných metrik
+\paragraph*{KRI} povědomí o nadcházejících hrozbách a vývoji rizik
+
+Dobré obstarávat bezpečnostní skóre ($\#$ malware, $\#$ oprav SW, neúspěšná přihlášení apod.), a sledovat návratnost investic (vyplatilo se opatření?), 
+
+
+Dále kontrola a schválení managementem; Kontrola shody (ISO, ...); Kontrola záloh; Školení a povědomí; Náprava chyb; Obnova po katastrofě
+\end{document}

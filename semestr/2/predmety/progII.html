@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Programování II</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 18px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 50em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Programování II</h1>
+</header>
+<h2 id="složitost-algoritmu"><strong>Složitost algoritmu</strong></h2>
+<ul>
+<li><strong>Horní odhad</strong> - <span class="math inline">\(f\in O(g)
+\iff \exists c &gt;0 \exists n_0 \forall n &gt; n_0: 0\leq f(n) \leq
+c\cdot g(n)\)</span></li>
+<li><strong>Dolní odhad</strong> - <span class="math inline">\(f\in
+\Omega(g) \iff \exists c &gt;0 \exists n_0 \forall n &gt; n_0: 0\leq
+f(n) \geq c\cdot g(n)\)</span></li>
+<li><strong>Přesný odhad</strong> <span class="math inline">\(f\in
+\Theta(g) \iff f\in O(g) \land f\in \Omega(g)\)</span></li>
+</ul>
+<h2 id="amortizace-x-průměr">Amortizace X průměr</h2>
+<ul>
+<li>rozdíl v přístupu k výpočtu složitosti.</li>
+<li><strong>Amortizace</strong> - přes posloupnost nejhorších vstupních
+dat - je zaručená (nevyužívá pravděpodobnost) - zaměřuje se na celkový
+průměr složitosti v průběhu času a bere v úvahu kompenzaci mezi drahými
+a levnými operacemi - průměrná cena instrukce přes posloupnost</li>
+<li><strong>Průměr</strong> - zaměřuje se na průměrný náklad na operaci
+na základě vstupů a jejich distribuci - ideální, pokud distribuci vstupů
+můžeme odhadnout</li>
+<li><strong>Příklad</strong>
+<ul>
+<li>Average involves a random process. Amortized does not. So, for
+example, suppose you have a system where (1) 1/2 the times you do an
+operation, it takes 1 second and (2) all other times it takes 10
+seconds. Suppose this is just random as if the system just flips a coin
+every time you do the operation and, based on the coin flip, it decides
+to do the fast or slow version. Then the average cost is 1/2 _ 1 + 1/2 _
+10 = 5.5 seconds. But sometimes two operations in a row will both be
+fast or both be slow. Now suppose you have a similar system, except that
+it always alternates between fast and slow. Then the “average” time is
+the same, but you can now guaranteed that two successive operations will
+take 11 seconds. Never more. Never less. So you have a guarantee on the
+total cost of a sequence of operations. This is the idea of amortized
+analysis.</li>
+</ul></li>
+</ul>
+<h2 id="datové-typy-a-struktury-pro-ukládání-dat">Datové typy a
+struktury pro ukládání dat</h2>
+<ul>
+<li><strong>Halda</strong> - efektivní přidávání/ odebírání prvků v
+závislosti na prioritě → prioritní fronta; stromová struktura,
+rozlišujeme min/max heap, prvek s vyšší prioritou je rodič; používá
+<em>heap sort</em>, <em>Dijkstra</em>, <em>Huffmanovo kódování</em>
+(komprese), hledání max/ min prvku v množině, operace: insert - O(logn),
+extract - O(logn), search - O(n), build - O(n*logn)</li>
+<li><strong>Fronta</strong> - FIFO; seznam úkolů, které mají být
+vykonány v pořadí, v jakém byly přijaty; používá <em>BFS</em></li>
+<li><strong>Zásobník</strong> - LIFO; poslední prvek vložený do
+zásobníku je také první, který bude odebrán; používá <em>DFS</em>,
+vyhodnocování regexu, správa paměti, volání funkcí, kompilátory</li>
+</ul>
+<p><img
+src="https://media.geeksforgeeks.org/wp-content/cdn-uploads/20221220165711/MinHeapAndMaxHeap1.png" /></p>
+<h2 id="základní-grafové-algoritmy">Základní grafové algoritmy</h2>
+<ul>
+<li>BFS - prohledávání do šířky - O(m+n)</li>
+<li>DFS - prohledávání do hloubky - O(m+n)</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c#"><code class="sourceCode cs"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">//BFS</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">static</span> <span class="dt">void</span> <span class="fu">bfs</span><span class="op">(</span>Graph G<span class="op">,</span> <span class="dt">int</span> startVert<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>       <span class="dt">bool</span><span class="op">[]</span> visited <span class="op">=</span> <span class="kw">new</span> <span class="dt">bool</span><span class="op">[</span>G<span class="op">.</span><span class="fu">Size</span><span class="op">];</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>       System<span class="op">.</span><span class="fu">Collections</span><span class="op">.</span><span class="fu">Generic</span><span class="op">.</span><span class="fu">Queue</span><span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;</span> q <span class="op">=</span> <span class="kw">new</span> System<span class="op">.</span><span class="fu">Collections</span><span class="op">.</span><span class="fu">Generic</span><span class="op">.</span><span class="fu">Queue</span><span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;();</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>       visited<span class="op">[</span>startVert<span class="op">]</span> <span class="op">=</span> <span class="kw">true</span><span class="op">;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>       q<span class="op">.</span><span class="fu">Enqueue</span><span class="op">(</span>startVert<span class="op">);</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>       <span class="kw">while</span><span class="op">(</span>q<span class="op">.</span><span class="fu">Count</span> <span class="op">&gt;</span> <span class="dv">0</span><span class="op">){</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>                  <span class="dt">int</span> v <span class="op">=</span> q<span class="op">.</span><span class="fu">Dequeue</span><span class="op">();</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>           <span class="kw">foreach</span><span class="op">(</span><span class="dt">int</span> adjV <span class="kw">in</span> G<span class="op">.</span><span class="fu">adj</span><span class="op">[</span>v<span class="op">])</span> <span class="op">{</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>               <span class="kw">if</span> <span class="op">(!</span>visited<span class="op">[</span>adjV<span class="op">])</span> <span class="op">{</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>                   visited<span class="op">[</span>adjV<span class="op">]</span> <span class="op">=</span> <span class="kw">true</span><span class="op">;</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>                   q<span class="op">.</span><span class="fu">Enqueue</span><span class="op">(</span>adjV<span class="op">);</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>               <span class="op">}</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>           <span class="op">}</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>       <span class="op">}</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>   <span class="op">}</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co">//DFS</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">static</span> <span class="dt">void</span> <span class="fu">dfs</span><span class="op">(</span>Graph G<span class="op">,</span> <span class="dt">int</span> startVert<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>       <span class="dt">bool</span><span class="op">[]</span> visited <span class="op">=</span> <span class="kw">new</span> <span class="dt">bool</span><span class="op">[</span>G<span class="op">.</span><span class="fu">Size</span><span class="op">];</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>       System<span class="op">.</span><span class="fu">Collections</span><span class="op">.</span><span class="fu">Generic</span><span class="op">.</span><span class="fu">Stack</span><span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;</span> s <span class="op">=</span> <span class="kw">new</span> System<span class="op">.</span><span class="fu">Collections</span><span class="op">.</span><span class="fu">Generic</span><span class="op">.</span><span class="fu">Stack</span><span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;();</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>       visited<span class="op">[</span>startVert<span class="op">]</span> <span class="op">=</span> <span class="kw">true</span><span class="op">;</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>       s<span class="op">.</span><span class="fu">Push</span><span class="op">(</span>startVert<span class="op">);</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>       <span class="kw">while</span><span class="op">(</span>s<span class="op">.</span><span class="fu">Count</span> <span class="op">&gt;</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>           <span class="dt">int</span> v <span class="op">=</span> s<span class="op">.</span><span class="fu">Pop</span><span class="op">();</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>           <span class="kw">foreach</span><span class="op">(</span><span class="dt">int</span> adjV <span class="kw">in</span> G<span class="op">.</span><span class="fu">adj</span><span class="op">[</span>v<span class="op">])</span> <span class="op">{</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>               <span class="kw">if</span> <span class="op">(!</span>visited<span class="op">[</span>adjV<span class="op">])</span> <span class="op">{</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>                   visited<span class="op">[</span>adjV<span class="op">]</span> <span class="op">=</span> <span class="kw">true</span><span class="op">;</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>                   s<span class="op">.</span><span class="fu">Push</span><span class="op">(</span>adjV<span class="op">);</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>               <span class="op">}</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>          <span class="op">}</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>       <span class="op">}</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>   <span class="op">}</span></span></code></pre></div>
+<h2 id="atributy">Atributy</h2>
+<ul>
+<li><strong>Public</strong> - třída je veřejná, může přistupovat
+kdokoliv</li>
+<li><strong>Private</strong> - třída je neveřejná, může přistupovat
+pouze stejná třída</li>
+<li><strong>Protected</strong> - třída je neveřejná, může přistupovat
+pouze dědic této třídy nebo stejná třída</li>
+<li><strong>Sealed</strong> - z metody nelze dědit, není virtuální</li>
+</ul>
+<p><img src="https://i.stack.imgur.com/TNtq3.png" /></p>
+<h2 id="třídy">Třídy</h2>
+<ul>
+<li><strong>Struct</strong> - zjednodušená třída, nemůže dědit, užito
+pro seskupení dat, value type, každá proměnná má svoji kopii dat</li>
+<li><strong>Abstraktní třída</strong> - nevytváří instance, ale slouží
+jako základ pro odvození konkrétních tříd, má abstraktní metody (které
+jsou implicitně virtuální) vyžadující přepsání</li>
+<li><strong>Statická třída</strong> - třída = objekt, třída je jedinou
+instancí sebe sama</li>
+</ul>
+<h2 id="metody">Metody</h2>
+<ul>
+<li><strong>Obyčejné metody</strong> - o volání je rozhodnuto v okamžiku
+překladu</li>
+<li><strong>Statické metody</strong> - nelze při volání vytvářet její
+instance a nelze dědit. (členy jsou alokovány ve třídě, ne
+instanci)</li>
+<li><strong>Virtuální metody</strong> - o volání rozhodnuto až v
+okamžiku volání. Může být přepsána (<code>override</code>) v odvozených
+třádách
+<ul>
+<li><em>Využití v praxi:</em> vytváří kód, který pracuje s objekty
+různých tříd pomocí stejného rozhraní, snižuje se tak nutnost kopírovat
+a upravovat stejný kód pro každou třídu zvlášť</li>
+<li><strong>VMT - Tabulka virtuálních metod</strong> - zajišťuje podporu
+polymorfismu během programu. Je to tabulka ukazatelů na virtuální metody
+(většinou skrytý ukazatel na začátku objektu). Používá se k určení
+skutečného typu objektu.</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode c#"><code class="sourceCode cs"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Virtual method</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> Animal <span class="op">{</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="kw">virtual</span> <span class="dt">void</span> <span class="fu">MakeSound</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        Console<span class="op">.</span><span class="fu">WriteLine</span><span class="op">(</span><span class="st">&quot;I am an animal.&quot;</span><span class="op">);</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> Cat <span class="op">:</span> Animal <span class="op">{</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="kw">override</span> <span class="dt">void</span> <span class="fu">MakeSound</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        Console<span class="op">.</span><span class="fu">WriteLine</span><span class="op">(</span><span class="st">&quot;Meow!&quot;</span><span class="op">);</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> Fish <span class="op">:</span> Animal <span class="op">{</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="kw">static</span> <span class="dt">void</span> <span class="fu">MakeSound</span><span class="op">()</span>  <span class="op">{</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>        Console<span class="op">.</span><span class="fu">WriteLine</span><span class="op">(</span><span class="st">&quot;Blob!&quot;</span><span class="op">);</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">static</span> <span class="dt">void</span> <span class="fu">Main</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    Animal cat <span class="op">=</span> <span class="kw">new</span> <span class="fu">Cat</span><span class="op">();</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    Animal fish <span class="op">=</span> <span class="kw">new</span> <span class="fu">Fish</span><span class="op">();</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    cat<span class="op">.</span><span class="fu">MakeSound</span><span class="op">();</span>    <span class="co">// Meow!</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    fish<span class="op">.</span><span class="fu">MakeSound</span><span class="op">();</span>   <span class="co">// I am an animal.</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<ul>
+<li><strong>Abstraktní metody</strong> - je společným předchůdcem jiných
+tříd, nevytváříme instance. Jsou <em>virtuální</em>, slouží k budoucímu
+předefinování v potomcích</li>
+</ul>
+<div class="sourceCode" id="cb3"><pre class="sourceCode c#"><code class="sourceCode cs"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Abstract method and class</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">abstract</span> <span class="kw">class</span> Sound <span class="op">{</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="kw">abstract</span> <span class="dt">string</span> <span class="fu">MakeSound</span><span class="op">();</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> Animal <span class="op">:</span> Sound <span class="op">{</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="kw">override</span> <span class="dt">string</span> <span class="fu">MakeSound</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        <span class="kw">return</span> <span class="st">&quot;I am an animal.&quot;</span><span class="op">;</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="kw">static</span> <span class="dt">void</span> <span class="fu">Main</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        <span class="dt">var</span> animal <span class="op">=</span> <span class="kw">new</span> <span class="fu">Animal</span><span class="op">();</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        Console<span class="op">.</span><span class="fu">WriteLine</span><span class="op">(</span><span class="st">&quot;Animal sound: &quot;</span> <span class="op">+</span> animal<span class="op">.</span><span class="fu">MakeSound</span><span class="op">());</span>   <span class="co">// Animal sound: I am an animal.</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<h2 id="návrhové-vzory">Návrhové vzory</h2>
+<ul>
+<li><strong>SOLID</strong> - pravidla pro přehledné programování
+<ul>
+<li><em>Princip jedné odpovědnosti (<strong>S</strong>ingle
+Responsibility Principle)</em> - jedna třída by měla mít na starosti
+pouze jednu a tudíž pouze jeden důvod pro změnu</li>
+<li><em>Princip otevřenosti/ zavřenosti (<strong>O</strong>pen-closed
+principle)</em> - třídy otevřené pro rozšiřování, uzavřené pro
+změny</li>
+<li><em>Zákon substituce (<strong>L</strong>iskov substitution
+principle)</em> - pokud je někde objekt A, pak musí být možné místo něj
+použít B, pokud je B odvozený od A (děti za rodiče)</li>
+<li><em>Princip oddělených rozhraní (<strong>I</strong>nterface
+segregation principle)</em> - více specifických rozhraní je lepší než
+jedno univerzální</li>
+<li><em>Princip obrácení závislosti (<strong>D</strong>ependency
+Inversion Principle)</em> - závislost na abstraktním, ne konkrétním.
+Konkrétní musí záviset na abstraktním. (kvůli časté změně
+implementace)</li>
+</ul></li>
+<li><strong>Strom hry</strong> - Používá se pro modelování a analýzu
+rozhodovacích procesů v herách a jiných interaktivních situacích -
+minimax</li>
+</ul>
+<h2 id="třídění">Třídění</h2>
+<ul>
+<li><strong>vnější třídění</strong>
+<ul>
+<li>k řazení velkých objemů dat, které se nevejdou do RAM. Data jsou
+rozdělena do menších částí, které se načtou do paměti, seřadí, uloží do
+dočasných souborů na disku</li>
+</ul></li>
+<li><strong>vnitřní třídění</strong>
+<ul>
+<li>jedna datová struktura, obvykle pole nebo seznam, všechna data v
+operační paměti</li>
+</ul></li>
+</ul>
+<h3 id="důkaz-dolního-odhadu-třídících-algoritmů">Důkaz dolního odhadu
+třídících algoritmů</h3>
+<ul>
+<li>pokud třídíme porovnáváním prvků, algoritmus zapíšeme jako
+rozhodovací strom</li>
+<li>za pomoci rozhodovacího stromu - dostaneme v nejlepším případě <span
+class="math inline">\(n!\)</span> listů</li>
+<li>binární rozhodovací strom bude mít <span
+class="math inline">\(2^h\)</span> listů - listy jsou možná seřazení
+prvků podle výsledků porovnávání</li>
+<li>počítáme <span class="math inline">\(2^h \geq n! \iff h\geq \log
+n!\)</span></li>
+<li><span class="math inline">\(n!\)</span> nahradíme za <span
+class="math inline">\(n\cdot (n-1) \cdot (\frac n2 + 1) \cdot ... \cdot
+(\frac n2)\)</span>, nakonec <span class="math inline">\((\frac
+n2)\)</span> krát <span class="math inline">\((\frac n2)\cdot ... \cdot
+(\frac n2)\cdot (\frac n2) = (\frac n2)^{(\frac n2)}\)</span></li>
+<li><span class="math inline">\(h \geq \log (\frac n2)^{(\frac n2)} \iff
+h \geq (\frac n2) \cdot (\log n - \log 2) \iff h \geq \frac n4 \log n
+\implies \Omega (n\log n)\)</span></li>
+<li>každý algoritmus tedy musí provést alespoň <span
+class="math inline">\(\Omega (n\log n)\)</span> porovnání</li>
+</ul>
+<h3 id="třídící-algoritmy">Třídící algoritmy:</h3>
+<table>
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 9%" />
+<col style="width: 80%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Algoritmus</th>
+<th>Složitost</th>
+<th>Animace</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Bubble sort</td>
+<td><span class="math inline">\(O(n^2)\)</span></td>
+<td><img
+src="https://upload.wikimedia.org/wikipedia/commons/c/c8/Bubble-sort-example-300px.gif" /></td>
+</tr>
+<tr class="even">
+<td>Insertion sort (vkládáním)</td>
+<td><span class="math inline">\(O(n^2)\)</span></td>
+<td><img
+src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Insertion-sort-example-300px.gif/220px-Insertion-sort-example-300px.gif" /></td>
+</tr>
+<tr class="odd">
+<td>Selection sort</td>
+<td><span class="math inline">\(O(n^2)\)</span></td>
+<td><img
+src="https://upload.wikimedia.org/wikipedia/commons/9/94/Selection-Sort-Animation.gif" /></td>
+</tr>
+<tr class="even">
+<td>Heap Sort</td>
+<td><span class="math inline">\(O(n \log n)\)</span></td>
+<td><img
+src="https://upload.wikimedia.org/wikipedia/commons/4/4d/Heapsort-example.gif" /></td>
+</tr>
+<tr class="odd">
+<td>Merge sort</td>
+<td><span class="math inline">\(O(n \log n)\)</span></td>
+<td><img
+src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Merge_sort_algorithm_diagram.svg/220px-Merge_sort_algorithm_diagram.svg.png" /></td>
+</tr>
+<tr class="even">
+<td>Quick sort</td>
+<td><span class="math inline">\(O(n \log n)\)</span> → <span
+class="math inline">\(O(n^2)\)</span></td>
+<td><img
+src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Partition_example.svg/220px-Partition_example.svg.png" /></td>
+</tr>
+<tr class="odd">
+<td>Counting sort</td>
+<td><span class="math inline">\(O(n*k), k = max číslo\)</span></td>
+<td><img
+src="https://s1.qwant.com/thumbr/0x0/9/8/7a6bc587016fec214106f5e97f87ce32ccf640439c532f6421a3dd6d491c02/counting-sort.gif?u=https%3A%2F%2Fmedia.tenor.com%2FzswbYsLbYqEAAAAd%2Fcounting-sort.gif&amp;q=0&amp;b=1&amp;p=0&amp;a=1" /></td>
+</tr>
+</tbody>
+</table>
+<h2 id="hledání-nejkratších-cest">Hledání nejkratších cest</h2>
+<p><span class="math inline">\(m = |E|, n = |V|\)</span></p>
+<ul>
+<li><p><strong>BFS, DFS</strong> - <span
+class="math inline">\(O(m+n)\)</span></p></li>
+<li><p><strong>Dijkstra</strong> - Hledání nejkratší cesty v
+ohodnoceném, orientovaném grafu bez záporných hran</p>
+<ul>
+<li>složitost: <span class="math inline">\(O((m + n) \log n)\)</span> s
+binární haldou</li>
+<li>ohodnotím vše jako <span class="math inline">\(\infty\)</span>,
+vezmu počát. bod <span class="math inline">\(A\)</span>, podívám se, kam
+jdou jeho hrany, vyberu menší, …</li>
+<li><div class="sourceCode" id="cb4"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>  function Dijkstra(Graph, source):</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>      <span class="cf">for</span> each vertex v <span class="kw">in</span> Graph.Vertices:</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>          dist[v] ← INFINITY</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>          prev[v] ← UNDEFINED</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>          add v to Q</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>      dist[source] ← <span class="dv">0</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>      <span class="cf">while</span> Q <span class="kw">is</span> <span class="kw">not</span> empty:</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>          u ← vertex <span class="kw">in</span> Q <span class="cf">with</span> <span class="bu">min</span> dist[u]</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>          remove u <span class="im">from</span> Q</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>          <span class="cf">for</span> each neighbor v of u still <span class="kw">in</span> Q:</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>              alt ← dist[u] <span class="op">+</span> Graph.Edges(u, v)</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>              <span class="cf">if</span> alt <span class="op">&lt;</span> dist[v]:</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>                  dist[v] ← alt</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>                  prev[v] ← u</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>      <span class="cf">return</span> dist[], prev[]</span></code></pre></div></li>
+<li><img
+src="https://s2.qwant.com/thumbr/0x380/d/2/82f58ea5a7bf35d4549d8bd0f4fc67c4172ac73423856062d121fdfba5ca4e/dijkstra.gif?u=https%3A%2F%2Fsurfingthecode.com%2Fimg%2Fdijkstra.gif&amp;q=0&amp;b=1&amp;p=0&amp;a=1" /></li>
+</ul></li>
+<li><p><strong>Bellman-Ford</strong> - Hledání nejkratší cesty v
+ohodnoceném, orientovaném grafu včetně záporných hran</p>
+<ul>
+<li>složitost: <span class="math inline">\(O(m \cdot n)\)</span></li>
+<li>začnu na poč. bodu <span class="math inline">\(A\)</span>, podívám
+se na hrany, aktualizuju vrcholy,</li>
+<li>Mám n-1 fází, v každé fázi provádím standartní relaxaci na každém
+vrcholu, vždy začínám od počátečního</li>
+</ul>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>function bellmanFord(G, S)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> each vertex V <span class="kw">in</span> G</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  distance[V] <span class="op">&lt;-</span> infinite</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  previous[V] <span class="op">&lt;-</span> NULL</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>distance[S] <span class="op">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="im">from</span> <span class="dv">1</span> to size(V)<span class="op">-</span><span class="dv">1</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> each edge (U,V) <span class="kw">in</span> G</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    tempDistance <span class="op">&lt;-</span> distance[U] <span class="op">+</span> edge_weight(U, V)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> tempDistance <span class="op">&lt;</span> distance[V]</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>      distance[V] <span class="op">&lt;-</span> tempDistance</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>      previous[V] <span class="op">&lt;-</span> U</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> each edge (U,V) <span class="kw">in</span> G</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  If distance[U] <span class="op">+</span> edge_weight(U, V) <span class="op">&lt;</span> distance[V]</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    Error: Negative Cycle Exists</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="cf">return</span> distance[], previous[]</span></code></pre></div>
+<ul>
+<li><img
+src="https://s2.qwant.com/thumbr/700x0/e/a/347e46333a213704c2b88d92b71f751c90e71860d04cf55b6cf9caee405f81/1*1uN5vzAA0PvZVND8fu5iig.gif?u=https%3A%2F%2Fmiro.medium.com%2Fmax%2F1494%2F1*1uN5vzAA0PvZVND8fu5iig.gif&amp;q=0&amp;b=1&amp;p=0&amp;a=1" /></li>
+</ul></li>
+<li><p><strong>Floyd-Warshall</strong> - Hledání všech nejkratších cesty
+v ohodnoceném orientovaném grafu</p>
+<ul>
+<li><p>složitost: <span class="math inline">\(O(n^3)\)</span> -
+porovnává všechny cesty mezi všemi dvojicemi vrcholů</p></li>
+<li><p>sestavíme matici sousednosti</p></li>
+<li><p><code>for k; for i; for j:</code> - <code>if</code> <span
+class="math inline">\(dist[i][j]&gt;dist[i][k]+dist[k][j] \implies
+dist[i][j]=dist[i][k]+dist[k][j]\)</span></p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>let dist be a <span class="op">|</span>V<span class="op">|</span> × <span class="op">|</span>V<span class="op">|</span> array of minimum distances initialized to ∞ (infinity)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> each edge (u, v) do</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  dist[u][v] ← w(u, v) <span class="op">//</span> The weight of the edge (u, v)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> each vertex v do</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  dist[v][v] ← <span class="dv">0</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k <span class="im">from</span> <span class="dv">1</span> to <span class="op">|</span>V<span class="op">|</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> i <span class="im">from</span> <span class="dv">1</span> to <span class="op">|</span>V<span class="op">|</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="im">from</span> <span class="dv">1</span> to <span class="op">|</span>V<span class="op">|</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> dist[i][j] <span class="op">&gt;</span> dist[i][k] <span class="op">+</span> dist[k][j]</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>        dist[i][j] ← dist[i][k] <span class="op">+</span> dist[k][j]</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>      end <span class="cf">if</span></span></code></pre></div></li>
+<li><p><img
+src="https://s1.qwant.com/thumbr/0x380/a/c/74de7c597f215d0aff160dd4ae6963a039a37457ccaee0c0754d440cff9261/39281395-51c2ef60-48d2-11e8-81b5-02ebd87b9aca.PNG?u=https%3A%2F%2Fuser-images.githubusercontent.com%2F32994398%2F39281395-51c2ef60-48d2-11e8-81b5-02ebd87b9aca.PNG&amp;q=0&amp;b=1&amp;p=0&amp;a=0" /></p></li>
+</ul></li>
+<li><p><strong>hledání cyklů</strong> - DFS - ukládáme navštívené
+vrcholy, nesmíme se dostat na navštívený 2x</p></li>
+</ul>
+<h2 id="hledání-minimálních-koster">Hledání minimálních koster</h2>
+<ul>
+<li><p><strong>Borůvka</strong> - složitost: <span
+class="math inline">\(O(m \log n)\)</span></p>
+<ul>
+<li>funguje paralelně, nejdřív les se stromy o jednom vrcholu</li>
+<li>po k-té fázi h má každý stromeček alespoň <span
+class="math inline">\(2^h\)</span> vrcholů</li>
+<li>vezmu popořadě vždy vrchol a k němu nejmenší dosažitelnou hranu mezi
+vrcholem a zbytkem grafu</li>
+<li><img
+src="https://upload.wikimedia.org/wikipedia/commons/2/2e/Boruvka%27s_algorithm_%28Sollin%27s_algorithm%29_Anim.gif" /></li>
+</ul></li>
+<li><p><strong>Kruskal</strong> - složitost: <span
+class="math inline">\(O(m \log m)\)</span></p>
+<ul>
+<li>nejdřív les se stromy o jednom vrcholu</li>
+<li>beru vždy nejmenší hranu, dokud nedostaneme cyklus, pak bereme
+jinou</li>
+<li><img
+src="https://s2.qwant.com/thumbr/0x0/6/c/ec437b30c3250407167067f44dee35ecdb2de53c63d8124e646f78c554d208/kruskal.gif?u=https%3A%2F%2Fvelog.velcdn.com%2Fimages%2Fuoayop%2Fpost%2Fdefe90c6-4e3a-4b0f-a43f-4c775cd6b866%2Fkruskal.gif&amp;q=0&amp;b=1&amp;p=0&amp;a=1" /></li>
+</ul></li>
+<li><p><strong>Jarník</strong> - složitost: <span
+class="math inline">\(O(n^2)\)</span>, reprezentace v binární haldě
+<span class="math inline">\(O(n\log n + m \log m)\)</span></p>
+<ul>
+<li>vezmi si vrchol, podívám se na hrany, vezmu tu nejmenší dosažitelnou
+a jdu do ní, pokračuju…</li>
+<li><img
+src="https://s1.qwant.com/thumbr/0x0/9/d/cc1c532f6de16d483194dea0ac419696dbf239a4a1529f29a1e0ab1ef8fc5b/graphs-in-python-minimum-spanning-trees-prims-algorithm-8.gif?u=https%3A%2F%2Fs3.stackabuse.com%2Fmedia%2Farticles%2Fgraphs-in-python-minimum-spanning-trees-prims-algorithm-8.gif&amp;q=0&amp;b=1&amp;p=0&amp;a=1" /></li>
+</ul></li>
+</ul>
+<h2 id="stromové-datové-struktury-a-algoritmy-na-nich">Stromové datové
+struktury a algoritmy na nich</h2>
+<ul>
+<li><strong>BVS</strong> - binární strom,
+<code>search, find, delete</code> průměrně v <span
+class="math inline">\(O(\log n)\)</span>, nejhůř v <span
+class="math inline">\(O(n)\)</span>
+<ul>
+<li>každý uzel max dva potomky</li>
+<li>každému uzlu přiřazen určitý klíč - podle hodnot klíčů jsou uzly
+uspořádány.</li>
+<li>levé dítě má menší hodnotu klíče než jeho rodič, pravý naopak
+větší</li>
+<li><img
+src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Binary_search_tree.svg/180px-Binary_search_tree.svg.png" /></li>
+</ul></li>
+</ul>
+<table>
+<colgroup>
+<col style="width: 29%" />
+<col style="width: 39%" />
+<col style="width: 30%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Insert</th>
+<th>Delete</th>
+<th>Find</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><img
+src="https://blog.penjee.com/wp-content/uploads/2015/11/binary-search-tree-insertion-animation.gif" /></td>
+<td><img
+src="https://1.bp.blogspot.com/-NEDj-KtZUGM/YLhtRv-PNGI/AAAAAAAAOvM/UY0WmAxsHSI4kmGeXnelQF4v3lRBLFVPQCLcBGAsYHQ/s320/delete_bst.gif" /></td>
+<td><img
+src="https://blog.penjee.com/wp-content/uploads/2015/11/binary-search-tree-sorted-array-animation.gif" /></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>AVL-strom</strong> - binární strom,
+<code>search, find, delete</code> nejhůř v <span
+class="math inline">\(O(\log n)\)</span>
+<ul>
+<li>každý uzel max 2 potomky</li>
+<li>levé dítě má menší hodnotu klíče než jeho rodič, pravý naopak
+větší</li>
+<li>délka nejdelší větve levého a pravého podstromu každého uzlu se liší
+nejvýše o 1 (<em>vyvážení</em>)</li>
+<li><img
+src="https://programmingpraxis.files.wordpress.com/2011/11/avl_tree_rebalancing.png" /></li>
+</ul></li>
+<li><strong><span class="math inline">\((a, b)\)</span>-strom</strong> -
+není binární strom, platí <span class="math inline">\(2 \leq a \leq
+\frac{b+1}2\)</span>
+<ul>
+<li>kořen nejméně dvě děti, nejvýše <span
+class="math inline">\(b\)</span> dětí, pokud není listem.</li>
+<li>všechny vnitřní vrcholy krom kořene mají alespoň <span
+class="math inline">\(a\)</span> a nejvýše <span
+class="math inline">\(b\)</span> potomků.</li>
+<li>všechny listy jsou na stejné úrovni, tzn. všechny cesty z kořene do
+libovolného listu mají stejnou délku.</li>
+<li><span class="math inline">\(b\)</span> chceme obvykle jako <span
+class="math inline">\(2a +1\)</span> nebo <span
+class="math inline">\(2a\)</span>, ideální $(2,3) nebo <span
+class="math inline">\((2,4)\)</span></li>
+<li>na disku <span class="math inline">\((256, 512)\)</span>, cache
+<span class="math inline">\((4, 8)\)</span></li>
+<li>vhodné pro velký objem dat, snižuje počet operací na disku -
+ukládání na RAM</li>
+<li><img
+src="https://s1.qwant.com/thumbr/0x0/8/d/2bc954f60f2e22f19fe5efb1ec2aa02983cdfa4b8797efab9a4c1195834555/b-tree.png?u=https%3A%2F%2Fstatic.javatpoint.com%2Fds%2Fimages%2Fb-tree.png&amp;q=0&amp;b=1&amp;p=0&amp;a=0" /></li>
+</ul></li>
+<li><strong>Union find</strong> - používaná pro efektivní reprezentaci
+disjunktních množin, při hledání komponent v grafu a implementaci
+operací jako spojení (union) a nalezení (find).
+<ul>
+<li><code>union</code> dvou množin probíhá tak, že se najde kořen
+každého stromu (množiny), ke kterému se připojí menší strom, aby se
+minimalizovala hloubka nového stromu a tím i celková složitost
+operací.</li>
+<li><code>find</code> pak slouží k určení kořene daného prvku a tedy ke
+zjištění, zda dva prvky náleží do stejné množiny.</li>
+</ul></li>
+</ul>
+<h2 id="dynamické-programování">Dynamické programování</h2>
+<p>Řešení úlohy se skládá z řešení menších podúloh, která jsme si
+vypočetli a zapamatovali. Zkoušíme všechny možnosti rozdělení a vybíráme
+to nejlepší. Pěkný abstraktní pohled, že mám systém podproblémů (tzv.
+stavy DP) a ty mezi sebou mají nějaké závislosti, které tvoří DAG
+Princip DP je projít stavy v topologickém pořadí.</p>
+<ul>
+<li><p><strong>Optimální substruktura</strong> - optimální řešení
+problému lze zrekonstruovat z optimálních řešení jeho
+podproblémů</p></li>
+<li><p><strong>Rekurze</strong> - proces, který volá opakovaně sebe
+sama</p></li>
+<li><p><strong>Memoizace</strong> - rekurze s ukládáním výsledků pro
+pozdější použití, aby se nemusel provádět výpočet znovu</p></li>
+</ul>
+<p>Zobecnění principů dynamického programování:</p>
+<ol type="1">
+<li>Začneme s exponenciálním algoritmem</li>
+<li>Všimneme si, že často počítáme to samé</li>
+<li>Zavedeme si proto paměť na známé výsledky</li>
+<li>Rekurzi nahradíme vyplňování keše ve správném pořadí</li>
+</ol>
+<p>Techniky:</p>
+<ul>
+<li><strong>Memoizace</strong> - Top Down, rekurzivní, ukládáme si
+vypočítané výsledky od keše</li>
+<li><strong>Tabulace</strong> - Bottom Up, iterativní, od nejmenšího po
+největší</li>
+</ul>
+<h3 id="příklady">Příklady</h3>
+<ul>
+<li><p><strong>Závorkování násobení matic</strong></p>
+<ul>
+<li><span class="math inline">\(O(n^3)\)</span></li>
+<li>Násobení 2 matic <span class="math inline">\(A(m*n)\)</span> a <span
+class="math inline">\(B(n*p)\)</span> stojí <span
+class="math inline">\(m*n*p\)</span> operací</li>
+<li>Pro násobení matic platí asocitivita</li>
+<li>pokud <span class="math inline">\(i=j\)</span>, tak <span
+class="math inline">\(m(i,j) = 0\)</span></li>
+<li>pokud <span class="math inline">\(i\neq j\)</span>, tak <span
+class="math inline">\(m(i,j) = \min [m(i,k), + m(k+1, j) +
+p_{i-1}p_kp_j]\)</span>, kde <span class="math inline">\(k\in [i,
+j-1]\)</span></li>
+</ul></li>
+<li><p><strong>Celočíselný problém batohu (0-1 Knapsack)</strong></p>
+<ul>
+<li>O(C*n) - lze problém omezit polynomem, ne velikostí vstupu</li>
+<li>Máme batoh, který má pevně danou nosnost. Máme množinu věcí, které
+mají svoji cenu a hmotnost. Úkolem je dát do batohu některé věci tak,
+aby součet vah nepřekročil nosnost a přitom součet cen byl co
+největší.</li>
+<li>Funguje na základě vyplňování tabulky</li>
+<li>Sloupce reprezentují váhy 0 - maximální váha</li>
+<li>Řádky reprezentují předměty</li>
+<li>Hodnota buňky [i,j] je maximální hodnota z prvních i předmětů s
+celkovou váhou <span class="math inline">\(\leq\)</span> váha j</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="op">//</span> Input:</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="op">//</span> Values (stored <span class="kw">in</span> array v)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="op">//</span> Weights (stored <span class="kw">in</span> array w)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="op">//</span> Number of distinct items (n)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="op">//</span> Knapsack capacity (W)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="op">//</span> NOTE: The array <span class="st">&quot;v&quot;</span> <span class="kw">and</span> array <span class="st">&quot;w&quot;</span> are assumed to store <span class="bu">all</span> relevant values starting at index <span class="fl">1.</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>array m[<span class="fl">0.</span>.n, <span class="fl">0.</span>.W]</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> j <span class="im">from</span> <span class="dv">0</span> to W do:</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    m[<span class="dv">0</span>, j] :<span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="im">from</span> <span class="dv">1</span> to n do:</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    m[i, <span class="dv">0</span>] :<span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="im">from</span> <span class="dv">1</span> to n do:</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="im">from</span> <span class="dv">0</span> to W do:</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> w[i] <span class="op">&gt;</span> j then:</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>            m[i, j] :<span class="op">=</span> m[i<span class="op">-</span><span class="dv">1</span>, j]</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>            m[i, j] :<span class="op">=</span> <span class="bu">max</span>(m[i<span class="op">-</span><span class="dv">1</span>, j], m[i<span class="op">-</span><span class="dv">1</span>, j<span class="op">-</span>w[i]] <span class="op">+</span> v[i])</span></code></pre></div>
+<ul>
+<li><img
+src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Knapsack_problem_dynamic_programming.gif/440px-Knapsack_problem_dynamic_programming.gif" /></li>
+</ul>
+<h2 id="diskrétní-simulace">Diskrétní simulace</h2>
+<p>Využívá se ke zkoumání a analýze chování složitých systémů - jsou
+závislé na čase, instrukcích apod. Umožňují testování různých scénářů za
+různých podmínek… používá se převážně v dopravě, logistice atd. Čas je
+modelován jako posloupnost událostí. Provádí se v krocích, kde každý
+krok reprezentuje nějaký okamžik, ve kterém se odehrávají dané události.
+V každém kroku jsou vyhodnoceny všechny události ve frontě.</p>
+<p><strong>Složky diskrétní simulace</strong></p>
+<ul>
+<li>Simulační jádro</li>
+<li>Čas</li>
+<li>Události</li>
+<li>Kalendář / Fronta událostí - kdy události mají nastat, přidávat a
+ubírat události</li>
+<li>Výstup / Statistiky - čas konce simulace</li>
+<li>Koncové podmínky - prázdný kalendář</li>
+</ul>
+<p><strong>Stavy procesů</strong></p>
+<ul>
+<li>Naplánovaný - čeká v kalendáři</li>
+<li>Čeká (pasivní) - čeká na probuzení</li>
+<li>Běží - obsluhován jako událost</li>
+<li>Ukončený - doběhl a je bez událostí</li>
+</ul>
+<p><strong>Programování řízené událostmi</strong> - hlavní část programu
+reaguje na události (uživatelské vstupy, data). Jaké akce by měly být
+vyvolány jako reakce na tyto události.</p>
+<p><strong><em>Příklad z hodiny - Obchodní dům:</em></strong> Jeden
+stav/ událost = příchod zákazníka, čas strávený v obchodě, čas ve výtahu
+apod.</p>
+<h2 id="objektivně-orientované-programování">Objektivně orientované
+programování</h2>
+<ul>
+<li><strong>OOP</strong> - zaměření se na organizaci kódu kolem objektů.
+Umožňuje abstrakci dat, takže minimum opakujícího se kódu. Díky tomu
+může být kód snadno program udržován a rozšířen.</li>
+<li><strong>Třídy</strong> - abstraktní popis objektů, který určuje,
+jaké proměnné objekt obsahuje a jaké metody má k dispozici.</li>
+<li><strong>Objekty</strong> - instance třídy, která má své vlastní
+specifické stavy a chování.</li>
+<li><strong>Zapouzdření</strong> - mechanismus, který umožňuje skrýt
+interní implementaci třídy a zpřístupnit ji pouze prostřednictvím
+veřejných metod</li>
+<li><strong>Dědičnost</strong> - sdílení vlastností tříd - umožňuje
+vytvářet nové třídy na základě existujících tříd s přidanými nebo
+upravenými vlastnostmi a metodami.</li>
+<li><strong>Dolymorfismus</strong> - schopnost objektů různých typů
+vykonávat stejnou operaci s různým chováním</li>
+</ul>
+<h3 id="dekompozice">Dekompozice</h3>
+<ul>
+<li>rozložení složitého celku na menší, snadno řešitelné části</li>
+<li><strong>Modulární dekompozice</strong> - rozdělení systému na menší,
+snadněji spravovatelné a testovatelné moduly, které jsou navzájem
+nezávislé a provádějí jasně definované úkoly. Umožňuje programátorům
+oddělit různé části aplikace do samostatných modulů, což zlepšuje
+přehlednost, udržovatelnost a opětovné použití kódu.</li>
+<li><strong>Funkční dekompozice</strong> - rozdělení funkcionality do
+menších samostatných celků, které jsou snadněji udržovatelné a
+testovatelné.
+<ul>
+<li><em>Třídy</em></li>
+<li><em>Abstraktní třídy</em>: nemohou být přímo instancovány, ale
+slouží jako základ pro další třídy. Tyto třídy definují společné
+vlastnosti a metody, které se používají v různých verzích a
+specializacích tříd.</li>
+<li><em>Rozhraní</em>: speciální abstraktní třídy, které definují sadu
+veřejných metod, které musí být implementovány třídami, které rozhraní
+používají. Umožňují oddělit implementaci od rozhraní a usnadnit vývoj a
+údržbu kódu.</li>
+<li><em>Kompozice</em>: skládá třídy z jiných tříd, čímž se dosáhne
+složitějších funkcionalit. Například třída “auto” může být složena z
+tříd pro motor, palivový systém a podvozek.</li>
+</ul></li>
+<li><strong>Objektová dekompozice</strong>
+<ul>
+<li><em>Agregace</em>:umožňu je seskupit několik objektů do většího
+celku, přičemž tyto objekty si zachovávají svou autonomii a mohou být
+použity v různých kontextech.</li>
+<li>Kompozice, Zapouzdření, Dědičnost</li>
+<li>SOLID</li>
+</ul></li>
+</ul>
+<h2 id="generické-programování---c">Generické programování - C</h2>
+<ul>
+<li><p><strong>Generické funkce a třídy</strong> -typy funkcí/ tříd
+umožňující definovat obecné typy nezávislé na konkrétních datových
+typech. To znamená, že můžete napsat jednu funkci nebo třídu, která může
+pracovat s různými typy dat, aniž byste museli psát samostatnou verzi
+pro každý typ.</p>
+<ul>
+<li><em>Zjednodušení kódu a snadnější údržba</em> - místo opakovaného
+psaní kódu pro různé datové typy můžeme použít jednu obecnou funkci nebo
+třídu pro všechny typy.</li>
+<li><em>Znovupoužitelnost</em> - užitečné pro knihovny/ frameworky, kde
+se očekává, že budou použity s různými datovými typy.</li>
+<li><em>Bezpečnost typů</em> -umožňují kompilátoru ověřit, zda jsou
+argumenty funkce/ třídy správného typu, což může pomoci zabránit chybám
+při běhu programu.</li>
+<li>Generická funkce - funkce pro seřazení pole, která pracuje s
+libovolným typem dat.</li>
+<li>Generická třídy - kolekce, jako je seznam nebo slovník, která může
+uchovávat libovolný typ dat.</li>
+</ul></li>
+<li><p><strong>delegáty</strong> - typ reference na metodu nebo seznam
+metod, který umožňuje předat funkci jako argument do jiného kódu a
+zavolat ji později. Běžně používány pro události, kde se jedna část kódu
+musí ozvat druhé části, že nastala určitá událost.</p>
+<ul>
+<li>lze definovat jako třídy, které obsahují odkaz na metodu s
+konkrétním signaturou. To znamená, že delegát může být použit ke
+směrování na metodu s určitým počtem parametrů a návratových hodnot.
+Pokud potřebujete volat více metod najednou, můžete použít multicastový
+delegát, což je delegát, který dokáže směrovat více metod současně.</li>
+<li><em>Oddělení logiky</em> - Kód, který spouští událost, nemusí vědět,
+jaké operace budou vykonány při jejím zpracování. Tuto logiku lze
+oddělit a implementovat v jiném místě pomocí delegátů.</li>
+<li><em>Flexibilita</em> - Delegáty umožňují dynamicky změnit chování
+programu během běhu. Například můžete přidávat a odebírat metody ze
+seznamu delegátů v závislosti na událostech, které se vyskytují.</li>
+<li><em>Opakované použití</em> - Delegáty mohou být opakovaně použity
+pro různé účely, což eliminuje potřebu psát stejný kód vícekrát.</li>
+<li>Běžně používány pro zachycení událostí uživatelského rozhraní (např.
+kliknutí tlačítka).</li>
+</ul></li>
+</ul>
+<h2 id="hashovací-tabulky">Hashovací tabulky</h2>
+<ul>
+<li>find v <span class="math inline">\(O(1)\)</span></li>
+<li>máme nějaké univerzum klíčů <span class="math inline">\(U\)</span> a
+klíče <span class="math inline">\(K\)</span> - každému klíči je
+přiřazena nějaká hodnota (hash) - neboli klíč se převede na číslo</li>
+<li>kolizi můžeme řešit např. řetězením - “spoják” nebo otevřenou
+adreasí - při kolizi hledám nejbližší volné místo</li>
+<li>vhodné pro implementaci slovníku, cache pamětí, databází apod.</li>
+</ul>
+<hr />
+<blockquote>
+<p>K tvorbě dokumentu přispěl Matěj Foukal</p>
+</blockquote>
+</body>
+</html>
