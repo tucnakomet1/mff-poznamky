@@ -1,7 +1,7 @@
 import os
 import semestr.convertor as convertor
 
-for i in range(4, 6):
+for i in range(6, 7):
     folder = f"semestr/{i}"
     pandoc_cmd = f"pandoc -s -f markdown -t html5 -o {folder}/html.html {folder}/README.md -c ../../theme.css"
     os.system(pandoc_cmd)
