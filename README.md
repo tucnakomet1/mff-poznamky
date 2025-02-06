@@ -1,4 +1,8 @@
 
+> [!IMPORTANT]  
+> Za správnost neručím. V některých materiálech jsou chyby. *(o některých chybách vím, ale byl jsem líný je opravit).*
+
+
 ## Obsah
  
 Zpracované otázky ke zkouškám a zápisky z hodin. Ve složce pro daný semestr jsou i materiály k dalším předmětům, na které jsem chodil.
