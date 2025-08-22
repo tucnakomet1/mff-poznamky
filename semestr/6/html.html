@@ -4,14 +4,22 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>README</title>
+  <title>OI - 6. semestr</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
     .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
   <link rel="stylesheet" href="../../theme.css" />
@@ -23,45 +31,69 @@
 <h2 id="předměty">Předměty</h2>
 <table>
 <colgroup>
-<col style="width: 20%" />
-<col style="width: 20%" />
-<col style="width: 20%" />
-<col style="width: 20%" />
-<col style="width: 20%" />
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Předmět</th>
+<th>Numerická matematika</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Soubor</td>
+<td><a href="predmety/numerika.pdf">Zápisky z hodin [pdf]</a></td>
+</tr>
+<tr class="even">
+<td>Zdroják</td>
+<td><a href="predmety/numerika.zip">Zdrojak</a></td>
+</tr>
+<tr class="odd">
+<td>Poznámka</td>
+<td>Zápisky byly převedeny z ručně psaných poznámek do TeXu za pomoci
+AI. Něco chybí, někde jsou chyby a vím o nich. Takže bacha :) .</td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
 </colgroup>
 <thead>
 <tr class="header">
 <th>Předmět</th>
 <th>Automaty a gramatiky</th>
 <th>Diskrétní a spojitá optimalizace</th>
-<th>Numerická matematika</th>
-<th>Matematická kryptografie a kryptoanalýza II</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Soubor</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>Anki</td>
+<td><a href="predmety/TočímeMaty.apkg">Anki</a></td>
+<td><a href="predmety/DSO.apkg">Anki - diskrétní + spojitá část</a></td>
 </tr>
 <tr class="even">
-<td>Zdroják</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>Soubory + Odkazy</td>
+<td><a href="predmety/TocimeMaty.pdf">Celý text k přednášce</a></td>
+<td><a href="https://dominik.whizzmot.dev/notes/disco/">příprava na
+zkoušku diskrétní část</a>, <a
+href="https://slama.dev/assets/diskretni-a-spojita-optimalizace.pdf">poznámky
+diskrétní část</a>, <a
+href="https://kam.mff.cuni.cz/~hladik/DSO/text_dso.pdf">skripta spojitá
+část</a></td>
 </tr>
 <tr class="odd">
-<td>Odkazy</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>Poznámka</td>
+<td>Anki: Matěj Prokopič</td>
+<td>Anki: Matěj Prokopič + Lukáš Veškrna</td>
 </tr>
 </tbody>
 </table>
+<p><em>DSO ve třeťáku s jediným šibeničním termínem před státnicema be
+like:</em> <img src="predmety/loebl.gif" alt="Loebl" /></p>
 </body>
 </html>
 
@@ -70,7 +102,6 @@
         <tr>
             <th>Čas / Den</th>
             <th> 9:00</th>
-        <th> 9:50</th>
         <th> 10:40</th>
         <th> 12:20</th>
         <th> 14:00</th>
@@ -79,14 +110,14 @@
     <tr>
         <th>Po</th>
         <td></td>
-        <td colspan='2'><b>Seminář z astronomie</b><br><i> Kříček Radek</i></td>
+        <td></td>
         <td></td>
         <td><b>Automaty a gramatiky</b><br><i> Vomlelová Marta</i></td>
         <td></td>
     </tr>
     <tr>
         <th>Út</th>
-        <td colspan='2'><b>Numerická matematika</b><br><i> Pozza Stefano</i></td>
+        <td><b>Numerická matematika</b><br><i> Pozza Stefano</i></td>
         <td>Diskrétní a spojitá optimalizace<br><i> Loebl Martin</i></td>
         <td></td>
         <td></td>
@@ -94,7 +125,6 @@
     </tr>
     <tr>
         <th>St</th>
-        <td></td>
         <td></td>
         <td>Automaty a gramatiky<br><i> Vomlelová Marta</i></td>
         <td></td>
@@ -105,14 +135,12 @@
         <th>Čt</th>
         <td></td>
         <td></td>
-        <td></td>
         <td><b>Matematická kryptografie a kryptoanalýza II</b><br><i> Bartová Veronika</i></td>
         <td></td>
         <td></td>
     </tr>
     <tr>
         <th>Pá</th>
-        <td></td>
         <td></td>
         <td>Numerická matematika<br><i> Pozza Stefano</i></td>
         <td></td>
