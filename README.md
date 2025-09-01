@@ -14,7 +14,7 @@ Zpracované otázky ke zkouškám a zápisky z hodin. Ve složce pro daný semes
 
 ## Státnice OI
 
-Pokusil jsem se zpracovat [požadavky pro rok 2024/25](https://www.mff.cuni.cz/cs/studenti/bakalarske-studium/statni-zaverecne-zkousky/bakalarske-statni-zkousky-studijniho-programu-informatika). Je to dělané v TeXu. Čerpal jsem z mnoha zdrojů a jsou sepsané relativně narychlo, takže za nic neručím (především informatickou sekci jsem celkem odfláknul). Nicméně může posloužit, snad, jako relativně dobrý zdroj.
+Pokusil jsem se zpracovat [požadavky pro rok 2024/25](https://www.mff.cuni.cz/cs/studenti/bakalarske-studium/statni-zaverecne-zkousky/bakalarske-statni-zkousky-studijniho-programu-informatika). Je to dělané v TeXu. Čerpal jsem z mnoha zdrojů a za nic neručím (především informatickou sekci jsem celkem odfláknul). Nicméně může posloužit, snad, jako relativně dobrý zdroj.
 
 | Soubor | Zdroják v TeXu | Odkazy a další zdroje |
 |--------|---------|---------------|
