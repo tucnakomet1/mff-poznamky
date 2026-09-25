@@ -6,10 +6,10 @@ Letní semestr 2023/2024
 
 ## Předměty
 
-Předmět | Matematická analýza III | Aplikovaná kryptografie | Lineární programování a kombinatorická optimalizace |
-| --- | --- | --- | --- | --- |
-| Soubor | [Zkouška zpracované otázky - Klazar [pdf]](predmety/ma3.pdf)| [Zkouška příprava - Töpfer [pdf]](predmety/ak.pdf) |  [Zkouška příprava [pdf]](predmety/udk.pdf) | [Zkouška zpracované otázky - Loebl [pdf]](predmety/linprog.pdf)
-| Zdroják | [Zdrojak [tex]](predmety/ma3.tex) | [Zdrojak [tex]](predmety/ak.tex)  | [Zdrojak [tar]](predmety/linprog.tar)
+| Předmět | Matematická analýza III | Aplikovaná kryptografie | Lineární programování a kombinatorická optimalizace |
+| --- | --- | --- | --- |
+| Soubor | [Zkouška zpracované otázky - Klazar [pdf]](predmety/ma3.pdf)| [Zkouška příprava - Töpfer [pdf]](predmety/ak.pdf) |  [Zkouška zpracované otázky - Loebl [pdf]](predmety/linprog.pdf) |
+| Zdroják | [Zdrojak [tex]](predmety/ma3.tex) | [Zdrojak [tex]](predmety/ak.tex)  | [Zdrojak [tar] ](predmety/linprog.tar)|
 | Odkazy | [Zápisky z přednášek](https://github.com/3O11/ma3-poznamky) | | |
 
 Předmět | Teorie množin | Kombinatorika a grafy II | Pravděpodobnost a statistika I |
