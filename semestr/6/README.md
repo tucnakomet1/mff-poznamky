@@ -1,4 +1,4 @@
-[Domů](../../index.html)
+[← Zpět](../../index.html){.back-button}
 
 # 6. semestr
 

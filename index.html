@@ -8,16 +8,25 @@
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
     .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
   <link rel="stylesheet" href="theme.css" />
 </head>
 <body>
+<a href="https://tucnakomet1.github.io/" class="back-button">← Zpět</a>
 <header id="title-block-header">
 <h1 class="title" style="text-align: center;">MFF - Poznámky a materiály</h1>
 <p class="author" style="text-align: center;">
@@ -27,18 +36,24 @@
 </p>
 <p class="email" style="text-align: center;"><a href="mailto:karel.velicka@protonmail.com">karel.velicka@protonmail.com</a></p>
 </header>
-
-<h2 id="obsah">Bakalářské studium (IPP Obecná Informatika)</h2>
+<blockquote class="alert alert-important">
+<div class="alert-title">❗ Důležité</div>
+<p>Za správnost neručím. V některých materiálech jsou chyby. <em>(o
+některých chybách vím, ale jsem líný je opravit).</em></p>
+</blockquote>
+<h2 id="bakalářské-studium-ipp-obecná-informatika">Bakalářské studium
+(IPP Obecná Informatika)</h2>
 <p>Zpracované otázky ke zkouškám a zápisky z hodin. Ve složce pro daný
-semestr jsou i materiály k dalším předmětům, na které jsem chodil.</p>
+semestr jsou i materiály k dalším předmětům (než zde vypsaným), na které
+jsem chodil.</p>
 <table>
 <colgroup>
+<col style="width: 16%" />
 <col style="width: 15%" />
-<col style="width: 15%" />
-<col style="width: 15%" />
-<col style="width: 15%" />
-<col style="width: 18%" />
-<col style="width: 18%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 17%" />
+<col style="width: 16%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -75,7 +90,7 @@ semestr jsou i materiály k dalším předmětům, na které jsem chodil.</p>
 </tr>
 <tr class="odd">
 <td>Diskrétní matematika</td>
-<td>Úvod do kryptografie</td>
+<td>Lineární algebra II</td>
 <td>Ochrana informací I</td>
 <td>Aplikovaná kryptografie</td>
 <td>Úvod do teorie čísel</td>
@@ -88,23 +103,75 @@ semestr jsou i materiály k dalším předmětům, na které jsem chodil.</p>
 <td>Úvod do kryptografie (Karlín)</td>
 <td>Fraktály a chaotická dynamika</td>
 <td></td>
+</tr>
 </tbody>
 </table>
-
-<h2 id="státnice">Státnice OI</h2>
-<p>Pokusil jsem se zpracovat <a href="https://www.mff.cuni.cz/cs/studenti/bakalarske-studium/statni-zaverecne-zkousky/bakalarske-statni-zkousky-studijniho-programu-informatika">požadavky pro rok 2024/25</a>.
-Je to dělané v TeXu. Je to dělané v TeXu. Čerpal jsem z mnoha zdrojů a za nic neručím (především informatickou sekci jsem celkem odfláknul). Nicméně může posloužit, snad, jako relativně dobrý zdroj.</p>
-
+<hr />
+<h2
+id="magisterské-studium-diskrétní-modely-a-algoritmy-matematika-pro-informační-technologie">Magisterské
+studium (Diskrétní modely a algoritmy + Matematika pro informační
+technologie)</h2>
+<p>Zpracované otázky ke zkouškám a zápisky z hodin. Ve složce pro daný
+semestr jsou i materiály k dalším předmětům (než zde vypsaným), na které
+jsem chodil.</p>
 <table>
 <colgroup>
-<col style="width: 15%" />
-<col style="width: 15%" />
-<col style="width: 18%" />
+<col style="width: 34%" />
+<col style="width: 32%" />
+<col style="width: 32%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><a href="semestr/7/html.html">7. semestr</a> - <em>ZS
+2025/2026</em></th>
+<th><a href="semestr/8/html.html">8. semestr</a> <em>LS
+2025/2026</em></th>
+<th><a href="semestr/9/html.html">9. semestr</a> <em>ZS
+2026/2027</em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Algoritmy na mřížích</td>
+<td>Standardy a kryptografie</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Algoritmy na polynomech</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Výpočetní logika</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Konvexní optimalizace</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="státnice-oi">Státnice OI</h2>
+<p>Pokusil jsem se zpracovat <a
+href="https://www.mff.cuni.cz/cs/studenti/bakalarske-studium/statni-zaverecne-zkousky/bakalarske-statni-zkousky-studijniho-programu-informatika">požadavky
+pro rok 2024/25</a>. Je to dělané v TeXu. Čerpal jsem z mnoha zdrojů a
+za nic neručím (především informatickou sekci <em>programovací
+jazyky</em> a <em>architekturu PC</em> jsem celkem odfláknul). Nicméně
+může posloužit, snad, jako relativně dobrý zdroj.</p>
+<table>
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 19%" />
+<col style="width: 31%" />
+<col style="width: 31%" />
 </colgroup>
 <thead>
 <tr class="header">
 <th>Soubor</th>
 <th>Zdroják v TeXu</th>
+<th>Webová verze</th>
 <th>Odkazy a další zdroje</th>
 </tr>
 </thead>
@@ -112,11 +179,12 @@ Je to dělané v TeXu. Je to dělané v TeXu. Čerpal jsem z mnoha zdrojů a za 
 <tr class="odd">
 <td><a href="statnice/statnice_oi.pdf">statnice_oi.pdf</a></td>
 <td><a href="statnice/statnice_oi.zip">statnice_oi.zip</a></td>
-<td>
-    <a href="https://mff.share.grsc.cz/statnice.pdf">Zpracoval Greenscreener</a> |
-    <a href="https://www.vitkolos.cz/node/cards/notes-ipp/main/statnice/">Zpracoval Vítek</a> |
-    <a href="statnice/statnice_2025.apkg">Anki od Lukáše Veškrny</a>
-</td>
+<td><a href="statnice/statnice.html">Zde</a></td>
+<td><a href="https://mff.share.grsc.cz/statnice.pdf">Zpracoval
+Greenscreener</a> | <a
+href="https://www.vitkolos.cz/node/cards/notes-ipp/main/statnice/">Zpracoval
+Vítek</a> | <a href="statnice/statnice_2025.apkg">Anki od Lukáše
+Veškrny</a></td>
 </tr>
 </tbody>
 </table>

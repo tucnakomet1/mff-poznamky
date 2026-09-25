@@ -1,0 +1,960 @@
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[margin=0.7in]{geometry}
+\usepackage{amssymb, amsthm, amsmath, amsfonts}
+\usepackage{array, xcolor, enumitem, graphicx}
+\usepackage{cancel}
+\usepackage{listings}
+\usepackage{subcaption}
+
+\usepackage[czech]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[unicode]{hyperref}
+\usepackage[useregional]{datetime2}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=black,
+	urlcolor=blue,
+	pdftitle={Standardy a kryptografie - Příprava na zkoušku},
+}
+
+
+% zkratky %
+\newtheorem{veta}{Věta}
+\newtheorem{definice}{Definice}
+\newtheorem{tvrzeni}{Tvrzení}
+\newtheorem{lemma}{Lemma}
+\newtheorem{pozorovani}{Pozorování}
+\newtheorem{dusledek}{Důsledek}
+\newtheorem{priklad}{Příklad}
+
+\newcommand{\N}{{\mathbb{N}}}       % prirozena cisla
+\newcommand{\Z}{{\mathbb{Z}}}       % cela cisla
+\newcommand{\Zs}{{\mathbb{Z}_n^*}}  % cela cisla vcetne nekonecna
+\newcommand{\Q}{{\mathbb{Q}}}       % racionalni cisla
+\newcommand{\R}{{\mathbb{R}}}       % realna cisla
+\newcommand{\Cc}{{\mathbb{C}}}      % komplexni cisla
+\newcommand{\F}{{\mathbb{F}}}       % teleso
+\newcommand{\Pp}{{\mathcal{P}}}     % potencni mnozina
+
+\newcommand{\hr}{\begin{center}\par\rule{\textwidth}{0.5pt} \end{center}}
+\newcommand\makesmall{\fontsize{8pt}{11pt}\selectfont}
+
+\renewcommand*{\contentsname}{Obsah}
+\renewcommand*{\proofname}{Důkaz:}
+\renewcommand*{\figurename}{\makesmall Obr.}
+
+\lstset{numbers=left, mathescape=true}
+
+
+% hlavicka
+\setlength{\parindent}{0em}
+
+\title{Standardy a kryptografie - Příprava na zkoušku}
+\date{\today}
+\author{\sc Karel Velička}
+
+\begin{document}
+	\pagenumbering{arabic}
+	\maketitle
+	\tableofcontents
+	\newpage
+	
+	
+	\section{Úvod, vztah norem a standardů, TLP}
+	
+	\subsection{Norma vs. Standard}
+	Rozdíl mezi těmito dvěma pojmy je v odborném prostředí klíčový:
+	
+	\begin{itemize}
+		\item \textbf{Norma:} Oficiální, formální dokument schválený a vydaný uznávanou autoritou (např. ISO, IEC, ...).
+		\begin{itemize}
+			\item Má přísně definovaný proces tvorby, revizí a hlasování.
+			\item Je veřejně dostupná a má silnou právní či smluvní váhu.
+			\item V kontextu kybernetické bezpečnosti (nZKB) definuje \textbf{„co musí být“} (např. ČSN ISO/IEC 27001 určující požadavky na ISMS).
+		\end{itemize}
+		\item \textbf{Standard:} Širší a volnější pojem. Nemusí být schválen žádnou oficiální autoritou a vzniká flexibilně z praxe, komunity nebo trhu.
+		\begin{itemize}
+			\item Závazný je pouze tehdy, pokud ho organizace interně přijme nebo je ukotven ve smlouvě.
+			\item V kontextu nZKB slouží jako dobrá praxe a doporučení \textbf{„jak to udělat efektivně“} (např. CIS Controls).
+		\end{itemize}
+	\end{itemize}
+	
+	\subsection{Standardy 'De Jure' a 'De Facto'}
+	\begin{center}
+		\small
+		\begin{tabular}{|l|p{6.5cm}|p{6.5cm}|}
+			\hline
+			\textbf{Kritérium} & \textbf{De jure (kodifikovaný)} & \textbf{De facto (nekodifikovaný)} \\ \hline
+			\textbf{Definice} & Oficiální norma schválená standardizační autoritou (ISO, ČSN, EN). & Široce používaný standard vzniklý praxí, komunitou nebo trhem. \\ \hline
+			\textbf{Status} & Formální, právně uznatelný dokument. & Neformální, ale často dominantní v praxi. \\ \hline
+			\textbf{Proces vzniku} & Přísný, formální, hlasování, revize, publikace. & Flexibilní, rychlý, řízený komunitou nebo organizací. \\ \hline
+			\textbf{Příklady} & ISO/IEC 27001, ISO/IEC 27002. & MITRE ATT\&CK, CIS Controls, TCP/IP. \\ \hline
+			\textbf{Typ obsahu} & Obecné požadavky, procesy, principy. & Konkrétní techniky, postupy, kontrolní seznamy. \\ \hline
+			\textbf{Závaznost} & Dobrovolná, ledaže na ni odkazuje zákon, vyhláška či smlouva. & Nikdy není právně závazná sama o sobě. \\ \hline
+			\textbf{Stabilita} & Vysoká – revize jednou za několik let. & Nízká až střední – aktualizace podle vývoje hrozeb. \\ \hline
+		\end{tabular}
+	\end{center}
+	
+	\subsection{Závaznost technických norem v ČR}
+	\begin{itemize}
+		\item Technické normy (ČSN) byly v Československu plošně \textbf{obecně závazné DO roku 1991}.
+		\item V rámci transformace na tržní ekonomiku byla \textbf{obecná závaznost zrušena}. Normy jsou od té doby \textbf{dobrovolné}, pokud na ně výslovně neodkazuje právní předpis nebo smlouva.
+		\item \textbf{Vztah k nZKB:} Normy nejsou obecně závazné. Právně závazné jsou pouze požadavky vyhlášky č. 82/2018 Sb. o kybernetické bezpečnosti a souvisejících předpisů.
+	\end{itemize}
+	
+	\subsection{Limity formálních bezpečnostních modelů (D. E. Denning)}
+	Zásadní limity striktních matematických a formálních modelů v IT bezpečnosti:
+	\begin{enumerate}
+		\item \textbf{Teoretické limity:} Nelze vždy matematicky dokázat, že model splňuje všechny bezpečnostní podmínky.
+		\item \textbf{Nepoužitelnost:} Striktní matematické vlastnosti často vedou k systémům, které jsou v reálném provozu nepoužitelné.
+		\item \textbf{Nákladnost:} Budování systémů podle formálních modelů je extrémně drahé a časově náročné (komerční sféra je nevyužívá).
+		\item \textbf{Falešný pocit bezpečí:} Formální metody samy o sobě bezpečnost nezajistí – systémy bývají nejčastěji prolomeny mimo předpoklady samotného modelu.
+		\item \textbf{Závěr:} Reálná budoucnost a flexibilita spočívá v kontinuálním testování (hackeři), doplňkových produktech (firewally, IDS, čipové karty), vzdálených službách třetích stran a rychlém nasazování bezpečnostních záplat.
+	\end{enumerate}
+	
+	\subsection{Traffic Light Protocol (TLP)}
+	Protokol určený pro bezpečné a strukturované sdílení citlivých informací. V ČR je podpořen doporučením NÚKIB. 
+	
+	\textit{Upozornění:} Tento systém nenahrazuje nakládání s utajovanými informacemi ve smyslu zákona č. 412/2005 Sb.
+	
+	\begin{center}
+		\small
+		\begin{tabular}{|l|p{9.0cm}|}
+			\hline
+			\textbf{TLP:RED} & \textbf{Vysoce důvěrné.} Informace nesmí být poskytnuta žádné jiné osobě než té, které byla přímo určena. Další šíření je možné výhradně se souhlasem původce. \\ \hline
+			\textbf{TLP:AMBER+STRICT} & \textbf{Omezené šíření.} Informace může být sdílena výhradně v rámci vlastní organizace příjemce a pouze s osobami, které splňují podmínku \textit{need-to-know}. \\ \hline
+			\textbf{TLP:AMBER} & \textbf{Rozšířené omezené šíření.} Informace může být sdílena v rámci organizace příjemce a také s jejími přímými partnery, striktně na základě \textit{need-to-know}. \\ \hline
+			\textbf{TLP:GREEN} & \textbf{Komunitní sdílení.} Informace může být sdílena v rámci organizace a s partnerskými subjekty, ale \textbf{nikdy ne skrze veřejně dostupné kanály}. Musí být zajištěna důvěrnost komunikace. \\ \hline
+			\textbf{TLP:CLEAR} & \textbf{Bez omezení.} Informace může být volně šířena a poskytována dál (autorská práva a duševní vlastnictví původce tím nejsou dotčena). \\ \hline
+		\end{tabular}
+	\end{center}
+	
+	\textbf{Označení v e-mailu:} Značka se uvádí přímo v předmětu zprávy (např. \texttt{Předmět: TLP:AMBER - Aktualizace hrozby}).
+	\textbf{Označení v dokumentu:} U tištěných i elektronických dokumentů se značka musí uvádět v hlavičce i patičce každé stránky.
+	
+	
+	\section{De facto standardy – RFC a PKCS}
+	
+	\subsection{Dokumenty RFC (Request for Comments)}
+	Dokumenty RFC představují klíčovou formu dokumentace vyvíjenou pro potřeby internetové komunity. Nejedná se o formální normy de jure (jako ISO či ČSN), ale o uznávané standardy de facto. 
+	
+	\begin{itemize}
+		\item \textbf{Historický kontext:} Tradice publikování RFC vznikla v roce 1969 při zprovoznění sítě ARPANET. Původní protokol NCP byl v roce 1983 definitivně nahrazen rodinou protokolů TCP/IP.
+		\item \textbf{Původ názvu a princip:} Název „žádost o komentář“ zvolili postgraduální studenti, kteří chtěli sdílet své nápady, aniž by je formálně vnucovali autoritám. Dnes RFC vydává organizace \textbf{IETF} (Internet Engineering Task Force).
+		\item \textbf{Základní vlastnosti RFC:}
+		\begin{itemize}
+			\item \textbf{Neměnnost:} Jakmile je dokument vydán pod svým pořadovým číslem, jeho obsah, číslo ani název se již \textbf{nikdy nemění}.
+			\item \textbf{Aktualizace:} Pokud je potřeba specifikaci změnit, vydá se nové RFC s novým číslem, které v záhlaví nese příznak, že předchozí dokument zneplatňuje -- ``\textit{Obsolete}''
+			\item \textbf{Dostupnost:} Jsou zcela zdarma veřejně dostupná. Některá nesou kromě RFC čísla i označení standardu (\textbf{STD \#}), což jsou typičtí představitelé de facto standardů složení z jednoho či více RFC.
+		\end{itemize}
+	\end{itemize}
+	
+	\subsection{Kategorizace a životní cyklus RFC}
+	Dokumenty RFC se dělí podle svého účelu a postavení do dvou hlavních trajektorií:
+	
+	\subsubsection*{1. Standards Track (Standardizační proces)}
+	Aspiruje na to, aby se dokument stal definitivním standardem.
+	\begin{itemize}
+		\item \textbf{Původní model:} Měl 3 stádia: \textit{Proposed Standard} $\rightarrow$ \textit{Draft Standard} $\rightarrow$ \textit{Internet Standard}.
+		\item \textbf{Současný model (od r. 2011 – RFC 6410):} Zjednodušen na \textbf{pouze 2 stádia}:
+		\begin{enumerate}
+			\item \textbf{Proposed Standard:} Návrh musí prokázat svou životaschopnost nejméně na dvou na sobě nezávislých implementacích.
+			\item \textbf{Internet Standard:} Finální, definitivní podoba standardu s dostatkem provozních zkušeností.
+		\end{enumerate}
+	\end{itemize}
+	
+	\subsubsection*{2. Off-Track (Mimo standardizační proces)}
+	Dokumenty, které standardy nejsou a obvykle v hierarchii nikam nepostupují. Patří sem:
+	\begin{itemize}
+		\item \textbf{Informational RFC:} Informativní materiály, které přinášejí vysvětlení nebo rady.
+		\item \textbf{Experimental RFC:} Obsahují informace o protokolech a technologiích, které zatím nemají zřejmou šanci se masově ujmout.
+		\item \textbf{Historic RFC:} Specifikace, které byly překonány následovníkem nebo se v internetu přestaly úplně používat.
+		\item \textbf{Prototype RFC:} Řešení ve stádiu experimentu s budoucím záměrem přejít do Standards Track.
+	\end{itemize}
+	
+	\subsubsection*{3. BCP (Best Current Practices)}
+	Samostatná specifická řada dokumentů vyjadřující doporučené nejvhodnější postupy, stanoviska a postoje internetové komunity (např. postoj ke spamu) .
+	
+	\subsubsection*{4. Aprílová RFC}
+	Specifická humorná RFC vydávaná s datem „1 April“ jako parodie na reálné dokumenty. 
+	
+	\subsection{Standardy PKCS (Public-Key Cryptographic Standards)}
+	Jedná se o celosvětově uznávané \textit{de facto standardy} pro infrastrukturu veřejného klíče (PKI), které původně vyvinula americká soukromá firma RSA Security ve spolupráci s průmyslem a akademickou obcí.
+	
+	V současnosti (2023–2024) dochází k jejich integraci do moderních standardů (TLS, S/MIME), optimalizaci pro cloud (PKCS \#11), blockchain a zapojení do přechodu na \textbf{postkvantovou kryptografii (PQC)} koordinovanou NISTem. 
+	Podstatná část správy vybraných specifikací byla předána otevřeným standardizačním organizacím (IETF, OASIS).
+	
+	
+	\subsubsection*{Strukturální změny v číslování}
+	V roce 2010 došlo ke sloučení standardů \textbf{PKCS \#2} a \textbf{PKCS \#4} do zastřešujícího standardu \textbf{PKCS \#1}. Tato čísla jsou v současnosti neobsazená. Záměry na vývoj PKCS \#13 (eliptické křivky) a PKCS \#14 (generátory pseudonáhodných čísel) byly definitivně opuštěny.
+
+	
+	\begin{center}
+		\small
+		\begin{tabular}{|l|p{4.5cm}|p{9.0cm}|}
+			\hline
+			\textbf{Označení} & \textbf{Název / Účel} & \textbf{Klíčová specifikace a vlastnosti} \\ \hline
+			\textbf{PKCS \#1} & Kryptografie založená na RSA & Definuje matematické vlastnosti, formát veřejných a soukromých klíčů v kódování ASN.1 a schémata vyplňování (padding) pro šifrování a podpisy. \\ \hline
+			\textbf{PKCS \#3} & Výměna klíčů (Diffie-Hellman) & Protokol umožňující bezpečné vytvoření sdíleného tajného klíče přes veřejný kanál. \\ \hline
+			\textbf{PKCS \#5} & Šifrování založené na hesle & Definuje symetrické šifrování s využitím hesla, obsahuje známou derivační funkci PBKDF2.. \\ \hline
+			\textbf{PKCS \#6} & Rozšíření syntaxe certifikátů & \textbf{Uzavřen/Zastaralý.} Byl plně překonán novější verzí standardu X.509 verze 3. \\ \hline
+			\textbf{PKCS \#7} & Syntaxe kryptografických zpráv & Používá se pro podepisování a šifrování zpráv v PKI. Formuluje základy pro \textbf{S/MIME} a standard \textbf{CMS} (Cryptographic Message Syntax).\\ \hline
+			\textbf{PKCS \#8} & Uložení soukromých klíčů & Definuje formát uložení soukromých klíčů v šifrované i nešifrované podobě. \\ \hline
+			\textbf{PKCS \#9} & Vybrané typy atributů & Definuje doplňkové typy atributů využívané v ostatních standardech (např. v PKCS \#7, \#8 či \#10). \\ \hline
+			\textbf{PKCS \#10} & Žádost o vydání certifikátu & Formát zpráv zasílaných certifikační autoritě (CA) s žádostí o podepsání veřejného klíče (CSR – Certificate Signing Request). \\ \hline
+			\textbf{PKCS \#11} & Kryptografické rozhraní (Cryptoki) & API definující obecné rozhraní pro hardwarové tokeny a HSM (Hardware Security Modules). Používá se pro SSO, šifrování disků. Vývoj předán konsorciu OASIS. \\ \hline
+			\textbf{PKCS \#12} & Syntaxe výměny osobních informací & Formát kontejneru chráněného heslem pro uložení soukromého klíče společně s jeho certifikátem (nástupce PFX). Využívá se v Java KeyStore nebo Firefoxu. \\ \hline
+			\textbf{PKCS \#15} & Přístup k hardwarovým tokenům & Popisuje, jak aplikace pracují s hardwarovými tokeny nezávisle na PKCS \#11. Část pro IC karty převzalo ISO/IEC 7816-15. \\ \hline
+		\end{tabular}
+	\end{center}
+	
+	\section{Právní úprava normalizace v ČR (Zákon č. 22/1997 Sb.)}
+	
+	Přednáškový text byl \textbf{TLP:AMBER+STRICT}.
+	
+	
+	\section{(Mezi)národní normalizační orgány, Evropský certifikační rámec}
+	
+	Zde mapujeme kompetence národních institucí v oblasti standardizace a metrologie, definujeme hierarchickou strukturu evropských normativních dokumentů a popisuje architekturu nastupujícího jednotného evropského certifikačního rámce pro kybernetickou bezpečnost.
+	
+	\subsection{Národní infrastruktura v ČR}
+	V České republice je implementace norem a metrologie rozdělena mezi specializované složky:
+	\begin{itemize}
+		\item \textbf{ÚNMZ:} 
+		Organizační složka státu v resortu MPO zřízená zákonem č. 20/1993 Sb. 
+		Zajišťuje státní správu v daných oblastech, slaďuje české předpisy s EU a vydává oficiální Věstník ÚNMZ.
+		
+		\item \textbf{ČAS}: 
+		Státní příspěvková organizace zřízená ÚNMZ (podle zákona č. 265/2017 Sb.), na kterou od 1. 1. 2018 přešly veškeré činnosti spojené s tvorbou, vydáváním a distribucí technických norem. Je plnoprávným řádným členem ISO, IEC, CEN a CENELEC .
+		
+		\item \textbf{ČMI:} 
+		Zřízen MPO a ÚNMZ. 
+		Zabezpečuje jednotnost a přesnost měřidel, shodu národních etalonů s mezinárodními a provádí primární etalonáž, metrologický výzkum a kalibraci v regulované i neregulované sféře.
+	\end{itemize}
+		
+	\subsection{Evropské normativní dokumenty a procedury přejímání}
+	Při integraci evropských dokumentů do národní soustavy norem platí striktní pravidla:
+	\begin{itemize}
+		\item \textbf{EN (Evropská norma):} 
+		Vydávaná organizacemi CEN, CENELEC nebo ETSI. 
+		Členské státy mají \textbf{povinnost} ji zavést jako \textbf{národní normu} a současně zrušit všechny staré národní normy, které jsou \textbf{s ní v rozporu}. 
+		ČAS má na zavedení EN do národní soustavy \textbf{lhůtu půl roku}.
+		
+		\item \textbf{HD (Harmonizační dokument):} 
+		Zpracovává se, pokud není možné nebo účelné vytvořit plnohodnotnou EN. 
+		Státy ji musí povinně zavést alespoň formou zveřejnění jejího čísla a názvu a současně zrušit konfliktní národní normy či jejich části.
+		
+		\item \textbf{ENV (Předběžná evropská norma):} 
+		Určená k ověření v praxi \textbf{po dobu 3 let} (+ jednorázového prodloužení o 2 roky). Národní normy, které jsou s ní v rozporu, mohou zůstat v platnosti. V ČR se označuje jako \textit{ČSN P ENV}.
+	\end{itemize}
+			
+	\subsection{Mezinárodní a evropské standardizační organizace}
+	
+	\subsubsection*{Globální úroveň}
+	\begin{itemize}
+		\item \textbf{ISO (Mezinárodní organizace pro normalizaci):} 
+		Nezávislá nevládní organizace založená 1947 se sídlem v Ženevě. 
+		Tehdejší ČSR byla zakládajícím členem. Sdružuje 176 národních orgánů (v ČR je zástupcem ČAS).
+		Vytváří dobrovolné konsensuální normy pro \textbf{všechna odvětví vyjma elektrotechniky}. 
+		Vydává \textit{normy ISO}, \textit{technické specifikace (TS)}, \textit{technické zprávy (TR)} a \textit{veřejně dostupné specifikace (PAS)}.
+		
+		\item \textbf{IEC (Mezinárodní elektrotechnická komise):} 
+		Založena 1906, sídlí v Ženevě a sdružuje přes 80 zemí. 
+		Vytváří standardy \textbf{pro elektrotechniku, elektroniku a příbuzné technologie}. 
+		Úzce spolupracuje s ISO prostřednictvím společných technických komisí. Dokumenty se přejímají jako \textit{ČSN IEC}
+	\end{itemize}
+				
+	\subsubsection*{Evropská úroveň}
+	\begin{itemize}
+		\item \textbf{CEN (Evropský výbor pro normalizaci):} 
+		Brusel; vytváří evropské normy (EN), specifikace (CEN/TS) a zprávy (CEN/TR) pro \textbf{neeletrotechnické obory}. ČR je plnoprávným členem od roku 1997 přes ČAS
+		
+		\item \textbf{CENELEC (Evropský výbor pro elektrotechnickou normalizaci):} 
+		Brusel, založen 1973; vytváří normy (EN) a harmonizační dokumenty (HD) \textbf{pro elektrotechnický průmysl}. Má 34 členů včetně ČR.
+		
+		\item \textbf{ETSI (Evropský institut pro normalizaci v telekomunikacích):} 
+		Sophia Antipolis (Francie), založen 1988. Vytváří globální standardy pro ICT (stojí za 4G, 5G).
+		Její normy jsou pro veřejnost \textit{dostupné zdarma}. 
+		\textbf{Důležitý detail:} Na rozdíl od CEN/CENELEC, kde je ČR plnoprávným členem, má zde ČAS (Agentura) pouze statut pozorovatele.
+	\end{itemize}
+					
+	\subsection{Evropský certifikační rámec – Akt o kybernetické bezpečnosti (CSA)}
+	Nařízení EU 2019/881 zavádí první jednotný certifikační rámec na veřejnoprávní bázi na světě. 
+	Integruje certifikaci nejen produktů (jako historická Common Criteria), ale i služeb a procesů.  
+	
+	\textbf{SOG-IS:} Starší užší spolupráce vybraných evropských států založená na standardu Common Criteria, kde si státy vzájemně uznávaly certifikáty vyšších bezpečnostních úrovní.
+	
+	\textbf{ENISA (Agentura EU pro kybernetickou bezpečnost):} Atény, založena 2004. Vypracovává návrhy konkrétních certifikačních schémat pod záštitou Evropské komise a s pomocí \textbf{ECCG} (\textbf{Evropská skupina pro certifikaci kybernetické bezpečnosti} – složená ze zástupců členských států). Vydává pravidelné zprávy ENISA Threat Landscape (ETL) a organizuje cvičení Cyber Europe .
+			
+	\subsubsection*{Aktuálně vyvíjená certifikační schémata (schémata ENISA)}
+	\begin{enumerate}
+		\item \textbf{EUCC:} Certifikace produktů podle Common Criteria (nahrazuje SOG-IS)
+		
+		\item \textbf{Cloudové služby:} Návrh jednotných bezpečnostních pravidel pro cloudová úložiště a infrastrukturu.
+		
+		\item \textbf{IoT (Internet věcí):} Schéma pro zabezpečení distribuovaných spotřebních i průmyslových prvků.
+		
+		\item \textbf{Procesy:} Certifikace systémových a organizačních procesů v IT.
+		
+		\item \textbf{Dodavatelský řetězec:} Hodnocení SW dodavatelského řetězce (SBOM) – český návrh iniciovaný NÚKIB.
+	\end{enumerate}
+					
+	\subsection{Subjekty posuzování shody (CAB) a Úrovně záruky}
+	\textbf{CAB -- Conformity Assessment Body} je nezávislý akreditovaný subjekt (laboratoř, certifikační orgán), který v praxi ověřuje, zda produkty či služby splňují standardy daného schématu EU .
+	
+	\textbf{Schvalovací proces pro CAB:} CAB musí být nejdříve akreditován národním akreditačním orgánem (\textbf{ČIA} podle normy ČSN EN ISO 17025). Následně musí být příslušným státním úřadem (\textbf{NÚKIB}) \textit{notifikován} (oznámen) Evropské komisi. Seznam aktivních CAB je evidován v evropské databázi \textit{NANDO}.
+	
+	\subsubsection*{Úrovně záruky certifikace (Assurance Levels)}
+	Evropský rámec definuje tři úrovně záruky podle míry rizika:
+	\begin{center}
+		\small
+		\begin{tabular}{|l|p{10.0cm}|}
+			\hline
+			\textbf{ZÁKLADNÍ (Basic)} & Hodnocení provádí CAB. 
+			Pokud to konkrétní schéma výslovně dovoluje, je v této úrovni možné využít i \textit{vlastní posouzení shody výrobcem (self-assessment).} \\ \hline
+			\textbf{PODSTATNÁ (Substantial)} & Vyžaduje technické prověření a verifikaci hrozeb. Certifikaci provádí výhradně nezávislý akreditovaný a notifikovaný CAB. \\ \hline
+			\textbf{VYSOKÁ (High)} & Vyžaduje nejvyšší míru prověření (např. penetrační testy, hloubkovou analýzu kódu). 
+			Certifikát smí vydat pouze státní autorita (NÚKIB), nebo k tomu musí CAB získat od státu dodatečnou specifickou autorizaci. \\ \hline
+		\end{tabular}
+	\end{center}
+
+
+	CAB certifikace budou povinné pro kritické produkty (operační systémy, firewally) podle chystaného \textbf{Aktu o kybernetické odolnosti (CRA)}, pro poskytovatele služeb vytvářejících důvěru podle nařízení eIDAS a pro schémata v rámci Aktu o kybernetické bezpečnosti (CSA).	
+	
+	\section{Kritéria hodnocení bezpečnosti IT (TCSEC, ITSEC, CTCPEC, FC)}
+	
+	Zde shrneme historický vývoj a srovnání národních a regionálních kritérií, která sloužila jako formální metriky pro hodnocení a vyjádření míry bezpečnosti IT produktů a systémů před vznikem Common Criteria.
+	
+	\subsection{Základní metodologické koncepty}
+	Kritéria slouží jako objektivní měřítko a metrika pro vyjádření míry bezpečnosti IT. 
+	Vládní kritéria historicky určovala směr pro komerční sféru, avšak specifická vládní kritéria pro kryptografii zůstávají často utajena.
+	
+	Při certifikaci a hodnocení bezpečnosti je zásadní rozlišovat dva typy hodnocených objektů:
+	\begin{itemize}
+		\item \textbf{Produkt:} Samostatný SW či HW komponent, u kterého \textbf{není specifikováno} konkrétní provozní prostředí ani reálné hrozby.
+		
+		\item \textbf{Systém:} Větší, spojitý technologický celek, u kterého \textbf{je} při hodnocení přesně \textbf{známa} konfigurace i konkrétní provozní prostředí.
+	\end{itemize}
+	Hodnocení provádí nezávislý hodnotitel na žádost a náklady výrobce, který zároveň volí cílovou bezpečnostní úroveň a je povinen poskytnout kompletní vývojovou dokumentaci a součinnost.
+	
+	\subsection{TCSEC -- Oranžová kniha (Orange Book)}
+	\textbf{Trusted Computer System Evaluation Criteria} byla vydána Ministerstvem obrany USA v roce 1985.
+	
+	\begin{itemize}
+		\item \textbf{Omezení:} Je silně ovlivněna dobou vzniku. Byla navržena pro \textbf{vojenské prostředí} a orientuje se primárně na důvěrnost informací (confidentiality) v rámci sálových počítačů.
+		Specifika sítí a databází byla doplňována formou dodatečných interpretací (např. \textit{Trusted Network Interpretation} -- \textbf{Red Book}).
+		\item \textbf{Pilíře hodnocení:} 
+		\textit{Zásady} (Policy -- řízení přístupu, utajení), \textit{Odpovědnost} (Accountability -- identifikace, audit) a \textit{Záruky} (Assurance -- nezávislé prověření).
+	\end{itemize}
+	
+	\subsubsection*{Hierarchické dělení TCSEC}
+	Systémy se klasifikují do 4 základních skupin (divizí) a 7 hierarchických tříd:
+	\begin{enumerate}
+		\item \textbf{Division D -- Minimální ochrana:} Produkty, které sice prošly hodnocením, ale nesplnily požadavky pro žádnou z vyšších tříd.
+		\item \textbf{Division C -- Výběrová ochrana:} Nejširší praktické využití.
+		\begin{itemize}
+			\item \textbf{C1 (Discretionary Security Protection):} Výběrová ochrana na základě identity uživatelů.
+			\item \textbf{C2 (Controlled Access Protection):} Ochrana s řízeným přístupem. Vyžaduje auditování činností.
+		\end{itemize}
+		\item \textbf{Division B -- Povinná ochrana (Mandatory Protection):} Přechod k vládním a vojenským nárokům.
+		\begin{itemize}
+			\item \textbf{B1 (Labeled Security Protection):} Povinné řízení přístupu na základě stupňů utajení.
+			\item \textbf{B2 (Structured Protection):} Strukturovaná architektura, formalizovaná politika, kontrola skrytých kanálů a správa konfigurace.
+			\item \textbf{B3 (Security Domains):} Striktní oddělení bezpečnostních domén, monitorování referenčním schématem (Reference Monitor), vysoká odolnost proti průniku a obnova po havárii.
+		\end{itemize}
+		\item \textbf{Division A -- Verifikovaná ochrana (Verified Protection):} Nejvyšší úroveň.
+		\begin{itemize}
+			\item \textbf{A1 (Verified Design):} Vyžaduje formální, matematicky ověřený návrh systému a shodu implementace s tímto modelem. Pro většinu komerčních systémů je z finančních a procesních důvodů nedosažitelná.
+		\end{itemize}
+	\end{enumerate}
+	
+	\subsection{ITSC -- Harmonizovaná evropská kritéria}
+	\textbf{Information Technology Security Evaluation Criteria} publikováno v roce 1991 Evropským společenstvím jako reakce na nedostatky TCSEC.
+	\begin{itemize}
+		\item \textbf{Koncepce:} Je navržen obecně pro vládní i komerční sféru a pokrývá kompletní bezpečnostní triádu \textbf{CIA} -- \textit{Důvěrnost, Integritu i Dostupnost}.
+		\item \textbf{Inovace:} Přináší \textbf{oddělení funkčnosti systému} od \textbf{míry jeho zaručitelnosti}.
+	\end{itemize}
+	
+	\paragraph*{Třídy zaručitelnosti bezpečnosti (E0 až E6).}
+	Definují fixní, neměnné úrovně hloubky testování a důvěryhodnosti:
+	\begin{center}
+		\small
+		\begin{tabular}{|l|p{11.0cm}|}
+			\hline
+			\textbf{E0} & Požadavky nesplněny, zaručitelnost je nedostatečná.\\ \hline
+			\textbf{E1} & Neformální zadání bezpečnosti, popis návrhu a funkční testy.\\ \hline
+			\textbf{E2} & Navíc vyžaduje neformální popis detailního návrhu a správu konfigurace.\\ \hline
+			\textbf{E3} & Navíc vyžaduje kompletní zpřístupnění zdrojového kódu (SW) nebo schémat zapojení (HW).\\ \hline
+			\textbf{E4} & Bezpečnostní politika musí být vyjádřena formálním modelem, architektura a detailní návrh semi-formálně.\\ \hline
+			\textbf{E5} & Striktní demonstrace úzké provázanosti mezi detailním návrhem a zdrojovým kódem.\\ \hline
+			\textbf{E6} & Kompletní formální popis bezpečnostní architektury konzistentní s matematickým modelem politiky a prokazatelná souvislost binárního kódu se zdrojovým textem.\\ \hline 
+		\end{tabular}
+	\end{center}
+	
+
+	\paragraph*{Třídy funkčnosti (F-xx).}
+	Představují doporučené modelové šablony pro usnadnění práce. Pět hierarchických tříd (\textbf{F-C1, F-C2, F-B1, F-B2, F-B3}) přímo kopíruje funkční chování stejnojmenných divizí amerického standardu TCSEC. Dále definuje pět specifických, nehierarchických aplikačních tříd: \textbf{F-IN} (vysoká integrita), \textbf{F-AV} (vysoká dostupnost), \textbf{F-DI} (integrita při přenosu), \textbf{F-DC} (důvěrnost při přenosu) a \textbf{F-DX} (důvěrnost i integrita při přenosu).
+	
+	
+	\subsection{CTCPEC a Federal Criteria (FC)}
+	\begin{itemize}
+		\item \textbf{CTCPEC (Kanada):} Pokusila se o praktičtější rozdělení bezpečnostních funkcí (služeb) do 4 kategorií: \textit{důvěrnost}, \textit{integrita}, \textit{dostupnost} a \textit{účtovatelnost}. 
+		Úrovně v každé službě jsou nezávisle číslovány od nuly (např. autentizace WA-0 až WA-3). Úrovně záruk byly značeny \textit{T-1 až T-6}. 
+		
+		\item \textbf{Federal Criteria (FC -- USA):} Společný projekt NIST a NSA. Přinesla zásadní koncept \textbf{Bezpečnostního profilu (Security Profile / BP)} -- komplexní formalizované seskupení požadavků definující účel, podmínky použití a záruky. Rozlišovala profily pro komerční užití (ekvivalent C2) a víceúrovňovou bezpečnost (B1 až B3). Míra záruk se značí jako \textit{T1 až T7}.
+	\end{itemize}
+	
+	\subsection{Srovnávací matice historických kritérií}
+	Následující tabulka definuje ekvivalenci mezi jednotlivými historickými standardy:
+	
+	\begin{center}
+		\begin{tabular}{|l|l|l|l|l|}
+			\hline
+			\textbf{TCSEC} & \textbf{ITSEC -- Funkčnost} & \textbf{ITSEC -- Záruka} & \textbf{CTCPEC} & \textbf{FC} \\ \hline
+			\textbf{D} (min. ochrana) & --- & \textbf{E0} & --- & --- \\ \hline
+			\textbf{C1} (výb. přístup) & F-C1 & \textbf{E1} & --- & --- \\ \hline
+			\textbf{C2} (řízený přístup) & F-C2 & \textbf{E2} & T-1 & T1 \\ \hline
+			\textbf{B1} (ochrana návěštím) & F-B1 & \textbf{E3} & T-2 & T2 \\ \hline
+			--- & --- & --- & T-3 & T3 \\ \hline
+			--- & --- & --- & --- & T4 \\ \hline
+			\textbf{B2} (strukt. ochrana) & F-B2 & \textbf{E4} & T-4 & T5 \\ \hline
+			\textbf{B3} (bezp. domény) & F-B3 & \textbf{E5} & T-5 & T6 \\ \hline
+			\textbf{A1} (verif. návrh) & --- & \textbf{E6} & T-6 & T7 \\ \hline
+		\end{tabular}
+	\end{center}
+
+	\section{Mezinárodní standard Common Criteria (ISO/IEC 15408)}
+	
+	Shrneme celosvětově nejuznávanější standard pro nezávislé hodnocení a certifikaci bezpečnostních vlastností IT produktů -- \textbf{Common Criteria (CC)}, jenž je v ČR kodifikován pod označením \textbf{ČSN ISO/IEC 15408}.
+	
+	\subsection{Historický kontext a mezinárodní dohoda CCRA}
+	Standard \textit{Common Criteria} vznikl jako přímý nástupce a sjednocující prvek historických národních standardů: amerických TCSEC + FC, evropského ITSEC a kanadského CTCPEC. 
+	Na jeho vývoji spolupracovaly vládní a standardizační organizace šesti států: \textit{Kanady, Francie, Německa, Nizozemska, Velké Británie} a \textit{USA}.
+	
+	Aby se zamezilo neustálému opakovanému testování produktů při exportu do zahraničí, byla v roce 1998 podepsána klíčová mezinárodní dohoda o vzájemném uznávání certifikátů -- \textbf{CCRA (Common Criteria Recognition Arrangement)}, která dělí signatářské státy do dvou striktních skupin:
+	\begin{enumerate}
+		\item \textbf{Certificate Authorizing Members:} Státy provozují vlastní národní schválené schéma, mají licencované laboratoře a certifikáty sami vydávají (k březnu 2026 je jich celkem 17).
+		
+		\item \textbf{Certificate Consuming Members:} Státy, neprovozujcíí vlastní certifikační schéma, ale certifikáty vydané Authorizing členy plně uznávají na svém území (k březnu 2026 je jich 19).
+	\end{enumerate}
+	
+	\textbf{ČR} k dohodě CCRA přistoupila v září \textbf{2004} v roli \textbf{Certificate Consuming Member}. 
+	Smlouvu signoval ředitel NBÚ, nyní spadá pod NÚKIB.
+	
+	\subsection{Status CC v NATO}
+	V roce 2003 padlo v NATO strategické rozhodnutí nahradit zastaralá kritéria (založená na TCSEC) právě standardem CC. Kvůli chybějícímu absolutnímu konsensu všech členských států \textbf{nebyl} systém zaveden jako \textbf{povinná direktiva}, nýbrž jako \textbf{směrnice NATO}. 
+	Používání CC v rámci NATO je tedy \textbf{doporučené, nikoliv povinné}. 
+	Certifikace provedené v rámci národních schémat CCRA členských zemí jsou nicméně uvnitř NATO plně uznávány
+	
+	\subsection{Metodologie CEM a kritický limit úrovní EAL}
+	Hodnocení probíhá podle jednotné celosvětové metodologie \textbf{CEM -- Common Evaluation Methodology}.
+	
+	V listopadu 2022 byla vydána nová, zásadně přepracovaná oficiální verze CEM:2022 Release 1 (společně s CC:2022).
+	
+	\textbf{Klíčový limit mezinárodního uznávání:} Vzájemné mezinárodní uznávání certifikátů v rámci aliance CCRA je striktně a bezvýhradně \textit{omezeno pouze na úrovně EAL1 až EAL4}.
+	Vyšší úrovně EAL5 až EAL7 vyžadují specifické národní procedury a nejsou předmětem mezinárodního vzájemného uznávání. Nová verze CC:2022/CEM:2022 toto pravidlo nijak nezměnila ani nerozšířila
+	
+	\subsection{Základní hodnoticí koncepty: Profil ochrany vs. Bezpečnostní cíl}
+	Standard CC se soustředí na formalizované hodnocení produktů pomocí dvou naprosto odlišných dokumentů:
+	
+	\begin{itemize}
+		\item \textbf{Profil ochrany (Protection Profile -- PP):} 
+		Jedná se o \textbf{implementačně nezávislou} sadu bezpečnostních požadavků pro určitý typ technologií (např. obecné požadavky na firewally). 
+		Slouží jako \textit{šablona pro kupující} (stát, organizace), kteří jím říkají trhu: ``Chceme produkt, který splňuje tyto obecné vlastnosti.'' Úspěšně vyhodnocené PP jsou zapsány v \textit{registru certifikovaných profilů}.
+	
+		\item \textbf{Bezpečnostní cíl (Security Target -- ST):} 
+		Jedná se o \textbf{implementačně závislou} sadu konkrétních specifikací a bezpečnostních požadavků pro jeden konkrétní produkt (např. konkrétní verze firewallu od konkrétního výrobce). 
+		ST přímo popisuje \textit{reálné technické mechanismy} daného řešení a podrobuje se zkoumání hodnotitelů v laboratoři.
+	\end{itemize}
+		
+	\subsection{Nová strukturální architektura standardu CC:2022}
+	Dříve CC měla 3 základní části. Verze \textit{CC:2022 Release 1} však standard rozšířila na 5 samostatných dílů:
+	\begin{center}
+		\small
+		\begin{tabular}{|l|p{6.38cm}|p{8.62cm}|}
+			\hline
+			\textbf{Part 1} & \textbf{Introduction and general model} & Seznámení s filozofií standardu a definice obecného konceptuálního modelu.\\ \hline
+			\textbf{Part 2} & \textbf{Security functional requirements (SFR)} & Katalog funkčních požadavků na bezpečnostní mechanismy.\\ \hline
+			\textbf{Part 3} & \textbf{Security assurance requirements (SAR)} & Katalog požadavků na záruky bezpečnosti.\\ \hline
+			\textbf{Part 4} & \textbf{Framework for the specification of evaluation methods and activities} & \textit{(Nový díl)} Metodologický rámec specifikující exaktní postupy a činnosti pro schvalování hodnoticích metod reálných laboratoří.\\ \hline
+			\textbf{Part 5} & \textbf{Pre-defined packages of security requirements} & \textit{(Nový díl)} Soubor předdefinovaných a předem schválených balíčků bezpečnostních nároků usnadňujících vývoj profilů ochrany.\\ \hline
+		\end{tabular}
+	\end{center}
+	
+	
+	\section{Hlubší struktura Common Criteria, úrovně EAL a schéma EUCC}
+	
+	Nyní navazujeme na základy Common Criteria (ISO/IEC 15408) a zaměřujeme se na praktické stavební kameny, podrobnou charakteristiku úrovní záruk a evropskou integraci certifikace.
+	
+	\subsection{Evoluce a verze standardu CC}
+	Při aplikaci standardu v certifikačních procesech je nezbytné sledovat životní cyklus jeho jednotlivých revizí:
+	\begin{itemize}
+		\item \textbf{Verze 2.3:} Používaná jako autoritativní základ do roku 2007.
+		\item \textbf{Verze 3.1:} Publikovaná v září 2007. Přinesla radikální redukci textového rozsahu, zjednodušení interpretačního rámce a snížení počtu tříd a rodin. 
+		Dinální vydání \textit{v3.1 Release 5} (z dubna 2017) umožňovala provádění nových laboratorních evaluací pouze do 30. 6. 2024, přičemž platnost vydaných certifikátů je v rámci mezinárodních dohod uznávána do 31. 12. 2027.
+		\item \textbf{Verze CC:2022 Release 1:} Vydaná v listopadu 2022. Rozšiřuje architekturu na 5 samostatných dílů rozdělením a procesním posílením oblasti záruk.
+	\end{itemize}
+	Bez ohledu na verzi standardu platí, že dosažená záruka bezpečnosti (např. EAL4) podle jedné verze je plně ekvivalentní stejné záruce podle verze jiné
+	
+	\subsection{Hierarchické stavební prvky kritérií}
+	Pro definování bezpečnostních požadavků (funkčních i zárukových) používá CC striktní hierarchickou granularitu od nejmenšího po největší:
+	\begin{enumerate}
+		\item \textbf{Prvek (Element):} Nejnižší, dále \textbf{nedělitelný} bezpečnostní požadavek, který je přímo ověřitelný při hodnocení v laboratoři
+		
+		\item \textbf{Komponenta (Component):} Nejmenší \textbf{množina prvků}, kterou lze zahrnout do vyšších struktur (profilů ochrany či bezpečnostních cílů).
+		
+		\item \textbf{Rodina (Family):} Seskupení komponent, které mají stejný bezpečnostní cíl, ale liší se v přísnosti a komplexnosti požadavků.
+		
+		\item \textbf{Třída (Class):} Nejširší seskupení rodin, které pokrývají ucelenou samostatnou oblast bezpečnosti (např. třída pro kryptografickou podporu).		
+	\end{enumerate}
+	
+	\subsection{Katalogizace funkčních tříd a tříd záruk}
+	\subsubsection*{Funkční požadavky na bezpečnost (SFR -- Část 2)}
+	Katalog definuje technické chování produktu. Verze CC:2022 obsahuje stejný počet tříd jako v3.1, ale v odlišném pořadí a s aktualizovaným obsahem:
+	
+	\begin{minipage}{0.50\textwidth}
+		\begin{enumerate}
+			\item \textit{Audit} (Bezpečnostní audit), 
+			\item \textit{Identification and Authentication} (Identifikace a autentizace), 
+			\item \textit{Resource Utilisation} (Využití zdrojů), 
+			\item \textit{Cryptographic Support} (Kryptografická podpora), 
+			\item \textit{Security Management} (Správa bezpečnosti), 
+			\item \textit{TOE Access} (Přístup k TOE), 
+		\end{enumerate}
+	\end{minipage}
+	\begin{minipage}{0.45\textwidth}
+		\begin{enumerate}\setcounter{enumi}{6} 
+			\item \textit{Communications} (Komunikace), 
+			\item \textit{Privacy} (Soukromí), 
+			\item \textit{Trusted Path/Channels} (Důvěryhodná cesta/kanály), 
+			\item \textit{User Data Protection} (Ochrana uživatelských dat) a 
+			\item \textit{Protection of the TOE Security Functions} (Ochrana funkcí TSF).
+		\end{enumerate}
+	\end{minipage}
+	
+	\subsubsection*{Požadavky na záruky bezpečnosti (SAR -- Část 3)}
+	Katalog definuje 8 tříd určujících metodiku prověřování správnosti návrhu a vývoje:
+	
+	\begin{minipage}{0.50\textwidth}
+		\begin{enumerate}
+			\item \textit{Configuration Management} (Správa konfigurace), 
+			\item \textit{Guidance Documents} (Průvodní dokumentace), 
+			\item \textit{Vulnerability Assessment} (Posouzení zranitelnosti), 
+			\item \textit{Delivery and Operation} (Dodání a provoz), 
+		\end{enumerate}
+	\end{minipage}
+	\begin{minipage}{0.44\textwidth}
+		\begin{enumerate}\setcounter{enumi}{6} 
+			\item \textit{Life Cycle Support} (Podpora životního cyklu), 
+			\item \textit{Assurance Maintenance} (Údržba záruky), 
+			\item \textit{Development} (Vývoj) a
+			\item \textit{Tests} (Testy).
+		\end{enumerate}
+	\end{minipage}
+	
+	Obsahuje navíc 2 doplňkové třídy pro záruky samotných dokumentů PP a ST.
+	\subsection{Podrobná specifikace úrovní záruk EAL (Evaluation Assurance Levels)}
+	Míry záruky představují předdefinované, vyvážené balíky komponent záruk. Využívá se následující stupnice:
+	\begin{itemize}
+		\item \textbf{EAL1 (Funkčně testováno):} Určeno pro situace, kdy \textbf{hrozby nejsou považovány za vážné} a vyžaduje se pouze základní nezávislá důvěra. Zkoumá se neformální funkční specifikace a uživatelské příručky.
+		
+		\item \textbf{EAL2 (Strukturálně testováno):} Vyžaduje nízkonákladovou spolupráci vývojáře v rámci běžné komerční praxe. Vývojář dodává globální návrh (high-level design) a své výsledky testů. Analyzují se zjevné zranitelnosti a vyžaduje se seznam konfigurace.
+		
+		\item \textbf{EAL3 (Metodicky testováno a kontrolováno):} Lze dosáhnout bez zásadních změn v komerčních vývojových procesech. Navíc oproti EAL2 \textbf{vyžaduje kontroly vývojového prostředí} a \textbf{plnohodnotnou správu konfigurace} s rozsáhlejším testováním.
+		
+		\item \textbf{EAL4 (Metodicky navrženo, testováno a přezkoumáno):} \textit{Nejvyšší úroveň}, kterou lze za \textit{rozumné náklady} aplikovat zpětně \textbf{na již existující produkt}. 
+		Maximální \textbf{strop běžné komerční sféry} (banky, PKI). 
+		Vyžaduje detailní návrh (low-level design), neformální model bezpečnostní politiky a podmnožinu implementace (část zdrojového kódu). 
+		Musí odolat útočníkům s \textbf{nízkým potenciálem}.
+		
+		\item \textbf{EAL5 (Polo-formálně navrženo a testováno):} Produkt musí být od počátku vyvíjen s tímto cílem. 
+		Vyžaduje kompletní zdrojový kód (implementaci), formální model bezpečnostní politiky, polo-formální funkční specifikaci i globální návrh, analýzu skrytých kanálů a modularitu. 
+		Musí odolat útočníkům se \textbf{středním potenciálem}.
+		
+		\item \textbf{EAL6 (Polo-formálně ověřeno a testováno):} Pro ochranu vysoce hodnotných aktiv ve striktním vývojovém prostředí. Vyžaduje polo-formální detailní návrh, zvrstvenou a modulární architekturu a strukturovanou implementaci. 
+		Odolnost vůči útočníkům s \textbf{vysokým potenciálem} a systematická analýza skrytých kanálů.
+		
+		\item \textbf{EAL7 (Formálně navrženo a testováno):} Omezeno na matematicky prokazatelné systémy s úzce vymezenou funkčností v \textbf{extrémně rizikovém prostředí}. 
+		Vyžaduje plnou formalizaci (formální model, funkční specifikaci i high-level design). 
+		Testování probíhá metodou \textbf{white-box} s úplným nezávislým potvrzením všech testů laboratoří.
+	\end{itemize}
+	
+	\subsection{Ukončení platformy SOG-IS a nástup evropského schématu EUCC}
+	Historická evropská skupina \textbf{SOG-IS (Senior Officials Group Information Systems Security)}, k 27. únoru 2026 definitivně \textbf{přestala vydávat} nové certifikáty.
+	
+	Zatímco mezinárodní dohoda CCRA uznává certifikáty plošně pouze do úrovně EAL4, dohoda SOG-IS umožňovala mezi svými 17 evropskými členy vzájemné uznávání certifikátů na vyšších úrovních (EAL5–EAL7) pro specifické, schválené technické domény (např. čipy smart karet, pasy).
+	
+	Přijetím prováděcího nařízení Evropské komise vzniká jednotný systém \textbf{EUCC}, který plně nahrazuje a absorbuje odkaz SOG-IS. Funguje jako \textbf{dobrovolný unijní rámec} pro certifikaci ICT HW, SW a čipů.
+
+	Prováděcím nařízením Komise (EU) 2024/3144 (s účinností od začátku roku 2025) došlo k zavedení nejmodernějších dokumentů pro akreditaci certifikačních orgánů (CB) a zkušebních laboratoří (ITSEF)
+	
+	\subsubsection*{Vazba unijních úrovní záruky na komponentu AVA\_VAN}
+	Schéma mapuje unijní úrovně záruky přímo na CC komponentu analýzy zranitelnosti \textbf{(Vulnerability Assessment – AVA\_VAN)}, která zkoumá reálnou zneužitelnost slabin pro kompromitaci funkcí:
+	\begin{center}
+		\small
+		\begin{tabular}{|l|l|p{7cm}|}
+			\hline
+			\textbf{Úroveň bezpečnosti EUCC} & \textbf{Hodnocení komponenty CC} & \textbf{Technický význam z hlediska odolnosti} \\ \hline
+			\textbf{Základní (Basic)} & \texttt{AVA\_VAN.1} & Ověření odolnosti vůči zřejmým zranitelnostem, základní přehled. \\ \hline
+			\textbf{Významná (Substantial)} & \texttt{AVA\_VAN.2} & Nezávislá analýza zranitelností, potvrzení odolnosti proti nízkému potenciálu útoku. \\ \hline
+			\textbf{Vysoká (High)} & \texttt{AVA\_VAN.3} až \texttt{AVA\_VAN.5} & Hloubkové testování, penetrační zkoušky, garantovaná odolnost proti vysokému potenciálu útoku. \\ \hline
+		\end{tabular}
+	\end{center}
+	
+	
+	\section{Mezinárodní norma ISO/IEC 15408 a funkční požadavky (SFR)}
+	
+	Nyní se budeme věnovat detailnímu rozboru mezinárodní normy ISO/IEC 15408, která představuje formalizovanou implementaci CC v mezinárodním standardizačním procesu, specifikuje strukturu jejích pěti částí a podrobně katalogizuje třídy funkčních požadavků na bezpečnost.
+	
+	\subsection{Standardizační vývoj a národní implementace ČSN}
+	
+	\begin{itemize}
+		\item Česká verze normy \textbf{obsahuje výhradně anglický originální text} (překlad do českého jazyka nebyl vydán).
+		\item Původní verze normy z roku 2009 (ISO/IEC 15408-1:2009) byla oficiálně stažena z oběhu a nahrazena verzí z roku 2022 (ISO/IEC 15408-1:2022).
+		\item Distribuci a tisk norem ČSN zajišťuje pro Českou agenturu pro standardizaci (ČAS) smluvní partner TECHNOR print, s.r.o.
+	\end{itemize}
+	
+	\subsection{Struktura pěti částí normy ISO/IEC 15408:2022}
+	Původní verze z roku 2009 (stažena z oběhu) měla pouze 3 části. Nová 2022 verze je striktně rozdělena do 5 částí:
+	\begin{enumerate}
+		\item \textbf{Part 1: Introduction and general model} -- Úvod a obecný model. 
+		Představuje klíčové koncepty profilů ochrany (PP), modulů PP, konfigurací PP, balíčků, bezpečnostních cílů (ST) a typů shody. Definuje povolené operace, kterými lze komponenty upravovat, a odkazuje na evaluační metody v ISO/IEC 18045 . 
+		
+		\item \textbf{Part 2: Security functional requirements} -- Požadavky na bezpečnostní funkce. Definuje požadovanou strukturu a obsah bezpečnostních funkčních komponent (SFR) pro účely hodnocení. Obsahuje kompletní katalog funkčních komponent produktů.
+		
+		\item \textbf{Part 3: Security assurance requirements} -- Požadavky na zajištění bezpečnosti – Definuje jednotlivé součásti zabezpečení a stanovuje exaktní kritéria pro hodnocení PP, PP konfigurací, PP modulů a ST.  
+		\item \textbf{Part 4: Framework for the specification of evaluation methods and activities} -- Rámec pro specifikaci metod a činností hodnocení – Poskytuje standardizovaný rámec pro specifikaci objektivních, opakovatelných a reprodukovatelných hodnoticích metod a aktivit (nespecifikuje však přímo, jak hodnotit – to je věcí původců metod). 
+		\item \textbf{Part 5: Pre-defined packages of security requirements} -- Předdefinované balíčky bezpečnostních požadavků – Obsahuje ucelené skupiny balíčků užitečné pro praxi, konkrétně balíčky EAL (úrovně zaručení vyhodnocení), CAP (balíčky pro zajištění složení), COMP (balíček složených produktů), PPA (zajištění profilu ochrany) a STA (zajištění bezpečnosti cíle zabezpečení).
+	\end{enumerate}
+	
+	\subsection{Uživatelské skupiny a aplikace standardu v praxi}
+	Norma specifikuje tři základní typy cílových uživatelů a definuje jejich procesní interakci se systémem:
+	\begin{itemize}
+		\item \textbf{Zákazníci (Spotřebitelé):} Vyhledávají existující Profily ochrany (PP) odpovídající jejich nárokům a používají je jako závazný podklad pro specifikaci veřejných i komerčních objednávek. Uživatelská sdružení mohou pomocí CC definovat společné PP pro své členy.
+		
+		\item \textbf{Vývojoví pracovníci (Výrobci):} Reagují na požadavky trhu a specifikují bezpečnostní vlastnosti svého konkrétního produktu formou dokumentu Bezpečnostní cíl (ST).
+		
+		\item \textbf{Hodnotitelé (Zkušební laboratoře ITSEF):} Využívají požadavky záruky, PP a ST jako exaktní měřítko a závazné kritérium pro provádění nezávislých laboratorních testů.
+	\end{itemize}
+		
+	\subsection{Srovnávací charakteristika úrovní EAL a vazba na TCSEC}
+	Norma definuje 7 hierarchických úrovní EAL (Evaluation Assurance Levels), přičemž každá vyšší úroveň plně absorbuje požadavky všech nižších. 
+	Pro specifická prostředí je lze volitelně zesilovat (označení +). 
+
+	\begin{itemize}
+		\item \textbf{EAL1 (Funkčně testovaný HP):} Cílová úroveň pro systémy s nízkým rizikem (např. zpracování základních osobních údajů), kde se vyžaduje pouze základní nezávislá důvěra v bezchybný provoz. Hodnocení se odvozuje z artefaktů dostupných běžnému zákazníkovi a nezávislého testování funkčních specifikací. \textbf{Je plně proveditelné bez jakékoliv spoluúčasti či asistence vývojáře} za minimálních finančních nákladů.
+		
+		\item \textbf{EAL2 (Strukturálně testovaný HP):} Odpovídá třídě \textit{TCSEC C1}. Vyžaduje nízkonákladovou kooperaci s vývojářem, který laboratoři poskytuje základní informace o globálním návrhu (\textit{high-level design}) a výsledky svých interních testů. Typické pro běžné systémy podnikového účetnictví, kde je dostupnost vývojáře časově či procesně omezena.
+	
+		\item \textbf{EAL3 (Metodicky testovaný a kontrolovaný HP):} Odpovídá třídě \textit{TCSEC C2}. Představuje maximální možnou úroveň záruky, kterou lze u produktu deklarovat, \textbf{aniž by vývojář musel zásadně měnit své zaběhnuté komerční vývojové praktiky} či podstupovat nákladný re-engineering. Zkoumají se důkazy testování technického návrhu na vysoké (zdrojové) úrovni.
+
+		\item \textbf{EAL4 (Metodicky navržený, testovaný a přezkoumáno HP):} Odpovídá třídě \textit{TCSEC B1}. Nejvyšší možný stupeň záruky bezpečnosti, jehož dosažení je ekonomicky, procesně a časově plně integrovatelné do existujících komerčních výrobních postupů (např. u běžně prodávaného síťového či databázového softwaru), pokud je výrobce srozuměn s úhradou dodatečných nákladů na specifické bezpečnostní inženýrství.
+		
+		\item \textbf{EAL5 (Semiformálně navržený a testovaný HP):} Odpovídá třídě \textit{TCSEC B2}. Staví na špičkových komerčních vývojových praktikách, které jsou systematicky doplňovány standardní (nikoli extrémní) aplikací specializovaných technik bezpečnostního konstruování, aniž by docházelo k neúnosnému navyšování rozpočtu.
+
+		\item \textbf{EAL6 (Semiformálně navržený se semiformálně ověřeným návrhem a testovaný HP):} Odpovídá třídě \textit{TCSEC B3}. Určeno pro vývoj vysoce pokročilých a propracovaných bezpečnostních produktů cílících na ochranu kritických a cenných aktiv provozovaných ve vysoce rizikových prostředích, kde finální hodnota chráněných dat plně ospravedlňuje masivní vícenáklady.
+
+		\item \textbf{EAL7 (Formálně navržený s formálně ověřeným návrhem a testovaný HP):} Odpovídá třídě \textit{TCSEC A1}. Extrémně nákladná úroveň, jejíž praktická použitelnost je striktně omezena pouze na IT produkty či subsystémy \textbf{s velmi úzce zaměřenou a minimální bezpečnostní funkcionalitou}, kterou lze podrobit absolutnímu matematickému a formálnímu ověření.
+	\end{itemize}
+			
+	\subsection{Struktura a katalog funkčních tříd (SFR)}
+	Vnitřní dekompozice dokumentu ISO/IEC 15408-2 dělí bezpečnostní požadavky na základě podobnosti funkcí a účelu do \textbf{tříd}, ty dále do \textbf{rodin} a ty do \textbf{komponent}, které jsou v katalozích řazeny abecedně. Na začátku každé třídy je povinně umístěn přehledový strukturní diagram. Kapitoly 3 až 13 popisují celkem 11 funkčních tříd, přičemž přednáška klade důraz na hlubší pochopení dvou z nich:
+			
+	\subsubsection*{1. Třída FCO: Komunikace (Communications)}
+	Tato třída obsahuje rodiny komponent zaměřené na bezpečné a nezpochybnitelné ověření identity protistran zapojených do procesu síťové výměny a přenosu dat. Garantuje technické mechanismy zajišťující, že odesílatel nemůže popřít odeslání informace a příjemce nemůže popřít její převzetí. Skládá se ze dvou základních rodin:
+
+	\begin{itemize}
+		\item \textbf{FCO\_NRO -- Nepopiratelnost původu (Non-repudiation of origin):} Zajišťuje nezvratný a auditovatelný důkaz o identitě původce přenášené informace (důkaz původu).
+
+		\item \textbf{FCO\_NRR -- Nepopiratelnost přijetí (Non-repudiation of receipt):} Zajišťuje nezvratný a auditovatelný důkaz o identitě příjemce přenášené informace (důkaz přijetí).
+	\end{itemize}
+			
+	\subsubsection*{2. Třída FCS: Kryptografická podpora (Cryptographic Support)}
+	Aplikuje se povinně v situacích, kdy Předmět hodnocení (TOE) implementuje jakékoliv kryptografické funkce na úrovni hardwaru, firmwaru nebo softwaru, s cílem naplnit bezpečnostní plány vyšší úrovně (např. důvěryhodné kanály, nepopiratelnost, autentizaci entit či izolaci dat). Třída se striktně dekomponuje do dvou rodin komponent:
+	\begin{itemize}
+		\item \textbf{FCS\_CKM -- Správa kryptografických klíčů:} Řeší kompletní životní cyklus kryptografických klíčů, zahrnující algoritmy pro jejich bezpečné generování, distribuci, ukládání, přístup a bezpečné ničení.
+	
+		\item \textbf{FCS\_COP -- Kryptografické operace:} Zaměřuje se výhradně na technické parametry reálného provozního použití klíčů v kryptografických operacích (např. samotný výkon šifrování, dešifrování, generování digitálních podpisů či výpočet hashovacích funkcí).
+	\end{itemize}
+			
+	\subsubsection*{Přehled ostatních funkčních tříd v soustavě SFR}
+	Zbývajících 9 tříd pokrývá ostatní oblasti technické bezpečnosti: \textit{FAU} (Bezpečnostní audit), \textit{FDP} (Ochrana uživatelských dat), \textit{FIA} (Identifikace a autentizace), \textit{FMT} (Správa bezpečnosti), \textit{FPR} (Soukromí), \textit{FPT} (Ochrana bezpečnostní funkcionality / Ochrana TSF), \textit{FRU} (Využití zdrojů), \textit{FTA} (Přihlášení do TOE) a \textit{FTP} (Důvěryhodné cesty/kanály).
+	
+	\section{Hodnocení bezpečnosti podle NIST -- Standardy FIPS a kryptografické tranzice}
+	
+	Nyní zmapujeme standardizační činnost amerického národního institutu NIST, analyzujeme nelineární model kategorizace bezpečnosti informací dle standardu FIPS 199, popíšeme evoluci požadavků na šifrovací moduly v revizi FIPS 140-3 a přineseme taxativní přehled aktuálních technologických omezení (tranzic) u kryptografických primitiv.
+	
+	\subsection{Institucionální rámec a postkvantová standardizace}
+	\textbf{NIST (National Institute for Standards and Technology)} je ústřední vládní standardizační autoritou USA. Vznikl jako přímý nástupce organizace \textbf{NBS} (National Bureau of Standards), založené již v roce 1901. NIST vydává závazné standardy pro potřeby amerických federálních úřadů pod označením \textbf{FIPS} (Federal Information Processing Standards), které však vykazují \textbf{celosvětovou de facto} autoritu.
+	
+	V roce \textbf{2024} NIST dokončil klíčovou fázi migrace na \textbf{quantum-safe} architekturu vydáním finálních textů tří prioritních postkvantových standardů (PQC):
+	\begin{itemize}
+		\item \textbf{FIPS 205:} Stateless Hash-Based Digital Signature Standard (algoritmus SLH-DSA).
+		\item \textbf{FIPS 204:} Module-Lattice-Based Digital Signature Standard (algoritmus ML-DSA).
+		\item \textbf{FIPS 203:} Module-Lattice-Based Key-Encapsulation Mechanism Standard (mechanismus ML-KEM).
+	\end{itemize}
+	
+	\subsection{FIPS 199 -- Nelineární kategorizace bezpečnosti informací}
+	Standard FIPS 199 (únor 2004), je určen pro kategorizaci citlivých, avšak \textbf{neutajovaných} vládních informací. V evropském a komerčním prostředí se pro tento proces užívá ekvivalentní označení \textbf{klasifikace dat}.
+	
+	Zatímco tradiční systémy klasifikace využívají \textbf{lineární hierarchické uspořádání} (Vyhrazeno $\rightarrow$ Důvěrné $\rightarrow$ Tajné $\rightarrow$ Přísně tajné), FIPS 199 definuje \textbf{nelineární dvourozměrný model} postavený na matici tří bezpečnostních cílů triády \textbf{CIA} a tří stupňů potenciálního dopadu při kompromitaci:
+	\begin{enumerate}
+		\item \textbf{Nízký dopad (LOW):} Ztráta dané vlastnosti má pouze \textbf{omezený nepříznivý účinek} na operace organizace, její aktiva či jednotlivce.
+		
+		\item \textbf{Střední dopad (MODERATE):} Ztráta vlastnosti má \textbf{vážný nepříznivý účinek} (např. velké materiální ztráty).
+		
+		\item \textbf{Vysoký dopad (HIGH):} Ztráta vlastnosti má \textbf{krutý} nebo \textbf{katastrofický nepříznivý účinek} (např. přímé ohrožení lidského života).
+	\end{enumerate}
+	Tento metodologický přístup rozděluje hodnocení do 9 formalizovaných kombinací (buněk matice), které exaktně slovně specifikují přípustné limity rizik.
+	
+	\subsection{FIPS 140-3 -- Bezpečnostní požadavky na kryptografické moduly}
+	Standard FIPS 140 specifikuje technické nároky na HW, SW a firmwarové šifrovací moduly. 	
+	\subsubsection*{Klíčové vlastnosti a procesní změny ve verzi FIPS 140-3}
+	\begin{itemize}
+		\item \textbf{Životní cyklus certifikace:} Vydaný certifikát vykazuje platnost po dobu \textbf{5 let}. Po uplynutí této lhůty je automaticky přesunut do historického seznamu. Výrobci běžně provádějí kompletní revalidaci v cyklu 3 až 5 let.
+		\item \textbf{Provozní režimy:} Modul musí explicitně rozlišovat schválený \textbf{FIPS mode} a neschválený \textbf{non-FIPS mode} ($FIPS=0$). Strukturální přechod mezi oběma režimy povinně vyžaduje hardwarový či softwarový restart a novou re-inicializaci.
+		\item \textbf{Ochrana proti side-channel útokům:} Nová metodika 140-3 implementuje striktní testovací mechanismy zacílené na potlačení \textbf{útoků postranními kanály}, které starší standardy nereflektovaly (jedná se o analýzu časových závislostí, analýzu odběru elektrického proudu a testování odolnosti proti injektáži vynucených chyb).
+		\item \textbf{Struktura a role:} Bezpečnostní nároky jsou rozděleny do 11 oblastí harmonizovaných s mezinárodní normou ISO/IEC 19790. V oblasti přístupových oprávnění definuje verze 140-3 jako \textbf{jedinou povinnou roli Kryptografického důstojníka (Crypto Officer)}. Role běžného uživatele a administrátora jsou nově volitelné. Veškeré historické textové vazby na armádní standard TCSEC byly eliminovány a nahrazeny přímým odkazem na Common Criteria.
+	\end{itemize}
+	
+	\subsection{Čtyři kvalitativní úrovně zabezpečení modulů}
+	\begin{itemize}
+		\item \textbf{Level 1 (Basic Security):} Vyžaduje pouze použití schváleného algoritmu a jeho správnou implementaci. \textbf{Nejsou stanoveny žádné fyzické bezpečnostní požadavky}. Typické pro čistě SW moduly a knihovny operačních systémů.
+		
+		\item \textbf{Level 2 (Enhanced Security):} Přidává fyzické prvky indikující \textbf{neoprávněnou manipulaci} (tamper-evident štítky). Vyžaduje autentizaci na základě \textbf{rolí} (role-based authentication). Použití: \textit{čipové karty} (smart cards), nižší třídy HSM.
+		
+		\item \textbf{Level 3 (Tamper-Resistant):} Zaměřeno na \textbf{aktivní odolnost proti fyzickému průniku} (tamper-resistance) s vnitřními senzory, které při \textbf{narušení krytu} spustí \textbf{aktivní mazání kritických parametrů a klíčů} (zeroization). 
+		Vyžaduje \textbf{striktní ověření konkrétní identity} (identity-based authentication) a důvěryhodnou cestu (trusted path) pro citlivá data. Využití: bankovní HSM, PKI infrastruktura.
+		
+		\item \textbf{Level 4 (Highest Security):} Určeno pro \textbf{extrémně riziková a vojenská prostředí}. Modul musí aktivně detekovat a okamžitě reagovat na široké spektrum environmentálních útoků a anomálií (extrémní výkyvy teplot, elektromagnetické pulzy, manipulace s napětím). 
+		Fyzické zabezpečení garantuje, že modul zůstane bezpečný i při úplném a agresivním fyzickém napadení.
+	\end{itemize}
+	
+	\subsection{Katalog kryptografických tranzic NIST}
+	NIST definuje striktní omezení a provozní statusy pro jednotlivé šifry a parametry délek klíčů:
+	
+	\subsubsection*{1. Blokové a symetrické šifry}
+	\begin{itemize}
+		\item \textbf{Dvouklíčové 3DES šifrování:} \textbf{ZAKÁZÁNO} pro šifrování; dešifrování je v režimu \textbf{překonané/zastaralé}.
+		\item \textbf{Tříklíčové 3DES šifrování:} \textbf{ZRUŠENO} pro šifrování po roce 2023; dešifrování tolerováno jako \textbf{zastaralé}.
+		\item \textbf{SKIPJACK:} Šifrování je \textbf{ZAKÁZÁNO}, dešifrování vykazuje status \textbf{zastaralého standardu}.
+		\item \textbf{AES-128, AES-192 a AES-256:} Plně \textbf{POVOLENO} bez jakýchkoliv provozních či časových restrikcí.
+	\end{itemize}
+	
+	\subsubsection*{2. Asymetrické digitální podpisy (Hranice 112 bitů bezpečnostní síly)}
+	\begin{itemize}
+		\item \textbf{Generování digitálního podpisu:}
+		\begin{itemize}
+			\item Síla \textbf{$<$ 112 bitů} (odpovídá délkám RSA $< 2048b$, ECDSA $< 224b$): \textbf{ZAKÁZÁNO}.
+			\item Síla \textbf{$\ge$ 112 bitů}: Plně \textbf{POVOLENO}. V praxi minimální délky: \textbf{RSA $\ge 2048b$}, \textbf{ECDSA $\ge 224b$}, \textbf{EdDSA $\ge 224b$} a u šifry DSA pouze definované bezpečné dvojice parametrů $(L,N)$, konkrétně (2048, 224), (2048, 256) nebo (3072, 256).
+		\end{itemize}
+		\item \textbf{Ověřování digitálního podpisu:}
+		\begin{itemize}
+			\item Síla \textbf{$< 112b$}: Povoleno výhradně pro zpětnou verifikaci historických dat jako \textbf{překonané/zastaralé}.
+		\end{itemize}
+	\end{itemize}
+	
+	\subsubsection*{3. Hašovací funkce}
+	\begin{itemize}
+		\item \textbf{SHA-1:} 
+		\begin{itemize}
+			\item Generování digitálního podpisu: \textbf{ZAKÁZÁNO} (mimo explicitně povolené specifické výjimky NIST).
+			\item Ověření digitálního podpisu: \textbf{Zastaralé / překonané}.
+			\item Ostatní aplikace (např. HMAC, derivace klíčů KDF): Plně \textbf{POVOLENO}.
+		\end{itemize}
+		\item \textbf{Rodina SHA-2 a SHA-3:} Kompletně \textbf{POVOLENO} pro veškeré myslitelné kryptografické operace.
+		\item \textbf{TupleHash a ParallelHash:} Plně \textbf{POVOLENO} pro datové struktury.
+	\end{itemize}
+	
+	
+	\section{Normy pro systémy managementu (ISO/IEC 27001 a rodina 27000)}
+	
+	Přednáškový text byl \textbf{TLP:AMBER}.
+	
+	\section{Analýza rizik (Zákon č. 264/2025 Sb. a Vyhláška č. 409/2025 Sb.)}
+	
+	Tato přednáška detailně rozebírá proces analýzy rizik (AR) jakožto esenciální aktivitu pro budování a řízení systémů informační bezpečnosti. Definuje základní terminologii na historické analogii, srovnává metodologické přístupy k hodnocení rizik a exaktně mapuje procesní kroky, katalogy a povinnosti vyplývající z nové české kyberbezpečnostní legislativy korespondující s evropským rámcem NIS2.
+	
+	\begin{itemize}
+		\item \textbf{Hrozba (Threat):} Vnější negativní událost, která může zničit či znehodnotit chráněné aktivum.
+		\item \textbf{Zranitelnost (Vulnerability):} Vnitřní slabina, díky které hrozba vůbec uspěje. 
+		\item \textbf{Dopad (Impact):} Následek úspěšného útoku vyjádřený finančně či nefinančně.
+		\item \textbf{Opatření (Countermeasure):} Krok ke snížení rizika.
+	\end{itemize}
+	
+	\subsection{Typologie analýz rizik podle ISO/IEC TR 13335 a ISO 27005}
+	Normativní rámec (reprezentovaný standardem ISO 27005 pro řízení rizik bezpečnosti informací) rozlišuje tři základní metodologické přístupy k provádění AR:
+	\begin{enumerate}
+		\item \textbf{Elementární (přehledová) analýza:} Rychlé zavedení opatření s nízkými náklady na základě analogie s jinými systémy nebo podle obecného standardu. \textbf{Nevýhoda:} Opatření nemusí přesně odpovídat reálným rizikům organizace. Vhodné pro subjekty s nízkou závislostí na IT.
+		
+		\item \textbf{Neformální (pragmatická) analýza:} Staví výhradně na znalostech a zkušenostech expertů bez použití formálních matematických metod. Rizika se expertně dělí na \textit{nepřijatelná} (nutno odstranit), \textit{poškozující} (zvážit náklady), \textit{přijatelná} (sledovat) a \textit{zanedbatelná}.
+		
+		\item \textbf{Detailní analýza rizik:} Komplexní, formalizovaný proces s přesným oceňováním aktiv, určováním zranitelností a výpočty ztrát (\textbf{ALE -- Annual Loss Expectancy} nebo \textbf{EAC -- Estimated Annual Cost}).
+	\end{enumerate}
+	
+	\subsection{Procesní kroky AR podle Zákona č. 264/2025 Sb. a Vyhlášky č. 409/2025 Sb.}
+	NÚKIB zásadně aktualizoval šablony v souvislosti s účinností \textbf{Zákona č. 264/2025 Sb. (nZKB)} a prováděcí Vyhlášky č. 409/2025 Sb.. V vyšším režimu povinností je AR striktně povinná, v nižším režimu je doporučená a prakticky nezbytná. 
+	\begin{itemize}
+		\item \textbf{Krok 1 -- Identifikace a evidence aktiv:} Vyhláška striktně nařizuje dělit aktiva na: 
+		
+		\textit{Primární aktiva:} Informace a služby klíčové pro chod regulované služby. 
+		
+		\textit{Podpůrná aktiva:} HW, SW, sítě, budovy a lidé, na kterých primární aktiva běží.
+		
+		\textit{Povinné minimum evidence:} ID, Název, Popis, Typ/podtyp, Vlastník (Asset Owner), Správce/Provozovatel, Klasifikace, Hodnota/Kritičnost, CIA/DIA klasifikace, Vazby na primární aktiva, Lokalizace, Dodavatel .
+		
+		\item \textbf{Krok 2 -- Identifikace hrozeb:} Výběr relevantních hrozeb z katalogu vyhlášky (škála 1-4 nebo 1-5; 1=nepravděpodobná, 4=velmi častá).
+		
+		\item \textbf{Krok 3 -- Identifikace zranitelností:} Výběr vnitřních slabin (1=vysoká odolnost, 4=kritická slabina).
+		
+		\item \textbf{Krok 4 -- Sestavení scénáře rizika:} Formalizované sestavení vazby: $\text{Aktivum} + \text{Hrozba} + \text{Zranitelnost}$ (např. \textit{SQL databáze + Sociální inženýrství + Chybějící vícefaktorová autentizace MFA}).
+		
+		\item \textbf{Krok 5 -- Hodnocení dopadu:} Hodnocení na škále 1-5 podle vlivu na CIA a specifických právních povinností (NIS2, eIDAS2, GDPR) . (1=zanedbatelný, 5=kritický)
+		
+		\item \textbf{Krok 6 -- Hodnocení pravděpodobnosti:} Šance, že hrozba prorazí slabinu, odvozená z existence zranitelnosti, expozice systému a historie incidentů.
+		
+		\item \textbf{Krok 7 -- Výpočet rizika a kritika čistého násobení:}
+		
+		\textit{Model 1:} $P = H \times Z$ a následně $R = D \times P$ (nejpoužívanější model v ČR).
+		
+		\textit{Model 2 (Courtneyho vzorec):} Přímý součin $R = D \times H \times Z$.
+		
+		Důvody opouštění čistého násobení v moderních metodikách NÚKIB:
+		\begin{enumerate}
+			\item \textbf{Problém absolutní nuly:} Pokud je hrozba ohodnocena 0, vynásobením zmizí celé riziko, přestože v kyberbezpečnosti nulové riziko neexistuje.
+			\item \textbf{Deformace lineární škály:} Výsledky násobení generují nerovnoměrné skoky (napedř. skok z 16 na 20, pak na 25), což komplikuje férové stanovení hranice akceptovatelnosti.
+			\item \textbf{Rozměrová nekompatibilita:} Pravděpodobnost je bezrozměrné číslo (či procento), zatímco dopad se měří ve financích či lidských životech; jejich prosté násobení nedává ekonomický ani fyzikální smysl. Moderní praxe proto využívá převodní matice (Risk Matrix).
+		\end{enumerate}
+
+		\item \textbf{Krok 8 -- Zařazení do matice rizik:} Využití matice $5 \times 5$ (Osa X: Pravděpodobnost, Osa Y: Dopad), která dělí rizika na \textit{Nízká, Střední, Vysoká} a \textit{Kritická}.
+		
+		\item \textbf{Krok 9 -- Návrh bezpečnostních opatření:} Výběr konkrétních prvků z katalogu vyhlášky.
+		
+		\item \textbf{Krok 10 -- Strategie zvládání a akceptace rizik:} Rozhodnutí o osudu rizika :  
+		
+		\textit{Mitigace (Snížení):} Použití bezpečnostních opatření.  
+		
+		\textit{Transfer (Přenos):} Pojištění, outsourcing.  
+		
+		\textit{Eliminace (Vyloučení):} Zrušení rizikové činnosti.  
+		
+		\textit{Akceptace (Přijetí):} Vědomé ponechání rizika. \textbf{Pravidla akceptace:} Musí být písemně doložitelná v registru, podepisuje ji konkrétní vlastník (top management) a je časově omezená (přezkum typicky 1x ročně). Management musí povinně formálně akceptovat \textbf{zbytkové riziko (Residual Risk)}, které po zavedení opatření vždy zbyde.
+		\item \textbf{Krok 11 -- Pravidelný přezkum:} Minimálně 1x ročně nebo po významné změně.
+	\end{itemize}
+	
+	\subsection{Softwarové GRC nástroje pro podporu analýzy rizik}
+	Pro efektivní modelování, automatizaci výpočtů a dlouhodobou správu registru rizik a aktiv se v praxi využívají specializované softwarové platformy:
+	\begin{itemize}
+		\item \textbf{Globální a komerční platformy:} COBRA, \textit{PILAR} (oficiálně podporovaný v rámci struktur EU).
+		\item \textbf{Open-source řešení:} Platforma \textit{ERAMBA-GRC}, lucemburský vládní systém \textbf{MONARC}
+	\end{itemize}
+	
+	\subsection{Převodní terminologická matice dopadů podle NÚKIB}
+	Následující tabulka definuje exaktní legislativní párování doporučeného slovního hodnocení dopadů rizik na kategorizaci vyžadovanou prováděcí vyhláškou k zákonu o kybernetické bezpečnosti:
+	
+	\begin{center}
+		\small
+		\begin{tabular}{|l|p{9.0cm}|l|}
+			\hline
+			\textbf{Terminologie} & \textbf{Věcný popis dopadu v reálném provozu} & \textbf{Stupeň (409/2025 Sb.)} \\ \hline
+			\textbf{Zanedbatelné} & Lze se vypořádat bez větších obtíží. & \textbf{Nízká} \\ \hline
+			\textbf{Přípustné} & Dopady jsou překonatelné. & \textbf{Střední} \\ \hline
+			\textbf{Ohrožující} & Dopady ohrožují fungování společnosti. & \textbf{Vysoká} \\ \hline
+			\textbf{Neúnosné} & Překonatelné jen s velkými obtížemi nebo likvidační. & \textbf{Kritická} \\ \hline
+		\end{tabular}
+	\end{center}
+	
+	\subsection{Strukturální katalogy Vyhlášky č. 409/2025 Sb.}
+	Vyhláška obsahuje závazné katalogové přílohy, které unifikují bezpečnostní procesy:
+	\begin{enumerate}
+		\item \textbf{Katalog hrozeb:} Lidský faktor, technické, síťové hrozby a environmentální hrozby a organizační selhání.
+		\item \textbf{Katalog zranitelností:} Technické, organizační, fyzické a procesní.
+		\item \textbf{Katalog bezpečnostních opatření:} Člení BO do sedmi ucelených oblastí: Organizační opatření, procesní opatření, technická opatření, fyzická opatření, řízení dodavatelů, řízení incidentů, opatření pro kontinuitu.
+	\end{enumerate}
+	
+	
+	\section{Nový zákon o kybernetické bezpečnosti (zákon č. 264/2025 Sb.)}
+	
+	Nový zákon o kybernetické bezpečnosti (nZKB) představuje zásadní reformu tuzemské legislativy. Kompletně nahrazuje původní a dnes již překonaný zákon č. 181/2014 Sb.. Slouží jako přímá transpozice evropské směrnice NIS2 do českého právního řádu.
+	
+	\subsection{Úvod do problematiky a působnost zákona}
+	Hlavním cílem normy je plošné zvýšení odolnosti státního aparátu, strategických komerčních firem a veřejnoprávních institucí vůči sofistikovaným kybernetickým hrozbám.
+	
+	\begin{itemize}
+		\item \textbf{Účinnost zákona:} Zákon vstoupil v účinnost \textbf{1. listopadu 2025.}
+		
+		\item \textbf{Rozsah dopadu:} Okruh regulovaných subjektů se dramaticky rozšířil z původních stovek na \textbf{až 10 000 organizací.} Zákon dopadá na subjekty usazené v ČR poskytující sítě elektronických komunikací nebo tzv. regulované služby.
+		
+		\item \textbf{Vymezení:} Zákon se striktně \textbf{nevztahuje na systémy pracující s utajovanými informacemi!} Tyto systémy podléhají zcela jinému právnímu předpisu (zákonu č. 412/2005 Sb.).
+	\end{itemize}
+	
+	\subsection{Architektura prováděcích vyhlášek}
+	Zákon se opírá o 3 provázané prováděcí vyhlášky, které upravují technické, organizační a rozřazovací podmínky:
+	\begin{enumerate}
+		\item \textbf{Vyhláška č. 408/2025 Sb., o regulovaných službách:} Definuje, které sektory podléhají regulaci (energetika, doprava, zdravotnictví, finance atd.) a \textbf{stanovuje kritéria významnosti}, podle kterých se organizace zařadí do nižšího nebo vyššího režimu.
+		
+		\item \textbf{Vyhláška č. 409/2025 Sb., o bezpečnostních opatřeních pro vyšší režim:} Stanovuje nekompromisní technická a organizační opatření, jako je povinná segmentace sítě, \textbf{vícefaktorové ověřování} (MFA), pokročilý log management a striktní řízení dodavatelského řetězce.
+		
+		\item \textbf{Vyhláška č. 410/2025 Sb., o bezpečnostních opatřeních pro nižší režim:} Upravuje mírnější, přiměřená organizační a procesní opatření pro subjekty s nižším dopadem.
+	\end{enumerate}
+	
+	\subsection{Harmonogram plnění a třífázový model hlášení incidentů}
+	Zákon opouští princip pasivního čekání na státní výzvu a zavádí:
+	\begin{itemize}
+		\item \textbf{Samoidentifikace:} Každá organizace si musí sama na vlastní odpovědnost zjistit, zda do zákona spadá .  
+		
+		\item \textbf{Lhůta pro ohlášení:} Povinnost ohlásit se u NÚKIB je do 60 dnů od účinnosti zákona (nebo od splnění kritérií). Následuje registrace ze strany NÚKIB.  
+		
+		\item \textbf{Lhůta pro implementaci:} Organizace má přesně 12 měsíců od formální registrace na to, aby plně zavedla a implementovala všechna povinná bezpečnostní opatření.  
+		
+		\item \textbf{Osobní odpovědnost:} Za neplnění povinností hrozí pokuty v řádech stovek milionů Kč nebo procenta z globálního obratu , přičemž osobní odpovědnost nese přímo vrcholový management (představenstvo/vedení).
+	\end{itemize}
+	
+	Pokud v organizaci dojde k incidentu, který naplní kritéria významnosti, nZKB nařizuje striktní hlášení vůči NÚKIB ve \textbf{třech po sobě jdoucích fázích}:
+	
+	\begin{enumerate}
+		\item \textbf{Předběžné hlášení incidentu:} Musí být odesláno \textbf{do 24 hodin} od detekce incidentu.
+		\item \textbf{Rozšířené hlášení incidentu:} Odesílá se \textbf{do 72 hodin} od detekce.
+		\item \textbf{Závěrečná zpráva:} Kompletní zhodnocení incidentu a analýza příčin. Dodána do \textbf{1 měsíce}.
+	\end{enumerate}
+	
+	\subsection{Struktura a kategorizace bezpečnostních rolí}
+	Zákon a vyhlášky zavádějí role, které organizace musí personálně obsadit. Rozlišují se dva statusy:
+	\begin{itemize}
+		\item \textbf{Ano (Explicitní povinnost):} Role je přímo jmenována textem zákona nebo vyhlášky.
+		\item \textbf{Ano (Funkční povinnost):} Role není v textu přímo pojmenována, ale povinnosti, které předpis ukládá, \textbf{technicky vyžadují, aby tuto agendu někdo vykonával}. Organizace může roli pojmenovat jinak, ale obsahu povinností se nevyhne.
+	\end{itemize}
+	
+	\begin{center}
+		\small
+		\begin{tabular}{|l|c|p{7.6cm}|}
+			\hline
+			\textbf{Název role / funkce} & \textbf{Status dle nZKB} & \textbf{Klíčová agenda / Popis} \\ \hline\hline
+			\textbf{Vrcholový management} & \textbf{Ano} & Nese osobní odpovědnost, schvaluje politiky, alokuje finance. \\ \hline
+			\textbf{Manažer KB (CISO)} & \textbf{Ano} & Kompletně řídí bezpečnost, komunikuje s NÚKIB, odpovídá za rizika. \\ \hline
+			\textbf{Vlastník aktiva (Asset Owner)} & \textbf{Ano} & Každé aktivum musí mít vlastníka; odpovídá za jeho hodnotu a rizika. \\ \hline
+			\textbf{Role pro řízení rizik} & \textbf{Ano} & Identifikace aktiv, hrozeb, zranitelností a výpočty scénářů. \\ \hline
+			\textbf{Role pro řízení incidentů} & \textbf{Ano} & Zachycení útoků, koordinace reakce a hlášení NÚKIB (24h/72h). \\ \hline
+			\textbf{Role pro kontinuitu (BCM)} & \textbf{Ano} & Tvorba plánů obnovy po havárii, testování a zajištění dostupnosti. \\ \hline
+			\textbf{Role pro dodavatelský řetězec} & \textbf{Ano} & Prověřování dodavatelského řetězce, smluvní SLA a monitoring. \\ \hline
+			\textbf{Role pro správu přístupů (IAM)} & \textbf{Ano} & Správa účtů, přidělování oprávnění, princip least privilege. \\ \hline
+			\textbf{Role pro technická opatření} & \textbf{Ano} & Logování, hardening, segmentace, síťová administrace a záplaty. \\ \hline
+			\textbf{Role pro školení a povědomí} & \textbf{Ano} & Vzdělávání zaměstnanců, realizace testů (např. cvičný phishing). \\ \hline
+			\textbf{Role pro compliance} & \textbf{Ano} & Vedení evidencí, příprava podkladů pro dozorové kontroly NÚKIB. \\ \hline
+			\textbf{Auditor kybernetické bezpečnosti} & \textbf{Ano (funkčně)} & Nezávislé hodnocení plnění zavedených opatření (interní/externí). \\ \hline
+			\textbf{Architekt kybernetické bezpečnosti} & \textbf{Ano (funkčně)} & Bezpečnostní návrhy systémů, posuzování změn a segmentace. \\ \hline
+		\end{tabular}
+	\end{center}
+	
+\end{document}
+
+
+\begin{center}
+	\small
+	\begin{tabular}{|l|p{10.0cm}|}
+		\hline
+		\textbf{} & \\ \hline
+	\end{tabular}
+\end{center}

@@ -4,29 +4,37 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>OI - 1. semestr</title>
+  <title>1.semestr</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
     .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
   <link rel="stylesheet" href="../../theme.css" />
 </head>
 <body>
+<p><a href="../../index.html" class="back-button">← Zpět</a></p>
 <h1 id="semestr">1. semestr</h1>
 <p>Zimní semestr 2022/2023</p>
 <h2 id="předměty">Předměty</h2>
 <table>
 <colgroup>
-<col style="width: 20%" />
-<col style="width: 20%" />
-<col style="width: 20%" />
-<col style="width: 20%" />
-<col style="width: 20%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -34,7 +42,6 @@
 <th>Úvod do sítí</th>
 <th>Diskrétní matematika</th>
 <th>Lineární algebra 1</th>
-<th>Principy počítačů</th>
 </tr>
 </thead>
 <tbody>
@@ -45,14 +52,12 @@
 [pdf]</a></td>
 <td><a href="predmety/lingebra.pdf">Zkouška zpracované otázky - Fiala
 [pdf]</a></td>
-<td></td>
 </tr>
 <tr class="even">
 <td>Zdroják</td>
 <td><a href="predmety/site.tex">Zdrojak [tex]</a></td>
 <td><a href="predmety/dm.tex">Zdrojak [tex]</a></td>
 <td><a href="predmety/lingebra.tex">Zdrojak [tex]</a></td>
-<td></td>
 </tr>
 <tr class="odd">
 <td>Odkazy</td>
@@ -62,35 +67,55 @@ otázky</a> - mff-stuff</td>
 <td><a href="https://slama.dev/poznamky/diskretni-matematika/">Poznámky
 z hodin</a> - Sláma</td>
 <td></td>
-<td><a href="https://slama.dev/poznamky/principy-pocitacu/">Poznámky z
-hodin</a> - Sláma</td>
 </tr>
 </tbody>
 </table>
-</body>
-</html>
+<table>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 78%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Předmět</th>
+<th>Principy počítačů</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Soubory + Odkazy</td>
+<td><a href="https://slama.dev/poznamky/principy-pocitacu/">Poznámky z
+hodin</a></td>
+</tr>
+<tr class="even">
+<td>Poznámka</td>
+<td>Sláma</td>
+</tr>
+</tbody>
+</table>
+
 
     <h2 id="rozvrh">Rozvrh</h2>
     <table>
         <tr>
             <th>Čas / Den</th>
-            <th> 9:00</th>
-        <th> 10:40</th>
-        <th> 12:20</th>
-        <th> 14:00</th>
-        <th> 14:50</th>
-        <th> 15:40</th>
-        <th> 17:20</th>
-        <th> 19:00</th>
-        <th> 19:20</th>
-        <th> 20:50</th>
+            <th>9:00</th>
+        <th>10:40</th>
+        <th>12:20</th>
+        <th>14:00</th>
+        <th>14:50</th>
+        <th>15:40</th>
+        <th>17:20</th>
+        <th>19:00</th>
+        <th>19:20</th>
+        <th>20:50</th>
     </tr>
     <tr>
         <th>Po</th>
         <td></td>
-        <td><b>Algoritmizace</b><br><i> Dvořák Tomáš</i></td>
-        <td><b>Diskrétní matematika</b><br><i> Kantor Ida</i></td>
-        <td colspan='2'>Anglický jazyk<br><i> Krejčová Ela</i></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #1b3a24; color: #c7e6d0; border-color: #2e5e40; height: 100%;'><b>Algoritmizace</b><br><small><i>Dvořák Tomáš</i></small></div></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #1b3a24; color: #c7e6d0; border-color: #2e5e40; height: 100%;'><b>Diskrétní matematika</b><br><small><i>Kantor Ida</i></small></div></td>
+        <td colspan='2'><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #4a3700; color: #fff3cd; border-color: #705a00; height: 100%;'>Anglický jazyk<br><small><i>Krejčová Ela</i></small></div></td>
         <td></td>
         <td></td>
         <td></td>
@@ -100,11 +125,11 @@ hodin</a> - Sláma</td>
     <tr>
         <th>Út</th>
         <td></td>
-        <td><b>Programování I</b><br><i> Holan Tomáš</i></td>
-        <td><b>Úvod do počítačových sítí</b><br><i> Forst Libor</i></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #1b3a24; color: #c7e6d0; border-color: #2e5e40; height: 100%;'><b>Programování I</b><br><small><i>Holan Tomáš</i></small></div></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #1b3a24; color: #c7e6d0; border-color: #2e5e40; height: 100%;'><b>Úvod do počítačových sítí</b><br><small><i>Forst Libor</i></small></div></td>
         <td></td>
-        <td>Algoritmizace<br><i> Holan Tomáš</i></td>
-        <td>Programování I<br><i> Holan Tomáš</i></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #4a3700; color: #fff3cd; border-color: #705a00; height: 100%;'>Algoritmizace<br><small><i>Holan Tomáš</i></small></div></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #4a3700; color: #fff3cd; border-color: #705a00; height: 100%;'>Programování I<br><small><i>Holan Tomáš</i></small></div></td>
         <td></td>
         <td></td>
         <td></td>
@@ -118,28 +143,28 @@ hodin</a> - Sláma</td>
         <td></td>
         <td></td>
         <td></td>
-        <td><b>Matematické problémy nematematiků</b><br><i> Hnětynková Iveta</i></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #4a3700; background-image: repeating-linear-gradient(135deg, #4a3700, #4a3700 10px, #2e2200 10px, #2e2200 20px); color: #fff3cd; border: 1px dashed #fff3cd; height: 100%;'>Matematické problémy nematematiků<br><small><i>Hnětynková Iveta</i></small></div></td>
         <td></td>
         <td></td>
         <td></td>
     </tr>
     <tr>
         <th>Čt</th>
-        <td>Matematický proseminář<br><i> Hromadová Jana</i></td>
-        <td>Diskrétní matematika<br><i> Sedláček Petr</i></td>
-        <td>Matematické dovednosti<br><i> Klimošová Tereza</i></td>
-        <td colspan='2'>Lineární algebra I<br><i> Hubáček Pavel</i></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #4a3700; color: #fff3cd; border-color: #705a00; height: 100%;'>Matematický proseminář<br><small><i>Hromadová Jana</i></small></div></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #4a3700; color: #fff3cd; border-color: #705a00; height: 100%;'>Diskrétní matematika<br><small><i>Sedláček Petr</i></small></div></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #4a3700; color: #fff3cd; border-color: #705a00; height: 100%;'>Matematické dovednosti<br><small><i>Klimošová Tereza</i></small></div></td>
+        <td colspan='2'><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #4a3700; color: #fff3cd; border-color: #705a00; height: 100%;'>Lineární algebra I<br><small><i>Hubáček Pavel</i></small></div></td>
         <td></td>
-        <td>Anglický jazyk<br><i> Krejčová Ela</i></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #4a3700; color: #fff3cd; border-color: #705a00; height: 100%;'>Anglický jazyk<br><small><i>Krejčová Ela</i></small></div></td>
         <td></td>
-        <td>IPS<br><i> Mareš Martin</i></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #4a3700; color: #fff3cd; border-color: #705a00; height: 100%;'>IPS<br><small><i>Mareš Martin</i></small></div></td>
         <td></td>
     </tr>
     <tr>
         <th>Pá</th>
         <td></td>
-        <td><b>Lineární algebra I</b><br><i> Fiala Petr</i></td>
-        <td><b>Principy počítačů</b><br><i> Ježek Pavel</i></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #1b3a24; color: #c7e6d0; border-color: #2e5e40; height: 100%;'><b>Lineární algebra I</b><br><small><i>Fiala Petr</i></small></div></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #1b3a24; color: #c7e6d0; border-color: #2e5e40; height: 100%;'><b>Principy počítačů</b><br><small><i>Ježek Pavel</i></small></div></td>
         <td></td>
         <td></td>
         <td></td>

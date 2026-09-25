@@ -1,43 +1,57 @@
+/* ==========================================================================
+   MFF Poznámky Theme - Dark Aesthetic Matching tucnakomet1.github.io
+   ========================================================================== */
 
-/* ----- Global settings ----------------------------------------------- {{{ */
+/* ----- Global Design Tokens & Variables ---------------------------------- */
 
 :root {
-  /* --- Colors --- */
+  /* --- Color Palette (Identical to tucnakomet1.github.io) --- */
+  --background-color: #1c1c1c;
+  --color-surface: #2b2b2b;
+  --color-card: #2a2a2a;
+  --color-card-hover: #333333;
+  --color-panel: #3a4252;
+  
+  --color-text: #ffeadb;
+  --color-text-secondary: #b4b7c0;
+  --color-text-muted: #797979;
+  
+  --color-heading: #2ec27e;
+  --color-link: #7a94b3;
+  --color-link-hover: #9ab4d3;
+  --color-accent: #cf6f70;
+  --color-sidenote: #b4b7c0;
 
-  --background-color: #fff;
+  --color-border: #3a4252;
+  --color-border-heavy: #3a4252;
+  --color-table-heading: #3a4252;
+  --color-table-bg: #2a2a2a;
 
-  --color-text: #1b2733;
-  --color-text-secondary: #637282;
-  --color-link: #0070e0;
-  --color-sidenote: #616970;
+  --color-inline-code: #ffeadb;
+  --color-inline-code-bg: #2f3642;
+  --color-code-bg: #22252d;
+  --color-code-highlight-bg: rgba(58, 66, 82, 0.4);
 
-  --highlight-red: #ea9999;
-  --highlight-yellow: #ffe599;
-  --highlight-green: #b6d7a8;
-  --highlight-blue: #a4c2f4;
-  --highlight-purple: #b4a7d6;
+  /* --- Status / Highlights --- */
+  --highlight-red: #5c2323;
+  --highlight-yellow: #4a3700;
+  --highlight-green: #1b3a24;
+  --highlight-blue: #233554;
+  --highlight-purple: #3a2254;
 
-  --color-inline-code: #1b2733;
-  --color-inline-code-bg: #f3f3f8;
-
-  --color-border: #dfdfd0;
-  --color-border-heavy: #ccccd4;
-
-  --color-table-heading: #f3f3fb;
-
-  /* --- Text --- */
-
-  --font-family-prose: system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif;
-  --font-family-heading: system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif;
-  --font-family-code: Menlo, monospace;
+  /* --- Typography --- */
+  --font-family-prose: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-family-heading: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-family-code: 'Consolas', 'Fira Code', 'JetBrains Mono', Menlo, Monaco, monospace;
   --side-note-number-font-family: var(--font-family-prose);
 
-  --line-height: 26px;
-  --font-size: 17px;
+  --font-size: 16px;
+  --line-height: 1.65;
+  --heading-font-weight: 600;
 
-  --inline-code-font-size: 15px;
-  --code-block-font-size: 14px;
-  --code-block-side-padding: 8px;
+  --inline-code-font-size: 0.9em;
+  --code-block-font-size: 0.88em;
+  --code-block-side-padding: 12px;
   --line-numbers-font-size: 12px;
 
   --tight-code-line-height: 18px;
@@ -51,102 +65,73 @@
   --side-note-number-hang-left: -6px;
   --side-note-text-indent: -9px;
 
-  --heading-font-weight: 500;
+  --title-font-size: 32px;
+  --title-code-font-size: 30px;
+  --title-line-height: 1.3;
+  --title-margin-top: 20px;
 
-  --title-font-size: 42px;
-  --title-code-font-size: 40px;
-  --title-line-height: 48px;
-  --title-margin-top: 92px;
-
-  --h1-font-size: 32px;
-  --h1-code-font-size: 29px;
-  --h1-line-height: 36px;
-  --h1-word-spacing: 1px;
-  --h1-margin-top: 30px;
-  --h1-margin-bottom: 12px;
+  --h1-font-size: 28px;
+  --h1-code-font-size: 26px;
+  --h1-line-height: 1.35;
+  --h1-word-spacing: 0.5px;
+  --h1-margin-top: 36px;
+  --h1-margin-bottom: 16px;
 
   --h2-font-size: 22px;
   --h2-code-font-size: 20px;
-  --h2-line-height: 28px;
+  --h2-line-height: 1.4;
   --h2-word-spacing: 0.5px;
-  --h2-margin-top: 18px;
-  --h2-margin-bottom: 6px;
+  --h2-margin-top: 30px;
+  --h2-margin-bottom: 12px;
 
-  --ul-indent-size: 23px;
-  --ol-indent-size: 19px;
+  --h3-font-size: 18px;
+  --h3-line-height: 1.45;
+
+  --ul-indent-size: 24px;
+  --ol-indent-size: 20px;
   --ol-li-padding-left: 4px;
 
-  --hr-margin-top: 18px;
-  --hr-margin-bottom: calc(var(--line-height) - var(--hr-margin-top) - 1px);
+  --hr-margin-top: 28px;
+  --hr-margin-bottom: 28px;
 
-  --extra-wide-scale-factor: 1.5;
+  --extra-wide-scale-factor: 1.35;
 
-  --figcaption-line-height: 21px;
-  --figcaption-font-size: 14px;
+  --figcaption-line-height: 20px;
+  --figcaption-font-size: 13px;
   --figcaption-code-font-size: 13px;
   --figcaption-gap: 6px;
   --captioned-figure-gap: 10px;
 
-  --table-line-height: 21px;
-  --table-font-size: 14px;
+  --table-line-height: 1.5;
+  --table-font-size: 14.5px;
   --table-code-font-size: 13px;
+  --table-border-radius: 12px;
 
-  --nav-toc-font-size: 12px;
+  --nav-toc-font-size: 13px;
   --nav-toc-code-font-size: 12px;
-  --nav-toc-indent: 15px;
+  --nav-toc-indent: 16px;
   --nav-toc-baseline-offset: 2px;
 
-  /* --- Layout --- */
-
-  --main-width: 745px;
-  margin: 40px;
-  /* The name doesn't indicate it, but this variable actually specifies an
-   * effective minimum width. (It didn't previously behave this way, but the
-   * change to do so was made in a backwards-compatible way, so the variable
-   * was not renamed.)
-   **/
-  --main-width-narrow: 550px;
-  --side-note-max-width: 300px;
-
+  /* --- Layout Widths --- */
+  --main-width: 1100px;
+  --main-width-narrow: 650px;
+  --side-note-max-width: 280px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background-color: #161313;
-
-    --color-text: #f7f5f2;
-    --color-text-secondary: #9d9b99;
-    --color-link: #2994ff;
-    --color-sidenote: #b4b2af;
-
-    --highlight-red: #660000;
-    --highlight-yellow: #7f6000;
-    --highlight-green: #274e13;
-    --highlight-blue: #1c4587;
-    --highlight-purple: #351c75;
-
-    --color-inline-code: #f7f5f2;
-    --color-inline-code-bg: #242121;
-
-    --color-border: #393635;
-    --color-border-heavy: #524f4d;
-
-    --color-table-heading: #242121;
-  }
-}
-
+/* Base Reset & Box Sizing */
 *, *:after, *:before {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 html {
-  /* https://github.com/edwardtufte/tufte-css/issues/81#issuecomment-261953409 */
   -webkit-text-size-adjust: 100%;
+  background-color: var(--background-color);
+  color-scheme: dark;
 }
 
 body {
@@ -154,56 +139,540 @@ body {
   color: var(--color-text);
   font-size: var(--font-size);
   line-height: var(--line-height);
-  -webkit-font-variant-ligatures: no-common-ligatures;
-  font-variant-ligatures: no-common-ligatures;
-
-  /* Safari-only right now (macOS, iOS) but looks so good. */
-  hanging-punctuation: first;
-
-  margin: 0;
-  padding: 0;
-  padding-top: var(--title-margin-top);
-  width: 100%;
-
   background-color: var(--background-color);
+  margin: 0 auto;
+  padding: 30px 24px 60px 24px;
+  max-width: 1200px;
+  min-height: 100vh;
 }
 
 @media print {
   body {
     background-color: initial;
+    color: #000;
   }
 }
 
-/* }}} */
-/* ----- Utility classes -----------------------------------------------  {{{ */
-.only-light-mode {
-  display: inherit;
-}
-.only-dark-mode {
-  display: none;
+/* ----- Back Button ------------------------------------------------------- */
+
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
 }
 
-@media (prefers-color-scheme: dark) {
-  .only-light-mode {
-    display: none;
-  }
-  .only-dark-mode {
-    display: inherit;
-  }
+a.back-button, a.back-button:visited {
+  color: var(--color-text);
+  text-decoration: none;
 }
-/* }}} */
-/* ----- Side notes and margin notes ----------------------------------- {{{ */
-/* --- Side note text and numbering --- {{{ */
+
+.back-button:hover,
+a.back-button:hover {
+  background-color: var(--color-card-hover);
+  color: var(--color-heading);
+  border-color: var(--color-heading);
+  text-decoration: none;
+  transform: translateX(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+p:has(> .back-button) {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+/* ----- Title Block Header ------------------------------------------------ */
+
+header#title-block-header {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  padding: 32px 28px;
+  margin-top: 10px;
+  margin-bottom: 35px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  text-align: center;
+  position: relative;
+}
+
+header#title-block-header h1.title {
+  color: var(--color-heading);
+  font-size: var(--title-font-size);
+  font-weight: 700;
+  margin-top: 0;
+  margin-bottom: 12px;
+  line-height: var(--title-line-height);
+  letter-spacing: -0.3px;
+}
+
+header#title-block-header .author {
+  color: var(--color-text);
+  font-size: 16px;
+  font-weight: 500;
+  margin-top: 6px;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+header#title-block-header .author a {
+  color: var(--color-link);
+  display: inline-flex;
+  align-items: center;
+  font-size: 18px;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+header#title-block-header .author a:hover {
+  color: var(--color-heading);
+  transform: translateY(-1px);
+  text-decoration: none;
+}
+
+header#title-block-header .email {
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  margin-top: 4px;
+  margin-bottom: 0;
+}
+
+header#title-block-header .email a {
+  color: var(--color-link);
+}
+
+/* ----- Headings ---------------------------------------------------------- */
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family-heading);
+  color: var(--color-heading);
+  font-weight: var(--heading-font-weight);
+}
+
+h1:not(.title) {
+  font-size: var(--h1-font-size);
+  line-height: var(--h1-line-height);
+  word-spacing: var(--h1-word-spacing);
+  margin-top: var(--h1-margin-top);
+  margin-bottom: var(--h1-margin-bottom);
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 8px;
+}
+
+h1:not(.title) code {
+  font-size: var(--h1-code-font-size);
+}
+
+h2 {
+  font-size: var(--h2-font-size);
+  line-height: var(--h2-line-height);
+  word-spacing: var(--h2-word-spacing);
+  margin-top: var(--h2-margin-top);
+  margin-bottom: var(--h2-margin-bottom);
+}
+
+h2 code {
+  font-size: var(--h2-code-font-size);
+}
+
+h3 {
+  font-size: var(--h3-font-size);
+  line-height: var(--line-height);
+  margin-top: 22px;
+  margin-bottom: 8px;
+}
+
+h4, h5, h6 {
+  font-size: 16px;
+  margin-top: 16px;
+  margin-bottom: 6px;
+}
+
+/* ----- Prose & Links ----------------------------------------------------- */
+
+p, main > ul, main > ol, div.sourceCode, main > pre, table {
+  margin-top: 14px;
+  margin-bottom: 18px;
+}
+
+p {
+  line-height: var(--line-height);
+}
+
+p span {
+  color: var(--color-accent);
+}
+
+a, a:link, a:visited {
+  color: var(--color-link);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: var(--color-link-hover);
+}
+
+ul:not(.task-list) {
+  margin-left: var(--ul-indent-size);
+  margin-top: 10px;
+  margin-bottom: 16px;
+}
+
+ol {
+  margin-left: var(--ol-indent-size);
+  margin-top: 10px;
+  margin-bottom: 16px;
+}
+
+li {
+  margin-bottom: 4px;
+}
+
+li > p {
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
+blockquote {
+  border-left: 4px solid var(--color-heading);
+  background-color: #252a32;
+  border-radius: 0 10px 10px 0;
+  padding: 12px 20px;
+  margin: 20px 0;
+  color: var(--color-text);
+  font-style: normal;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+blockquote > p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+/* ----- Alerts / Callouts -------------------------------------------------- */
+
+blockquote.alert {
+  border-left: 4px solid var(--color-heading);
+  background-color: #252a32;
+  border-radius: 0 10px 10px 0;
+  padding: 14px 20px;
+  margin: 20px 0;
+  color: var(--color-text);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+}
+
+blockquote.alert .alert-title {
+  font-weight: 700;
+  font-size: 15px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+blockquote.alert > p {
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
+blockquote.alert > p:last-child {
+  margin-bottom: 0;
+}
+
+/* Alert types */
+blockquote.alert-note {
+  border-left-color: #58a6ff;
+  background-color: rgba(56, 139, 253, 0.1);
+}
+blockquote.alert-note .alert-title {
+  color: #58a6ff;
+}
+
+blockquote.alert-tip {
+  border-left-color: #3fb950;
+  background-color: rgba(46, 194, 126, 0.1);
+}
+blockquote.alert-tip .alert-title {
+  color: #3fb950;
+}
+
+blockquote.alert-important {
+  border-left-color: #bc8cff;
+  background-color: rgba(163, 113, 247, 0.1);
+}
+blockquote.alert-important .alert-title {
+  color: #bc8cff;
+}
+
+blockquote.alert-warning {
+  border-left-color: #d29922;
+  background-color: rgba(210, 153, 34, 0.1);
+}
+blockquote.alert-warning .alert-title {
+  color: #d29922;
+}
+
+blockquote.alert-caution {
+  border-left-color: #f85149;
+  background-color: rgba(248, 81, 73, 0.1);
+}
+blockquote.alert-caution .alert-title {
+  color: #f85149;
+}
+
+hr {
+  margin-top: var(--hr-margin-top);
+  margin-bottom: var(--hr-margin-bottom);
+  border: none;
+  border-top: 1px solid var(--color-border);
+}
+
+span.mark, mark {
+  color: inherit;
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+span.mark.red,    mark.red    { background-color: var(--highlight-red);    }
+span.mark.yellow, mark.yellow { background-color: var(--highlight-yellow); }
+span.mark.green,  mark.green  { background-color: var(--highlight-green);  }
+span.mark.blue,   mark.blue   { background-color: var(--highlight-blue);   }
+span.mark.purple, mark.purple { background-color: var(--highlight-purple); }
+
+/* ----- Tables (Sleek Dark Theme) ----------------------------------------- */
+
+table {
+  -webkit-font-feature-settings: "tnum" 1;
+  font-feature-settings: "tnum" 1;
+
+  font-size: var(--table-font-size);
+  line-height: var(--table-line-height);
+
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--table-border-radius, 12px);
+  overflow: hidden;
+
+  width: 100%;
+  background-color: var(--color-table-bg);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  margin-top: 16px;
+  margin-bottom: 30px;
+}
+
+thead, tbody {
+  vertical-align: top;
+}
+
+table th {
+  background-color: var(--color-table-heading);
+  color: var(--color-text);
+  font-weight: 600;
+  padding: 10px 14px;
+  text-align: left;
+  border-right: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  border-top: none;
+  border-left: none;
+}
+
+table th a {
+  color: var(--color-heading);
+}
+
+table th a:hover {
+  color: var(--color-link-hover);
+}
+
+table td {
+  padding: 10px 14px;
+  color: var(--color-text);
+  background-color: var(--color-card);
+  transition: background-color 0.2s ease;
+  border-right: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  border-top: none;
+  border-left: none;
+}
+
+/* Remove right border from the last column */
+table tr > th:last-child,
+table tr > td:last-child {
+  border-right: none;
+}
+
+/* Remove bottom border from the last row */
+table tbody:last-of-type tr:last-child > th,
+table tbody:last-of-type tr:last-child > td,
+table:not(:has(tbody)) tr:last-child > th,
+table:not(:has(tbody)) tr:last-child > td {
+  border-bottom: none;
+}
+
+/* Outer corner border-radius on cells to match table's rounded border */
+table thead tr:first-child > th:first-child,
+table thead tr:first-child > td:first-child,
+table:not(:has(thead)) tr:first-child > th:first-child,
+table:not(:has(thead)) tr:first-child > td:first-child {
+  border-top-left-radius: calc(var(--table-border-radius, 12px) - 1px);
+}
+
+table thead tr:first-child > th:last-child,
+table thead tr:first-child > td:last-child,
+table:not(:has(thead)) tr:first-child > th:last-child,
+table:not(:has(thead)) tr:first-child > td:last-child {
+  border-top-right-radius: calc(var(--table-border-radius, 12px) - 1px);
+}
+
+table tbody:last-of-type tr:last-child > th:first-child,
+table tbody:last-of-type tr:last-child > td:first-child,
+table:not(:has(tbody)) tr:last-child > th:first-child,
+table:not(:has(tbody)) tr:last-child > td:first-child {
+  border-bottom-left-radius: calc(var(--table-border-radius, 12px) - 1px);
+}
+
+table tbody:last-of-type tr:last-child > th:last-child,
+table tbody:last-of-type tr:last-child > td:last-child,
+table:not(:has(tbody)) tr:last-child > th:last-child,
+table:not(:has(tbody)) tr:last-child > td:last-child {
+  border-bottom-right-radius: calc(var(--table-border-radius, 12px) - 1px);
+}
+
+table tbody tr:hover td {
+  background-color: var(--color-card-hover);
+}
+
+table a {
+  color: var(--color-link);
+}
+
+table a:hover {
+  text-decoration: underline;
+}
+
+table caption {
+  caption-side: bottom;
+  margin-top: var(--figcaption-gap);
+  margin-bottom: 12px;
+  font-size: var(--figcaption-font-size);
+  line-height: var(--figcaption-line-height);
+  font-style: italic;
+  text-align: center;
+  color: var(--color-text-secondary);
+}
+
+/* Schedule specific adjustments */
+table td > div:not(.schedule-wrapper),
+.schedule-card {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+table td > div:not(.schedule-wrapper):hover,
+.schedule-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  position: relative;
+  z-index: 1;
+}
+
+.schedule-wrapper {
+  transition: none;
+}
+
+/* ----- Code & Syntax Highlighting ---------------------------------------- */
+
+code {
+  font-family: var(--font-family-code);
+  word-spacing: normal;
+  color: var(--color-inline-code);
+  background-color: var(--color-inline-code-bg);
+  font-size: var(--inline-code-font-size);
+  padding: 2px 6px;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+}
+
+pre {
+  background-color: var(--color-code-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 14px 18px;
+  overflow-x: auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  margin: 18px 0;
+}
+
+pre code {
+  color: inherit;
+  background-color: transparent;
+  font-size: var(--code-block-font-size);
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  display: block;
+}
+
+div.sourceCode {
+  background-color: var(--color-code-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin: 18px 0;
+  overflow-x: auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+div.sourceCode > pre {
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  margin: 0;
+}
+
+pre.numberSource > code.sourceCode > span {
+  counter-increment: source-line;
+  padding-left: calc(4 * var(--line-numbers-font-size));
+  position: relative;
+}
+
+pre.numberSource > code.sourceCode > span > a:first-child::before {
+  content: counter(source-line);
+  font-size: var(--line-numbers-font-size);
+  text-decoration: none;
+  color: var(--color-text-muted);
+  position: absolute;
+  left: 0;
+  width: calc(3.5 * var(--line-numbers-font-size));
+  text-align: right;
+  padding-right: 8px;
+}
+
+/* ----- Side Notes & Margin Notes ----------------------------------------- */
 
 .sidenote,
 .marginnote {
   color: var(--color-sidenote);
-
   font-size: var(--side-note-font-size);
   line-height: var(--side-note-line-height);
   vertical-align: baseline;
-
-  /* Align first baseline to body. */
   margin-top: var(--side-note-baseline-offset);
 }
 
@@ -235,471 +704,86 @@ sup {
   font-size: var(--side-note-font-size);
   font-weight: 700;
   font-family: var(--side-note-number-font-family);
-  -webkit-font-feature-settings: "tnum" 1;
-  font-feature-settings: "tnum" 1;
-
-  /* Mimic 'vertical-align: super' (browser style for sup tag)
-   * without causing a gap in our text's implicit grid. */
   vertical-align: baseline;
   position: relative;
   top: var(--side-note-sup-offset);
+  color: var(--color-heading);
 }
 
 sup {
   font-weight: inherit;
 }
 
-/* Make the superscript hang. */
 .sidenote:before { left: var(--side-note-number-hang-left); }
-/* Get first first column of first row to line up with other rows. */
 .sidenote { text-indent: var(--side-note-text-indent); }
 
-/*}}} */
-/* --- Side note input controls --- {{{ */
-
 input.margin-toggle {
-    display: none;
+  display: none;
 }
 label.margin-toggle:not(.sidenote-number) {
-    display: none;
+  display: none;
 }
 label.sidenote-number {
-    display: inline;
+  display: inline;
 }
 
-/* Unfortunately, variables aren't in scope here.
- * See calculations in Horizontal layouting.
- */
-@media screen and (max-width: calc(26px + 550px + 26px + 169px + 26px - 1px)) {
-  .margin-toggle:checked + .sidenote,
-  .margin-toggle:checked + .marginnote {
-    margin-top: var(--side-note-line-height);
-    vertical-align: baseline;
-  }
+/* ----- Table of Contents (TOC) ------------------------------------------ */
 
-  label.margin-toggle {
-    color: var(--color-link);
-  }
-
-  label.margin-toggle:not(.sidenote-number) {
-    display: inline;
-  }
-
-  label {
-    cursor: pointer;
-  }
-}
-
-/* }}} */
-/* }}} */
-/* ----- Headings ------------------------------------------------------ {{{ */
-
-h1, h2 {
-  font-family: var(--font-family-heading);
-  font-weight: var(--heading-font-weight);
-}
-
-h4, h5, h6 {
-  font-weight: normal;
-}
-
-h1.title {
-  margin-top: var(--line-height);
-  margin-bottom: var(--line-height);
-  font-size: var(--title-font-size);
-  line-height: var(--title-line-height);
-}
-
-h1.title code {
-  font-size: var(--title-code-font-size);
-}
-
-h1:not(.title) {
-  font-size: var(--h1-font-size);
-  line-height: var(--h1-line-height);
-  word-spacing: var(--h1-word-spacing);
-
-  margin-top: var(--h1-margin-top);
-  margin-bottom: var(--h1-margin-bottom);
-}
-
-h1:not(.title) code {
-  font-size: var(--h1-code-font-size);
-}
-
-h2 {
-  font-size: var(--h2-font-size);
-  line-height: var(--h2-line-height);
-  word-spacing: var(--h2-word-spacing);
-
-  margin-top: var(--h2-margin-top);
-  margin-bottom: var(--h2-margin-bottom);
-}
-
-h2 code {
-  font-size: var(--h2-code-font-size);
-}
-
-h3 {
-  font-size: var(--font-size);
-  line-height: var(--line-height);
-  font-weight: bold;
-}
-
-h1:not(.title) + *, h1:not(.title) + p { margin-top: var(--h1-margin-bottom); }
-h2 + *, h2 + p                         { margin-top: var(--h2-margin-bottom); }
-h3 + *, h3 + p                         { margin-top: 0; }
-
-/* }}} */
-/* ----- Prose --------------------------------------------------------- {{{ */
-
-p, main > ul, main > ol, div.sourceCode, main > pre, img, table {
-  margin-top: var(--line-height);
-  margin-bottom: var(--line-height)
-}
-
-ul:not(.task-list) {
-  margin-left: var(--ul-indent-size);
-}
-ol {
-  margin-left: var(--ol-indent-size);
-}
-
-ul.task-list {
-  list-style: none;
-  margin-left: var(--ul-indent-size);
-}
-
-ul.task-list > li {
-  position: relative;
-}
-
-ul.task-list > li > input[type="checkbox"] {
-  position: absolute;
-  left: calc(-1 * var(--ul-indent-size));
-  height: var(--line-height);
-}
-
-ol > li {
-  padding-left: var(--ol-li-padding-left);
-}
-
-ol                         { list-style-type: decimal; }
-ol ol                      { list-style-type: lower-alpha; }
-ol ol ol                   { list-style-type: lower-roman; }
-ol ol ol ol                { list-style-type: decimal; }
-ol ol ol ol ol             { list-style-type: lower-alpha; }
-ol ol ol ol ol ol          { list-style-type: lower-roman; }
-ol ol ol ol ol ol ol       { list-style-type: decimal; }
-ol ol ol ol ol ol ol ol    { list-style-type: lower-alpha; }
-ol ol ol ol ol ol ol ol ol { list-style-type: lower-roman; }
-
-ul                         { list-style-type: disc; }
-ul ul                      { list-style-type: circle; }
-ul ul ul                   { list-style-type: square; }
-ul ul ul ul                { list-style-type: disc; }
-ul ul ul ul ul             { list-style-type: circle; }
-ul ul ul ul ul ul          { list-style-type: square; }
-ul ul ul ul ul ul ul       { list-style-type: disc; }
-ul ul ul ul ul ul ul ul    { list-style-type: circle; }
-ul ul ul ul ul ul ul ul ul { list-style-type: square; }
-
-blockquote {
-  border-left: 1px solid var(--color-text-secondary);
-  padding-left: 1.5rem;
-
-  font-style: italic;
-}
-
-blockquote > p {
-  margin-top: 0;
-}
-
-blockquote em, blockquote i, blockquote .sidenote-wrapper {
-  font-style: normal;
-}
-
-hr {
-  margin-top: var(--hr-margin-top);
-  margin-bottom: var(--hr-margin-bottom);
-  border-style: solid;
-  color: var(--color-border-heavy);
-  border-width: 1px 0 0;
-}
-
-a code, a:link code, a:visited code,
-a, a:link, a:visited {
-  color: var(--color-link);
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-span.mark, mark {
-  /* Reset browser styles */
-  color: inherit;
-
-  padding: 2px 0 1px;
-}
-span.mark.red,    mark.red    { background-color: var(--highlight-red);    }
-span.mark.yellow, mark.yellow { background-color: var(--highlight-yellow); }
-span.mark.green,  mark.green  { background-color: var(--highlight-green);  }
-span.mark.blue,   mark.blue   { background-color: var(--highlight-blue);   }
-span.mark.purple, mark.purple { background-color: var(--highlight-purple); }
-
-.subtitle {
-  margin-top: 0;
-}
-.author, .date {
-  margin-top: 0;
-  margin-bottom: 0;
-}
-.signoff {
-  margin-top: calc(4 * var(--line-height));
-  margin-bottom: calc(4 * var(--line-height));
-}
-
-/* Pandoc utility classes */
-span.smallcaps{ font-variant: small-caps; }
-span.underline{ text-decoration: underline; }
-
-.katex-display {
-  background: var(--background-color);
-  transform: translateZ(0px);
-}
-
-@media print {
-  .katex-display {
-    background-color: initial;
-  }
-}
-
-/* }}} */
-/* ----- Code ---------------------------------------------------------- {{{ */
-
-/* Pandoc code blocks with a language look like div.sourceCode > pre.sourceCode
- * Otherwise, it's just a pre (without .sourceCode)
- *
- * The 'code' element is tricky because it's used for inline code and code in a
- * pre.
- */
-
-code {
-  font-family: var(--font-family-code);
-
-  word-spacing: normal;
-
-  /* Only for inline code */
-  color: var(--color-inline-code);
-  background-color: var(--color-inline-code-bg);
-  font-size: var(--inline-code-font-size);
-  margin: 0;
-  padding: 2px 0 1px;
+nav#TOC {
+  margin-bottom: 24px;
+  background-color: var(--color-surface);
   border: 1px solid var(--color-border);
-  border-radius: 1px;
+  border-radius: 12px;
+  padding: 16px 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 }
 
-.sidenote code,
-.marginnote code {
-  font-size: var(--side-note-code-font-size);
+nav#TOC input {
+  display: none;
 }
 
-pre code {
-  /* Reset some changes meant to be inline-only */
-  color: inherit;
-  background-color: inherit;
-  font-size: var(--code-block-font-size);
-  line-height: var(--line-height);
-  margin: initial;
-  padding: initial;
-  border: initial;
-  border-radius: initial;
+nav#TOC label {
+  color: var(--color-heading);
+  cursor: pointer;
+  font-weight: 600;
 }
 
-pre > code {
-  position: relative; /* For line highlights */
-  display: inline-block;
-  min-width: 100%;
-  z-index: 1;
-
-  white-space: pre-wrap;
-
-  padding: 0 var(--code-block-side-padding);
+nav#TOC ul {
+  list-style: none;
+  margin-left: var(--nav-toc-indent);
+  padding-left: 0;
+  margin-top: 6px;
+  margin-bottom: 6px;
 }
 
-code.sourceCode::selection {
-  /* Prevent bug where far right edge of text box shows as selected. */
-  background: transparent;
+nav#TOC > ul {
+  margin-left: 0;
 }
 
-.wide > pre, .wide > div.sourceCode {
-  /* Put this in front of the table of contents */
-  transform: translateZ(0px);
+nav#TOC li {
+  margin: 4px 0;
 }
 
-.wide pre > code {
-  white-space: pre;
+nav#TOC a {
+  color: var(--color-link);
 }
 
-pre.numberSource code {
-  counter-reset: source-line 0;
-}
-
-pre > code.sourceCode > span {
-  line-height: var(--line-height);
-
-  display: inline-block;
-  min-width: 100%;
-}
-
-div.sourceCode {
-  /* Need to make room for line numbers (even if they're not going to be used).
-   * Width doesn't matter, just needs to be big enough to hold the largest line
-   * number. */
-  --line-numbers-width: calc(4 * var(--line-numbers-font-size));
-  --line-numbers-negative-width: calc(-1 * var(--line-numbers-width));
-  margin-left: var(--line-numbers-negative-width);
-}
-div.sourceCode > pre {
-  margin-left: var(--line-numbers-width);
-}
-pre.numberSource > code.sourceCode > span {
-  counter-increment: source-line;
-  padding-left: var(--line-numbers-width);
-  text-indent: var(--line-numbers-negative-width);
-  position: relative;
-  left: var(--line-numbers-negative-width);
-}
-pre.numberSource > code.sourceCode > span > a:first-child::before {
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-
-  content: counter(source-line);
-  font-size: var(--line-numbers-font-size);
-  text-decoration: none;
-
-  position: relative;
-  text-align: right;
-  display: inline-block;
-
-  padding: 0 calc(2 * var(--code-block-side-padding));
-  width: var(--line-numbers-width);
-}
-pre > code.sourceCode > span > a:first-child::before:hover {
+nav#TOC a:hover {
+  color: var(--color-heading);
   text-decoration: underline;
 }
 
-/* Utility class for code blocks that contain things like box drawing characters, where it's nice for things to touch. */
-.tight-code pre,
-pre.tight-code {
-  padding-top: var(--tight-code-padding-top);
-}
+/* ----- Figures & Images -------------------------------------------------- */
 
-pre.tight-code code,
-.tight-code pre code,
-.tight-code pre > code.sourceCode > span,
-pre.tight-code > code.sourceCode > span {
-  line-height: var(--tight-code-line-height);
-}
-
-/* --- Code line highlights --- {{{ */
-/* I used some code I contributed to owickstrom's pandoc-emphasize-code[1] as
- * inspiration for these changes.
- *
- * The novel part is using :nth-of-type(...) selectors and CSS classes, instead
- * of needing a pandoc filter. This means that we can stick with pandoc's
- * default syntax highlighter, and not need to requirer JavaScript for syntax
- * highlighting. It has the obvious limitation that it places a fixed limit on
- * lines that can be highlighted, but these additional CSS styles are easy
- * enough to write, so anyone who needs more lines can write their own
- * stylesheet and include it to add more after the fact.
- *
- * [1] https://github.com/owickstrom/pandoc-emphasize-code/pull/3
- */
-
-pre > code.sourceCode > span::after {
-  position: absolute;
-  background-color: var(--color-code-highlight-bg);
-  z-index: -1;
-  left: calc(var(--line-numbers-width) - var(--code-block-side-padding));
-  right: calc(var(--line-numbers-negative-width) - var(--code-block-side-padding));
-  top: 0;
-  height: 100%;
-}
-
-pre.hl-1  > code.sourceCode > span:nth-of-type(1)::after  { content: ""; }
-pre.hl-2  > code.sourceCode > span:nth-of-type(2)::after  { content: ""; }
-pre.hl-3  > code.sourceCode > span:nth-of-type(3)::after  { content: ""; }
-pre.hl-4  > code.sourceCode > span:nth-of-type(4)::after  { content: ""; }
-pre.hl-5  > code.sourceCode > span:nth-of-type(5)::after  { content: ""; }
-pre.hl-6  > code.sourceCode > span:nth-of-type(6)::after  { content: ""; }
-pre.hl-7  > code.sourceCode > span:nth-of-type(7)::after  { content: ""; }
-pre.hl-8  > code.sourceCode > span:nth-of-type(8)::after  { content: ""; }
-pre.hl-9  > code.sourceCode > span:nth-of-type(9)::after  { content: ""; }
-pre.hl-10 > code.sourceCode > span:nth-of-type(10)::after { content: ""; }
-pre.hl-11 > code.sourceCode > span:nth-of-type(11)::after { content: ""; }
-pre.hl-12 > code.sourceCode > span:nth-of-type(12)::after { content: ""; }
-pre.hl-13 > code.sourceCode > span:nth-of-type(13)::after { content: ""; }
-pre.hl-14 > code.sourceCode > span:nth-of-type(14)::after { content: ""; }
-pre.hl-15 > code.sourceCode > span:nth-of-type(15)::after { content: ""; }
-pre.hl-16 > code.sourceCode > span:nth-of-type(16)::after { content: ""; }
-pre.hl-17 > code.sourceCode > span:nth-of-type(17)::after { content: ""; }
-pre.hl-18 > code.sourceCode > span:nth-of-type(18)::after { content: ""; }
-pre.hl-19 > code.sourceCode > span:nth-of-type(19)::after { content: ""; }
-pre.hl-20 > code.sourceCode > span:nth-of-type(20)::after { content: ""; }
-pre.hl-21 > code.sourceCode > span:nth-of-type(21)::after { content: ""; }
-pre.hl-22 > code.sourceCode > span:nth-of-type(22)::after { content: ""; }
-pre.hl-23 > code.sourceCode > span:nth-of-type(23)::after { content: ""; }
-pre.hl-24 > code.sourceCode > span:nth-of-type(24)::after { content: ""; }
-pre.hl-25 > code.sourceCode > span:nth-of-type(25)::after { content: ""; }
-pre.hl-26 > code.sourceCode > span:nth-of-type(26)::after { content: ""; }
-pre.hl-27 > code.sourceCode > span:nth-of-type(27)::after { content: ""; }
-pre.hl-28 > code.sourceCode > span:nth-of-type(28)::after { content: ""; }
-pre.hl-29 > code.sourceCode > span:nth-of-type(29)::after { content: ""; }
-pre.hl-30 > code.sourceCode > span:nth-of-type(30)::after { content: ""; }
-pre.hl-31 > code.sourceCode > span:nth-of-type(31)::after { content: ""; }
-pre.hl-32 > code.sourceCode > span:nth-of-type(32)::after { content: ""; }
-pre.hl-33 > code.sourceCode > span:nth-of-type(33)::after { content: ""; }
-pre.hl-34 > code.sourceCode > span:nth-of-type(34)::after { content: ""; }
-pre.hl-35 > code.sourceCode > span:nth-of-type(35)::after { content: ""; }
-pre.hl-36 > code.sourceCode > span:nth-of-type(36)::after { content: ""; }
-pre.hl-37 > code.sourceCode > span:nth-of-type(37)::after { content: ""; }
-pre.hl-38 > code.sourceCode > span:nth-of-type(38)::after { content: ""; }
-pre.hl-39 > code.sourceCode > span:nth-of-type(39)::after { content: ""; }
-pre.hl-40 > code.sourceCode > span:nth-of-type(40)::after { content: ""; }
-
-/* }}} */
-
-/* }}} */
-/* ----- Images and figures -------------------------------------------- {{{ */
-
-/* There's only a figure if there's a caption. Tighten things up. */
 figure {
-  margin-bottom: var(--captioned-figure-gap);
+  margin: 20px 0;
 }
 
-figure + p {
-  margin-top: var(--captioned-figure-gap);
-}
-
-figure > img, figure > pre, figure > div.sourceCode {
-  margin-bottom: var(--figcaption-gap);
-}
-
-img {
-  width: 100%;
-  display: block;
-}
-
-.wide img {
-  /* Put this in front of the table of contents */
-  transform: translateZ(0px);
+figure > img {
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  max-width: 100%;
+  height: auto;
 }
 
 figcaption {
@@ -708,103 +792,37 @@ figcaption {
   font-style: italic;
   text-align: center;
   color: var(--color-text-secondary);
+  margin-top: 8px;
 }
 
-.left-align-caption figcaption {
-  text-align: left;
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
 }
 
-figcaption code {
-  font-size: var(--figcaption-code-font-size);
+/* ----- KaTeX Display Math ------------------------------------------------ */
+
+.katex-display {
+  background: var(--background-color);
+  color: var(--color-text);
+  padding: 10px 0;
+  overflow-x: auto;
 }
 
-/* }}} */
-/* ----- Tables -------------------------------------------------------- {{{ */
-
-table {
-  -webkit-font-feature-settings: "tnum" 1;
-  font-feature-settings: "tnum" 1;
-
-  font-size: var(--table-font-size);
-  line-height: var(--table-line-height);
-
-  border-spacing: 0;
-  border-collapse: collapse;
-  border: 1px solid var(--color-border-heavy);
-
-  width: 100%;
-
-  /* Solid background to occlude table of contents */
-  background-color: var(--background-color);
-}
-
-thead, tbody {
-  vertical-align: top;
-}
-
-td > *:first-child {
-  margin-top: 0;
-}
-td > *:last-child {
-  margin-bottom: 0;
-}
-
-
-@media print {
-  table {
-    background-color: initial;
-  }
-}
-
-table code {
-  font-size: var(--table-code-font-size);
-}
-
-table pre code {
-  font-size: inherit;
-}
-
-.wide table {
-  /* Put this in front of the table of contents */
-  transform: translateZ(0px);
-}
-
-table td, table th {
-  border: 1px solid var(--color-border-heavy);
-  padding: 5px 8px;
-  min-width: 100px;
-}
-table th {
-  background-color: var(--color-table-heading);
-}
-
-table > caption {
-  caption-side: bottom;
-  margin-top: var(--figcaption-gap);
-  margin-bottom: calc(var(--captioned-figure-gap) - var(--line-height));
-  font-size: var(--figcaption-font-size);
-  line-height: var(--figcaption-line-height);
-  font-style: italic;
-  text-align: center;
-  color: var(--color-text-secondary);
-}
-
-.left-align-caption table > caption {
-  text-align: left;
-}
-
-table > caption code {
-  font-size: var(--figcaption-code-font-size);
-}
-
-/* --- Notes are just single cell tables --- */
+/* ----- Note Cards -------------------------------------------------------- */
 
 .note table {
   font-size: inherit;
   line-height: inherit;
-}
-.note table, .note td {
   border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.note table, .note th, .note td {
+  border: none;
+  border-radius: 0;
 }
 
 .note.red    td { background: var(--highlight-red); }
@@ -813,466 +831,47 @@ table > caption code {
 .note.blue   td { background: var(--highlight-blue); }
 .note.purple td { background: var(--highlight-purple); }
 
-/* }}} */
-/* ----- Table of contents --------------------------------------------- {{{ */
+/* ----- Layout & Media Queries -------------------------------------------- */
 
-.date.before-toc {
-  padding-bottom: var(--line-height);
-}
-
-nav#TOC {
-  margin-bottom: var(--line-height);
-  border-left: 1px solid var(--color-text-secondary);
-  padding-left: 1.5rem;
-}
-
-nav#TOC input {
-  display: none;
-}
-
-nav#TOC label {
-  color: var(--color-link);
-  cursor: pointer;
-}
-
-nav#TOC > ul {
-  display: none;
-}
-
-nav#TOC > input:checked + ul {
-  display: block;
-}
-
-@media print {
-  nav#TOC > input + ul {
-    display: block;
-  }
-}
-
-/* Unfortunately, variables aren't in scope here.
- * 745px = --main-width
- * 52px = 2 * --line-height
- * 206px = side note min width
- */
-@media screen and (min-width: calc(745px + 2 * (52px + 206px + 52px) - 1px)) {
-  header {
-    margin-bottom: var(--line-height);
-  }
-
-  .date.before-toc {
-    padding-bottom: initial;
-  }
-
-  nav#TOC {
-    /* Unset some styles for small screen width */
-    margin-bottom: initial;
-    border-left: initial;
-    padding-left: initial;
-
-    position: sticky;
-    margin-top: calc(var(--nav-toc-baseline-offset));
-    float: left;
-    top: var(--line-height);
-
-    font-size: var(--nav-toc-font-size);
-    color: var(--color-text-secondary);
-
-    margin-left: var(--line-height);
-
-    max-width: calc((100vw - var(--main-width)) / 2 - 2 * var(--line-height));
-    max-height: calc(100vh - 2 * var(--line-height));
-    overflow-y: auto;
-  }
-
-  nav#TOC label {
-    display: none;
-  }
-
-  nav#TOC ul {
-    display: block;
-    list-style: none;
-    margin-left: var(--nav-toc-indent);
-  }
-  nav#TOC > ul {
-    margin-left: 0;
-  }
-
-  nav#TOC li {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  nav#TOC code {
-    font-size: var(--nav-toc-code-font-size);
-  }
-
-  nav#TOC code,
-  nav#TOC a,
-  nav#TOD a:link,
-  nav#TOD a:visited {
-    color: var(--color-text-secondary);
-  }
-
-  nav#TOC a:hover,
-  nav#TOC a:hover code {
-    text-decoration: none;
-    color: var(--color-link);
-  }
-}
-
-/* }}} */
-/* ----- Horizontal layouting (main, side notes, extra-wide) ----------- {{{ */
-
-.sidenote,
-.marginnote {
-  float: right;
-  clear: right;
-  position: relative;
-
-  width: var(--computed-width);
-  max-width: var(--side-note-max-width);
-  margin-right: calc(-1 * min(var(--computed-width), var(--side-note-max-width)) - var(--margin-left));
-}
-
-/* --- Side notes and table of contents always visible --- {{{ */
-
-/* Unfortunately, variables aren't in scope here.
- * 745px = --main-width
- * 52px = 2 * --line-height
- * 206px = side note min width
- */
-@media screen and (min-width: calc(745px + 2 * (52px + 206px + 52px))) {
-  header,
-  main,
-  footer {
-    max-width: var(--main-width);
-  }
-
-  header,
-  main,
-  footer {
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .sidenote,
-  .marginnote {
-    --margin-left: calc(2 * var(--line-height));
-    --margin-right: var(--margin-left);
-    --computed-width: calc((100vw - 100%) / 2 - var(--margin-right) - var(--margin-left));
-  }
-
-  .wide {
-    width: 100%;
-    overflow-x: auto;
-  }
-
-  .wide.extra-wide {
-    margin-left: calc((1 - var(--extra-wide-scale-factor)) / 2 * 100%);
-    width: calc(var(--extra-wide-scale-factor) * 100%);
-  }
-
-  .wide.full-width {
-    margin-left: calc(var(--line-height) - ((100vw - var(--main-width)) / 2));
-    width: calc(100vw - 2 * var(--line-height));
-  }
-
-  .wide.extra-wide figcaption,
-  .wide.extra-wide table > caption {
-    margin-left: calc(((var(--extra-wide-scale-factor) - 1) / 2) * var(--main-width));
-    max-width: var(--main-width);
-    margin-right: calc(100% - var(--main-width) - (((var(--extra-wide-scale-factor) - 1) / 2) * var(--main-width)));
-  }
-
-  .wide.full-width figcaption,
-  .wide.full-width table > caption {
-    margin-left: calc((100vw - var(--main-width)) / 2 - var(--line-height));
-    max-width: var(--main-width);
-    margin-right: calc(100% - var(--main-width) - ((100vw - var(--main-width)) / 2 - var(--line-height)));
-  }
-}
-
-/* }}} */
-/* --- Side notes visibile, table of contents collapsed, double-wide margins --- {{{ */
-
-/* Unfortunately, variables aren't in scope here.
- * 745px = --main-width
- * 52px = 2 * --line-height
- * 206px = side note min width
- */
-@media screen and (min-width: calc(52px + 745px + 52px + 206px + 52px)) and (max-width: calc(745px + 2 * (52px + 206px + 52px) - 1px)) {
-  header,
-  nav#TOC,
-  main,
-  footer {
-    margin-left: calc(2 * var(--line-height));
-    max-width: var(--main-width);
-    margin-right: auto;
-  }
-
-  .sidenote,
-  .marginnote {
-    --margin-left: calc(2 * var(--line-height));
-    --margin-right: var(--margin-left);
-    --computed-width: calc(100vw - var(--main-width) - calc(2 * var(--line-height)) - var(--margin-right) - var(--margin-left));
-  }
-
-  .wide {
-    width: 100%;
-    overflow-x: auto;
-    overflow-y: hidden;
-  }
-
-  .wide.extra-wide {
-    margin-left: calc(-1 * var(--line-height));
-    width: calc(100vw - 2 * var(--line-height));
-    max-width: calc(var(--extra-wide-scale-factor) * var(--main-width));
-  }
-
-  .wide.full-width {
-    margin-left: calc(-1 * var(--line-height));
-    width: calc(100vw - 2 * var(--line-height));
-    max-width: calc(100vw - 2 * var(--line-height));
-  }
-
-  .wide.extra-wide .katex-display,
-  .wide.full-width .katex-display {
-    padding-left: var(--line-height);
-    padding-right: var(--line-height);
-  }
-
-  .wide.extra-wide .katex-display,
-  .wide.extra-wide .katex-display > .katex,
-  .wide.full-width .katex-display,
-  .wide.full-width .katex-display > .katex {
-    text-align: left;
-  }
-
-  .wide.extra-wide figcaption,
-  .wide.extra-wide table > caption,
-  .wide.full-width figcaption,
-  .wide.full-width table > caption {
-    text-align: left;
-    margin-left: var(--line-height);
-    max-width: var(--main-width);
-  }
-}
-
-/* }}} */
-/* --- Side notes visibile, table of contents collapsed --- {{{ */
-
-/* Unfortunately, variables aren't in scope here.
- * 550px = --main-width-narrow
- * 26px = --line-height
- * 169px = side note min width narrow
- */
-@media screen and (min-width: calc(26px + 550px + 26px + 169px + 26px)) and (max-width: calc(52px + 745px + 52px + 206px + 52px - 1px)) {
-  header,
-  nav#TOC,
-  main,
-  footer {
-    margin-left: var(--line-height);
-    max-width: calc(max(var(--main-width-narrow), 100vw - (3 * var(--line-height)) - var(--side-note-max-width)));
-    margin-right: auto;
-  }
-
-  .sidenote,
-  .marginnote {
-    --margin-left: var(--line-height);
-    --margin-right: var(--line-height);
-    --computed-width: calc(100vw - var(--main-width-narrow) - var(--line-height) - var(--margin-right) - var(--margin-left));
-  }
-
-  .wide {
-    width: var(--main-width);
-    overflow-x: auto;
-    overflow-y: hidden;
-  }
-
-  .wide .katex-display,
-  .wide .katex-display > .katex {
-    text-align: left;
-  }
-
-  .wide figcaption,
-  .wide table > caption {
-    text-align: left;
-    max-width: var(--main-width-narrow);
-  }
-
-  .wide.extra-wide,
-  .wide.full-width {
-    width: calc(100vw - 2 * var(--line-height));
-  }
-}
-
-/* }}} */
-/* --- Side notes and table of contents collapsed --- {{{ */
-
-/* Unfortunately, variables aren't in scope here.
- * See calculations above.
- */
-@media screen and (max-width: calc(26px + 550px + 26px + 169px + 26px - 1px)) {
-  header,
-  nav#TOC,
-  main,
-  footer {
-    margin-left: var(--line-height);
-    margin-right: var(--line-height);
-  }
-
-  .sidenote,
-  .marginnote {
-    display: none;
-  }
-
-  .margin-toggle:checked + .sidenote,
-  .margin-toggle:checked + .marginnote {
-    display: block;
-    float: left;
-    clear: both;
-    width: 100%;
-    max-width: 100%;
-  }
-
-  .wide {
-    width: 100%;
-    overflow-x: auto;
-    overflow-y: hidden;
-  }
-
-  .wide .katex-display,
-  .wide .katex-display > .katex {
-    text-align: left;
-  }
-
-  .wide figcaption,
-  .wide table > caption {
-    text-align: left;
-    max-width: calc(100vw - 2 * var(--line-height));
-  }
-}
-
-/* }}} */
-/* --- Paged media (print styles) --- {{{ */
-@page {
-  size: letter;
-  margin: 0.5in;
-  /* To make room for line numbers in left margin. */
-  margin-left: 0.25in;
-}
-
-@media print {
-  :root {
-    --line-height: 18px;
-    --font-size: 12px;
-
-    --inline-code-font-size: 11px;
-    --code-block-font-size: 10px;
-    --code-block-side-padding: 6px;
-    --line-numbers-font-size: 8.5px;
-
-    --tight-code-line-height: 12.5px;
-    --tight-code-padding-top: 2px;
-
-    --side-note-line-height: 14px;
-    --side-note-font-size: 9px;
-    --side-note-code-font-size: 9px;
-    --side-note-baseline-offset: 3px;
-    --side-note-sup-offset: -4px;
-    --side-note-number-hang-left: -4px;
-    --side-note-text-indent: -6.5px;
-
-    --title-font-size: 30px;
-    --title-code-font-size: 29px;
-    --title-line-height: 37px;
-    --title-margin-top: 71px;
-
-    --h1-font-size: 22px;
-    --h1-code-font-size: 20px;
-    --h1-line-height: 28px;
-    --h1-word-spacing: 0.5px;
-    --h1-margin-top: 18px;
-    --h1-margin-bottom: 6px;
-
-    --h2-font-size: 16.5px;
-    --h2-code-font-size: 15px;
-    --h2-line-height: 22px;
-    --h2-word-spacing: 0px;
-    --h2-margin-top: 14px;
-    --h2-margin-bottom: 4.5px;
-
-    --ul-indent-size: 18px;
-    --ol-indent-size: 14px;
-
-    --hr-margin-top: 14px;
-
-    --figcaption-line-height: 16px;
-    --figcaption-font-size: 10px;
-    --figcaption-code-font-size: 9.5px;
-    --figcaption-gap: 4.5px;
-    --captioned-figure-gap: 7.5px;
-
-    --table-line-height: 16px;
-    --table-font-size: 10px;
-    --table-code-font-size: 9.5px;
-
-    --nav-toc-font-size: 8.5px;
-    --nav-toc-code-font-size: 8.5px;
-  }
-
+@media (max-width: 768px) {
   body {
-    padding-top: 0;
-    /* To make room for line numbers in left margin. */
-    padding-left: 0.25in;
+    padding: 16px 12px 40px 12px;
   }
 
-  header,
-  nav#TOC,
-  main,
-  footer {
-    width: 5.25in;
-    margin-right: auto;
+  .back-button {
+    padding: 6px 12px;
+    font-size: 13px;
+    margin-bottom: 16px;
   }
 
-  .sidenote,
-  .marginnote {
-    width: 2in;
-    margin-right: -2.25in;
+  header#title-block-header {
+    padding: 20px 16px;
+    border-radius: 12px;
+    margin-bottom: 24px;
   }
 
-  .wide {
-    width: 7.5in;
-    overflow-x: hidden;
-    overflow-y: hidden;
+  header#title-block-header h1.title {
+    font-size: 24px;
   }
 
-  .wide .katex-display,
-  .wide .katex-display > .katex {
-    text-align: left;
+  h1:not(.title) {
+    font-size: 22px;
   }
 
-  .wide figcaption,
-  .wide table > caption {
-    text-align: left;
-    width: 5.25in;
+  h2 {
+    font-size: 19px;
   }
 
-  .wide pre > code {
-    white-space: pre-wrap;
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+    --table-border-radius: 8px;
+    border-radius: var(--table-border-radius);
+  }
+
+  table th, table td {
+    padding: 8px 10px;
+    font-size: 13px;
   }
 }
-
-h1, h2, h3 {
-  page-break-after: avoid;
-}
-
-table, figure, pre, img {
-  page-break-inside: avoid;
-}
-/* }}} */
-/* }}} */
-
-/* vim:fdm=marker
- */

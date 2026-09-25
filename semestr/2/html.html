@@ -4,20 +4,28 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>OI - 2. semestr</title>
+  <title>2.semestr</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
     .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
   <link rel="stylesheet" href="../../theme.css" />
 </head>
 <body>
-<p><a href="../../index.html">Domů</a></p>
+<p><a href="../../index.html" class="back-button">← Zpět</a></p>
 <h1 id="semestr">2. semestr</h1>
 <p>Letní semestr 2022/2023</p>
 <h2 id="předměty">Předměty</h2>
@@ -54,40 +62,68 @@
 </tr>
 </tbody>
 </table>
-</body>
-</html>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Předmět</th>
+<th>Počítačové systémy</th>
+<th>ADS 1</th>
+<th>Úvod do kryptografie</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Odkazy</td>
+<td><a href="predmety/systemy_kucharka.pdf">Kuchařka na zkoušku</a>, <a
+href="https://github.com/vesmil/MFF-Notes/blob/main/1_Prvak/2_Letni/Systemy.md">Příprava
+na zkoušku</a> - Vesmil</td>
+<td><a
+href="https://couleslaw.github.io/mff-notes/02/ADS-1.pdf">Poznámky</a> -
+Kuba Smolík</td>
+<td><a href="https://kahann.cz/notes/kry/">Poznámky</a> - Kačka
+Doubková</td>
+</tr>
+</tbody>
+</table>
+
 
     <h2 id="rozvrh">Rozvrh</h2>
     <table>
         <tr>
             <th>Čas / Den</th>
-            <th> 9:00</th>
-        <th> 10:40</th>
-        <th> 12:20</th>
-        <th> 14:00</th>
-        <th> 15:40</th>
-        <th> 17:20</th>
-        <th> 19:20</th>
-        <th> 20:50</th>
+            <th>9:00</th>
+        <th>10:40</th>
+        <th>12:20</th>
+        <th>14:00</th>
+        <th>15:40</th>
+        <th>17:20</th>
+        <th>19:20</th>
+        <th>20:50</th>
     </tr>
     <tr>
         <th>Po</th>
-        <td><b>Programování II</b><br><i> Holan Tomáš</i></td>
-        <td><b>Algoritmy a datové struktury I</b><br><i> Mareš Martin</i></td>
-        <td>Počítačové systémy<br><i> Zavoral Filip</i></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #1b3a24; color: #c7e6d0; border-color: #2e5e40; height: 100%;'><b>Programování II</b><br><small><i>Holan Tomáš</i></small></div></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #1b3a24; color: #c7e6d0; border-color: #2e5e40; height: 100%;'><b>Algoritmy a datové struktury I</b><br><small><i>Mareš Martin</i></small></div></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #4a3700; background-image: repeating-linear-gradient(135deg, #4a3700, #4a3700 10px, #2e2200 10px, #2e2200 20px); color: #fff3cd; border: 1px dashed #fff3cd; height: 100%;'>Počítačové systémy<br><small><i>Zavoral Filip</i></small></div></td>
         <td></td>
-        <td>Lineární algebra II<br><i> Maxová Jana</i></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #4a3700; color: #fff3cd; border-color: #705a00; height: 100%;'>Lineární algebra II<br><small><i>Maxová Jana</i></small></div></td>
         <td></td>
         <td></td>
         <td></td>
     </tr>
     <tr>
         <th>Út</th>
-        <td><b>Úvod do Linuxu</b><br><i> Horký Vojtěch</i></td>
-        <td><b>Počítačové systémy</b><br><i> Yaghob Jakub</i></td>
-        <td>Algoritmy a datové struktury I<br><i> Konczycki Kate</i></td>
-        <td>Anglický jazyk<br><i> Hořká Zuzana</i></td>
-        <td>Programování II<br><i> Holan Tomáš</i></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #1b3a24; background-image: repeating-linear-gradient(135deg, #1b3a24, #1b3a24 10px, #2e2200 10px, #2e2200 20px); color: #c7e6d0; border: 1px dashed #c7e6d0; height: 100%;'><b>Úvod do Linuxu</b><br><small><i>Horký Vojtěch</i></small></div></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #1b3a24; color: #c7e6d0; border-color: #2e5e40; height: 100%;'><b>Počítačové systémy</b><br><small><i>Yaghob Jakub</i></small></div></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #4a3700; color: #fff3cd; border-color: #705a00; height: 100%;'>Algoritmy a datové struktury I<br><small><i>Konczycki Kate</i></small></div></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #4a3700; color: #fff3cd; border-color: #705a00; height: 100%;'>Anglický jazyk<br><small><i>Hořká Zuzana</i></small></div></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #4a3700; color: #fff3cd; border-color: #705a00; height: 100%;'>Programování II<br><small><i>Holan Tomáš</i></small></div></td>
         <td></td>
         <td></td>
         <td></td>
@@ -98,25 +134,25 @@
         <td></td>
         <td></td>
         <td></td>
-        <td><b>Úvod do kryptografie</b><br><i> Mareš Martin</i></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #1b3a24; color: #c7e6d0; border-color: #2e5e40; height: 100%;'><b>Úvod do kryptografie</b><br><small><i>Mareš Martin</i></small></div></td>
         <td></td>
         <td></td>
         <td></td>
     </tr>
     <tr>
         <th>Čt</th>
-        <td><b>Lineární algebra II</b><br><i> Fiala Petr</i></td>
-        <td><b>Matematická analýza I</b><br><i> Klazar Martin</i></td>
-        <td>Matematická analýza I<br><i> Tancer Martin</i></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #1b3a24; color: #c7e6d0; border-color: #2e5e40; height: 100%;'><b>Lineární algebra II</b><br><small><i>Fiala Petr</i></small></div></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #1b3a24; color: #c7e6d0; border-color: #2e5e40; height: 100%;'><b>Matematická analýza I</b><br><small><i>Klazar Martin</i></small></div></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #4a3700; color: #fff3cd; border-color: #705a00; height: 100%;'>Matematická analýza I<br><small><i>Tancer Martin</i></small></div></td>
         <td></td>
         <td></td>
         <td></td>
-        <td>IPS II<br><i> Mareš Martin</i></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #4a3700; color: #fff3cd; border-color: #705a00; height: 100%;'>IPS II<br><small><i>Mareš Martin</i></small></div></td>
         <td></td>
     </tr>
     <tr>
         <th>Pá</th>
-        <td>Úvod do Linuxu<br><i> Mareš Martin</i></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #4a3700; color: #fff3cd; border-color: #705a00; height: 100%;'>Úvod do Linuxu<br><small><i>Mareš Martin</i></small></div></td>
         <td></td>
         <td></td>
         <td></td>

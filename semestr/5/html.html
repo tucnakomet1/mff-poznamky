@@ -4,20 +4,28 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>OI - 5. semestr</title>
+  <title>5.semestr</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
     .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
   <link rel="stylesheet" href="../../theme.css" />
 </head>
 <body>
-<p><a href="../../index.html">Domů</a></p>
+<p><a href="../../index.html" class="back-button">← Zpět</a></p>
 <h1 id="semestr">5. semestr</h1>
 <p>Zimní semestr 2024/2025</p>
 <h2 id="předměty">Předměty</h2>
@@ -64,11 +72,10 @@ z přednášek</a> - Sláma</td>
 </table>
 <table>
 <colgroup>
-<col style="width: 20%" />
-<col style="width: 20%" />
-<col style="width: 20%" />
-<col style="width: 20%" />
-<col style="width: 20%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -76,7 +83,6 @@ z přednášek</a> - Sláma</td>
 <th>Databázové systémy</th>
 <th>Matematická kryptografie a kryptoanalýza 1</th>
 <th>Počítačová algebra</th>
-<th>Fraktály a chaotická dynamika</th>
 </tr>
 </thead>
 <tbody>
@@ -88,40 +94,38 @@ na zkoušku</a> - Vítek</td>
 <td><a href="https://sent.cz/MK/">Materiály</a></td>
 <td><a
 href="https://www2.karlin.mff.cuni.cz/~barto/student/skripta_palg.pdf">Skripta</a></td>
-<td></td>
 </tr>
 </tbody>
 </table>
-</body>
-</html>
+
 
     <h2 id="rozvrh">Rozvrh</h2>
     <table>
         <tr>
             <th>Čas / Den</th>
-            <th> 9:00</th>
-        <th> 10:40</th>
-        <th> 12:20</th>
-        <th> 14:00</th>
-        <th> 15:40</th>
-        <th> 17:20</th>
-        <th> 18:50</th>
+            <th>9:00</th>
+        <th>10:40</th>
+        <th>12:20</th>
+        <th>14:00</th>
+        <th>15:40</th>
+        <th>17:20</th>
+        <th>18:50</th>
     </tr>
     <tr>
         <th>Po</th>
         <td></td>
         <td></td>
-        <td>Počítačová algebra<br><i> Slávik Alexander</i></td>
-        <td>Úvod do aproximačních a pravděpodobnostních algoritmů<br><i> Kotecký Cyril</i></td>
-        <td><b>Počítačová algebra</b><br><i> Patáková Zuzana</i></td>
-        <td><b>Databázové systémy</b><br><i> Kopecký Michal</i></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #4a3700; background-image: repeating-linear-gradient(135deg, #4a3700, #4a3700 10px, #2e2200 10px, #2e2200 20px); color: #fff3cd; border: 1px dashed #fff3cd; height: 100%;'>Počítačová algebra<br><small><i>Slávik Alexander</i></small></div></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #4a3700; background-image: repeating-linear-gradient(135deg, #4a3700, #4a3700 10px, #2e2200 10px, #2e2200 20px); color: #fff3cd; border: 1px dashed #fff3cd; height: 100%;'>Úvod do aproximačních a pravděpodobnostních algoritmů<br><small><i>Kotecký Cyril</i></small></div></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #1b3a24; color: #c7e6d0; border-color: #2e5e40; height: 100%;'><b>Počítačová algebra</b><br><small><i>Patáková Zuzana</i></small></div></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #1b3a24; color: #c7e6d0; border-color: #2e5e40; height: 100%;'><b>Databázové systémy</b><br><small><i>Kopecký Michal</i></small></div></td>
         <td></td>
     </tr>
     <tr>
         <th>Út</th>
         <td></td>
         <td></td>
-        <td><b>Animace a grafika v počítačových hrách</b><br><i> Lukáš Kolek</i></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #1b3a24; color: #c7e6d0; border-color: #2e5e40; height: 100%;'><b>Animace a grafika v počítačových hrách</b><br><small><i>Lukáš Kolek</i></small></div></td>
         <td></td>
         <td></td>
         <td></td>
@@ -129,31 +133,31 @@ href="https://www2.karlin.mff.cuni.cz/~barto/student/skripta_palg.pdf">Skripta</
     </tr>
     <tr>
         <th>St</th>
-        <td><b>Matematická kryptografie a kryptoanalýza I</b><br><i> El Bashir Robert</i></td>
-        <td>Databázové systémy<br><i> Lokoč Jakub</i></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #1b3a24; color: #c7e6d0; border-color: #2e5e40; height: 100%;'><b>Matematická kryptografie a kryptoanalýza I</b><br><small><i>El Bashir Robert</i></small></div></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #4a3700; color: #fff3cd; border-color: #705a00; height: 100%;'>Databázové systémy<br><small><i>Lokoč Jakub</i></small></div></td>
         <td></td>
         <td></td>
         <td></td>
-        <td><b>Fraktály a chaotická dynamika</b><br><i> Kučera Václav</i></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #1b3a24; color: #c7e6d0; border-color: #2e5e40; height: 100%;'><b>Fraktály a chaotická dynamika</b><br><small><i>Kučera Václav</i></small></div></td>
         <td></td>
     </tr>
     <tr>
         <th>Čt</th>
         <td></td>
-        <td><b>Grafové algoritmy</b><br><i> Mareš Martin</i></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #1b3a24; color: #c7e6d0; border-color: #2e5e40; height: 100%;'><b>Grafové algoritmy</b><br><small><i>Mareš Martin</i></small></div></td>
         <td></td>
-        <td><b>Úvod do aproximačních a pravděpodobnostních algoritmů</b><br><i> Kolman Petr, Sgall Jiří</i></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #1b3a24; color: #c7e6d0; border-color: #2e5e40; height: 100%;'><b>Úvod do aproximačních a pravděpodobnostních algoritmů</b><br><small><i>Kolman Petr, Sgall Jiří</i></small></div></td>
         <td></td>
         <td></td>
         <td></td>
     </tr>
     <tr>
         <th>Pá</th>
-        <td>Matematická kryptografie a kryptoanalýza I<br><i> Středa Adolf</i></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #4a3700; background-image: repeating-linear-gradient(135deg, #4a3700, #4a3700 10px, #2e2200 10px, #2e2200 20px); color: #fff3cd; border: 1px dashed #fff3cd; height: 100%;'>Matematická kryptografie a kryptoanalýza I<br><small><i>Středa Adolf</i></small></div></td>
         <td></td>
         <td></td>
         <td></td>
-        <td><b>Úvod do teorie čísel</b><br><i> Klazar Martin</i></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #1b3a24; color: #c7e6d0; border-color: #2e5e40; height: 100%;'><b>Úvod do teorie čísel</b><br><small><i>Klazar Martin</i></small></div></td>
         <td></td>
         <td></td>
     </tr>

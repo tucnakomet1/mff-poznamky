@@ -4,20 +4,28 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>OI - 3. semestr</title>
+  <title>3.semestr</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
     .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
   <link rel="stylesheet" href="../../theme.css" />
 </head>
 <body>
-<p><a href="../../index.html">Domů</a></p>
+<p><a href="../../index.html" class="back-button">← Zpět</a></p>
 <h1 id="semestr">3. semestr</h1>
 <p>Zimní semestr 2023/2024</p>
 <h2 id="předměty">Předměty</h2>
@@ -72,10 +80,11 @@ na sylabus</a></td>
 </table>
 <table>
 <colgroup>
-<col style="width: 25%" />
-<col style="width: 25%" />
-<col style="width: 25%" />
-<col style="width: 25%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -83,6 +92,7 @@ na sylabus</a></td>
 <th>Matematcká analýza II</th>
 <th>Výroková a predikátová logika</th>
 <th>Java I</th>
+<th>ADS II</th>
 </tr>
 </thead>
 <tbody>
@@ -97,31 +107,34 @@ href="https://www.vitkolos.cz/node/cards/notes-ipp/main/semestr3/vyrokova-predik
 <td><a
 href="https://github.com/Eugleo/java-exam-prep/tree/master">Příprava na
 zkoušku</a></td>
+<td><a href="https://kahann.cz/notes/ads2/">Poznámky</a> - Kačka
+Doubková, <a
+href="https://couleslaw.github.io/mff-notes/03/ADS-2.pdf">Poznámky</a> -
+Kuba Smolík</td>
 </tr>
 </tbody>
 </table>
-</body>
-</html>
+
 
     <h2 id="rozvrh">Rozvrh</h2>
     <table>
         <tr>
             <th>Čas / Den</th>
-            <th> 9:00</th>
-        <th> 10:40</th>
-        <th> 12:20</th>
-        <th> 14:00</th>
-        <th> 15:40</th>
-        <th> 17:20</th>
-        <th> 18:50</th>
+            <th>9:00</th>
+        <th>10:40</th>
+        <th>12:20</th>
+        <th>14:00</th>
+        <th>15:40</th>
+        <th>17:20</th>
+        <th>18:50</th>
     </tr>
     <tr>
         <th>Po</th>
         <td></td>
-        <td>Výroková a predikátová logika<br><i> Pantůčková Kristýna</i></td>
-        <td>Matematická analýza II<br><i> Krylová Naděžda</i></td>
-        <td>Kombinatorika a grafy I<br><i> Mareš Martin</i></td>
-        <td><b>Matematická analýza II</b><br><i> Pultr Aleš</i></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #4a3700; color: #fff3cd; border-color: #705a00; height: 100%;'>Výroková a predikátová logika<br><small><i>Pantůčková Kristýna</i></small></div></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #4a3700; color: #fff3cd; border-color: #705a00; height: 100%;'>Matematická analýza II<br><small><i>Krylová Naděžda</i></small></div></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #4a3700; color: #fff3cd; border-color: #705a00; height: 100%;'>Kombinatorika a grafy I<br><small><i>Mareš Martin</i></small></div></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #1b3a24; color: #c7e6d0; border-color: #2e5e40; height: 100%;'><b>Matematická analýza II</b><br><small><i>Pultr Aleš</i></small></div></td>
         <td></td>
         <td></td>
     </tr>
@@ -131,33 +144,33 @@ zkoušku</a></td>
         <td></td>
         <td></td>
         <td></td>
-        <td>Programování v jazyce Java<br><i> Galgonek Jakub</i></td>
-        <td><b>Ochrana informací I</b><br><i> Beneš Antonín</i></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #4a3700; color: #fff3cd; border-color: #705a00; height: 100%;'>Programování v jazyce Java<br><small><i>Galgonek Jakub</i></small></div></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #1b3a24; color: #c7e6d0; border-color: #2e5e40; height: 100%;'><b>Ochrana informací I</b><br><small><i>Beneš Antonín</i></small></div></td>
         <td></td>
     </tr>
     <tr>
         <th>St</th>
-        <td><b>Programování v jazyce Java</b><br><i> Hnětynka Petr</i></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #1b3a24; color: #c7e6d0; border-color: #2e5e40; height: 100%;'><b>Programování v jazyce Java</b><br><small><i>Hnětynka Petr</i></small></div></td>
         <td></td>
-        <td>Algoritmy a datové struktury II<br><i> Matějka Josef</i></td>
-        <td><b>Bezpečnost softwarových systémů v praxi</b><br><i> Zavoral Filip</i></td>
-        <td><b>Kombinatorika a grafy II</b><br><i> Jelínek Vít</i></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #4a3700; color: #fff3cd; border-color: #705a00; height: 100%;'>Algoritmy a datové struktury II<br><small><i>Matějka Josef</i></small></div></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #1b3a24; color: #c7e6d0; border-color: #2e5e40; height: 100%;'><b>Bezpečnost softwarových systémů v praxi</b><br><small><i>Zavoral Filip</i></small></div></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #1b3a24; color: #c7e6d0; border-color: #2e5e40; height: 100%;'><b>Kombinatorika a grafy II</b><br><small><i>Jelínek Vít</i></small></div></td>
         <td></td>
         <td></td>
     </tr>
     <tr>
         <th>Čt</th>
         <td></td>
-        <td><b>Algoritmy a datové struktury II</b><br><i> Mareš Martin</i></td>
-        <td><b>Algebra I</b><br><i> Žemlička Jan</i></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #1b3a24; color: #c7e6d0; border-color: #2e5e40; height: 100%;'><b>Algoritmy a datové struktury II</b><br><small><i>Mareš Martin</i></small></div></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #1b3a24; color: #c7e6d0; border-color: #2e5e40; height: 100%;'><b>Algebra I</b><br><small><i>Žemlička Jan</i></small></div></td>
         <td></td>
-        <td>Anglický jazyk<br><i> Krejčová Ela</i></td>
-        <td><b>Výroková a predikátová logika</b><br><i> Bulín Jakub</i></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #4a3700; color: #fff3cd; border-color: #705a00; height: 100%;'>Anglický jazyk<br><small><i>Krejčová Ela</i></small></div></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #1b3a24; color: #c7e6d0; border-color: #2e5e40; height: 100%;'><b>Výroková a predikátová logika</b><br><small><i>Bulín Jakub</i></small></div></td>
         <td></td>
     </tr>
     <tr>
         <th>Pá</th>
-        <td>Algebra I<br><i> Krasula Dominik</i></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #4a3700; color: #fff3cd; border-color: #705a00; height: 100%;'>Algebra I<br><small><i>Krasula Dominik</i></small></div></td>
         <td></td>
         <td></td>
         <td></td>

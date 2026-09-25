@@ -4,20 +4,28 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>OI - 4. semestr</title>
+  <title>4.semestr</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
     .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
   <link rel="stylesheet" href="../../theme.css" />
 </head>
 <body>
-<p><a href="../../index.html">Domů</a></p>
+<p><a href="../../index.html" class="back-button">← Zpět</a></p>
 <h1 id="semestr">4. semestr</h1>
 <p>Letní semestr 2023/2024</p>
 <h2 id="předměty">Předměty</h2>
@@ -34,8 +42,8 @@
 <th>Předmět</th>
 <th>Matematická analýza III</th>
 <th>Aplikovaná kryptografie</th>
-<th>Úvod do kryptografie (Karlín)</th>
 <th>Lineární programování a kombinatorická optimalizace</th>
+<th></th>
 </tr>
 </thead>
 <tbody>
@@ -52,8 +60,8 @@
 <td>Zdroják</td>
 <td><a href="predmety/ma3.tex">Zdrojak [tex]</a></td>
 <td><a href="predmety/ak.tex">Zdrojak [tex]</a></td>
-<td><a href="predmety/udk.tex">Zdrojak [tex]</a></td>
 <td><a href="predmety/linprog.tar">Zdrojak [tar]</a></td>
+<td></td>
 </tr>
 <tr class="odd">
 <td>Odkazy</td>
@@ -94,43 +102,42 @@ z přednášek</a> - Viktor Soukup</td>
 </tr>
 </tbody>
 </table>
-</body>
-</html>
+
 
     <h2 id="rozvrh">Rozvrh</h2>
     <table>
         <tr>
             <th>Čas / Den</th>
-            <th> 9:00</th>
-        <th> 10:40</th>
-        <th> 12:20</th>
-        <th> 14:00</th>
-        <th> 15:40</th>
-        <th> 16:30</th>
-        <th> 17:20</th>
-        <th> 18:10</th>
-        <th> 18:50</th>
+            <th>9:00</th>
+        <th>10:40</th>
+        <th>12:20</th>
+        <th>14:00</th>
+        <th>15:40</th>
+        <th>16:30</th>
+        <th>17:20</th>
+        <th>18:10</th>
+        <th>18:50</th>
     </tr>
     <tr>
         <th>Po</th>
         <td></td>
-        <td><b>Kombinatorika a grafy II</b><br><i> Hubička Jan</i></td>
-        <td><b>Neprocedurální programování</b><br><i> Dvořák Tomáš, Hric Jan</i></td>
-        <td>Lineární programování a kombinatorická optimalizace<br><i> Balko Martin</i></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #1b3a24; color: #c7e6d0; border-color: #2e5e40; height: 100%;'><b>Kombinatorika a grafy II</b><br><small><i>Hubička Jan</i></small></div></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #1b3a24; color: #c7e6d0; border-color: #2e5e40; height: 100%;'><b>Neprocedurální programování</b><br><small><i>Dvořák Tomáš, Hric Jan</i></small></div></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #4a3700; color: #fff3cd; border-color: #705a00; height: 100%;'>Lineární programování a kombinatorická optimalizace<br><small><i>Balko Martin</i></small></div></td>
         <td></td>
-        <td colspan='2'>Anglický jazyk<br><i> Krejčová Ela</i></td>
+        <td colspan='2'><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #4a3700; color: #fff3cd; border-color: #705a00; height: 100%;'>Anglický jazyk<br><small><i>Krejčová Ela</i></small></div></td>
         <td></td>
         <td></td>
     </tr>
     <tr>
         <th>Út</th>
-        <td>Matematická analýza III<br><i> Klazar Martin</i></td>
-        <td><b>Matematická analýza III</b><br><i> Klazar Martin</i></td>
-        <td>Cvičení z teorie množin<br><i> Kynčl Jan</i></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #4a3700; color: #fff3cd; border-color: #705a00; height: 100%;'>Matematická analýza III<br><small><i>Klazar Martin</i></small></div></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #1b3a24; color: #c7e6d0; border-color: #2e5e40; height: 100%;'><b>Matematická analýza III</b><br><small><i>Klazar Martin</i></small></div></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #4a3700; color: #fff3cd; border-color: #705a00; height: 100%;'>Cvičení z teorie množin<br><small><i>Kynčl Jan</i></small></div></td>
         <td></td>
         <td></td>
-        <td colspan='2'><b>Aplikovaná kryptografie</b><br><i> Töpfer Jakub</i></td>
-        <td>Aplikovaná kryptografie<br><i> Töpfer Jakub</i></td>
+        <td colspan='2'><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #1b3a24; color: #c7e6d0; border-color: #2e5e40; height: 100%;'><b>Aplikovaná kryptografie</b><br><small><i>Töpfer Jakub</i></small></div></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #4a3700; color: #fff3cd; border-color: #705a00; height: 100%;'>Aplikovaná kryptografie<br><small><i>Töpfer Jakub</i></small></div></td>
         <td></td>
     </tr>
     <tr>
@@ -141,24 +148,24 @@ z přednášek</a> - Viktor Soukup</td>
         <td></td>
         <td></td>
         <td></td>
-        <td colspan='2'>Kombinatorika a grafy II<br><i> Soukup Jan</i></td>
+        <td colspan='2'><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #4a3700; color: #fff3cd; border-color: #705a00; height: 100%;'>Kombinatorika a grafy II<br><small><i>Soukup Jan</i></small></div></td>
         <td></td>
     </tr>
     <tr>
         <th>Čt</th>
-        <td><b>Úvod do kryptografie</b><br><i> Mareš Martin</i></td>
-        <td><b>Teorie množin</b><br><i> Žemlička Jan</i></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #1b3a24; color: #c7e6d0; border-color: #2e5e40; height: 100%;'><b>Úvod do kryptografie</b><br><small><i>Mareš Martin</i></small></div></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #1b3a24; color: #c7e6d0; border-color: #2e5e40; height: 100%;'><b>Teorie množin</b><br><small><i>Žemlička Jan</i></small></div></td>
         <td></td>
-        <td><b>Pravděpodobnost a statistika 1</b><br><i> Šámal Robert</i></td>
-        <td colspan='2'>Pravděpodobnost a statistika 1<br><i> Šámal Robert</i></td>
-        <td colspan='2'>Úvod do kryptografie<br><i> Středa Adolf</i></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #1b3a24; color: #c7e6d0; border-color: #2e5e40; height: 100%;'><b>Pravděpodobnost a statistika 1</b><br><small><i>Šámal Robert</i></small></div></td>
+        <td colspan='2'><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #4a3700; color: #fff3cd; border-color: #705a00; height: 100%;'>Pravděpodobnost a statistika 1<br><small><i>Šámal Robert</i></small></div></td>
+        <td colspan='2'><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #4a3700; color: #fff3cd; border-color: #705a00; height: 100%;'>Úvod do kryptografie<br><small><i>Středa Adolf</i></small></div></td>
         <td></td>
     </tr>
     <tr>
         <th>Pá</th>
-        <td><b>Lineární programování a kombinatorická optimalizace</b><br><i> Loebl Martin</i></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #1b3a24; color: #c7e6d0; border-color: #2e5e40; height: 100%;'><b>Lineární programování a kombinatorická optimalizace</b><br><small><i>Loebl Martin</i></small></div></td>
         <td></td>
-        <td>Neprocedurální programování<br><i> Hric Jan</i></td>
+        <td><div class='schedule-card' style='padding: 6px; border-radius: 4px; display: block; box-sizing: border-box; color: #eeeeee; border: 1px solid transparent;background-color: #4a3700; color: #fff3cd; border-color: #705a00; height: 100%;'>Neprocedurální programování<br><small><i>Hric Jan</i></small></div></td>
         <td></td>
         <td></td>
         <td></td>

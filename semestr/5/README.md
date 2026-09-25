@@ -1,4 +1,4 @@
-[Domů](../../index.html)
+[← Zpět](../../index.html){.back-button}
 
 # 5. semestr
 
@@ -14,6 +14,6 @@ Předmět | Grafové algoritmy | Úvod do aproximačních a pravděpodobnostníc
 
 
 
-Předmět | Databázové systémy | Matematická kryptografie a kryptoanalýza 1 | Počítačová algebra  | Fraktály a chaotická dynamika |
-| --- | --- | --- | --- | --- |
+Předmět | Databázové systémy | Matematická kryptografie a kryptoanalýza 1 | Počítačová algebra  |
+| --- | --- | --- | --- |
 | Odkazy | [Příprava na zkoušku](https://www.vitkolos.cz/node/view/notes-ipp/main/semestr5/databazove-systemy/zkouska.md) - Vítek | [Materiály](https://sent.cz/MK/) | [Skripta](https://www2.karlin.mff.cuni.cz/~barto/student/skripta_palg.pdf) | |
